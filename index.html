@@ -133,12 +133,9 @@
 
   <!-- Reddit Pixel -->
   <script>
-    !function(w,d){w.rdt=w.rdt||function(){(w.rdt.q=w.rdt.q||[]).push(arguments)};
-      var s=d.createElement("script");s.src="https://www.redditstatic.com/ads/pixel.js";s.async=!0;
-      var e=d.getElementsByTagName("head")[0];e.appendChild(s);}(window,document);
-    rdt('init','a2_hgzcstbb8534');   // ← paste from Reddit Ads
-    rdt('track','PageVisit');
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_hgzcstbb8534');rdt('track', 'PageVisit');
   </script>
+  <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
   <!-- End Reddit Pixel -->
   <!-- Tally popup (email capture). Create a form at tally.so → Share → Popup → copy ID -->
   <script async src="https://tally.so/widgets/embed.js"></script>
