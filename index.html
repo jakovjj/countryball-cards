@@ -19,16 +19,38 @@
     .badge{border:2px solid var(--gold);color:#111;background:var(--gold);border-radius:12px;padding:8px 12px;font-weight:700}
     .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);align-items:center}
     .hero{grid-column:1/-1;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
-    .art{grid-column:1/13;display:flex;gap:12px;flex-wrap:wrap}
+    .art{grid-column:1/13;display:flex;justify-content:center;align-items:center}
     .card{background:var(--card);border:2px solid #000;box-shadow:0 8px 20px rgba(0,0,0,.35);
           border-radius:16px;overflow:hidden;flex:1 1 280px;min-width:240px;max-width:320px}
     .card img{width:100%;display:block}
+    
+    /* Carousel Styles */
+    .carousel-container{position:relative;max-width:320px;margin:0 auto;width:100%;max-height:450px}
+    .carousel{overflow:hidden;border-radius:16px;position:relative;height:auto;max-height:450px}
+    .carousel-track{display:flex;transition:transform 0.3s ease-in-out;height:auto}
+    .carousel-slide{min-width:100%;flex-shrink:0;display:flex;justify-content:center;height:auto}
+    .carousel-slide .card{margin:0;max-width:100%;width:100%;height:auto;flex:none;max-height:450px;overflow:hidden}
+    .carousel-slide .card img{width:100%;height:auto;display:block;object-fit:cover;max-height:450px}
+    .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);
+                  color:var(--gold);border:none;border-radius:50%;width:40px;height:40px;
+                  cursor:pointer;font-size:18px;font-weight:bold;transition:background 0.2s;z-index:10}
+    .carousel-nav:hover{background:rgba(0,0,0,0.9)}
+    .carousel-prev{left:10px}
+    .carousel-next{right:10px}
+    .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:16px;margin-bottom:40px}
+    .carousel-dot{width:12px;height:12px;border-radius:50%;background:var(--muted);
+                  border:none;cursor:pointer;transition:background 0.2s}
+    .carousel-dot.active{background:var(--gold)}
+    
     .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
     .btn{appearance:none;border:none;background:transparent;color:var(--bg);
-         padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800}
+         padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800;
+         display:inline-flex;align-items:center;gap:8px;text-decoration:none}
     .btn.primary{background:var(--gold)}
     .btn.secondary{border:2px solid var(--gold);color:var(--text)}
-    .footer{margin-top:28px;color:var(--muted);font-size:14px}
+    .btn.tertiary{background:var(--text);color:var(--bg)}
+    .btn-icon{width:20px;height:20px;flex-shrink:0}
+    .footer{margin-top:60px;color:var(--muted);font-size:14px}
     .hide-text-on-mobile{display:block}
     @media (min-width:720px){
       .hero .copy{grid-column:1/6;padding-right:8px}
@@ -42,7 +64,7 @@
     !function(w,d){w.rdt=w.rdt||function(){(w.rdt.q=w.rdt.q||[]).push(arguments)};
       var s=d.createElement("script");s.src="https://www.redditstatic.com/ads/pixel.js";s.async=!0;
       var e=d.getElementsByTagName("head")[0];e.appendChild(s);}(window,document);
-    rdt('init','YOUR_PIXEL_ID');   // ← paste from Reddit Ads
+    rdt('init','a2_hgzcstbb8534');   // ← paste from Reddit Ads
     rdt('track','PageVisit');
   </script>
   <!-- End Reddit Pixel -->
@@ -62,20 +84,41 @@
           <p class="sub">💎 Collect, trade, attack. Help balance new cards and pick what comes next.</p>
           <div class="cta">
             <a class="btn primary" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
               Join Discord
             </a>
+            <a class="btn primary" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+              </svg>
+              Join Subreddit
+            </a>
             <button class="btn secondary" id="emailBtn"
-              data-tally-open="YOUR_TALLY_FORM_ID" data-tally-layout="modal" data-tally-auto-close="1500">
+              data-tally-open="a2_hgzcstbb8534" data-tally-layout="modal" data-tally-auto-close="1500">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
               Get email updates
             </button>
           </div>
         </div>
 
         <div class="art">
-          <!-- Use 3–4 optimized JPG/PNG card images. Replace src paths with yours. -->
-          <div class="card"><img alt="United States card" src="us.png"></div>
-          <div class="card"><img alt="Canada card" src="canada.png"></div>
-          <div class="card"><img alt="Netherlands card" src="netherlands.png"></div>
+          <!-- Carousel for countryball cards -->
+          <div class="carousel-container">
+            <div class="carousel">
+              <div class="carousel-track" id="carouselTrack">
+                <!-- Cards will be generated dynamically by JavaScript -->
+              </div>
+              <button class="carousel-nav carousel-prev" id="prevBtn">‹</button>
+              <button class="carousel-nav carousel-next" id="nextBtn">›</button>
+            </div>
+            <div class="carousel-dots" id="carouselDots">
+              <!-- Dots will be generated dynamically by JavaScript -->
+            </div>
+          </div>
         </div>
       </div>
 
@@ -87,6 +130,122 @@
   </div>
 
   <script>
+    // ===== CARD CONFIGURATION =====
+    // Add new cards here! Just add objects with src and alt properties
+    const cardData = [
+      { src: 'us.png', alt: 'United States card' },
+      { src: 'canada.png', alt: 'Canada card' },
+      { src: 'netherlands.png', alt: 'Netherlands card' },
+      { src: 'germany.png', alt: 'Germany card' },
+      { src: 'sweden.png', alt: 'Sweden card' },
+      { src: 'france.png', alt: 'France card' },
+      { src: 'uk.png', alt: 'United Kingdom card' },
+      { src: 'switzerland.png', alt: 'Switzerland card' },
+      { src: 'japan.png', alt: 'Japan card' },
+      { src: 'poland.png', alt: 'Poland card' }
+    ];
+    
+    // ===== CAROUSEL FUNCTIONALITY =====
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('carouselDots');
+    
+    let currentSlide = 0;
+    const totalSlides = cardData.length;
+    let autoScrollInterval;
+    let userInteractionTimeout;
+    
+    // Generate carousel slides and dots dynamically based on cardData
+    function initializeCarousel() {
+      // Clear existing content
+      track.innerHTML = '';
+      dotsContainer.innerHTML = '';
+      
+      // Generate slides
+      cardData.forEach((card, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+        slide.innerHTML = `<div class="card"><img alt="${card.alt}" src="${card.src}"></div>`;
+        track.appendChild(slide);
+        
+        // Generate dots
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+        dot.setAttribute('data-slide', index);
+        dotsContainer.appendChild(dot);
+      });
+    }
+    
+    function updateCarousel() {
+      const translateX = -currentSlide * 100;
+      track.style.transform = `translateX(${translateX}%)`;
+      
+      // Update dots
+      const dots = document.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+    
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+    
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+    
+    // Handle user interaction - pause auto-scroll for 10 seconds
+    function handleUserInteraction() {
+      // Clear existing timeout
+      if (userInteractionTimeout) {
+        clearTimeout(userInteractionTimeout);
+      }
+      
+      // Clear auto-scroll interval
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+      }
+      
+      // Restart auto-scroll after 10 seconds
+      userInteractionTimeout = setTimeout(() => {
+        startAutoScroll();
+      }, 10000);
+    }
+    
+    // Start auto-scroll functionality
+    function startAutoScroll() {
+      autoScrollInterval = setInterval(nextSlide, 4000);
+    }
+    
+    // Initialize carousel when page loads
+    initializeCarousel();
+    
+    // Event listeners
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      handleUserInteraction();
+    });
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      handleUserInteraction();
+    });
+    
+    // Add event listeners to dynamically created dots
+    dotsContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('carousel-dot')) {
+        currentSlide = parseInt(e.target.getAttribute('data-slide'));
+        updateCarousel();
+        handleUserInteraction();
+      }
+    });
+    
+    // Start auto-scroll when page loads
+    startAutoScroll();
+    
     // Fire lead-ish events when users click CTAs (choose Lead or SignUp in Reddit).
     document.getElementById('discordBtn').addEventListener('click', function(){
       if (window.rdt) rdt('track','Lead', {event_name:'DiscordJoinClick'});
