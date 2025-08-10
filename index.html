@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Countryball Cards — Free Print-and-Play</title>
+  <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
+  <meta property="og:title" content="Countryball Cards — Free Print-and-Play" />
+  <meta property="og:description" content="Grab the free PnP and join the prelaunch." />
+  <meta property="og:type" content="website" />
+  <style>
+    :root { --bg:#151515; --card:#1d1d1d; --gold:#c7a455; --text:#eee; --muted:#b7b7b7; }
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial}
+    .wrap{max-width:980px;margin:0 auto;padding:28px}
+    .frame{border:3px solid var(--gold);border-radius:18px;padding:28px}
+    h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
+    .sub{color:var(--muted);margin:0 0 18px}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
+    .badge{border:2px solid var(--gold);color:#111;background:var(--gold);border-radius:12px;padding:8px 12px;font-weight:700}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);align-items:center}
+    .hero{grid-column:1/-1;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+    .art{grid-column:1/13;display:flex;gap:12px;flex-wrap:wrap}
+    .card{background:var(--card);border:2px solid #000;box-shadow:0 8px 20px rgba(0,0,0,.35);
+          border-radius:16px;overflow:hidden;flex:1 1 280px;min-width:240px;max-width:320px}
+    .card img{width:100%;display:block}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+    .btn{appearance:none;border:none;background:transparent;color:var(--bg);
+         padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800}
+    .btn.primary{background:var(--gold)}
+    .btn.secondary{border:2px solid var(--gold);color:var(--text)}
+    .footer{margin-top:28px;color:var(--muted);font-size:14px}
+    .hide-text-on-mobile{display:block}
+    @media (min-width:720px){
+      .hero .copy{grid-column:1/6;padding-right:8px}
+      .hero .art{grid-column:6/13}
+      .hide-text-on-mobile{display:inline}
+    }
+  </style>
+
+  <!-- Reddit Pixel -->
+  <script>
+    !function(w,d){w.rdt=w.rdt||function(){(w.rdt.q=w.rdt.q||[]).push(arguments)};
+      var s=d.createElement("script");s.src="https://www.redditstatic.com/ads/pixel.js";s.async=!0;
+      var e=d.getElementsByTagName("head")[0];e.appendChild(s);}(window,document);
+    rdt('init','YOUR_PIXEL_ID');   // ← paste from Reddit Ads
+    rdt('track','PageVisit');
+  </script>
+  <!-- End Reddit Pixel -->
+  <!-- Tally popup (email capture). Create a form at tally.so → Share → Popup → copy ID -->
+  <script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <div class="hero">
+        <div class="copy">
+          <div class="badges">
+            <div class="badge">FREE PRINT-AND-PLAY</div>
+            <div class="badge">Kickstarter prelaunch</div>
+          </div>
+          <h1>Countryball Cards</h1>
+          <p class="sub">Collect, trade, attack. Help balance new cards and pick what comes next.</p>
+          <div class="cta">
+            <a class="btn primary" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">
+              Join Discord
+            </a>
+            <button class="btn secondary" id="emailBtn"
+              data-tally-open="YOUR_TALLY_FORM_ID" data-tally-layout="modal" data-tally-auto-close="1500">
+              Get email updates
+            </button>
+          </div>
+        </div>
+
+        <div class="art">
+          <!-- Use 3–4 optimized JPG/PNG card images. Replace src paths with yours. -->
+          <div class="card"><img alt="United States card" src="us.png"></div>
+          <div class="card"><img alt="Canada card" src="canada.png"></div>
+          <div class="card"><img alt="Netherlands card" src="netherlands.png"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        © 2025 Glare Studios • Made for fans of countryballs & strategy. 
+        <span class="hide-text-on-mobile">By using this site you agree to our cookies for basic analytics.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fire lead-ish events when users click CTAs (choose Lead or SignUp in Reddit).
+    document.getElementById('discordBtn').addEventListener('click', function(){
+      if (window.rdt) rdt('track','Lead', {event_name:'DiscordJoinClick'});
+    });
+    document.getElementById('emailBtn').addEventListener('click', function(){
+      if (window.rdt) rdt('track','SignUp', {event_name:'EmailPopupOpen'});
+    });
+  </script>
+</body>
+</html>
