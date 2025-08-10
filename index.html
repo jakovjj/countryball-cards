@@ -22,6 +22,8 @@
     .wrap{max-width:980px;margin:0 auto;padding:28px}
     .frame{border:3px solid var(--gold);border-radius:18px;padding:28px}
     h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
+    .logo{max-width:100%;height:auto;max-height:200px;margin:8px 0 6px;display:block}
+    .logo-fallback{display:none}
     .sub{color:var(--muted);margin:0 0 18px}
     .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
     .badge{border:1px solid var(--gold);color:var(--gold);background:rgba(199,164,85,.1);
@@ -30,28 +32,38 @@
     .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);align-items:center}
     .hero{grid-column:1/-1;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
     .art{grid-column:1/13;display:flex;justify-content:center;align-items:center}
-    .card{background:var(--card);
-          border:3px solid var(--gold);
-          box-shadow:0 8px 20px rgba(0,0,0,.35), 
-                     0 0 15px rgba(199,164,85,.3),
-                     inset 0 1px 0 rgba(244,208,63,.4),
-                     inset 0 -1px 0 rgba(139,114,52,.4);
-          border-radius:16px;overflow:hidden;flex:1 1 280px;min-width:240px;max-width:320px;
-          background:linear-gradient(145deg, var(--card) 0%, #252525 100%)}
-    .card img{width:100%;display:block}
+    .card{background:transparent;
+          border:none;
+          box-shadow:0 4px 12px rgba(0,0,0,.25), 
+                     0 0 8px rgba(199,164,85,.2);
+          border-radius:0;overflow:visible;
+          background:none;
+          transition:transform 0.15s ease-out, box-shadow 0.15s ease-out;
+          transform-style:preserve-3d;cursor:pointer;
+          transform-origin:center center;position:relative;z-index:10;
+          will-change:transform;
+          backface-visibility:hidden;
+          -webkit-backface-visibility:hidden}
+    .card:hover{box-shadow:0 12px 25px rgba(0,0,0,.4), 
+                           0 0 20px rgba(199,164,85,.3)}
+    .card img{width:100%;height:100%;display:block;
+              image-rendering:auto;image-rendering:high-quality;
+              image-rendering:crisp-edges;-ms-interpolation-mode:bicubic;
+              transform:translateZ(1px);object-fit:contain;
+              image-rendering:-webkit-optimize-contrast;
+              filter:none;-webkit-filter:none;
+              backface-visibility:hidden;
+              -webkit-backface-visibility:hidden;
+              will-change:transform}
     
-    /* Carousel Styles */
-    .carousel-container{position:relative;max-width:300px;margin:0 auto;width:100%;max-height:450px;
-                       -webkit-transform:translateZ(0);transform:translateZ(0)}
-    .carousel{overflow:hidden;border-radius:16px;position:relative;height:auto;max-height:450px;width:100%;
-              -webkit-transform:translateZ(0);transform:translateZ(0)}
-    .carousel-track{display:flex;transition:transform 0.3s ease-in-out;height:auto;width:100%;
-                    will-change:transform;-webkit-transform:translateZ(0);transform:translateZ(0)}
-    .carousel-slide{min-width:100%;max-width:100%;flex-shrink:0;display:flex;justify-content:center;height:auto;
-                    -webkit-flex-shrink:0;flex-shrink:0}
-    .carousel-slide .card{margin:0;width:100%;max-width:300px;height:auto;flex:none;max-height:450px;overflow:hidden}
-    .carousel-slide .card img{width:100%;height:auto;display:block;object-fit:cover;max-height:450px;
-                              -webkit-user-select:none;user-select:none}
+    /* Carousel Styles - COMPLETE REWRITE */
+    .carousel-container{position:relative;width:480px;margin:0 auto;
+                       padding:40px 60px;box-sizing:content-box}
+    .carousel{overflow:hidden;border-radius:0;position:relative;width:480px;height:620px;background:transparent;}
+    .carousel-track{display:flex;transition:transform 0.3s ease-in-out;width:calc(480px * 10);height:620px;}
+    .carousel-slide{width:480px;height:620px;flex-shrink:0;display:flex;justify-content:center;align-items:center;}
+    .carousel-slide .card{width:373px;height:560px;overflow:visible;transform-style:preserve-3d;
+                          display:flex;justify-content:center;align-items:center;padding:0}
     .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);
                   color:var(--gold);border:none;border-radius:50%;width:40px;height:40px;
                   cursor:pointer;font-size:18px;font-weight:bold;transition:background 0.2s;z-index:10;
@@ -74,7 +86,7 @@
     .btn.secondary{border:2px solid var(--gold);color:var(--text)}
     .btn.tertiary{background:var(--text);color:var(--bg)}
     .btn-icon{width:20px;height:20px;flex-shrink:0}
-    .footer{margin-top:60px;color:var(--muted);font-size:14px}
+    .footer{margin-top:30px;color:var(--muted);font-size:14px}
     .hide-text-on-mobile{display:block}
     @media (min-width:720px){
       .hero .copy{grid-column:1/6;padding-right:8px}
@@ -85,12 +97,17 @@
       .hero{grid-template-columns:1fr}
       .hero .copy{grid-column:1;text-align:center;margin-bottom:32px}
       .hero .art{grid-column:1;width:100%;display:flex;justify-content:center;align-items:center;padding:0;margin:0;min-height:500px;position:relative}
-      .carousel-container{width:250px;margin:0 auto;position:static;transform:none}
-      .carousel{width:100%}
-      .carousel-slide .card{max-width:250px;width:250px}
+      .carousel-container{width:360px;margin:0 auto;position:static;transform:none;
+                         padding:30px 20px;box-sizing:content-box}
+      .carousel{width:360px;height:460px;overflow:hidden;background:transparent;border-radius:0}
+      .carousel-track{width:calc(360px * 10);height:460px}
+      .carousel-slide{width:360px;height:460px}
+      .carousel-slide .card{width:320px;height:420px;overflow:visible;transform-style:preserve-3d;padding:0}
+      .carousel-slide .card img{max-width:100%;max-height:100%}
       .cta{justify-content:center}
       .wrap{padding:20px}
       .frame{padding:20px}
+      .logo{max-height:150px}
     }
     
     /* Safari-specific fixes */
@@ -122,7 +139,10 @@
             <div class="badge">FREE PRINT-AND-PLAY</div>
             <div class="badge">Kickstarter prelaunch</div>
           </div>
-          <h1>Countryball Cards</h1>
+          <h1>
+            <img src="logo.png" alt="Countryball Cards" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span class="logo-fallback">Countryball Cards</span>
+          </h1>
           <p class="sub">💎 Collect, trade, attack. Help balance new cards and pick what comes next.</p>
           <div class="cta">
             <a class="btn primary" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">
@@ -320,17 +340,32 @@
         dot.setAttribute('data-slide', index);
         dotsContainer.appendChild(dot);
       });
+      
+      // Apply high quality rendering immediately
+      setTimeout(() => {
+        initializeImageQuality();
+      }, 10);
     }
     
     function updateCarousel() {
-      const translateX = -currentSlide * 100;
-      track.style.transform = `translateX(${translateX}%)`;
+      // Check if mobile
+      const isMobile = window.innerWidth <= 719;
+      const slideWidth = isMobile ? 360 : 480;
+      
+      // Fixed pixel-based movement
+      const translateX = -currentSlide * slideWidth;
+      track.style.transform = `translateX(${translateX}px)`;
       
       // Update dots
       const dots = document.querySelectorAll('.carousel-dot');
       dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === currentSlide);
       });
+      
+      // Reinitialize 3D effects for new visible card
+      setTimeout(() => {
+        init3DCardEffects();
+      }, 50);
     }
     
     function nextSlide() {
@@ -371,6 +406,90 @@
     
     // Detect country and set background
     detectCountryAndSetBackground();
+    
+    // Professional 3D card hover effect with mouse tracking
+    function init3DCardEffects() {
+      const cards = document.querySelectorAll('.carousel-slide .card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          // More subtle rotation (max 12 degrees for better quality)
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -12; // Reduced for better quality
+          const rotateY = ((x - centerX) / centerX) * 12;
+          
+          // Gentle lift effect that varies with position
+          const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+          const maxDistance = Math.sqrt(Math.pow(centerX, 2) + Math.pow(centerY, 2));
+          const liftIntensity = (1 - distance / maxDistance) * 15 + 8; // Reduced lift
+          
+          card.style.transform = `
+            perspective(1200px) 
+            rotateX(${rotateX}deg) 
+            rotateY(${rotateY}deg) 
+            translateZ(${liftIntensity}px)
+            scale(1.01)
+          `;
+          card.style.transition = 'none';
+          card.style.transformStyle = 'preserve-3d';
+          
+          // Maintain crisp rendering during transform
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.imageRendering = 'auto';
+            img.style.filter = 'none';
+            img.style.transform = 'translateZ(1px)';
+            img.style.backfaceVisibility = 'hidden';
+            img.style.webkitBackfaceVisibility = 'hidden';
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+          card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+          
+          // Maintain crisp rendering
+          const img = card.querySelector('img');
+          if (img) {
+            img.style.imageRendering = 'auto';
+            img.style.filter = 'none';
+            img.style.transform = 'translateZ(0)';
+            img.style.backfaceVisibility = 'hidden';
+            img.style.webkitBackfaceVisibility = 'hidden';
+          }
+        });
+        
+        // Reset on carousel change
+        card.addEventListener('transitionstart', () => {
+          card.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+          card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+        });
+      });
+    }
+    
+    // Initialize 3D effects after a short delay to ensure cards are loaded
+    setTimeout(() => {
+      init3DCardEffects();
+      // Force high quality rendering from the start
+      initializeImageQuality();
+    }, 100);
+    
+    // Function to ensure images start with high quality
+    function initializeImageQuality() {
+      const images = document.querySelectorAll('.carousel-slide .card img');
+      images.forEach(img => {
+        img.style.imageRendering = 'auto';
+        img.style.filter = 'none';
+        img.style.transform = 'translateZ(1px)';
+        img.style.backfaceVisibility = 'hidden';
+        img.style.webkitBackfaceVisibility = 'hidden';
+      });
+    }
     
     // Event listeners
     nextBtn.addEventListener('click', () => {
