@@ -172,6 +172,87 @@
   </div>
 
   <script>
+    // ===== COUNTRY DETECTION & BACKGROUND =====
+    // Mapping of country codes to background images
+    const countryBackgrounds = {
+      'US': 'us-bg.png',
+      'DE': 'germany-bg.png', 
+      'CA': 'canada-bg.png',
+      'NL': 'netherlands-bg.png',
+      'SE': 'sweden-bg.png',
+      'FR': 'france-bg.png',
+      'GB': 'britain-bg.png',
+      'CH': 'switzerland-bg.png',
+      'PL': 'poland-bg.png'
+    };
+
+    // Function to detect user's country and set background
+    async function detectCountryAndSetBackground() {
+      try {
+        // Using ipapi.co for country detection (free tier: 1000 requests/day)
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const countryCode = data.country_code;
+        
+        console.log('Detected country:', countryCode, data.country_name);
+        
+        // Set background if we have an image for this country, otherwise use Poland
+        let backgroundImage;
+        if (countryBackgrounds[countryCode]) {
+          backgroundImage = countryBackgrounds[countryCode];
+          console.log('Set background for country:', countryCode);
+        } else {
+          backgroundImage = countryBackgrounds['PL'];
+          console.log('No background image available for country:', countryCode, '- using Poland fallback');
+        }
+
+        // Apply the background styling
+        document.body.style.backgroundImage = `url('${backgroundImage}')`;
+        document.body.style.backgroundSize = 'auto 70vh';
+        document.body.style.backgroundPosition = 'top 10px right -200px';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundAttachment = 'fixed';
+          
+        // Add subtle overlay to ensure text readability
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to right, rgba(21, 21, 21, 0.95), rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.4));
+          z-index: -1;
+          pointer-events: none;
+        `;
+        document.body.appendChild(overlay);
+
+      } catch (error) {
+        console.log('Could not detect country:', error);
+        // Fallback: use Poland when API fails
+        const backgroundImage = countryBackgrounds['PL'];
+        document.body.style.backgroundImage = `url('${backgroundImage}')`;
+        document.body.style.backgroundSize = 'auto 70vh';
+        document.body.style.backgroundPosition = 'top 10px right -200px';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.backgroundAttachment = 'fixed';
+          
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to right, rgba(21, 21, 21, 0.95), rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.4));
+          z-index: -1;
+          pointer-events: none;
+        `;
+        document.body.appendChild(overlay);
+        console.log('Using Poland fallback due to API error');
+      }
+    }
+
     // ===== CARD CONFIGURATION =====
     // Add new cards here! Just add objects with src and alt properties
     const cardData = [
@@ -265,6 +346,9 @@
     
     // Initialize carousel when page loads
     initializeCarousel();
+    
+    // Detect country and set background
+    detectCountryAndSetBackground();
     
     // Event listeners
     nextBtn.addEventListener('click', () => {
