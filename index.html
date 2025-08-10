@@ -206,50 +206,72 @@
           console.log('No background image available for country:', countryCode, '- using Poland fallback');
         }
 
-        // Apply the background styling
-        document.body.style.backgroundImage = `url('${backgroundImage}')`;
-        document.body.style.backgroundSize = 'auto 70vh';
-        document.body.style.backgroundPosition = 'top 10px right -200px';
-        document.body.style.backgroundRepeat = 'no-repeat';
-        document.body.style.backgroundAttachment = 'fixed';
+        console.log('Attempting to load background image:', backgroundImage);
+        
+        // Preload the image with low priority to avoid blocking critical resources
+        const img = new Image();
+        img.onload = () => {
+          console.log('✅ Background image loaded successfully:', backgroundImage);
+          // Apply the background styling only after image loads
+          document.body.style.backgroundImage = `url('${backgroundImage}')`;
+          document.body.style.backgroundSize = 'auto 70vh';
+          document.body.style.backgroundPosition = 'top 10px right -200px';
+          document.body.style.backgroundRepeat = 'no-repeat';
+          document.body.style.backgroundAttachment = 'fixed';
           
-        // Add subtle overlay to ensure text readability
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to right, rgba(21, 21, 21, 0.95), rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.4));
-          z-index: -1;
-          pointer-events: none;
-        `;
-        document.body.appendChild(overlay);
+          // Add subtle overlay to ensure text readability
+          const overlay = document.createElement('div');
+          overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(21, 21, 21, 0.95), rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.4));
+            z-index: -1;
+            pointer-events: none;
+          `;
+          document.body.appendChild(overlay);
+          console.log('Background and overlay applied');
+        };
+        img.onerror = () => {
+          console.error('❌ Failed to load background image:', backgroundImage);
+          console.log('Make sure the file exists in your project folder');
+        };
+        img.src = backgroundImage;
 
       } catch (error) {
-        console.log('Could not detect country:', error);
+        console.error('Could not detect country:', error);
         // Fallback: use Poland when API fails
         const backgroundImage = countryBackgrounds['PL'];
-        document.body.style.backgroundImage = `url('${backgroundImage}')`;
-        document.body.style.backgroundSize = 'auto 70vh';
-        document.body.style.backgroundPosition = 'top 10px right -200px';
-        document.body.style.backgroundRepeat = 'no-repeat';
-        document.body.style.backgroundAttachment = 'fixed';
-          
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to right, rgba(21, 21, 21, 0.95), rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.4));
-          z-index: -1;
-          pointer-events: none;
-        `;
-        document.body.appendChild(overlay);
-        console.log('Using Poland fallback due to API error');
+        console.log('Using Poland fallback due to API error, loading:', backgroundImage);
+        
+        const img = new Image();
+        img.onload = () => {
+          console.log('✅ Poland fallback background loaded successfully');
+          document.body.style.backgroundImage = `url('${backgroundImage}')`;
+          document.body.style.backgroundSize = 'auto 70vh';
+          document.body.style.backgroundPosition = 'top 10px right -200px';
+          document.body.style.backgroundRepeat = 'no-repeat';
+          document.body.style.backgroundAttachment = 'fixed';
+            
+          const overlay = document.createElement('div');
+          overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(21, 21, 21, 0.95), rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.4));
+            z-index: -1;
+            pointer-events: none;
+          `;
+          document.body.appendChild(overlay);
+        };
+        img.onerror = () => {
+          console.error('❌ Failed to load Poland fallback image:', backgroundImage);
+        };
+        img.src = backgroundImage;
       }
     }
 
