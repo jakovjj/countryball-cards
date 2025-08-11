@@ -619,31 +619,59 @@
     
     // Fire conversion events when users click CTAs
     // Using Lead events for community engagement (no purchase required)
-    document.getElementById('discordBtn').addEventListener('click', function(){
+    document.getElementById('discordBtn').addEventListener('click', function(e){
+      e.preventDefault(); // Prevent immediate navigation
       console.log('Discord button clicked - firing Reddit pixel');
+      
       if (window.rdt) {
         // Use Lead event for Discord community join
-        rdt('track', 'Lead');
+        rdt('track', 'Lead', {
+          event_name: 'DiscordJoin',
+          content_name: 'Discord Community',
+          content_category: 'Community'
+        });
         console.log('✅ Reddit pixel fired for Discord click (Lead event)');
       } else {
         console.warn('❌ Reddit pixel not available');
       }
+      
+      // Navigate after a short delay to ensure event is sent
+      setTimeout(() => {
+        window.open('https://discord.gg/GVkrHXvzf8', '_blank');
+      }, 200);
     });
-    document.getElementById('redditBtn').addEventListener('click', function(){
+    
+    document.getElementById('redditBtn').addEventListener('click', function(e){
+      e.preventDefault(); // Prevent immediate navigation
       console.log('Reddit button clicked - firing Reddit pixel');
+      
       if (window.rdt) {
         // Use Lead event for Reddit community join
-        rdt('track', 'Lead');
+        rdt('track', 'Lead', {
+          event_name: 'RedditJoin',
+          content_name: 'Reddit Community',
+          content_category: 'Community'
+        });
         console.log('✅ Reddit pixel fired for Reddit click (Lead event)');
       } else {
         console.warn('❌ Reddit pixel not available');
       }
+      
+      // Navigate after a short delay to ensure event is sent
+      setTimeout(() => {
+        window.open('https://reddit.com/r/countryball_cards', '_blank');
+      }, 200);
     });
+    
     document.getElementById('emailBtn').addEventListener('click', function(){
       console.log('Email button clicked - firing Reddit pixel');
       if (window.rdt) {
         // Keep SignUp as it's working
-        rdt('track', 'SignUp');
+        rdt('track', 'SignUp', {
+          event_name: 'EmailSignup',
+          content_name: 'Newsletter',
+          content_category: 'Email Marketing'
+        });
         console.log('✅ Reddit pixel fired for Email signup (SignUp event)');
       } else {
         console.warn('❌ Reddit pixel not available');
