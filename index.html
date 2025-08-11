@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Countryball Cards</title>
   <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
   <meta property="og:title" content="Countryball Cards" />
@@ -18,7 +18,7 @@
   
   <style>
     :root { --bg:#151515; --card:#1d1d1d; --gold:#c7a455; --text:#eee; --muted:#b7b7b7; }
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden}
     .wrap{max-width:980px;margin:0 auto;padding:28px}
     .frame{border:3px solid var(--gold);border-radius:18px;padding:28px}
     h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
@@ -26,9 +26,13 @@
     .logo-fallback{display:none}
     .sub{color:var(--muted);margin:0 0 18px}
     .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
-    .badge{border:1px solid var(--gold);color:var(--gold);background:rgba(199,164,85,.1);
-           border-radius:6px;padding:6px 10px;font-weight:500;font-size:14px;
-           text-transform:uppercase;letter-spacing:0.5px}
+    .badge{color:var(--gold);background:rgba(199,164,85,.15);
+           border-radius:4px;padding:6px 12px;font-weight:600;font-size:14px;
+           text-transform:uppercase;letter-spacing:0.5px;
+           transform:rotate(-2deg);transform-origin:center;
+           box-shadow:0 2px 6px rgba(0,0,0,.2);
+           position:relative;display:inline-block}
+    .badge:nth-child(even){transform:rotate(1.5deg)}
     .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);align-items:center}
     .hero{grid-column:1/-1;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
     .art{grid-column:1/13;display:flex;justify-content:center;align-items:center}
@@ -56,26 +60,27 @@
               -webkit-backface-visibility:hidden;
               will-change:transform}
     
-    /* Carousel Styles - COMPLETE REWRITE */
-    .carousel-container{position:relative;width:480px;margin:0 auto;
-                       padding:40px 60px;box-sizing:content-box}
-    .carousel{overflow:hidden;border-radius:0;position:relative;width:480px;height:620px;background:transparent;}
-    .carousel-track{display:flex;transition:transform 0.3s ease-in-out;width:calc(480px * 10);height:620px;}
-    .carousel-slide{width:480px;height:620px;flex-shrink:0;display:flex;justify-content:center;align-items:center;}
-    .carousel-slide .card{width:373px;height:560px;overflow:visible;transform-style:preserve-3d;
-                          display:flex;justify-content:center;align-items:center;padding:0}
-    .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);
-                  color:var(--gold);border:none;border-radius:50%;width:40px;height:40px;
-                  cursor:pointer;font-size:18px;font-weight:bold;transition:background 0.2s;z-index:10;
-                  -webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;
-                  -webkit-touch-callout:none;touch-callout:none}
+  /* Carousel Styles - responsive */
+  .carousel-container{position:relative;width:min(100%, 480px);margin:0 auto;
+             padding:clamp(16px,4vw,40px) clamp(16px,6vw,60px);box-sizing:border-box}
+  .carousel{overflow:hidden;border-radius:0;position:relative;width:100%;
+        aspect-ratio:480/620;background:transparent}
+  .carousel-track{display:flex;transition:transform 0.3s ease-in-out;height:100%}
+  .carousel-slide{width:100%;height:100%;flex:0 0 100%;display:flex;justify-content:center;align-items:center}
+  .carousel-slide .card{width:min(85%, 373px);max-height:96%;overflow:visible;transform-style:preserve-3d;
+              display:flex;justify-content:center;align-items:center;padding:0}
+  .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.7);
+          color:var(--gold);border:none;border-radius:50%;width:clamp(36px,8vw,40px);height:clamp(36px,8vw,40px);
+          cursor:pointer;font-size:clamp(16px,4vw,18px);font-weight:bold;transition:background 0.2s;z-index:10;
+          -webkit-tap-highlight-color:transparent;
+          -webkit-touch-callout:none;display:flex;align-items:center;justify-content:center}
     .carousel-nav:hover{background:rgba(0,0,0,0.9)}
-    .carousel-prev{left:10px}
-    .carousel-next{right:10px}
-    .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:16px;margin-bottom:40px}
-    .carousel-dot{width:12px;height:12px;border-radius:50%;background:var(--muted);
-                  border:none;cursor:pointer;transition:background 0.2s;
-                  -webkit-tap-highlight-color:transparent;tap-highlight-color:transparent}
+    .carousel-prev{left:clamp(4px,2vw,10px)}
+    .carousel-next{right:clamp(4px,2vw,10px)}
+    .carousel-dots{display:flex;justify-content:center;gap:clamp(6px,2vw,8px);margin-top:clamp(12px,3vw,16px);margin-bottom:clamp(20px,5vw,40px)}
+  .carousel-dot{width:clamp(10px,3vw,12px);height:clamp(10px,3vw,12px);border-radius:50%;background:var(--muted);
+          border:none;cursor:pointer;transition:background 0.2s;
+          -webkit-tap-highlight-color:transparent}
     .carousel-dot.active{background:var(--gold)}
     
     .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
@@ -108,19 +113,42 @@
     }
     @media (max-width:719px){
       .hero{grid-template-columns:1fr}
-      .hero .copy{grid-column:1;text-align:center;margin-bottom:32px}
-      .hero .art{grid-column:1;width:100%;display:flex;justify-content:center;align-items:center;padding:0;margin:0;min-height:500px;position:relative}
-      .carousel-container{width:360px;margin:0 auto;position:static;transform:none;
-                         padding:30px 20px;box-sizing:content-box}
-      .carousel{width:360px;height:460px;overflow:hidden;background:transparent;border-radius:0}
-      .carousel-track{width:calc(360px * 10);height:460px}
-      .carousel-slide{width:360px;height:460px}
-      .carousel-slide .card{width:320px;height:420px;overflow:visible;transform-style:preserve-3d;padding:0}
-      .carousel-slide .card img{max-width:100%;max-height:100%}
+      .hero .copy{grid-column:1;text-align:center;margin-bottom:24px}
+      .hero .art{grid-column:1;width:100%;display:flex;justify-content:center;align-items:center;padding:0;margin:0;min-height:clamp(420px,65vh,600px);position:relative}
+      .carousel-container{width:100%;max-width:95vw;margin:0 auto;position:static;transform:none;
+                         padding:clamp(20px,5vw,40px) clamp(8px,3vw,16px);box-sizing:border-box}
+      .carousel{width:100%;border-radius:0;aspect-ratio:3/4}
+      .carousel-slide .card{width:min(90%, 340px);max-height:98%}
+      .carousel-slide .card img{max-width:100%;max-height:100%;object-fit:contain}
       .cta{justify-content:center}
-      .wrap{padding:20px}
-      .frame{padding:20px}
-      .logo{max-height:150px}
+      .wrap{padding:clamp(16px,4vw,20px)}
+      .frame{padding:clamp(16px,4vw,20px)}
+      .logo{max-height:clamp(120px,20vw,150px)}
+      .badges{justify-content:center;margin:0 0 16px 0}
+      h1{text-align:center}
+      .sub{text-align:center;font-size:clamp(14px,3.5vw,16px);line-height:1.5}
+    }
+    
+    /* Additional mobile-specific adjustments */
+    @media (max-width:480px){
+      .carousel-container{max-width:98vw;padding:clamp(16px,4vw,24px) clamp(4px,2vw,8px)}
+      .carousel{aspect-ratio:2.5/4}
+      .carousel-slide .card{width:min(92%, 320px)}
+      .wrap{padding:clamp(12px,3vw,16px)}
+      .frame{padding:clamp(12px,3vw,16px)}
+      .cta{gap:8px}
+      .btn{padding:12px 16px;font-size:14px}
+      .sub{font-size:14px}
+    }
+    
+    /* Very small screens */
+    @media (max-width:360px){
+      .carousel-container{padding:12px 4px}
+      .carousel{aspect-ratio:2.2/4}
+      .carousel-slide .card{width:94%}
+      .btn{padding:10px 14px;font-size:13px}
+      .badges{gap:6px}
+      .badge{padding:4px 8px;font-size:12px}
     }
     
     /* Safari-specific fixes */
@@ -148,8 +176,8 @@
       <div class="hero">
         <div class="copy">
           <div class="badges">
-            <div class="badge">FREE PRINT-AND-PLAY</div>
-            <div class="badge">Kickstarter prelaunch</div>
+            <div class="badge">FREE PRINT-AND-PLAY!</div>
+            <div class="badge">Kickstarter prelaunch!</div>
           </div>
           <h1>
             <img src="logo.png" alt="Countryball Cards" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
@@ -359,13 +387,14 @@
       }, 10);
     }
     
+    function getSlideWidth() {
+      const carouselEl = document.querySelector('.carousel');
+      if (!carouselEl) return window.innerWidth; // fallback
+      return carouselEl.clientWidth; // responsive width
+    }
+
     function updateCarousel() {
-      // Check if mobile
-      const isMobile = window.innerWidth <= 719;
-      const slideWidth = isMobile ? 360 : 480;
-      
-      // Fixed pixel-based movement
-      const translateX = -currentSlide * slideWidth;
+      const translateX = -currentSlide * getSlideWidth();
       track.style.transform = `translateX(${translateX}px)`;
       
       // Update dots
@@ -413,8 +442,10 @@
       autoScrollInterval = setInterval(nextSlide, 4000);
     }
     
-    // Initialize carousel when page loads
-    initializeCarousel();
+  // Initialize carousel when page loads
+  initializeCarousel();
+  // Ensure initial layout is correct
+  updateCarousel();
     
     // Detect country and set background
     detectCountryAndSetBackground();
@@ -524,6 +555,52 @@
     
     // Start auto-scroll when page loads
     startAutoScroll();
+
+    // Handle resize to keep slides aligned on orientation/screen changes
+    let resizeRaf;
+    window.addEventListener('resize', () => {
+      if (resizeRaf) cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => {
+        updateCarousel();
+      });
+    });
+    
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isSwiping = false;
+    
+    const carousel = document.querySelector('.carousel');
+    
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      isSwiping = true;
+    }, { passive: true });
+    
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (isSwiping) {
+        handleSwipe();
+        isSwiping = false;
+      }
+    }, { passive: true });
+    
+    function handleSwipe() {
+      const swipeThreshold = 50; // Minimum distance for a swipe
+      const swipeDistance = touchEndX - touchStartX;
+      
+      if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+          // Swipe right - go to previous slide
+          prevSlide();
+          handleUserInteraction();
+        } else {
+          // Swipe left - go to next slide
+          nextSlide();
+          handleUserInteraction();
+        }
+      }
+    }
     
     // Fire lead-ish events when users click CTAs (choose Lead or SignUp in Reddit).
     document.getElementById('discordBtn').addEventListener('click', function(){
