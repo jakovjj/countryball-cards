@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Pixel Test - Countryball Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #151515;
+            color: #eee;
+        }
+        .test-section {
+            background: #1d1d1d;
+            border: 2px solid #c7a455;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-button {
+            background: #c7a455;
+            color: #151515;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-weight: bold;
+        }
+        .test-button:hover {
+            background: #d4b866;
+        }
+        .console-output {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #2d5a2d;
+            border: 1px solid #4a8a4a;
+        }
+        .status.error {
+            background: #5a2d2d;
+            border: 1px solid #8a4a4a;
+        }
+        .status.warning {
+            background: #5a5a2d;
+            border: 1px solid #8a8a4a;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Reddit Pixel Tracking Test</h1>
+    <p><a href="index.html" style="color: #c7a455;">← Back to Main Site</a></p>
+    
+    <div class="test-section">
+        <h2>📊 Pixel Status</h2>
+        <div id="pixelStatus" class="status">Checking Reddit Pixel...</div>
+        <div id="consoleOutput" class="console-output"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Test Tracking Events</h2>
+        <p>Click these buttons to test if Reddit pixel tracking is working:</p>
+        
+        <button class="test-button" onclick="testDiscordClick()">
+            Test Discord Click Tracking
+        </button>
+        
+        <button class="test-button" onclick="testRedditClick()">
+            Test Reddit Click Tracking
+        </button>
+        
+        <button class="test-button" onclick="testEmailClick()">
+            Test Email Click Tracking
+        </button>
+        
+        <button class="test-button" onclick="testPageView()">
+            Test Page View Tracking
+        </button>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Expected Events</h2>
+        <ul>
+            <li><strong>PageVisit:</strong> Fired automatically when page loads</li>
+            <li><strong>DiscordJoinClick:</strong> Fired when Discord button is clicked (Lead event)</li>
+            <li><strong>RedditJoinClick:</strong> Fired when Reddit button is clicked (Lead event)</li>
+            <li><strong>EmailPopupOpen:</strong> Fired when email signup is clicked (SignUp event)</li>
+        </ul>
+    </div>
+
+    <!-- Reddit Pixel (same as main site) -->
+    <script>
+    !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+    rdt('init','a2_hgzcstbb8534');
+    rdt('track', 'PageVisit');
+    </script>
+
+    <script>
+        let logOutput = '';
+        const consoleDiv = document.getElementById('consoleOutput');
+        const statusDiv = document.getElementById('pixelStatus');
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+            logOutput += `[${timestamp}] ${prefix} ${message}\n`;
+            consoleDiv.textContent = logOutput;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            
+            // Also log to browser console
+            console.log(`${prefix} ${message}`);
+        }
+
+        function checkPixelStatus() {
+            setTimeout(() => {
+                if (window.rdt) {
+                    log('Reddit pixel loaded successfully', 'success');
+                    log(`Pixel function type: ${typeof window.rdt}`, 'info');
+                    statusDiv.className = 'status success';
+                    statusDiv.textContent = '✅ Reddit Pixel: LOADED';
+                    
+                    // Test if we can access the call queue
+                    if (window.rdt.callQueue) {
+                        log(`Pixel call queue length: ${window.rdt.callQueue.length}`, 'info');
+                    }
+                } else {
+                    log('Reddit pixel failed to load', 'error');
+                    statusDiv.className = 'status error';
+                    statusDiv.textContent = '❌ Reddit Pixel: FAILED TO LOAD';
+                }
+            }, 2000); // Wait 2 seconds for pixel to load
+        }
+
+        function testDiscordClick() {
+            log('Testing Discord click tracking...', 'info');
+            if (window.rdt) {
+                try {
+                    rdt('track','Lead', {event_name:'DiscordJoinClick'});
+                    log('Discord Lead event fired successfully', 'success');
+                } catch (error) {
+                    log(`Discord tracking error: ${error.message}`, 'error');
+                }
+            } else {
+                log('Cannot test Discord click - Reddit pixel not loaded', 'error');
+            }
+        }
+
+        function testRedditClick() {
+            log('Testing Reddit click tracking...', 'info');
+            if (window.rdt) {
+                try {
+                    rdt('track','Lead', {event_name:'RedditJoinClick'});
+                    log('Reddit Lead event fired successfully', 'success');
+                } catch (error) {
+                    log(`Reddit tracking error: ${error.message}`, 'error');
+                }
+            } else {
+                log('Cannot test Reddit click - Reddit pixel not loaded', 'error');
+            }
+        }
+
+        function testEmailClick() {
+            log('Testing Email click tracking...', 'info');
+            if (window.rdt) {
+                try {
+                    rdt('track','SignUp', {event_name:'EmailPopupOpen'});
+                    log('Email SignUp event fired successfully', 'success');
+                } catch (error) {
+                    log(`Email tracking error: ${error.message}`, 'error');
+                }
+            } else {
+                log('Cannot test Email click - Reddit pixel not loaded', 'error');
+            }
+        }
+
+        function testPageView() {
+            log('Testing Page View tracking...', 'info');
+            if (window.rdt) {
+                try {
+                    rdt('track', 'PageVisit');
+                    log('PageVisit event fired successfully', 'success');
+                } catch (error) {
+                    log(`PageView tracking error: ${error.message}`, 'error');
+                }
+            } else {
+                log('Cannot test Page View - Reddit pixel not loaded', 'error');
+            }
+        }
+
+        // Intercept console.log to capture any additional debug info
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            if (args[0] && args[0].includes && (args[0].includes('Reddit') || args[0].includes('rdt'))) {
+                log(`Console: ${args.join(' ')}`, 'info');
+            }
+        };
+
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            log(`Warning: ${args.join(' ')}`, 'warning');
+        };
+
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            log(`Error: ${args.join(' ')}`, 'error');
+        };
+
+        // Start testing
+        log('Reddit Pixel Test Page Loaded', 'info');
+        log('Checking pixel status...', 'info');
+        checkPixelStatus();
+
+        // Track that we loaded the test page
+        setTimeout(() => {
+            if (window.rdt) {
+                rdt('track', 'PageVisit', {event_name: 'TestPageView'});
+                log('Test page view tracked', 'success');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
