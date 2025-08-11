@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Countryball Cards</title>
   <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
   <meta property="og:title" content="Countryball Cards" />
@@ -163,18 +164,43 @@
   <!-- Reddit Pixel -->
   <script>
   !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
-  rdt('init','a2_hgzcstbb8534');
+  rdt('init','a2_hgzcstbb8534', {
+    optOut: false,
+    useDecimalCurrencyValues: true,
+    aaid: '<AAID-HERE>',
+    email: '<EMAIL-HERE>',
+    externalId: '<EXTERNAL-ID-HERE>',
+    idfa: '<IDFA-HERE>',
+    phoneNumber: '<PHONE-NUMBER-HERE>'
+  });
   rdt('track', 'PageVisit');
   
-  // Verify Reddit pixel loaded
+  // Enhanced verification and debugging for Event Setup Tool
   setTimeout(() => {
+    console.log('=== Reddit Pixel Debug Info ===');
+    console.log('Window.rdt exists:', !!window.rdt);
+    console.log('Pixel script loaded:', document.querySelector('script[src*="pixel.js"]') !== null);
+    console.log('Current URL:', window.location.href);
+    console.log('Document ready state:', document.readyState);
+    console.log('No iframes detected:', window.self === window.top);
+    
     if (window.rdt) {
       console.log('✅ Reddit pixel loaded successfully');
-      console.log('Reddit pixel function:', typeof window.rdt);
+      console.log('Reddit pixel function type:', typeof window.rdt);
+      console.log('Reddit pixel version check...');
+      
+      // Test pixel responsiveness
+      try {
+        rdt('track', 'ViewContent', { content_ids: ['test'], content_type: 'product' });
+        console.log('✅ Test tracking call successful');
+      } catch (e) {
+        console.error('❌ Test tracking failed:', e);
+      }
     } else {
       console.error('❌ Reddit pixel failed to load');
     }
-  }, 1000);
+    console.log('===============================');
+  }, 2000);
   </script>
   <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
   <!-- End Reddit Pixel -->
@@ -623,58 +649,76 @@
       e.preventDefault(); // Prevent immediate navigation
       console.log('Discord button clicked - firing Reddit pixel');
       
-      if (window.rdt) {
-        // Use Lead event for Discord community join
-        rdt('track', 'Lead', {
-          event_name: 'DiscordJoin',
-          content_name: 'Discord Community',
-          content_category: 'Community'
-        });
-        console.log('✅ Reddit pixel fired for Discord click (Lead event)');
+      if (window.rdt && typeof window.rdt === 'function') {
+        try {
+          // Use Lead event for Discord community join
+          rdt('track', 'Lead', {
+            event_name: 'DiscordJoin',
+            content_name: 'Discord Community',
+            content_category: 'Community',
+            content_ids: ['discord_join'],
+            content_type: 'community'
+          });
+          console.log('✅ Reddit pixel fired for Discord click (Lead event)');
+        } catch (error) {
+          console.error('❌ Reddit pixel error:', error);
+        }
       } else {
-        console.warn('❌ Reddit pixel not available');
+        console.warn('❌ Reddit pixel not available or not a function');
       }
       
       // Navigate after a short delay to ensure event is sent
       setTimeout(() => {
         window.open('https://discord.gg/GVkrHXvzf8', '_blank');
-      }, 200);
+      }, 300);
     });
     
     document.getElementById('redditBtn').addEventListener('click', function(e){
       e.preventDefault(); // Prevent immediate navigation
       console.log('Reddit button clicked - firing Reddit pixel');
       
-      if (window.rdt) {
-        // Use Lead event for Reddit community join
-        rdt('track', 'Lead', {
-          event_name: 'RedditJoin',
-          content_name: 'Reddit Community',
-          content_category: 'Community'
-        });
-        console.log('✅ Reddit pixel fired for Reddit click (Lead event)');
+      if (window.rdt && typeof window.rdt === 'function') {
+        try {
+          // Use Lead event for Reddit community join
+          rdt('track', 'Lead', {
+            event_name: 'RedditJoin',
+            content_name: 'Reddit Community',
+            content_category: 'Community',
+            content_ids: ['reddit_join'],
+            content_type: 'community'
+          });
+          console.log('✅ Reddit pixel fired for Reddit click (Lead event)');
+        } catch (error) {
+          console.error('❌ Reddit pixel error:', error);
+        }
       } else {
-        console.warn('❌ Reddit pixel not available');
+        console.warn('❌ Reddit pixel not available or not a function');
       }
       
       // Navigate after a short delay to ensure event is sent
       setTimeout(() => {
         window.open('https://reddit.com/r/countryball_cards', '_blank');
-      }, 200);
+      }, 300);
     });
     
     document.getElementById('emailBtn').addEventListener('click', function(){
       console.log('Email button clicked - firing Reddit pixel');
-      if (window.rdt) {
-        // Keep SignUp as it's working
-        rdt('track', 'SignUp', {
-          event_name: 'EmailSignup',
-          content_name: 'Newsletter',
-          content_category: 'Email Marketing'
-        });
-        console.log('✅ Reddit pixel fired for Email signup (SignUp event)');
+      if (window.rdt && typeof window.rdt === 'function') {
+        try {
+          // Keep SignUp as it's working
+          rdt('track', 'SignUp', {
+            event_name: 'EmailSignup',
+            content_name: 'Newsletter',
+            content_category: 'Email Marketing',
+            content_ids: ['email_signup'],
+            content_type: 'signup'
+          });
+          console.log('✅ Reddit pixel fired for Email signup (SignUp event)');
+        } catch (error) {
+          console.error('❌ Reddit pixel error:', error);
+        }
       } else {
-        console.warn('❌ Reddit pixel not available');
+        console.warn('❌ Reddit pixel not available or not a function');
       }
     });
   </script>
