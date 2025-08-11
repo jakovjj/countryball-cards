@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com; img-src 'self' data: https:;">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com; img-src 'self' data: https:;">
   <title>Countryball Cards</title>
   <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
   <meta property="og:title" content="Countryball Cards" />
@@ -175,12 +175,18 @@
       // Check if we're on a valid domain for Reddit pixel
       var isValidDomain = function() {
         var hostname = w.location.hostname;
-        // Allow production domains and localhost for testing
+        // Only allow proper production domains with TLD
+        // Exclude localhost, file://, chrome-extension://, etc.
         return hostname !== 'localhost' && 
                hostname !== '127.0.0.1' && 
                hostname !== '' && 
                !hostname.endsWith('.local') &&
-               hostname.indexOf('.') > -1; // Must have at least one dot
+               !hostname.startsWith('192.168.') &&
+               !hostname.startsWith('10.') &&
+               !hostname.startsWith('172.') &&
+               hostname.indexOf('.') > 0 && // Must have at least one dot
+               hostname.indexOf('.') < hostname.length - 1 && // Dot can't be last character
+               w.location.protocol === 'https:'; // Must be HTTPS
       };
       
       // Only load Reddit pixel on valid domains
@@ -189,7 +195,7 @@
         t.src="https://www.redditstatic.com/ads/pixel.js";
         t.async=!0;
         t.setAttribute('crossorigin', 'anonymous');
-        t.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        t.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
         
         // Add error handling for CORS issues
         t.onerror = function() {
