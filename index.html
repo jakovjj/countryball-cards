@@ -164,7 +164,7 @@
 
   <!-- Reddit Pixel -->
   <script>
-  // Standard Reddit Pixel implementation with CORS handling
+  // Reddit Pixel implementation with domain validation and error handling
   !function(w,d){
     if(!w.rdt){
       var p=w.rdt=function(){
@@ -172,38 +172,78 @@
       };
       p.callQueue=[];
       
-      var t=d.createElement("script");
-      t.src="https://www.redditstatic.com/ads/pixel.js";
-      t.async=!0;
-      t.setAttribute('crossorigin', 'anonymous');
-      t.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
-      
-      // Add error handling for CORS issues
-      t.onerror = function() {
-        console.warn('Reddit pixel script blocked by CORS - this is normal for some browsers/extensions');
-        // Create fallback tracking function
-        if (!w.rdt.sendEvent) {
-          w.rdt = function() {
-            console.log('Reddit pixel fallback called with:', arguments);
-          };
-        }
+      // Check if we're on a valid domain for Reddit pixel
+      var isValidDomain = function() {
+        var hostname = w.location.hostname;
+        // Allow production domains and localhost for testing
+        return hostname !== 'localhost' && 
+               hostname !== '127.0.0.1' && 
+               hostname !== '' && 
+               !hostname.endsWith('.local') &&
+               hostname.indexOf('.') > -1; // Must have at least one dot
       };
       
-      var s=d.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(t,s);
+      // Only load Reddit pixel on valid domains
+      if (isValidDomain()) {
+        var t=d.createElement("script");
+        t.src="https://www.redditstatic.com/ads/pixel.js";
+        t.async=!0;
+        t.setAttribute('crossorigin', 'anonymous');
+        t.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+        
+        // Add error handling for CORS issues
+        t.onerror = function() {
+          console.warn('Reddit pixel script blocked by CORS - this is normal for some browsers/extensions');
+          // Create fallback tracking function
+          if (!w.rdt.sendEvent) {
+            w.rdt = function() {
+              console.log('Reddit pixel fallback called with:', arguments);
+            };
+          }
+        };
+        
+        var s=d.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(t,s);
+      } else {
+        console.log('Reddit pixel disabled for local/invalid domain:', w.location.hostname);
+        // Create a mock function for local testing
+        w.rdt = function() {
+          console.log('Reddit pixel (local mock) called with:', arguments);
+        };
+      }
     }
   }(window,document);
   
-  // Initialize pixel
-  rdt('init','a2_hgzcstbb8534');
-  rdt('track', 'PageVisit');
+  // Initialize pixel only if on valid domain
+  if (window.location.hostname !== 'localhost' && 
+      window.location.hostname !== '127.0.0.1' && 
+      window.location.hostname !== '' &&
+      !window.location.hostname.endsWith('.local') &&
+      window.location.hostname.indexOf('.') > -1) {
+    rdt('init','a2_hgzcstbb8534');
+    rdt('track', 'PageVisit');
+  } else {
+    console.log('Reddit pixel init skipped for local domain');
+  }
   
   // Enhanced verification and debugging for Event Setup Tool
   setTimeout(() => {
     console.log('=== Reddit Pixel Debug Info ===');
+    console.log('Current domain:', window.location.hostname);
+    console.log('Protocol:', window.location.protocol);
+    console.log('Full URL:', window.location.href);
+    
+    // Check domain validity
+    const hostname = window.location.hostname;
+    const isValidDomain = hostname !== 'localhost' && 
+                         hostname !== '127.0.0.1' && 
+                         hostname !== '' && 
+                         !hostname.endsWith('.local') &&
+                         hostname.indexOf('.') > -1;
+    
+    console.log('Valid domain for Reddit pixel:', isValidDomain);
     console.log('Window.rdt exists:', !!window.rdt);
     console.log('Pixel script loaded:', document.querySelector('script[src*="pixel.js"]') !== null);
-    console.log('Current URL:', window.location.href);
     console.log('Document ready state:', document.readyState);
     console.log('No iframes detected:', window.self === window.top);
     console.log('HTTPS protocol:', window.location.protocol === 'https:');
@@ -213,21 +253,27 @@
       console.log('Reddit pixel function type:', typeof window.rdt);
       console.log('Has sendEvent:', typeof window.rdt.sendEvent);
       
-      // Test pixel responsiveness
-      try {
-        rdt('track', 'ViewContent', { content_ids: ['test'], content_type: 'product' });
-        console.log('✅ Test tracking call successful');
-      } catch (e) {
-        console.error('❌ Test tracking failed:', e);
+      // Only test pixel if on valid domain
+      if (isValidDomain) {
+        try {
+          rdt('track', 'ViewContent', { content_ids: ['test'], content_type: 'product' });
+          console.log('✅ Test tracking call successful');
+        } catch (e) {
+          console.error('❌ Test tracking failed:', e);
+        }
+      } else {
+        console.log('⚠️ Skipping test tracking call on local domain');
       }
     } else {
       console.error('❌ Reddit pixel failed to load');
     }
     
     // Check for ad blockers or CORS issues
-    const pixelScript = document.querySelector('script[src*="pixel.js"]');
-    if (pixelScript && !window.rdt.sendEvent) {
-      console.warn('⚠️ Reddit pixel script present but sendEvent not available - likely blocked by ad blocker or CORS');
+    if (isValidDomain) {
+      const pixelScript = document.querySelector('script[src*="pixel.js"]');
+      if (pixelScript && !window.rdt.sendEvent) {
+        console.warn('⚠️ Reddit pixel script present but sendEvent not available - likely blocked by ad blocker or CORS');
+      }
     }
     
     console.log('===============================');
