@@ -618,17 +618,13 @@
     }
     
     // Fire conversion events when users click CTAs
-    // Reddit Pixel supports: PageVisit, ViewContent, Search, AddToCart, InitiateCheckout, AddPaymentInfo, Purchase, Lead, CompleteRegistration, Contact, CustomizeProduct, Donate, FindLocation, Schedule, StartTrial, SubmitApplication, Subscribe, ViewContent
+    // Using Lead events for community engagement (no purchase required)
     document.getElementById('discordBtn').addEventListener('click', function(){
       console.log('Discord button clicked - firing Reddit pixel');
       if (window.rdt) {
-        // Use Contact event since user is joining a community
-        rdt('track','Contact', {
-          event_name: 'DiscordJoin',
-          content_name: 'Discord Community',
-          content_category: 'Community'
-        });
-        console.log('✅ Reddit pixel fired for Discord click (Contact event)');
+        // Use Lead event for Discord community join
+        rdt('track', 'Lead');
+        console.log('✅ Reddit pixel fired for Discord click (Lead event)');
       } else {
         console.warn('❌ Reddit pixel not available');
       }
@@ -636,13 +632,9 @@
     document.getElementById('redditBtn').addEventListener('click', function(){
       console.log('Reddit button clicked - firing Reddit pixel');
       if (window.rdt) {
-        // Use Contact event since user is joining a community
-        rdt('track','Contact', {
-          event_name: 'RedditJoin',
-          content_name: 'Reddit Community', 
-          content_category: 'Community'
-        });
-        console.log('✅ Reddit pixel fired for Reddit click (Contact event)');
+        // Use Lead event for Reddit community join
+        rdt('track', 'Lead');
+        console.log('✅ Reddit pixel fired for Reddit click (Lead event)');
       } else {
         console.warn('❌ Reddit pixel not available');
       }
@@ -650,13 +642,9 @@
     document.getElementById('emailBtn').addEventListener('click', function(){
       console.log('Email button clicked - firing Reddit pixel');
       if (window.rdt) {
-        // Use Subscribe event for email signup
-        rdt('track','Subscribe', {
-          event_name: 'EmailSignup',
-          content_name: 'Newsletter',
-          content_category: 'Email Marketing'
-        });
-        console.log('✅ Reddit pixel fired for Email signup (Subscribe event)');
+        // Keep SignUp as it's working
+        rdt('track', 'SignUp');
+        console.log('✅ Reddit pixel fired for Email signup (SignUp event)');
       } else {
         console.warn('❌ Reddit pixel not available');
       }
