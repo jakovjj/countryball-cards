@@ -163,93 +163,37 @@
 
   <!-- Reddit Pixel -->
   <script>
-  // Enhanced Reddit Pixel with fallback loading
-  (function() {
-    // Initialize Reddit pixel function immediately
-    if (!window.rdt) {
-      window.rdt = function() {
-        window.rdt.callQueue = window.rdt.callQueue || [];
-        window.rdt.callQueue.push(arguments);
-      };
-      window.rdt.callQueue = [];
-    }
-
-    // Function to load Reddit pixel script with retry logic
-    function loadRedditPixel() {
-      console.log('Loading Reddit pixel script...');
+  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  rdt('init','a2_hgzcstbb8534');
+  rdt('track', 'PageVisit');
+  
+  // Enhanced verification and debugging for Event Setup Tool
+  setTimeout(() => {
+    console.log('=== Reddit Pixel Debug Info ===');
+    console.log('Window.rdt exists:', !!window.rdt);
+    console.log('Pixel script loaded:', document.querySelector('script[src*="pixel.js"]') !== null);
+    console.log('Current URL:', window.location.href);
+    console.log('Document ready state:', document.readyState);
+    console.log('No iframes detected:', window.self === window.top);
+    console.log('HTTPS protocol:', window.location.protocol === 'https:');
+    
+    if (window.rdt) {
+      console.log('✅ Reddit pixel loaded successfully');
+      console.log('Reddit pixel function type:', typeof window.rdt);
+      console.log('Has sendEvent:', typeof window.rdt.sendEvent);
       
-      const script = document.createElement('script');
-      script.src = 'https://www.redditstatic.com/ads/pixel.js';
-      script.async = true;
-      script.crossOrigin = 'anonymous';
-      
-      script.onload = function() {
-        console.log('✅ Reddit pixel script loaded successfully');
-        
-        // Initialize pixel after script loads
-        if (window.rdt) {
-          try {
-            rdt('init', 'a2_hgzcstbb8534', {
-              optOut: false,
-              useDecimalCurrencyValues: true
-            });
-            rdt('track', 'PageVisit');
-            console.log('✅ Reddit pixel initialized and PageVisit tracked');
-          } catch (e) {
-            console.error('❌ Reddit pixel initialization failed:', e);
-          }
-        }
-      };
-      
-      script.onerror = function() {
-        console.error('❌ Failed to load Reddit pixel script');
-        console.log('Retrying in 2 seconds...');
-        
-        // Remove failed script
-        if (script.parentNode) {
-          script.parentNode.removeChild(script);
-        }
-        
-        // Retry after 2 seconds
-        setTimeout(loadRedditPixel, 2000);
-      };
-      
-      // Insert script into document
-      const firstScript = document.getElementsByTagName('script')[0];
-      firstScript.parentNode.insertBefore(script, firstScript);
-    }
-
-    // Start loading pixel script
-    loadRedditPixel();
-
-    // Enhanced verification and debugging for Event Setup Tool
-    setTimeout(() => {
-      console.log('=== Reddit Pixel Debug Info ===');
-      console.log('Window.rdt exists:', !!window.rdt);
-      console.log('Pixel script loaded:', document.querySelector('script[src*="pixel.js"]') !== null);
-      console.log('Current URL:', window.location.href);
-      console.log('Document ready state:', document.readyState);
-      console.log('No iframes detected:', window.self === window.top);
-      console.log('HTTPS protocol:', window.location.protocol === 'https:');
-      
-      if (window.rdt) {
-        console.log('✅ Reddit pixel loaded successfully');
-        console.log('Reddit pixel function type:', typeof window.rdt);
-        console.log('Has sendEvent:', typeof window.rdt.sendEvent);
-        
-        // Test pixel responsiveness
-        try {
-          rdt('track', 'ViewContent', { content_ids: ['test'], content_type: 'product' });
-          console.log('✅ Test tracking call successful');
-        } catch (e) {
-          console.error('❌ Test tracking failed:', e);
-        }
-      } else {
-        console.error('❌ Reddit pixel failed to load');
+      // Test pixel responsiveness
+      try {
+        rdt('track', 'ViewContent', { content_ids: ['test'], content_type: 'product' });
+        console.log('✅ Test tracking call successful');
+      } catch (e) {
+        console.error('❌ Test tracking failed:', e);
       }
-      console.log('===============================');
-    }, 3000);
-  })();
+    } else {
+      console.error('❌ Reddit pixel failed to load');
+    }
+    console.log('===============================');
+  }, 2000);
   </script>
   <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
   <!-- End Reddit Pixel -->
