@@ -98,10 +98,11 @@
         <h2>📋 Expected Events</h2>
         <ul>
             <li><strong>PageVisit:</strong> Fired automatically when page loads</li>
-            <li><strong>DiscordJoinClick:</strong> Fired when Discord button is clicked (Lead event)</li>
-            <li><strong>RedditJoinClick:</strong> Fired when Reddit button is clicked (Lead event)</li>
-            <li><strong>EmailPopupOpen:</strong> Fired when email signup is clicked (SignUp event)</li>
+            <li><strong>Contact (DiscordJoin):</strong> Fired when Discord button is clicked</li>
+            <li><strong>Contact (RedditJoin):</strong> Fired when Reddit button is clicked</li>
+            <li><strong>Subscribe (EmailSignup):</strong> Fired when email signup is clicked</li>
         </ul>
+        <p><strong>Note:</strong> Using proper Reddit Pixel event types: Contact for community joins, Subscribe for email signups.</p>
     </div>
 
     <!-- Reddit Pixel (same as main site) -->
@@ -151,8 +152,12 @@
             log('Testing Discord click tracking...', 'info');
             if (window.rdt) {
                 try {
-                    rdt('track','Lead', {event_name:'DiscordJoinClick'});
-                    log('Discord Lead event fired successfully', 'success');
+                    rdt('track','Contact', {
+                        event_name: 'DiscordJoin',
+                        content_name: 'Discord Community',
+                        content_category: 'Community'
+                    });
+                    log('Discord Contact event fired successfully', 'success');
                 } catch (error) {
                     log(`Discord tracking error: ${error.message}`, 'error');
                 }
@@ -165,8 +170,12 @@
             log('Testing Reddit click tracking...', 'info');
             if (window.rdt) {
                 try {
-                    rdt('track','Lead', {event_name:'RedditJoinClick'});
-                    log('Reddit Lead event fired successfully', 'success');
+                    rdt('track','Contact', {
+                        event_name: 'RedditJoin',
+                        content_name: 'Reddit Community',
+                        content_category: 'Community'
+                    });
+                    log('Reddit Contact event fired successfully', 'success');
                 } catch (error) {
                     log(`Reddit tracking error: ${error.message}`, 'error');
                 }
@@ -179,8 +188,12 @@
             log('Testing Email click tracking...', 'info');
             if (window.rdt) {
                 try {
-                    rdt('track','SignUp', {event_name:'EmailPopupOpen'});
-                    log('Email SignUp event fired successfully', 'success');
+                    rdt('track','Subscribe', {
+                        event_name: 'EmailSignup',
+                        content_name: 'Newsletter',
+                        content_category: 'Email Marketing'
+                    });
+                    log('Email Subscribe event fired successfully', 'success');
                 } catch (error) {
                     log(`Email tracking error: ${error.message}`, 'error');
                 }
