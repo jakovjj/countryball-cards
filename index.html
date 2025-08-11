@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co; connect-src 'self' https://www.redditstatic.com https://ipapi.co; img-src 'self' data: https:;">
   <title>Countryball Cards</title>
   <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
   <meta property="og:title" content="Countryball Cards" />
@@ -163,7 +164,37 @@
 
   <!-- Reddit Pixel -->
   <script>
-  !function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);
+  // Standard Reddit Pixel implementation with CORS handling
+  !function(w,d){
+    if(!w.rdt){
+      var p=w.rdt=function(){
+        p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)
+      };
+      p.callQueue=[];
+      
+      var t=d.createElement("script");
+      t.src="https://www.redditstatic.com/ads/pixel.js";
+      t.async=!0;
+      t.setAttribute('crossorigin', 'anonymous');
+      t.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+      
+      // Add error handling for CORS issues
+      t.onerror = function() {
+        console.warn('Reddit pixel script blocked by CORS - this is normal for some browsers/extensions');
+        // Create fallback tracking function
+        if (!w.rdt.sendEvent) {
+          w.rdt = function() {
+            console.log('Reddit pixel fallback called with:', arguments);
+          };
+        }
+      };
+      
+      var s=d.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(t,s);
+    }
+  }(window,document);
+  
+  // Initialize pixel
   rdt('init','a2_hgzcstbb8534');
   rdt('track', 'PageVisit');
   
@@ -178,7 +209,7 @@
     console.log('HTTPS protocol:', window.location.protocol === 'https:');
     
     if (window.rdt) {
-      console.log('✅ Reddit pixel loaded successfully');
+      console.log('✅ Reddit pixel function available');
       console.log('Reddit pixel function type:', typeof window.rdt);
       console.log('Has sendEvent:', typeof window.rdt.sendEvent);
       
@@ -192,6 +223,13 @@
     } else {
       console.error('❌ Reddit pixel failed to load');
     }
+    
+    // Check for ad blockers or CORS issues
+    const pixelScript = document.querySelector('script[src*="pixel.js"]');
+    if (pixelScript && !window.rdt.sendEvent) {
+      console.warn('⚠️ Reddit pixel script present but sendEvent not available - likely blocked by ad blocker or CORS');
+    }
+    
     console.log('===============================');
   }, 2000);
   </script>
