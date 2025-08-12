@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com; img-src 'self' data: https:; frame-src https://tally.so;">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com; img-src 'self' data: https:; frame-src https://tally.so;">
   <title>Countryball Cards</title>
   <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
   <meta property="og:title" content="Countryball Cards" />
@@ -17,6 +17,29 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
+  
+  <!-- Google tag (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z"></script>
+  <script>
+    // Replace G-XXXXXXXXXX with your GA4 Measurement ID
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    gtag('js', new Date());
+    gtag('config', 'G-M366HCYL8Z', {
+      transport_type: 'beacon',
+      anonymize_ip: true,
+      allow_google_signals: false
+    });
+
+    // Optional: send a one-time referrer info event for easy debugging
+    (function(){
+      try {
+        var ref = document.referrer || '';
+        var host = ref ? new URL(ref).hostname : '(direct)';
+        gtag('event', 'referrer_info', { referrer: ref, referrer_host: host });
+      } catch (e) { /* noop */ }
+    })();
+  </script>
   
   <style>
     :root { --bg:#151515; --card:#1d1d1d; --gold:#c7a455; --text:#eee; --muted:#b7b7b7; }
