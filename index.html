@@ -109,11 +109,13 @@
     .carousel-dot.active{background:var(--gold)}
     
     .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
-    .btn{appearance:none;border:none;background:transparent;color:var(--bg);
+  .btn{appearance:none;border:none;background:transparent;color:var(--bg);
          padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800;
          display:inline-flex;align-items:center;gap:8px;text-decoration:none;
          transition:all 0.3s ease;transform:translateY(0);
-         box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+     box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  font-family: system-ui, Segoe UI, Inter, Arial, sans-serif;
+  font-size:16px}
     .btn.primary{background:var(--gold)}
     .btn.primary:hover{background:#d4b866;transform:translateY(-2px);
                        box-shadow:0 6px 20px rgba(199,164,85,0.4),
@@ -410,12 +412,12 @@
               Roadmap
             </button>
               <span class="cta-break" aria-hidden="true"></span>
-            <button class="btn secondary" id="emailBtn"
+            <button class="btn primary" id="emailBtn"
               data-tally-open="mYAbWd" data-tally-layout="modal" data-tally-auto-close="1500">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
-              Get email updates
+              Get Updates
             </button>
             <a class="btn primary" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
