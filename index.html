@@ -131,6 +131,8 @@
     .btn:hover .btn-icon{transform:scale(1.1)}
     .footer{margin-top:30px;color:var(--muted);font-size:14px}
     .hide-text-on-mobile{display:block}
+  /* Flex break to move following buttons onto next row */
+  .cta-break{flex-basis:100%;width:0;height:0;padding:0;margin:0;border:0}
     @media (min-width:720px){
       .hero .copy{grid-column:1/6;padding-right:8px}
       .hero .art{grid-column:6/13}
@@ -182,6 +184,28 @@
       .carousel-container{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
       .carousel-track{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
       .carousel-slide{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}
+    }
+    /* Modal (Roadmap) */
+    .modal-overlay[hidden]{display:none !important}
+    .modal-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:1000;padding:16px}
+    .modal{background:var(--card);border:2px solid var(--gold);border-radius:12px;max-width:720px;width:min(100%,720px);color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 4px rgba(199,164,85,0.1);padding:20px 20px 16px}
+    .modal header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+    .modal h2{margin:0;font-size:clamp(20px,3.5vw,26px);letter-spacing:0.5px}
+    .modal .modal-close{appearance:none;background:transparent;border:none;color:var(--text);font-size:22px;line-height:1;border-radius:8px;padding:6px;cursor:pointer}
+    .modal .modal-close:hover{background:rgba(255,255,255,0.06)}
+    .roadmap-intro{color:var(--muted);margin:0 0 10px}
+    .roadmap-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+    .roadmap-item{background:rgba(255,255,255,0.03);border:1px solid rgba(199,164,85,0.2);border-radius:10px;padding:12px}
+    .roadmap-item h3{margin:0 0 6px;font-size:16px}
+    .roadmap-item p{margin:0;color:var(--muted)}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .tag{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid rgba(199,164,85,0.35);color:var(--gold);background:rgba(199,164,85,0.08)}
+    .status{margin-left:auto}
+    .modal footer{margin-top:14px;display:flex;justify-content:flex-end}
+    .modal .small{font-size:12px;color:var(--muted)}
+    @media (max-width:520px){
+      .modal{padding:16px}
+      .roadmap-item{padding:10px}
     }
   </style>
 
@@ -379,6 +403,13 @@
           </h1>
           <p class="sub">Collect, trade, attack. Help balance new cards and pick what comes next. Free print-and-play can be found on our Discord!</p>
           <div class="cta">
+            <button class="btn secondary" id="roadmapBtn" aria-haspopup="dialog" aria-controls="roadmapOverlay">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v9.5A2.75 2.75 0 0 1 18.25 19H5.75A2.75 2.75 0 0 1 3 16.25v-9.5Zm2.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H5.75Zm2.5 2a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5h-7.5ZM6.5 12a.75.75 0 0 1 .75-.75h9.5a.75.75 0 0 1 0 1.5h-9.5A.75.75 0 0 1 6.5 12Zm0 3a.75.75 0 0 1 .75-.75h6.5a.75.75 0 0 1 0 1.5h-6.5A.75.75 0 0 1 6.5 15Z"/>
+              </svg>
+              Roadmap
+            </button>
+              <span class="cta-break" aria-hidden="true"></span>
             <button class="btn secondary" id="emailBtn"
               data-tally-open="mYAbWd" data-tally-layout="modal" data-tally-auto-close="1500">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -426,6 +457,63 @@
         <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a> • 
         <a href="terms-and-conditions.html" style="color:var(--gold);text-decoration:none">Terms & Conditions</a>
       </div>
+    </div>
+  </div>
+
+  <!-- Roadmap Modal -->
+  <div class="modal-overlay" id="roadmapOverlay" hidden aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="roadmapTitle" tabindex="-1">
+      <header>
+        <h2 id="roadmapTitle">Roadmap</h2>
+        <button class="modal-close" type="button" id="roadmapCloseBtn" aria-label="Close roadmap">✕</button>
+      </header>
+      <p class="roadmap-intro">A living plan shaped by player feedback. Timelines are estimates.</p>
+      <ol class="roadmap-list">
+        <li class="roadmap-item">
+          <h3>August & Early September 2025 · Further Product Development</h3>
+          <p>Tweak costs/abilities and add new country cards.</p>
+          <div class="tags">
+            <span class="tag">Balancing</span>
+            <span class="tag">New Cards</span>
+            <span class="tag">Community Vote</span>
+          </div>
+        </li>
+        <li class="roadmap-item">
+          <h3>Late September 2025 · Kickstarter Pre-Launch</h3>
+          <p>Polished art, upgraded rulebook, Kickstarter signups.</p>
+          <div class="tags">
+            <span class="tag">Art</span>
+            <span class="tag">Rules</span>
+            <span class="tag">KS Prep</span>
+          </div>
+        </li>
+        <li class="roadmap-item">
+          <h3>October 1st 2025 · Kickstarter Launch</h3>
+          <p>Full launch of Kickstarter campaign! We will attempt to raise $3000 in 30 days!</p>
+          <div class="tags">
+            <span class="tag">Launch</span>
+            <span class="tag">Kickstater</span>
+          </div>
+        </li>
+        <li class="roadmap-item">
+          <h3>November 1st 2025 · End of Kickstarter Campaign</h3>
+          <p>We order 500 copies from a manufacturer and start shipping to backers as soon as possible.</p>
+          <div class="tags">
+            <span class="tag">Manufacturing</span>
+          </div>
+        </li>
+        <li class="roadmap-item">
+          <h3>November & December 2025 · Product Delivery</h3>
+          <p>We successfully deliver the products to all our backers and open an online webstore! Our goal is to deliver the final product to all Kickstarter backers before Christmas (depending on where the product is being shipped, could be well earlier)!</p>
+          <div class="tags">
+            <span class="tag">Delivery</span>
+            <span class="tag">Webstore</span>
+          </div>
+        </li>
+      </ol>
+      <footer>
+        <span class="small">Want to influence this? Join Discord for votes and playtests.</span>
+      </footer>
     </div>
   </div>
 
@@ -920,6 +1008,61 @@
         });
       }
     });
+
+    // ===== ROADMAP MODAL =====
+    (function(){
+      const openBtn = document.getElementById('roadmapBtn');
+      const overlay = document.getElementById('roadmapOverlay');
+      const dialog = overlay ? overlay.querySelector('.modal') : null;
+      const closeBtn = document.getElementById('roadmapCloseBtn');
+      if (!openBtn || !overlay || !dialog || !closeBtn) return;
+
+      let lastFocus = null;
+
+      function getFocusable(){
+        return dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      }
+
+      function open(){
+        lastFocus = document.activeElement;
+        overlay.hidden = false;
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // analytics hook
+        try { if (window.rdt) rdt('track','Custom',{ customEventName:'RoadmapOpen' }); } catch(e){}
+        // focus first focusable
+        const focusables = getFocusable();
+        if (focusables.length) focusables[0].focus(); else dialog.focus();
+        document.addEventListener('keydown', onKeyDown);
+        overlay.addEventListener('click', onOverlayClick);
+      }
+
+      function close(){
+        overlay.hidden = true;
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onKeyDown);
+        overlay.removeEventListener('click', onOverlayClick);
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+
+      function onOverlayClick(e){ if (e.target === overlay) close(); }
+
+      function onKeyDown(e){
+        if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+        if (e.key === 'Tab') {
+          const focusables = Array.from(getFocusable());
+          if (!focusables.length) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+          else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      }
+
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+    })();
   </script>
 </body>
 </html>
