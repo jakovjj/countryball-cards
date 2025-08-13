@@ -5,11 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com; img-src 'self' data: https:; frame-src https://tally.so;">
-  <title>Countryball Cards</title>
-  <meta name="description" content="Strategy card game inspired by countryballs. Download the free print-and-play and join the Kickstarter prelaunch." />
-  <meta property="og:title" content="Countryball Cards" />
-  <meta property="og:description" content="Grab the free print-and-play and join the prelaunch." />
+  <title>Countryball Cards — Countryball Card Game | Print-and-Play + Kickstarter Prelaunch</title>
+  <meta name="description" content="Countryball Cards is a strategic, countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit." />
+  <link rel="canonical" href="https://countryballcards.com/" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#151515" />
+  
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+  <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
+  <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
+  <link rel="preconnect" href="https://tally.so" crossorigin>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Countryball Cards — Countryball Card Game" />
+  <meta property="og:description" content="Grab the free print-and-play and join the Kickstarter prelaunch community." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://countryballcards.com/" />
+  <meta property="og:image" content="https://countryballcards.com/logo.png" />
+  <meta property="og:image:alt" content="Countryball Cards logo and sample cards" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Countryball Cards" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Countryball Cards — Countryball Card Game" />
+  <meta name="twitter:description" content="Free print-and-play and Kickstarter prelaunch community." />
+  <meta name="twitter:image" content="https://countryballcards.com/logo.png" />
+  <meta name="twitter:image:alt" content="Countryball Cards logo and sample cards" />
+  
+  <!-- Performance hint for LCP assets -->
+  <link rel="preload" as="image" href="/logo.png" />
+  <link rel="preload" as="image" href="/us.png" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -17,6 +45,59 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://countryballcards.com/#organization",
+        "name": "Glare Studios",
+        "url": "https://countryballcards.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://countryballcards.com/logo.png"
+        },
+        "sameAs": [
+          "https://discord.gg/GVkrHXvzf8",
+          "https://reddit.com/r/countryball_cards"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://countryballcards.com/#website",
+        "url": "https://countryballcards.com/",
+        "name": "Countryball Cards",
+        "publisher": { "@id": "https://countryballcards.com/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://countryballcards.com/#webpage",
+        "url": "https://countryballcards.com/",
+        "name": "Countryball Cards — Countryball Card Game",
+        "description": "Countryball Cards is a strategic, countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit.",
+        "isPartOf": { "@id": "https://countryballcards.com/#website" },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://countryballcards.com/logo.png"
+        },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Product",
+        "@id": "https://countryballcards.com/#product",
+        "name": "Countryball Cards",
+        "category": "Board game",
+        "description": "A strategic countryball-themed card game. Grab the free print-and-play and join the Kickstarter prelaunch.",
+        "brand": {"@type":"Brand","name":"Glare Studios"},
+        "image": "https://countryballcards.com/logo.png",
+        "url": "https://countryballcards.com/"
+      }
+    ]
+  }
+  </script>
   
   <!-- Google tag (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z"></script>
@@ -659,7 +740,10 @@
       cardData.forEach((card, index) => {
         const slide = document.createElement('div');
         slide.className = 'carousel-slide';
-        slide.innerHTML = `<div class="card"><img alt="${card.alt}" src="${card.src}"></div>`;
+        const imgPerf = index === 0
+          ? 'loading="eager" fetchpriority="high"'
+          : 'loading="lazy" fetchpriority="low" decoding="async"';
+        slide.innerHTML = `<div class="card"><img ${imgPerf} alt="${card.alt}" src="${card.src}"></div>`;
         track.appendChild(slide);
         
         // Generate dots

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow internal files
+Disallow: /pixel-test.html
+
+Sitemap: https://countryballcards.com/sitemap.xml
