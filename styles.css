@@ -42,6 +42,36 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
           -webkit-backface-visibility:hidden;
           will-change:transform}
 
+/* Buttons */
+.btn {
+  display: inline-grid; /* allows a second row for the count when present */
+  grid-auto-rows: min-content;
+  grid-auto-flow: row;
+  align-items: center;
+  justify-content: start;
+}
+
+/* New wrapper for icon + label to prevent unintended line breaks affecting height */
+.btn .btn-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.2;
+}
+
+/* Keep label from wrapping oddly */
+.btn .btn-label { white-space: nowrap; }
+
+/* Count sits on its own grid row only when populated */
+.btn .btn-count {
+  display: none; /* shown by JS when value available */
+  grid-column: 1 / -1;
+  margin-top: 10px;
+}
+
+/* When a count is visible, give the button a bit of breathing room beneath */
+.btn.has-count { margin-bottom: 8px; }
+
 /* Carousel Styles - responsive */
 .carousel-container{position:relative;width:min(100%, 480px);margin:0 auto;
            padding:clamp(16px,4vw,40px) clamp(16px,6vw,60px);box-sizing:border-box}
@@ -65,7 +95,7 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
         -webkit-tap-highlight-color:transparent}
 .carousel-dot.active{background:var(--gold)}
 
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;align-items:flex-start}
 .btn{appearance:none;border:none;background:transparent;color:var(--bg);
        padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800;
        display:inline-flex;align-items:center;gap:8px;text-decoration:none;
@@ -92,6 +122,31 @@ font-size:16px}
 .hide-text-on-mobile{display:block}
 /* Flex break to move following buttons onto next row */
 .cta-break{flex-basis:100%;width:0;height:0;padding:0;margin:0;border:0}
+/* Inline counters below CTA buttons */
+.counts{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+.count{color:var(--muted);font-size:12px}
+
+/* Button count extension */
+.btn{position:relative;overflow:visible;display:inline-grid;grid-template-columns:auto 1fr;align-items:center;column-gap:8px}
+.btn .btn-count{
+  display:none; /* shown when populated */
+  grid-column:1 / -1;
+  margin-top:6px;
+  background:linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.18));
+  color:var(--text);
+  border-top:1px solid rgba(0,0,0,0.25);
+  padding:6px 10px;
+  font-size:12px; font-weight:700; text-align:center;
+  border-radius:0 0 10px 10px;
+}
+/* optional extra spacing below when count is present (no overlap now) */
+.btn.has-count{margin-bottom:8px}
+
+/* mobile adjustments */
+@media (max-width:719px){
+  .btn .btn-count{font-size:12px}
+  .btn.has-count{margin-bottom:8px}
+}
 @media (min-width:720px){
   .hero .copy{grid-column:1/6;padding-right:8px}
   .hero .art{grid-column:6/13}

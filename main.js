@@ -147,6 +147,75 @@ function initializeImageQuality(){
   });
 }
 
+// ===== COMMUNITY COUNTS =====
+(function(){
+  const discordCountEl = document.getElementById('discordCount');
+  const redditCountEl = document.getElementById('redditCount');
+
+  const cacheKey = 'cbc_counts_v1';
+  const cacheTtlMs = 5*60*1000; // 5 minutes
+
+  function setText(el, text){ if(el){ el.textContent = text; if(text && el.parentElement && el.classList.contains('btn-count')){ el.style.display='block'; el.parentElement.classList.add('has-count'); } } }
+  function formatCount(n){
+    if(n==null || isNaN(n)) return '';
+    if(n < 1000) return n.toString();
+    if(n < 10000) return (n/1000).toFixed(1).replace(/\.0$/,'') + 'k';
+    if(n < 1000000) return Math.round(n/1000) + 'k';
+    return (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+  }
+
+  function readCache(){
+    try{
+      const raw = localStorage.getItem(cacheKey);
+      if(!raw) return null;
+      const obj = JSON.parse(raw);
+      if(Date.now() - obj.t > cacheTtlMs) return null;
+      return obj;
+    }catch(_){ return null; }
+  }
+  function writeCache(data){
+    try{ localStorage.setItem(cacheKey, JSON.stringify({ t: Date.now(), ...data })); }catch(_){ }
+  }
+
+  async function fetchDiscord(){
+    // Using Discord vanity invite endpoint to get approximate member counts
+    try{
+      const res = await fetch('https://discord.com/api/v9/invites/GVkrHXvzf8?with_counts=true&with_expiration=false');
+      if(!res.ok) throw new Error('discord status '+res.status);
+      const json = await res.json();
+      // prefer approximate counts when available
+      const n = json.approximate_member_count || (json.guild && json.guild.approximate_member_count) || null;
+      return n;
+    }catch(_){ return null; }
+  }
+
+  async function fetchReddit(){
+    try{
+      const res = await fetch('https://www.reddit.com/r/countryball_cards/about.json');
+      if(!res.ok) throw new Error('reddit status '+res.status);
+      const json = await res.json();
+      const n = json?.data?.subscribers ?? null;
+      return n;
+    }catch(_){ return null; }
+  }
+
+  async function loadCounts(){
+    const cached = readCache();
+    if(cached){
+      if(cached.discord!=null) setText(discordCountEl, `${formatCount(cached.discord)} members`);
+      if(cached.reddit!=null) setText(redditCountEl, `${formatCount(cached.reddit)} subscribers`);
+    }
+    const [d, r] = await Promise.all([fetchDiscord(), fetchReddit()]);
+    const result = { discord: d ?? (cached && cached.discord) ?? null, reddit: r ?? (cached && cached.reddit) ?? null };
+    writeCache(result);
+    if(result.discord!=null) setText(discordCountEl, `${formatCount(result.discord)} members`);
+    if(result.reddit!=null) setText(redditCountEl, `${formatCount(result.reddit)} subscribers`);
+  }
+
+  // kick off when DOM is ready (defer ensures this runs after parse)
+  loadCounts();
+})();
+
 // Events
 nextBtn.addEventListener('click', ()=>{ nextSlide(); handleUserInteraction(); });
 prevBtn.addEventListener('click', ()=>{ prevSlide(); handleUserInteraction(); });
