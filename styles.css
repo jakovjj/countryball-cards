@@ -48,15 +48,19 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
   grid-auto-rows: min-content;
   grid-auto-flow: row;
   align-items: center;
-  justify-content: start;
+  justify-content: center; /* center the whole content horizontally */
+  justify-items: center;   /* center grid items */
+  text-align: center;      /* center inline text like labels */
 }
 
 /* New wrapper for icon + label to prevent unintended line breaks affecting height */
 .btn .btn-row {
   display: inline-flex;
   align-items: center;
+  justify-content: center; /* center icon + label row */
   gap: 10px;
   line-height: 1.2;
+  width: 100%;             /* let the row span button width for centering */
 }
 
 /* Keep label from wrapping oddly */
@@ -95,7 +99,7 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
         -webkit-tap-highlight-color:transparent}
 .carousel-dot.active{background:var(--gold)}
 
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;align-items:flex-start}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;align-items:flex-start;flex-direction:column}
 .btn{appearance:none;border:none;background:transparent;color:var(--bg);
        padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800;
        display:inline-flex;align-items:center;gap:8px;text-decoration:none;
@@ -121,13 +125,13 @@ font-size:16px}
 .footer{margin-top:30px;color:var(--muted);font-size:14px}
 .hide-text-on-mobile{display:block}
 /* Flex break to move following buttons onto next row */
-.cta-break{flex-basis:100%;width:0;height:0;padding:0;margin:0;border:0}
+.cta-break{flex-basis:100%;width:0;height:0;padding:0;margin:0;border:0;display:none}
 /* Inline counters below CTA buttons */
 .counts{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
 .count{color:var(--muted);font-size:12px}
 
 /* Button count extension */
-.btn{position:relative;overflow:visible;display:inline-grid;grid-template-columns:auto 1fr;align-items:center;column-gap:8px}
+.btn{position:relative;overflow:visible;display:inline-grid;grid-template-columns:1fr;align-items:center;column-gap:8px}
 .btn .btn-count{
   display:none; /* shown when populated */
   grid-column:1 / -1;
@@ -138,9 +142,16 @@ font-size:16px}
   padding:6px 10px;
   font-size:12px; font-weight:700; text-align:center;
   border-radius:0 0 10px 10px;
+  width:100%;
+  box-sizing:border-box;
 }
 /* optional extra spacing below when count is present (no overlap now) */
 .btn.has-count{margin-bottom:8px}
+
+/* Normalize CTA buttons: same width and spacing */
+.cta .btn{width:min(100%, 260px); margin:0}
+/* Ensure spacing between buttons relies on .cta gap only */
+.btn.has-count{margin-bottom:0 !important}
 
 /* mobile adjustments */
 @media (max-width:719px){
@@ -161,7 +172,7 @@ font-size:16px}
   .carousel{width:100%;border-radius:0;aspect-ratio:3/4}
   .carousel-slide .card{width:min(90%, 340px);max-height:98%}
   .carousel-slide .card img{max-width:100%;max-height:100%;object-fit:contain}
-  .cta{justify-content:center}
+  .cta{justify-content:center;align-items:center}
   .privacy-notice{text-align:center !important}
   .wrap{padding:clamp(16px,4vw,20px)}
   .frame{padding:clamp(16px,4vw,20px)}
