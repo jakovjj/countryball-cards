@@ -213,8 +213,20 @@ font-size:16px}
 /* Modal (Roadmap) */
 .modal-overlay[hidden]{display:none !important}
 .modal-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:1000;padding:16px}
-.modal{background:var(--card);border:2px solid var(--gold);border-radius:12px;max-width:720px;width:min(100%,720px);color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 4px rgba(199,164,85,0.1);padding:20px 20px 16px}
-.modal header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+/* Make modal content scrollable on small screens and keep controls visible */
+.modal{background:var(--card);border:2px solid var(--gold);border-radius:12px;max-width:720px;width:min(100%,720px);color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 4px rgba(199,164,85,0.1);padding:20px 20px 16px;
+  /* Constrain height and allow internal scroll */
+  max-height:min(90vh, calc(100dvh - 32px));
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  display:flex;flex-direction:column
+}
+.modal header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;
+  position:sticky;top:0;background:var(--card);z-index:2;
+  /* subtle divider when stuck */
+  border-bottom:1px solid rgba(255,255,255,0.06);padding-top:2px
+}
 .modal h2{margin:0;font-size:clamp(20px,3.5vw,26px);letter-spacing:0.5px}
 .modal .modal-close{appearance:none;background:transparent;border:none;color:var(--text);font-size:22px;line-height:1;border-radius:8px;padding:6px;cursor:pointer}
 .modal .modal-close:hover{background:rgba(255,255,255,0.06)}
@@ -226,7 +238,9 @@ font-size:16px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .tag{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid rgba(199,164,85,0.35);color:var(--gold);background:rgba(199,164,85,0.08)}
 .status{margin-left:auto}
-.modal footer{margin-top:14px;display:flex;justify-content:flex-end}
+.modal footer{margin-top:14px;display:flex;justify-content:flex-end;
+  position:sticky;bottom:0;background:var(--card);z-index:1;
+  border-top:1px solid rgba(255,255,255,0.06);padding-top:8px}
 .modal .small{font-size:12px;color:var(--muted)}
 @media (max-width:520px){
   .modal{padding:16px}
