@@ -16,6 +16,10 @@ async function detectCountryAndSetBackground(){
     const response = await fetch('https://ipapi.co/json/');
     const data = await response.json();
     const countryCode = data.country_code;
+    
+    // Track country detection
+    trackCountryDetection(countryCode);
+    
     let backgroundImage = countryBackgrounds[countryCode] || countryBackgrounds['PL'];
     const img = new Image();
     img.onload = () => {
@@ -101,8 +105,16 @@ function updateCarousel(){
   setTimeout(init3DCardEffects,50);
 }
 
-function nextSlide(){ currentSlide=(currentSlide+1)%totalSlides; updateCarousel(); }
-function prevSlide(){ currentSlide=(currentSlide-1+totalSlides)%totalSlides; updateCarousel(); }
+function nextSlide(){ 
+  currentSlide=(currentSlide+1)%totalSlides; 
+  updateCarousel(); 
+  trackCarouselInteraction('next_slide', countryBalls[currentSlide].name);
+}
+function prevSlide(){ 
+  currentSlide=(currentSlide-1+totalSlides)%totalSlides; 
+  updateCarousel(); 
+  trackCarouselInteraction('prev_slide', countryBalls[currentSlide].name);
+}
 
 function handleUserInteraction(){
   if(userInteractionTimeout) clearTimeout(userInteractionTimeout);
@@ -319,3 +331,75 @@ updateCarousel();
 detectCountryAndSetBackground();
 startAutoScroll();
 setTimeout(()=>{ init3DCardEffects(); initializeImageQuality(); },100);
+
+// ===== TRACKING FUNCTIONS =====
+function trackPackagesClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'packages_button_clicked', {
+      event_category: 'engagement',
+      event_label: 'view_packages_cta',
+      value: 1
+    });
+  }
+}
+
+function trackDiscordClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'discord_clicked', {
+      event_category: 'social',
+      event_label: 'join_discord',
+      value: 1
+    });
+  }
+}
+
+function trackRedditClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'reddit_clicked', {
+      event_category: 'social',
+      event_label: 'join_subreddit',
+      value: 1
+    });
+  }
+}
+
+function trackEmailSignup() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'email_signup_clicked', {
+      event_category: 'conversion',
+      event_label: 'get_updates',
+      value: 1
+    });
+  }
+}
+
+function trackRoadmapView() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'roadmap_viewed', {
+      event_category: 'engagement',
+      event_label: 'roadmap_modal',
+      value: 1
+    });
+  }
+}
+
+function trackCarouselInteraction(action, cardName) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'carousel_interaction', {
+      event_category: 'engagement',
+      event_label: action,
+      custom_parameter: cardName,
+      value: 1
+    });
+  }
+}
+
+function trackCountryDetection(country) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'country_detected', {
+      event_category: 'user_data',
+      event_label: country,
+      value: 1
+    });
+  }
+}
