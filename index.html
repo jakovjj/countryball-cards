@@ -121,6 +121,40 @@
       } catch (e) { /* noop */ }
     })();
   </script>
+
+  <!-- FAQ structured data to boost eligibility and clarify topic -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Countryball Cards?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Countryball Cards is a strategic, countryball-themed card game where you build a deck, attack, and combine nation abilities. You can try it today with a free print‑and‑play and join our community for balance feedback."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I try the game?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Download the free print‑and‑play from our Discord server and play with standard card sleeves or paper cutouts. We run public playtests and collect feedback to improve cards before launch."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the Kickstarter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We plan a Kickstarter launch in October 2025 after a short pre‑launch phase in September. Join the Discord or email updates to be notified when it goes live."
+        }
+      }
+    ]
+  }
+  </script>
   
   <link rel="stylesheet" href="styles.css">
 
@@ -198,6 +232,14 @@
           </div>
         </div>
       </div>
+
+      <!-- Lightweight, crawlable copy helps avoid soft‑404 classification and clarifies intent -->
+      <section class="seo-copy" style="margin-top:22px;color:var(--muted)">
+        <h2 style="color:var(--text);margin:0 0 8px;font-size:20px">About Countryball Cards</h2>
+        <p style="margin:0 0 10px">Countryball Cards is an indie strategy card game inspired by countryball memes and tabletop tactics. Build a team of nations, combine unique abilities, and play with friends. We publish regular balance updates and new cards based on community testing.</p>
+        <h3 style="color:var(--text);margin:16px 0 6px;font-size:18px">Try the print‑and‑play</h3>
+        <p style="margin:0 0 10px">Join our <a href="https://discord.gg/GVkrHXvzf8" rel="noopener" style="color:var(--gold)">Discord</a> to get the free print‑and‑play PDF and help us tune abilities before the <strong>Kickstarter</strong> launch. You can also follow updates by email using the button above.</p>
+      </section>
 
       <div class="footer">
         © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
