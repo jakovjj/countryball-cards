@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <title>Game Packages — Countryball Cards</title>
+  <meta name="description" content="Choose your perfect Countryball Cards package. From the base game to the premium Founder's Edition with handdrawn cards and exclusive content." />
+  <link rel="canonical" href="https://countryballcards.com/packages.html" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#151515" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Game Packages — Countryball Cards" />
+  <meta property="og:description" content="Choose your perfect package for Countryball Cards. Kickstarter launching October 1st!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://countryballcards.com/packages.html" />
+  <meta property="og:image" content="https://countryballcards.com/logo.png" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Game Packages — Countryball Cards" />
+  <meta name="twitter:description" content="Choose your perfect package. Kickstarter launching October 1st!" />
+  <meta name="twitter:image" content="https://countryballcards.com/logo.png" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .packages-hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .packages-hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--gold), #e6c875);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .kickstarter-banner {
+      background: linear-gradient(135deg, var(--gold), #d4b866);
+      color: var(--bg);
+      padding: 16px 24px;
+      border-radius: 12px;
+      margin: 24px 0;
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 4px 20px rgba(199, 164, 85, 0.3);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      from { box-shadow: 0 4px 20px rgba(199, 164, 85, 0.3); }
+      to { box-shadow: 0 6px 30px rgba(199, 164, 85, 0.5); }
+    }
+    
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+    
+    .package-card {
+      background: var(--card);
+      border: 2px solid rgba(199, 164, 85, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .package-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(199, 164, 85, 0.2);
+    }
+    
+    .package-card.featured {
+      border-color: var(--gold);
+      box-shadow: 0 8px 32px rgba(199, 164, 85, 0.25);
+    }
+    
+    .package-card.featured::before {
+      content: "MOST POPULAR";
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--bg);
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 0 0 8px 8px;
+      letter-spacing: 0.5px;
+    }
+    
+    .package-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .package-name {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--gold);
+    }
+    
+    .package-price {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    
+    .package-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    .package-features {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+    
+    .package-features li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .package-features li:last-child {
+      border-bottom: none;
+    }
+    
+    .feature-check {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 16px;
+    }
+    
+    .base-content {
+      background: rgba(199, 164, 85, 0.1);
+      border: 1px solid rgba(199, 164, 85, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 32px 0;
+    }
+    
+    .base-content h3 {
+      color: var(--gold);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .base-content ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    
+    .base-content li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+    }
+    
+    .shipping-info {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 32px 0;
+    }
+    
+    .shipping-info h3 {
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    
+    .shipping-zones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+    
+    .shipping-zone {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(199, 164, 85, 0.2);
+    }
+    
+    .shipping-zone h4 {
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    
+    .shipping-zone p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    
+    .disclaimer {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(199, 164, 85, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 32px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-style: italic;
+    }
+    
+    .back-button {
+      margin-bottom: 24px;
+    }
+    
+    .package-separator {
+      height: 20px !important;
+      background: red !important;
+      margin: 24px 0 20px 0 !important;
+      border-radius: 2px !important;
+      width: 100% !important;
+      display: block !important;
+    }
+    
+    .select-package-btn {
+      background: linear-gradient(135deg, var(--gold), #d4b866);
+      color: var(--bg);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 4px 16px rgba(199, 164, 85, 0.3);
+    }
+    
+    .select-package-btn:hover {
+      background: linear-gradient(135deg, #d4b866, #e6c875);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(199, 164, 85, 0.4);
+    }
+    
+    .select-package-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    @media (max-width: 768px) {
+      .packages-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .package-card {
+        padding: 20px;
+      }
+      
+      .package-price {
+        font-size: 30px;
+      }
+      
+      .shipping-zones {
+        grid-template-columns: 1fr;
+      }
+      
+      .base-content ul {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <div class="back-button">
+        <a href="index.html" class="btn secondary">
+          <span class="btn-row">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"/>
+            </svg>
+            <span class="btn-label">Back to Home</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="packages-hero">
+        <h1>Choose Your Package</h1>
+        <p class="sub">Select the perfect edition for your countryball adventure. All packages include shipping!</p>
+        
+        <div class="kickstarter-banner">
+          🚀 Kickstarter Launching October 1st, 2025! 🚀
+        </div>
+      </div>
+
+      <div class="packages-grid">
+        <!-- Base Game -->
+        <div class="package-card">
+          <div class="package-header">
+            <div class="package-name">Base Game</div>
+            <div class="package-price">25€</div>
+            <div class="package-subtitle">Perfect for getting started</div>
+          </div>
+          <ul class="package-features">
+            <li><span class="feature-check">✓</span> Complete base game experience</li>
+            <li><span class="feature-check">✓</span> All essential components included</li>
+            <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
+            <li><span class="feature-check">✓</span> Perfect for 2-4 players</li>
+          </ul>
+          <button class="select-package-btn" disabled>Available Soon</button>
+        </div>
+
+        <!-- 2-Pack -->
+        <div class="package-card">
+          <div class="package-header">
+            <div class="package-name">2-Pack</div>
+            <div class="package-price">40€</div>
+            <div class="package-subtitle">Great value for friends</div>
+          </div>
+          <ul class="package-features">
+            <li><span class="feature-check">✓</span> Two complete base games</li>
+            <li><span class="feature-check">✓</span> Share with friends and family</li>
+            <li><span class="feature-check">✓</span> Save 10€ compared to buying separately</li>
+            <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
+            <li><span class="feature-check">✓</span> Perfect for tournaments</li>
+          </ul>
+          <button class="select-package-btn" disabled>Available Soon</button>
+        </div>
+
+        <!-- Extended Edition -->
+        <div class="package-card">
+          <div class="package-header">
+            <div class="package-name">Extended Edition</div>
+            <div class="package-price">35€</div>
+            <div class="package-subtitle">Enhanced gameplay experience</div>
+          </div>
+          <ul class="package-features">
+            <li><span class="feature-check">✓</span> Complete base game</li>
+            <li><span class="feature-check">✓</span> 2 exclusive mini-expansions</li>
+            <li><span class="feature-check">✓</span> Additional strategic depth</li>
+            <li><span class="feature-check">✓</span> Extended replayability</li>
+            <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
+          </ul>
+          <button class="select-package-btn" disabled>Available Soon</button>
+        </div>
+
+        <!-- Founder's Edition -->
+        <div class="package-card">
+          <div class="package-header">
+            <div class="package-name">Founder's Edition</div>
+            <div class="package-price">50€</div>
+            <div class="package-subtitle">The ultimate collector's package</div>
+          </div>
+          <ul class="package-features">
+            <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
+            <li><span class="feature-check">✓</span> Handdrawn version of each card</li>
+            <li><span class="feature-check">✓</span> 5 random unique holographic cards</li>
+            <li><span class="feature-check">✓</span> 20 blank templates for custom cards</li>
+            <li><span class="feature-check">✓</span> Limited collector's edition</li>
+            <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
+          </ul>
+          <button class="select-package-btn" disabled>Available Soon</button>
+        </div>
+      </div>
+
+      <div class="base-content">
+        <h3>Included in All Versions</h3>
+        <ul>
+          <li><span class="feature-check">✓</span> 20 Countryball Cards (+ 1 Evolution Card)</li>
+          <li><span class="feature-check">✓</span> 20-Sided Dice</li>
+          <li><span class="feature-check">✓</span> 60 Resource Cards (15 per resource)</li>
+          <li><span class="feature-check">✓</span> 15 Skull Cards</li>
+          <li><span class="feature-check">✓</span> 60 Coin Tokens</li>
+          <li><span class="feature-check">✓</span> 8 Special Cards</li>
+          <li><span class="feature-check">✓</span> 36 Price Tags for Resource Market</li>
+          <li><span class="feature-check">✓</span> Complete Rules & Strategy Guide</li>
+        </ul>
+      </div>
+
+      <div class="shipping-info">
+        <h3>Shipping Information</h3>
+        <div class="shipping-zones">
+          <div class="shipping-zone">
+            <h4>FREE SHIPPING</h4>
+            <p>US, AT, BE, CZ, DK, FR, IT, HR, HU, NL, DE, PL, SI, SK</p>
+          </div>
+          <div class="shipping-zone">
+            <h4>4€ SHIPPING</h4>
+            <p>BG, CY, EE, FI, GR, IE, LV, LT, LU, MT, PT, RO, ES, SE</p>
+          </div>
+          <div class="shipping-zone">
+            <h4>5.5€ SHIPPING</h4>
+            <p>AL, AD, BA, ME, GG, XK, LI, MK, MD, MC, NO, IM, FO, SM, RS, CH, UK, UA, VA, UAE</p>
+          </div>
+          <div class="shipping-zone">
+            <h4>12€ SHIPPING</h4>
+            <p>Rest of the world (e.g., Australia, Canada, Japan, New Zealand...)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        ⚠️ Please note: Package contents, pricing, and shipping information are subject to change before the final Kickstarter launch. We're working hard to finalize all details for the best possible experience!
+      </div>
+
+      <div class="footer">
+        © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
+        <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a> • 
+        <a href="terms-and-conditions.html" style="color:var(--gold);text-decoration:none">Terms & Conditions</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="analytics.js" defer></script>
+</body>
+</html>

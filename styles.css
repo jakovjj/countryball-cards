@@ -246,3 +246,139 @@ font-size:16px}
   .modal{padding:16px}
   .roadmap-item{padding:10px}
 }
+
+/* Golden separator */
+.golden-separator {
+  height: 3px;
+  background: linear-gradient(90deg, transparent 10%, var(--gold) 50%, transparent 90%);
+  margin: 32px auto;
+  border-radius: 2px;
+  width: 60%;
+  opacity: 0.8;
+}
+
+/* Packages CTA Button */
+.packages-cta-section {
+  margin: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.packages-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  padding: 20px 32px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  border: none;
+  cursor: pointer;
+  min-width: 280px;
+}
+
+.packages-cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.packages-cta-button:hover::before {
+  left: 100%;
+}
+
+.packages-cta-button:hover {
+  background: linear-gradient(135deg, #5CBF60, #4CAF50);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(76, 175, 80, 0.4);
+}
+
+.packages-cta-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.packages-cta-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.packages-cta-button:hover .packages-cta-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.packages-cta-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.packages-cta-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.packages-cta-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .packages-cta-button {
+    padding: 18px 24px;
+    font-size: 16px;
+    min-width: 260px;
+  }
+  
+  .packages-cta-title {
+    font-size: 16px;
+  }
+  
+  .packages-cta-subtitle {
+    font-size: 13px;
+  }
+  
+  .packages-cta-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .packages-cta-section {
+    margin: 32px 0;
+  }
+  
+  .packages-cta-button {
+    padding: 16px 20px;
+    font-size: 15px;
+    min-width: 240px;
+  }
+  
+  .packages-cta-content {
+    gap: 12px;
+  }
+}
