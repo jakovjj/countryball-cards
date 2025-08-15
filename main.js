@@ -94,16 +94,16 @@ async function detectCountryAndSetBackground(){
 
 // ===== CARD CONFIGURATION =====
 const cardData = [
-  { src: 'us.png', alt: 'United States card' },
-  { src: 'canada.png', alt: 'Canada card' },
-  { src: 'netherlands.png', alt: 'Netherlands card' },
-  { src: 'germany.png', alt: 'Germany card' },
-  { src: 'sweden.png', alt: 'Sweden card' },
-  { src: 'france.png', alt: 'France card' },
-  { src: 'uk.png', alt: 'United Kingdom card' },
-  { src: 'switzerland.png', alt: 'Switzerland card' },
-  { src: 'japan.png', alt: 'Japan card' },
-  { src: 'poland.png', alt: 'Poland card' }
+  { src: 'us.png', webp: 'us.webp', alt: 'United States card' },
+  { src: 'canada.png', webp: 'canada.webp', alt: 'Canada card' },
+  { src: 'netherlands.png', webp: 'netherlands.webp', alt: 'Netherlands card' },
+  { src: 'germany.png', webp: 'germany.webp', alt: 'Germany card' },
+  { src: 'sweden.png', webp: 'sweden.webp', alt: 'Sweden card' },
+  { src: 'france.png', webp: 'france.webp', alt: 'France card' },
+  { src: 'uk.png', webp: 'uk.webp', alt: 'United Kingdom card' },
+  { src: 'switzerland.png', webp: 'switzerland.webp', alt: 'Switzerland card' },
+  { src: 'japan.png', webp: 'japan.webp', alt: 'Japan card' },
+  { src: 'poland.png', webp: 'poland.webp', alt: 'Poland card' }
 ];
 
 // ===== CAROUSEL =====
@@ -114,8 +114,6 @@ const dotsContainer = document.getElementById('carouselDots');
 
 let currentSlide = 0;
 const totalSlides = cardData.length;
-let autoScrollInterval;
-let userInteractionTimeout;
 
 function initializeCarousel(){
   track.innerHTML = '';
@@ -124,7 +122,17 @@ function initializeCarousel(){
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
     const imgPerf = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" fetchpriority="low" decoding="async"';
-    slide.innerHTML = `<div class="card"><img ${imgPerf} alt="${card.alt}" src="${card.src}"></div>`;
+    
+    // Use picture element for WebP with PNG fallback
+    slide.innerHTML = `
+      <div class="card">
+        <picture>
+          <source srcset="${card.webp}" type="image/webp">
+          <img ${imgPerf} alt="${card.alt}" src="${card.src}">
+        </picture>
+      </div>
+    `;
+    
     track.appendChild(slide);
     const dot = document.createElement('button');
     dot.className = `carousel-dot ${index===0?'active':''}`;
@@ -192,7 +200,7 @@ function init3DCardEffects(){
 }
 
 function initializeImageQuality(){
-  document.querySelectorAll('.carousel-slide .card img').forEach(img=>{
+  document.querySelectorAll('.carousel-slide .card img, .carousel-slide .card picture img').forEach(img=>{
     img.style.imageRendering='auto';
     img.style.filter='none';
     img.style.transform='translateZ(1px)';
@@ -310,10 +318,71 @@ function handleSwipe(){
   if(Math.abs(d)>t){ if(d>0){ prevSlide(); } else { nextSlide(); } handleUserInteraction(); }
 }
 
+// Auto-scroll carousel with pause on user interaction
+let autoScrollInterval;
+let lastUserInteraction = 0;
+
+function startAutoScroll() {
+  if (autoScrollInterval) clearInterval(autoScrollInterval);
+  
+  autoScrollInterval = setInterval(() => {
+    // Pause auto-scroll for 15 seconds after user interaction
+    if (Date.now() - lastUserInteraction < 15000) return;
+    
+    // Don't auto-scroll if user is not viewing the page
+    if (document.hidden) return;
+    
+    try {
+      nextSlide();
+    } catch (error) {
+      console.warn('Auto-scroll error:', error);
+    }
+  }, 4000); // Change slide every 4 seconds
+}
+
+function handleUserInteraction() {
+  lastUserInteraction = Date.now();
+  // Don't need to clear interval, just update timestamp
+}
+
+// Start auto-scroll when page loads
+if (carousel && cardData.length > 1) {
+  startAutoScroll();
+}
+
 // CTA conversion hooks
 const discordBtn=document.getElementById('discordBtn');
 const redditBtn=document.getElementById('redditBtn');
 const emailBtn=document.getElementById('emailBtn');
+
+// Enhanced email button with success state
+if(emailBtn){
+  emailBtn.addEventListener('click', function(){
+    try{ if(window.rdt) rdt('track','SignUp',{event_name:'EmailSignup',content_name:'Newsletter',content_category:'Email Marketing',content_ids:['email_signup'],content_type:'signup'}); }catch(_){ }
+    try{ if(window.rdt) rdt('track','Custom',{customEventName:'EmailSignup',content_name:'Newsletter'}); }catch(_){ }
+    
+    // Show success state after form submission
+    setTimeout(() => {
+      const originalContent = emailBtn.innerHTML;
+      emailBtn.innerHTML = `
+        <span class="btn-row">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <span class="btn-label">✅ You're In!</span>
+        </span>
+      `;
+      emailBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        emailBtn.innerHTML = originalContent;
+        emailBtn.style.background = '';
+      }, 3000);
+    }, 2000);
+  });
+}
+
 if(discordBtn){
   discordBtn.addEventListener('click', function(e){
     e.preventDefault();
@@ -322,18 +391,13 @@ if(discordBtn){
     setTimeout(()=>window.open('https://discord.gg/GVkrHXvzf8','_blank'),400);
   });
 }
+
 if(redditBtn){
   redditBtn.addEventListener('click', function(e){
     e.preventDefault();
     try{ if(window.rdt) rdt('track','Lead',{event_name:'RedditJoin',content_name:'Reddit Community',content_category:'Community',content_ids:['reddit_join'],content_type:'community'}); }catch(_){ }
     try{ if(window.rdt) rdt('track','Custom',{customEventName:'RedditJoin',content_name:'Reddit Community'}); }catch(_){ }
     setTimeout(()=>window.open('https://reddit.com/r/countryball_cards','_blank'),400);
-  });
-}
-if(emailBtn){
-  emailBtn.addEventListener('click', function(){
-    try{ if(window.rdt) rdt('track','SignUp',{event_name:'EmailSignup',content_name:'Newsletter',content_category:'Email Marketing',content_ids:['email_signup'],content_type:'signup'}); }catch(_){ }
-    try{ if(window.rdt) rdt('track','Custom',{customEventName:'EmailSignup',content_name:'Newsletter'}); }catch(_){ }
   });
 }
 
@@ -383,6 +447,79 @@ updateCarousel();
 detectCountryAndSetBackground();
 startAutoScroll();
 setTimeout(()=>{ init3DCardEffects(); initializeImageQuality(); },100);
+
+// ===== ADVANCED TRACKING =====
+function trackAdvancedEvent(eventName, parameters = {}) {
+  try {
+    // Google Analytics 4
+    if (window.gtag) {
+      gtag('event', eventName, {
+        event_category: 'user_engagement',
+        event_label: parameters.label || '',
+        value: parameters.value || 0,
+        custom_parameter_1: parameters.custom1 || '',
+        custom_parameter_2: parameters.custom2 || '',
+        ...parameters
+      });
+    }
+    
+    // Reddit Pixel
+    if (window.rdt) {
+      rdt('track', 'Custom', {
+        customEventName: eventName,
+        content_name: parameters.content_name || eventName,
+        content_category: parameters.content_category || 'engagement',
+        ...parameters
+      });
+    }
+  } catch (error) {
+    console.warn('Tracking error:', error);
+  }
+}
+
+// Scroll depth tracking
+let maxScrollDepth = 0;
+const scrollMilestones = [25, 50, 75, 90, 100];
+let trackedMilestones = new Set();
+
+function trackScrollDepth() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = Math.round((scrollTop / documentHeight) * 100);
+  
+  maxScrollDepth = Math.max(maxScrollDepth, scrollPercent);
+  
+  scrollMilestones.forEach(milestone => {
+    if (scrollPercent >= milestone && !trackedMilestones.has(milestone)) {
+      trackedMilestones.add(milestone);
+      trackAdvancedEvent('scroll_depth', {
+        label: `${milestone}%`,
+        value: milestone,
+        content_category: 'scroll_tracking'
+      });
+    }
+  });
+}
+
+// Time on page tracking
+let startTime = Date.now();
+
+function trackTimeOnPage() {
+  const timeSpent = Math.round((Date.now() - startTime) / 1000);
+  
+  // Track at specific intervals
+  if ([30, 60, 120, 300].includes(timeSpent)) {
+    trackAdvancedEvent('time_on_page', {
+      label: `${timeSpent}s`,
+      value: timeSpent,
+      content_category: 'engagement_time'
+    });
+  }
+}
+
+// Initialize advanced tracking
+window.addEventListener('scroll', trackScrollDepth, { passive: true });
+setInterval(trackTimeOnPage, 1000);
 
 // ===== TRACKING FUNCTIONS =====
 function trackPackagesClick() {

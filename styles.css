@@ -310,68 +310,6 @@ font-size:16px}
 /* optional extra spacing below when count is present (no overlap now) */
 .btn.has-count{margin-bottom:8px}
 
-/* Social Proof */
-.social-proof {
-  margin-top: 20px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(199, 164, 85, 0.2);
-  border-radius: 12px;
-  text-align: center;
-}
-
-.social-stats {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 12px;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.stat-number {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--gold);
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.social-testimonial {
-  font-size: 14px;
-  color: var(--muted);
-  font-style: italic;
-  padding: 8px 16px;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  border-left: 3px solid var(--gold);
-}
-
-@media (max-width: 480px) {
-  .social-stats {
-    gap: 20px;
-  }
-  
-  .stat-number {
-    font-size: 18px;
-  }
-  
-  .social-testimonial {
-    font-size: 13px;
-    padding: 6px 12px;
-  }
-}
-
 /* Normalize CTA buttons: same width and spacing */
 .cta .btn{width:min(100%, 260px); margin:0}
 /* Ensure spacing between buttons relies on .cta gap only */
@@ -606,5 +544,155 @@ font-size:16px}
   
   .packages-cta-content {
     gap: 12px;
+  }
+}
+
+/* FAQ Section */
+.faq-section {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.faq-section h2 {
+  color: var(--gold);
+  font-size: clamp(24px, 4vw, 32px);
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(199, 164, 85, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: rgba(199, 164, 85, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.faq-item h3 {
+  color: var(--gold);
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.faq-item p {
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .faq-item {
+    padding: 20px;
+  }
+}
+
+/* LOADING AND ERROR STATES */
+.loading {
+  position: relative;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #ffffff40;
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.success-message {
+  color: #51cf66;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(81, 207, 102, 0.1);
+  border: 1px solid rgba(81, 207, 102, 0.3);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* ACCESSIBILITY IMPROVEMENTS */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hide any theme toggle buttons that might be injected by extensions or scripts */
+[data-theme-toggle],
+.theme-toggle,
+.dark-mode-toggle,
+.light-mode-toggle,
+button[aria-label*="theme"],
+button[aria-label*="dark"],
+button[aria-label*="light"],
+div[class*="theme-switch"],
+div[class*="mode-toggle"] {
+  display: none !important;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #4fc3f7;
+  outline-offset: 2px;
+}
+
+.carousel-track {
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@media (max-width: 768px) {
+  button, .btn, a[role="button"] {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

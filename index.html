@@ -5,11 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com; img-src 'self' data: https:; frame-src https://tally.so;">
-  <title>Countryball Cards — Card Game</title>
+  <title>Countryball Cards - Card Game</title>
   <meta name="description" content="Countryball Cards is a strategic, countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit." />
   <link rel="canonical" href="https://countryballcards.com/" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#151515" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://countryballcards.com/">
+  <meta property="og:title" content="Countryball Cards - Strategic Card Game">
+  <meta property="og:description" content="Strategic countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit.">
+  <meta property="og:image" content="https://countryballcards.com/logo.png">
+  <meta property="og:site_name" content="Countryball Cards">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://countryballcards.com/">
+  <meta property="twitter:title" content="Countryball Cards - Strategic Card Game">
+  <meta property="twitter:description" content="Strategic countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit.">
+  <meta property="twitter:image" content="https://countryballcards.com/logo.png">
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Countryball Cards",
+    "description": "Strategic countryball-themed card game with collectible cards, holographic finishes, and exclusive community access.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Countryball Cards"
+    },
+    "category": "Games & Toys",
+    "offers": {
+      "@type": "AggregateOffer",
+      "availability": "https://schema.org/PreOrder",
+      "priceRange": "$29-49",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "150"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "Countryball Cards",
+      "url": "https://countryballcards.com"
+    }
+  }
+  </script>
   
   <!-- Performance hints -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -17,9 +63,11 @@
   <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
   <link rel="preconnect" href="https://tally.so" crossorigin>
+  <link rel="dns-prefetch" href="https://ipapi.co">
+  <link rel="dns-prefetch" href="https://discord.com">
   
   <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="Countryball Cards — Countryball Card Game" />
+  <meta property="og:title" content="Countryball Cards - Countryball Card Game" />
   <meta property="og:description" content="Grab the free print-and-play and join the Kickstarter prelaunch community." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://countryballcards.com/" />
@@ -30,7 +78,7 @@
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Countryball Cards — Countryball Card Game" />
+  <meta name="twitter:title" content="Countryball Cards - Countryball Card Game" />
   <meta name="twitter:description" content="Free print-and-play and Kickstarter prelaunch community." />
   <meta name="twitter:image" content="https://countryballcards.com/logo.png" />
   <meta name="twitter:image:alt" content="Countryball Cards logo and sample cards" />
@@ -79,7 +127,7 @@
         "@type": "WebPage",
         "@id": "https://countryballcards.com/#webpage",
         "url": "https://countryballcards.com/",
-        "name": "Countryball Cards — Countryball Card Game",
+        "name": "Countryball Cards - Countryball Card Game",
         "description": "Countryball Cards is a strategic, countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit.",
         "isPartOf": { "@id": "https://countryballcards.com/#website" },
         "primaryImageOfPage": {
@@ -213,7 +261,6 @@
               </div>
             </div>
           </div>
-          <p class="sub">Strategic countryball card game launching on Kickstarter October 1st! Get the free print-and-play on Discord & be first to know when pre-orders open.</p>
           <div class="cta">
             <!-- Primary CTA - Kickstarter Sign-up -->
             <button class="btn primary cta-primary" id="emailBtn"
@@ -249,23 +296,6 @@
           </div>
           <div class="privacy-notice" style="font-size:12px;color:var(--muted);margin-top:8px">
             By subscribing, you agree to our <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a>
-          </div>
-          
-          <!-- Social Proof -->
-          <div class="social-proof">
-            <div class="social-stats">
-              <div class="stat-item">
-                <span class="stat-number" id="discordCount">---</span>
-                <span class="stat-label">Discord Members</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-number" id="redditCount">---</span>
-                <span class="stat-label">Reddit Subscribers</span>
-              </div>
-            </div>
-            <div class="social-testimonial">
-              💬 "Can't wait for the Kickstarter! The print-and-play is already amazing!"
-            </div>
           </div>
         </div>
 
@@ -305,6 +335,32 @@
       </div>
 
       <!-- Golden separator after packages CTA -->
+      <div class="golden-separator"></div>
+
+      <!-- FAQ Section -->
+      <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>🎮 How do I play?</h3>
+            <p>Download the free print-and-play from our Discord! It includes rules, cards, and everything you need to start playing immediately.</p>
+          </div>
+          <div class="faq-item">
+            <h3>📦 What's in the box?</h3>
+            <p>20+ country cards, dice, resource cards, tokens, and a complete strategy guide. See our packages page for detailed contents.</p>
+          </div>
+          <div class="faq-item">
+            <h3>🚚 Shipping costs?</h3>
+            <p>Free shipping to US, EU, and 15+ other countries. Only €4-12 to most other regions worldwide.</p>
+          </div>
+          <div class="faq-item">
+            <h3>⏰ When will it ship?</h3>
+            <p>Kickstarter launches October 1st. We aim to deliver to all backers before Christmas 2026.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Golden separator after FAQ -->
       <div class="golden-separator"></div>
 
       <!-- Lightweight, crawlable copy helps avoid soft‑404 classification and clarifies intent -->

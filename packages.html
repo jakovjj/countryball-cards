@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <title>Game Packages — Countryball Cards</title>
+  <title>Game Packages - Countryball Cards</title>
   <meta name="description" content="Choose your perfect Countryball Cards package. From the base game to the premium Founder's Edition with handdrawn cards and exclusive content." />
   <link rel="canonical" href="https://countryballcards.com/packages.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#151515" />
   
   <!-- Open Graph / Facebook -->
-  <meta property="og:title" content="Game Packages — Countryball Cards" />
+  <meta property="og:title" content="Game Packages - Countryball Cards" />
   <meta property="og:description" content="Choose your perfect package for Countryball Cards. Kickstarter launching October 1st!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://countryballcards.com/packages.html" />
@@ -19,7 +19,7 @@
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Game Packages — Countryball Cards" />
+  <meta name="twitter:title" content="Game Packages - Countryball Cards" />
   <meta name="twitter:description" content="Choose your perfect package. Kickstarter launching October 1st!" />
   <meta name="twitter:image" content="https://countryballcards.com/logo.png" />
   
@@ -81,8 +81,19 @@
       border-radius: 16px;
       padding: 24px;
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 400px;
+      transform: translateY(0);
+    }
+    
+    .package-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(199, 164, 85, 0.6);
+      box-shadow: 0 20px 40px rgba(199, 164, 85, 0.15), 0 8px 16px rgba(0, 0, 0, 0.2);
     }
     
     .package-card:hover {
@@ -109,6 +120,18 @@
       font-weight: 700;
       border-radius: 0 0 8px 8px;
       letter-spacing: 0.5px;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { 
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 0 0 0 rgba(199, 164, 85, 0.7);
+      }
+      50% { 
+        transform: translateX(-50%) scale(1.05);
+        box-shadow: 0 0 0 8px rgba(199, 164, 85, 0);
+      }
     }
     
     .package-header {
@@ -128,6 +151,13 @@
       font-weight: 800;
       color: var(--text);
       margin-bottom: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .package-card:hover .package-price {
+      color: var(--text);
+      transform: scale(1.05);
     }
     
     .package-subtitle {
@@ -139,6 +169,7 @@
       list-style: none;
       padding: 0;
       margin: 20px 0;
+      flex-grow: 1;
     }
     
     .package-features li {
@@ -157,66 +188,167 @@
       color: var(--gold);
       font-weight: 700;
       font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+    
+    .package-card:hover .feature-check {
+      transform: scale(1.1);
     }
     
     .base-content {
-      background: rgba(199, 164, 85, 0.1);
-      border: 1px solid rgba(199, 164, 85, 0.3);
-      border-radius: 12px;
-      padding: 20px;
-      margin: 32px 0;
+      background: linear-gradient(135deg, rgba(199, 164, 85, 0.12), rgba(199, 164, 85, 0.06));
+      border: 2px solid rgba(199, 164, 85, 0.4);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .base-content::before {
+      content: '🎮';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      opacity: 0.4;
     }
     
     .base-content h3 {
       color: var(--gold);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .base-content h3::before {
+      content: '📋';
+      font-size: 18px;
     }
     
     .base-content ul {
       list-style: none;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
     }
     
     .base-content li {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 4px 0;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border: 1px solid rgba(199, 164, 85, 0.2);
+      transition: all 0.2s ease;
+    }
+    
+    .base-content li:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(199, 164, 85, 0.4);
+      transform: translateX(4px);
+    }
+    
+    .base-content .feature-check {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 16px;
+      min-width: 16px;
     }
     
     .shipping-info {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 24px;
-      margin: 32px 0;
+      background: linear-gradient(135deg, rgba(199, 164, 85, 0.08), rgba(199, 164, 85, 0.03));
+      border: 1px solid rgba(199, 164, 85, 0.3);
+      border-radius: 16px;
+      padding: 28px;
+      margin: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .shipping-info::before {
+      content: '🚢';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      opacity: 0.3;
     }
     
     .shipping-info h3 {
       color: var(--gold);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .shipping-info h3::before {
+      content: '📦';
+      font-size: 20px;
     }
     
     .shipping-zones {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
     
     .shipping-zone {
-      background: rgba(255, 255, 255, 0.03);
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(199, 164, 85, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid rgba(199, 164, 85, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .shipping-zone:hover {
+      transform: translateY(-2px);
+      border-color: rgba(199, 164, 85, 0.4);
+      box-shadow: 0 8px 25px rgba(199, 164, 85, 0.1);
+    }
+    
+    .shipping-zone:first-child {
+      border-color: #10b981;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+    }
+    
+    .shipping-zone:first-child::before {
+      content: '✨';
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 18px;
     }
     
     .shipping-zone h4 {
       color: var(--gold);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .shipping-zone:first-child h4 {
+      color: #10b981;
+    }
+    
+    .shipping-zone h4::before {
+      content: '🌍';
+      font-size: 14px;
     }
     
     .shipping-zone p {
@@ -227,15 +359,16 @@
     }
     
     .disclaimer {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(199, 164, 85, 0.3);
-      border-radius: 8px;
-      padding: 16px;
-      margin: 32px 0;
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.08), rgba(255, 193, 7, 0.03));
+      border: 2px solid rgba(255, 193, 7, 0.3);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 40px 0;
       text-align: center;
       color: var(--muted);
       font-size: 14px;
-      font-style: italic;
+      position: relative;
+      overflow: hidden;
     }
     
     .back-button {
@@ -293,7 +426,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       width: 100%;
-      margin-top: 20px;
+      margin-top: auto;
       box-shadow: 0 4px 16px rgba(199, 164, 85, 0.3);
     }
     
@@ -309,6 +442,125 @@
       transform: none;
     }
     
+    /* Extended Edition - Purple Theme */
+    .package-card.extended-edition {
+      border-color: #8b5cf6;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
+    }
+    
+    .package-card.extended-edition:hover {
+      border-color: #7c3aed;
+      box-shadow: 0 12px 40px rgba(139, 92, 246, 0.25);
+    }
+    
+    .package-card.extended-edition .package-name {
+      color: #8b5cf6;
+    }
+    
+    .package-card.extended-edition .feature-check {
+      color: #8b5cf6;
+    }
+    
+    .package-card.extended-edition .select-package-btn {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+    }
+    
+    .package-card.extended-edition .select-package-btn:hover {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      box-shadow: 0 6px 24px rgba(139, 92, 246, 0.4);
+    }
+    
+    /* Founder's Edition - Emerald Theme with Holographic Effect */
+    .package-card.founders-edition {
+      border-color: #10b981;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.03));
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .package-card.founders-edition::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(16, 185, 129, 0.15),
+        rgba(6, 182, 212, 0.15),
+        rgba(168, 85, 247, 0.15),
+        rgba(236, 72, 153, 0.15),
+        transparent
+      );
+      animation: holographic 3s infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .package-card.founders-edition > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    @keyframes holographic {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .package-card.founders-edition:hover {
+      border-color: #059669;
+      box-shadow: 0 12px 40px rgba(16, 185, 129, 0.25);
+    }
+    
+    .package-card.founders-edition .package-name {
+      color: #10b981;
+    }
+    
+    .package-card.founders-edition .feature-check {
+      color: #10b981;
+    }
+    
+    .package-card.founders-edition .select-package-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+    }
+    
+    .package-card.founders-edition .select-package-btn:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+    }
+    
+    /* Holographic Text Effect */
+    .holographic {
+      background: linear-gradient(
+        45deg,
+        #ff0000 0%,
+        #ff8000 16%,
+        #ffff00 32%,
+        #80ff00 48%,
+        #00ff80 64%,
+        #0080ff 80%,
+        #8000ff 96%,
+        #ff0080 100%
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: holographic-shimmer 3s ease-in-out infinite;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    @keyframes holographic-shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
     @media (max-width: 768px) {
       .packages-grid {
         grid-template-columns: 1fr;
@@ -317,6 +569,10 @@
       
       .package-card {
         padding: 20px;
+      }
+      
+      .package-card:hover {
+        transform: translateY(-4px);
       }
       
       .package-price {
@@ -360,11 +616,7 @@
 
       <div class="packages-hero">
         <h1>Choose Your Package</h1>
-        <p class="sub">Select the perfect edition for your countryball adventure. All packages include shipping!</p>
-        
-        <div class="kickstarter-banner">
-          🚀 Kickstarter Launching October 1st, 2025! 🚀
-        </div>
+        <p class="sub">Select the perfect edition for your countryball adventure.</p>
       </div>
 
       <div class="packages-grid">
@@ -402,7 +654,7 @@
         </div>
 
         <!-- Extended Edition -->
-        <div class="package-card">
+        <div class="package-card extended-edition">
           <div class="package-header">
             <div class="package-name">Extended Edition</div>
             <div class="package-price" data-eur="35">€35 / $41</div>
@@ -419,7 +671,7 @@
         </div>
 
         <!-- Founder's Edition -->
-        <div class="package-card">
+        <div class="package-card founders-edition">
           <div class="package-header">
             <div class="package-name">Founder's Edition</div>
             <div class="package-price" data-eur="50">€50 / $59</div>
@@ -428,7 +680,7 @@
           <ul class="package-features">
             <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
             <li><span class="feature-check">✓</span> Handdrawn version of each card</li>
-            <li><span class="feature-check">✓</span> 5 random unique holographic cards</li>
+            <li><span class="feature-check">✓</span> 5 random unique <span class="holographic">holographic</span> cards</li>
             <li><span class="feature-check">✓</span> 20 blank templates for custom cards</li>
             <li><span class="feature-check">✓</span> Limited collector's edition</li>
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
@@ -474,7 +726,7 @@
       </div>
 
       <div class="disclaimer">
-        ⚠️ Please note: Package contents, pricing, and shipping information are subject to change before the final Kickstarter launch. We're working hard to finalize all details for the best possible experience!
+        <strong>Please note:</strong> Package contents, pricing, and shipping information are subject to change before the final Kickstarter launch. We're working hard to finalize all details for the best possible experience!
       </div>
 
       <!-- Call to Action Buttons -->

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>404 - Page Not Found | Countryball Cards</title>
+  <meta name="description" content="Page not found. Return to Countryball Cards homepage." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href="https://countryballcards.com/" />
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .error-page {
+      text-align: center;
+      padding: 4rem 2rem;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .error-code {
+      font-size: 8rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin: 0;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+    }
+    
+    .error-message {
+      font-size: 1.5rem;
+      margin: 1rem 0 2rem;
+      color: var(--muted);
+    }
+    
+    .error-card {
+      width: 120px;
+      height: 168px;
+      background: var(--card);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      margin: 2rem auto;
+      position: relative;
+      transform: rotate(-5deg);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    
+    .error-card::before {
+      content: "?";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      color: var(--gold);
+      font-weight: bold;
+    }
+    
+    @media (max-width: 768px) {
+      .error-code {
+        font-size: 6rem;
+      }
+      .error-message {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <div class="error-page">
+        <h1 class="error-code">404</h1>
+        <div class="error-card"></div>
+        <h2 class="error-message">This card doesn't exist in our deck!</h2>
+        <p style="color: var(--muted); margin-bottom: 2rem;">
+          The page you're looking for seems to have wandered off to another country.
+        </p>
+        
+        <div class="cta">
+          <a class="btn primary cta-primary" href="index.html" onclick="window.location.href='index.html'; return false;">
+            <span class="btn-row">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <span class="btn-label">Return Home</span>
+            </span>
+          </a>
+        </div>
+      </div>
+      
+      <footer style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(199, 164, 85, 0.3); color: var(--muted); font-size: 0.9rem;">
+        <p>© 2025 Glare Studios • Made for fans of countryballs & strategy.</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
