@@ -125,6 +125,8 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
       will-change:transform;
       backface-visibility:hidden;
       -webkit-backface-visibility:hidden}
+/* On touch devices, disable hand cursor since tilt is disabled */
+@media (hover: none) and (pointer: coarse){ .card{ cursor: default; } }
 .card:hover{box-shadow:0 12px 25px rgba(0,0,0,.4),
                        0 0 20px rgba(199,164,85,.3)}
 .card img{width:100%;height:100%;display:block;
@@ -350,6 +352,12 @@ font-size:16px}
     margin: 6px auto 10px auto;
     padding: 8px 10px;
   }
+  /* Eliminate large vertical space before the carousel */
+  .hero .art{align-items:flex-start;min-height:auto}
+  /* Reduce spacing after the CTA/copy block */
+  .hero .copy{margin-bottom:8px}
+  /* Nudge privacy notice closer to CTAs on mobile */
+  .privacy-notice{margin-top:4px !important}
   .cta-primary {
     max-width: 260px !important;
     margin: 0 auto !important;
@@ -370,10 +378,7 @@ font-size:16px}
     max-width: 260px;
     margin: 0 auto;
   }
-  .carousel-container {
-    max-width: 85vw;
-    padding: 12px 8px;
-  }
+  .carousel-container { max-width: 85vw; padding: 6px 6px; margin-top:0; }
   .carousel-slide .card {
     width: min(88%, 280px);
   }
@@ -401,8 +406,11 @@ font-size:16px}
   .hero .art{grid-column:1;width:100%;display:flex;justify-content:center;align-items:center;padding:0;margin:0;min-height:clamp(420px,65vh,600px);position:relative}
   .carousel-container{width:100%;max-width:95vw;margin:0 auto;position:static;transform:none;
                      padding:clamp(20px,5vw,40px) clamp(8px,3vw,16px);box-sizing:border-box}
+  /* Use a safe height for mobile to avoid cropping */
   .carousel{width:100%;border-radius:0;aspect-ratio:3/4}
-  .carousel-slide .card{width:min(90%, 340px);max-height:98%}
+  /* Place slide content at the very top to avoid extra top space */
+  .carousel-slide{align-items:flex-start}
+  .carousel-slide .card{width:auto;max-width:90%;height:auto;max-height:98%}
   .carousel-slide .card img{max-width:100%;max-height:100%;object-fit:contain}
   .carousel-dots{margin-bottom:clamp(16px,4vw,32px)}
   .carousel-dot{width:4px !important;height:4px !important}
@@ -424,9 +432,13 @@ font-size:16px}
 
 /* Additional mobile-specific adjustments */
 @media (max-width:480px){
-  .carousel-container{max-width:90vw;padding:clamp(12px,3vw,16px) clamp(2px,1vw,4px)}
-  .carousel{aspect-ratio:2.5/4}
-  .carousel-slide .card{width:min(90%, 260px)}
+  /* Tighten vertical spacing around the carousel on small screens */
+  .carousel-container{max-width:90vw;padding:6px 2px}
+  /* Place the carousel at the top and avoid extra whitespace */
+  .hero .art{align-items:flex-start;min-height:auto}
+  .carousel{aspect-ratio:3/4}
+  .carousel-slide{align-items:flex-start}
+  .carousel-slide .card{width:auto;max-width:90%;height:auto;max-height:98%}
   .carousel-dots{margin-bottom:clamp(8px,2vw,12px)}
   .carousel-dot{width:4px !important;height:4px !important}
   .wrap{padding:clamp(8px,2vw,12px);max-width:calc(100vw - 12px)}
@@ -471,9 +483,12 @@ font-size:16px}
 
 /* Very small screens */
 @media (max-width:360px){
+  /* Keep carousel tight and pinned to top */
+  .hero .art{align-items:flex-start;min-height:auto}
   .carousel-container{padding:8px 2px}
-  .carousel{aspect-ratio:2.2/4}
-  .carousel-slide .card{width:min(92%, 220px)}
+  .carousel{aspect-ratio:3/4}
+  .carousel-slide{align-items:flex-start}
+  .carousel-slide .card{width:auto;max-width:92%;height:auto;max-height:98%}
   .carousel-dots{margin-bottom:clamp(6px,1.5vw,10px)}
   .carousel-dot{width:3px !important;height:3px !important}
   .btn{padding:8px 10px;font-size:12px;box-sizing:border-box;max-width:100%}

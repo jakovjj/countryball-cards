@@ -660,7 +660,13 @@ initializeCarousel();
 updateCarousel();
 detectCountryAndSetBackground();
 startAutoScroll();
-setTimeout(()=>{ init3DCardEffects(); initializeImageQuality(); },100);
+// Enable 3D tilt only on devices with a precise pointer and hover (i.e., desktops)
+const supports3DTilt = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (supports3DTilt) {
+  setTimeout(()=>{ init3DCardEffects(); initializeImageQuality(); },100);
+} else {
+  setTimeout(()=>{ initializeImageQuality(); },100);
+}
 
 // ===== ADVANCED TRACKING =====
 function trackAdvancedEvent(eventName, parameters = {}) {
