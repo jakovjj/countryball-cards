@@ -513,14 +513,27 @@ function showEmailModal() {
     showMessage('', '');
     
     try {
-      // Check if EmailJS is ready
-      if (!window.emailJSReady || typeof emailjs === 'undefined') {
-        // Wait a bit more for EmailJS to load
-        await new Promise(resolve => setTimeout(resolve, 1000));
+      // Check if EmailJS is ready with more thorough checks
+      if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
+        console.log('EmailJS not ready, waiting...');
+        showMessage('Connecting to email service...', 'info');
         
-        if (!window.emailJSReady || typeof emailjs === 'undefined') {
-          throw new Error('EmailJS service is not available. Please check your internet connection and try again.');
+        // Wait longer for EmailJS to load with multiple checks
+        let waitAttempts = 0;
+        const maxWaitAttempts = 10;
+        
+        while (waitAttempts < maxWaitAttempts && (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send)) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          waitAttempts++;
+          console.log(`EmailJS wait attempt ${waitAttempts}/${maxWaitAttempts}`);
         }
+        
+        if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
+          throw new Error('EmailJS service failed to load. Please refresh the page and try again.');
+        }
+        
+        console.log('EmailJS is now ready');
+        showMessage('', '');
       }
       
       // Check for duplicate emails locally first
