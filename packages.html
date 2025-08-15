@@ -552,13 +552,47 @@
       background-clip: text;
       animation: holographic-shimmer 3s ease-in-out infinite;
       font-weight: 700;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      display: inline;
+    }
+    
+    /* Simpler holographic text for inline use */
+    .holographic-text {
+      background: linear-gradient(45deg, #10b981, #06b6d4, #8b5cf6);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: subtle-shimmer 4s ease-in-out infinite;
+      font-weight: 700;
+      display: inline-block;
+    }
+    
+    @keyframes subtle-shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     
     @keyframes holographic-shimmer {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+    
+    /* Fallback for browsers that don't support background-clip: text */
+    @supports not (-webkit-background-clip: text) {
+      .holographic {
+        background: none;
+        -webkit-text-fill-color: initial;
+        color: #ff6b9d;
+        text-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+      }
+      
+      .holographic-text {
+        background: none;
+        -webkit-text-fill-color: initial;
+        color: #10b981;
+        text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+      }
     }
     
     @media (max-width: 768px) {
@@ -680,7 +714,7 @@
           <ul class="package-features">
             <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
             <li><span class="feature-check">✓</span> Handdrawn version of each card</li>
-            <li><span class="feature-check">✓</span> 5 random unique <span class="holographic">holographic</span> cards</li>
+            <li><span class="feature-check">✓</span> 5 random unique holographic cards</li>
             <li><span class="feature-check">✓</span> 20 blank templates for custom cards</li>
             <li><span class="feature-check">✓</span> Limited collector's edition</li>
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
@@ -971,6 +1005,36 @@
       if (document.querySelectorAll('.package-card').length > 0) {
         updatePricesBasedOnLocation();
       }
+      
+      // Remove holographic class on small screens
+      function handleHolographicClass() {
+        const holographicElements = document.querySelectorAll('.holographic, .holographic-text');
+        if (window.innerWidth < 400) {
+          holographicElements.forEach(el => {
+            el.classList.remove('holographic', 'holographic-text');
+            el.style.color = '#10b981'; // Fallback color
+          });
+        } else {
+          holographicElements.forEach(el => {
+            el.style.color = ''; // Remove inline style
+            if (el.textContent === 'holographic') {
+              if (!el.classList.contains('holographic-text')) {
+                el.classList.add('holographic-text');
+              }
+            } else {
+              if (!el.classList.contains('holographic')) {
+                el.classList.add('holographic');
+              }
+            }
+          });
+        }
+      }
+      
+      // Check on load
+      handleHolographicClass();
+      
+      // Check on resize
+      window.addEventListener('resize', handleHolographicClass);
     });
   </script>
 </body>
