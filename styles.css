@@ -4,6 +4,94 @@ body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Seg
 .wrap{max-width:980px;margin:0 auto;padding:28px}
 .frame{border:3px solid var(--gold);border-radius:18px;padding:28px}
 h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
+
+/* Countdown Banner */
+.countdown-banner {
+  background: rgba(199, 164, 85, 0.1);
+  border: 1px solid rgba(199, 164, 85, 0.3);
+  color: var(--text);
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 16px 0 20px 0;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  animation: countdown-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes countdown-glow {
+  from { border-color: rgba(199, 164, 85, 0.3); }
+  to { border-color: rgba(199, 164, 85, 0.5); }
+}
+
+.countdown-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.countdown-label {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--gold);
+}
+
+.countdown-timer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.countdown-number {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 45px;
+  background: rgba(199, 164, 85, 0.2);
+  border: 1px solid rgba(199, 164, 85, 0.4);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--gold);
+}
+
+.countdown-label-small {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+@media (max-width: 480px) {
+  .countdown-timer {
+    gap: 12px;
+  }
+  
+  .countdown-number {
+    font-size: 24px;
+    min-width: 40px;
+    padding: 6px 10px;
+  }
+  
+  .countdown-label-small {
+    font-size: 10px;
+  }
+  
+  .countdown-label {
+    font-size: 14px;
+  }
+}
 .logo{max-width:100%;height:auto;max-height:200px;margin:8px 0 6px;display:block}
 .logo-fallback{display:none}
 .sub{color:var(--muted);margin:0 0 18px}
@@ -100,6 +188,84 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 .carousel-dot.active{background:var(--gold)}
 
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;align-items:flex-start;flex-direction:column}
+
+/* Primary CTA styling */
+.cta-primary {
+  width: 100% !important;
+  font-size: 18px !important;
+  padding: 18px 24px !important;
+  background: linear-gradient(135deg, var(--gold), #d4b866) !important;
+  border: none !important;
+  color: var(--bg) !important;
+  box-shadow: 0 6px 24px rgba(199, 164, 85, 0.4) !important;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.cta-primary:hover {
+  background: linear-gradient(135deg, #d4b866, #e6c875) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 32px rgba(199, 164, 85, 0.6) !important;
+}
+
+.cta-primary .btn-count {
+  display: block !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  color: var(--bg) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
+@keyframes pulse-glow {
+  from { box-shadow: 0 6px 24px rgba(199, 164, 85, 0.4); }
+  to { box-shadow: 0 8px 32px rgba(199, 164, 85, 0.6); }
+}
+
+/* Secondary CTA row */
+.cta-secondary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.cta-secondary .btn {
+  flex: 1;
+  min-width: 140px;
+  max-width: 200px;
+  font-size: 14px;
+  padding: 12px 16px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.cta-secondary .btn .btn-label {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.cta-secondary .btn .btn-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Make secondary and tertiary buttons consistent */
+.btn.secondary, .btn.tertiary {
+  border: 2px solid var(--gold);
+  color: var(--text);
+  background: transparent;
+}
+
+.btn.secondary:hover, .btn.tertiary:hover {
+  background: rgba(199, 164, 85, 0.1);
+  border-color: #d4b866;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(199, 164, 85, 0.2),
+             0 0 0 2px rgba(199, 164, 85, 0.15);
+}
 .btn{appearance:none;border:none;background:transparent;color:var(--bg);
        padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800;
        display:inline-flex;align-items:center;gap:8px;text-decoration:none;
@@ -116,10 +282,6 @@ font-size:16px}
                      transform:translateY(-2px);
                      box-shadow:0 6px 20px rgba(199,164,85,0.2),
                                 0 0 0 2px rgba(199,164,85,0.15)}
-.btn.tertiary{background:var(--text);color:var(--bg)}
-.btn.tertiary:hover{background:#f5f5f5;transform:translateY(-2px);
-                    box-shadow:0 6px 20px rgba(238,238,238,0.3),
-                               0 0 0 2px rgba(238,238,238,0.2)}
 .btn-icon{width:20px;height:20px;flex-shrink:0;transition:transform 0.3s ease}
 .btn:hover .btn-icon{transform:scale(1.1)}
 .footer{margin-top:30px;color:var(--muted);font-size:14px}
@@ -148,6 +310,68 @@ font-size:16px}
 /* optional extra spacing below when count is present (no overlap now) */
 .btn.has-count{margin-bottom:8px}
 
+/* Social Proof */
+.social-proof {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(199, 164, 85, 0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.social-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 12px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.social-testimonial {
+  font-size: 14px;
+  color: var(--muted);
+  font-style: italic;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+}
+
+@media (max-width: 480px) {
+  .social-stats {
+    gap: 20px;
+  }
+  
+  .stat-number {
+    font-size: 18px;
+  }
+  
+  .social-testimonial {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+
 /* Normalize CTA buttons: same width and spacing */
 .cta .btn{width:min(100%, 260px); margin:0}
 /* Ensure spacing between buttons relies on .cta gap only */
@@ -173,6 +397,8 @@ font-size:16px}
   .carousel-slide .card{width:min(90%, 340px);max-height:98%}
   .carousel-slide .card img{max-width:100%;max-height:100%;object-fit:contain}
   .cta{justify-content:center;align-items:center}
+  .cta-secondary{flex-direction:column;align-items:center;gap:10px}
+  .cta-secondary .btn{max-width:240px;min-width:200px}
   .privacy-notice{text-align:center !important}
   .wrap{padding:clamp(16px,4vw,20px)}
   .frame{padding:clamp(16px,4vw,20px)}

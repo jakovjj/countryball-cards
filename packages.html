@@ -31,6 +31,10 @@
   <link rel="manifest" href="site.webmanifest">
   
   <link rel="stylesheet" href="styles.css">
+  
+  <!-- Tally popup (email capture). Create a form at tally.so → Share → Popup → copy ID -->
+  <script async src="https://tally.so/widgets/embed.js"></script>
+  
   <style>
     .packages-hero {
       text-align: center;
@@ -667,6 +671,36 @@
           event_category: 'conversion',
           event_label: packageName,
           value: price
+        });
+      }
+    }
+    
+    function trackEmailSignup() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'email_signup_clicked', {
+          event_category: 'conversion',
+          event_label: 'get_updates_packages',
+          value: 1
+        });
+      }
+    }
+    
+    function trackDiscordClick() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'discord_clicked', {
+          event_category: 'social',
+          event_label: 'join_discord_packages',
+          value: 1
+        });
+      }
+    }
+    
+    function trackRedditClick() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'reddit_clicked', {
+          event_category: 'social',
+          event_label: 'join_subreddit_packages',
+          value: 1
         });
       }
     }

@@ -1,3 +1,45 @@
+// ===== KICKSTARTER COUNTDOWN =====
+function initCountdown() {
+  // Kickstarter launch date: October 1st, 2025 at 12:00 PM EST
+  const launchDate = new Date('2025-10-01T16:00:00.000Z'); // 12 PM EST = 4 PM UTC
+  
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const timeLeft = launchDate.getTime() - now;
+    
+    if (timeLeft > 0) {
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      
+      const daysEl = document.getElementById('days');
+      const hoursEl = document.getElementById('hours');
+      const minutesEl = document.getElementById('minutes');
+      
+      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    } else {
+      // Launch day reached
+      const countdownBanner = document.querySelector('.countdown-banner');
+      if (countdownBanner) {
+        countdownBanner.innerHTML = `
+          <div class="countdown-content">
+            <span class="countdown-label">🎉 Kickstarter is LIVE! 🎉</span>
+            <a href="#" class="btn" style="background: var(--bg); color: var(--gold); margin-top: 8px; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 700;">
+              Back on Kickstarter Now!
+            </a>
+          </div>
+        `;
+      }
+    }
+  }
+  
+  // Update immediately and then every minute
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+}
+
 // ===== COUNTRY DETECTION & BACKGROUND =====
 const countryBackgrounds = {
   'US': 'us-bg.png',
@@ -167,9 +209,18 @@ function initializeImageQuality(){
   const cacheKey = 'cbc_counts_v1';
   const cacheTtlMs = 5*60*1000; // 5 minutes
 
-  function setText(el, text){ if(el){ el.textContent = text; if(text && el.parentElement && el.classList.contains('btn-count')){ el.style.display='block'; el.parentElement.classList.add('has-count'); } } }
+  function setText(el, text){ 
+    if(el){ 
+      el.textContent = text; 
+      if(text && el.parentElement && el.classList.contains('btn-count')){ 
+        el.style.display='block'; 
+        el.parentElement.classList.add('has-count'); 
+      } 
+    } 
+  }
+  
   function formatCount(n){
-    if(n==null || isNaN(n)) return '';
+    if(n==null || isNaN(n)) return '---';
     if(n < 1000) return n.toString();
     if(n < 10000) return (n/1000).toFixed(1).replace(/\.0$/,'') + 'k';
     if(n < 1000000) return Math.round(n/1000) + 'k';
@@ -214,14 +265,14 @@ function initializeImageQuality(){
   async function loadCounts(){
     const cached = readCache();
     if(cached){
-      if(cached.discord!=null) setText(discordCountEl, `${formatCount(cached.discord)} members`);
-      if(cached.reddit!=null) setText(redditCountEl, `${formatCount(cached.reddit)} subscribers`);
+      if(cached.discord!=null) setText(discordCountEl, formatCount(cached.discord));
+      if(cached.reddit!=null) setText(redditCountEl, formatCount(cached.reddit));
     }
     const [d, r] = await Promise.all([fetchDiscord(), fetchReddit()]);
     const result = { discord: d ?? (cached && cached.discord) ?? null, reddit: r ?? (cached && cached.reddit) ?? null };
     writeCache(result);
-    if(result.discord!=null) setText(discordCountEl, `${formatCount(result.discord)} members`);
-    if(result.reddit!=null) setText(redditCountEl, `${formatCount(result.reddit)} subscribers`);
+    if(result.discord!=null) setText(discordCountEl, formatCount(result.discord));
+    if(result.reddit!=null) setText(redditCountEl, formatCount(result.reddit));
   }
 
   // kick off when DOM is ready (defer ensures this runs after parse)
@@ -326,6 +377,7 @@ if(emailBtn){
 })();
 
 // Boot
+initCountdown();
 initializeCarousel();
 updateCarousel();
 detectCountryAndSetBackground();
