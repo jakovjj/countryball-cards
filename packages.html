@@ -368,7 +368,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Base Game</div>
-            <div class="package-price">25€</div>
+            <div class="package-price" data-eur="25">€25 / $29</div>
             <div class="package-subtitle">Perfect for getting started</div>
           </div>
           <ul class="package-features">
@@ -384,7 +384,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">2-Pack</div>
-            <div class="package-price">40€</div>
+            <div class="package-price" data-eur="40">€40 / $47</div>
             <div class="package-subtitle">Great value for friends</div>
           </div>
           <ul class="package-features">
@@ -401,7 +401,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Extended Edition</div>
-            <div class="package-price">35€</div>
+            <div class="package-price" data-eur="35">€35 / $41</div>
             <div class="package-subtitle">Enhanced gameplay experience</div>
           </div>
           <ul class="package-features">
@@ -418,7 +418,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Founder's Edition</div>
-            <div class="package-price">50€</div>
+            <div class="package-price" data-eur="50">€50 / $59</div>
             <div class="package-subtitle">The ultimate collector's package</div>
           </div>
           <ul class="package-features">
@@ -455,15 +455,15 @@
             <p>US, AT, BE, CZ, DK, FR, IT, HR, HU, NL, DE, PL, SI, SK</p>
           </div>
           <div class="shipping-zone">
-            <h4>4€ SHIPPING</h4>
+            <h4 class="shipping-price" data-eur="4" data-usd="5">€4 / $5 SHIPPING</h4>
             <p>BG, CY, EE, FI, GR, IE, LV, LT, LU, MT, PT, RO, ES, SE</p>
           </div>
           <div class="shipping-zone">
-            <h4>5.5€ SHIPPING</h4>
+            <h4 class="shipping-price" data-eur="5.5" data-usd="6">€5.5 / $6 SHIPPING</h4>
             <p>AL, AD, BA, ME, GG, XK, LI, MK, MD, MC, NO, IM, FO, SM, RS, CH, UK, UA, VA, UAE</p>
           </div>
           <div class="shipping-zone">
-            <h4>12€ SHIPPING</h4>
+            <h4 class="shipping-price" data-eur="12" data-usd="14">€12 / $14 SHIPPING</h4>
             <p>Rest of the world (e.g., Australia, Canada, Japan, New Zealand...)</p>
           </div>
         </div>
@@ -518,6 +518,123 @@
 
   <script src="analytics.js" defer></script>
   <script>
+    // Eurozone countries
+    const eurozoneCountries = [
+      'AT', 'BE', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES', 'HR'
+    ];
+
+    // Static price display (1€ = 1.17$, already calculated and rounded)
+    function updatePricesBasedOnLocation() {
+      try {
+        // Use test country if set, otherwise fetch real location
+        let countryCode;
+        if (window.testCountry) {
+          countryCode = window.testCountry;
+          console.log('Using test country:', countryCode);
+          showPricesForRegion(countryCode);
+        } else {
+          fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+              countryCode = data.country_code;
+              console.log('Detected country:', countryCode);
+              showPricesForRegion(countryCode);
+            })
+            .catch(() => {
+              console.log('Could not detect location, showing EUR prices');
+              showPricesForRegion('DE'); // Default to EUR
+            });
+        }
+      } catch (error) {
+        console.log('Error in price update:', error);
+      }
+    }
+    
+    function showPricesForRegion(countryCode) {
+      const isEurozone = eurozoneCountries.includes(countryCode);
+      
+      // Update package prices
+      document.querySelectorAll('.package-price').forEach(el => {
+        if (isEurozone) {
+          // Show only EUR: "€25 / $29" → "€25"
+          const originalText = el.textContent;
+          if (originalText.includes(' / ')) {
+            el.textContent = originalText.split(' / ')[0];
+          }
+        } else {
+          // Show only USD: "€25 / $29" → "$29"
+          const originalText = el.textContent;
+          if (originalText.includes(' / ')) {
+            el.textContent = originalText.split(' / ')[1];
+          } else if (originalText.startsWith('€')) {
+            // Convert from EUR display to USD
+            const eurValue = parseInt(originalText.replace('€', ''));
+            let usdValue;
+            switch(eurValue) {
+              case 25: usdValue = 29; break;
+              case 40: usdValue = 47; break;
+              case 35: usdValue = 41; break;
+              case 50: usdValue = 59; break;
+              default: usdValue = Math.round(eurValue * 1.17);
+            }
+            el.textContent = `$${usdValue}`;
+          }
+        }
+      });
+      
+      // Update shipping prices
+      document.querySelectorAll('.shipping-price').forEach(el => {
+        if (isEurozone) {
+          // Show only EUR: "€4 / $5 SHIPPING" → "€4 SHIPPING"
+          const originalText = el.textContent;
+          if (originalText.includes(' / ')) {
+            el.textContent = originalText.replace(/ \/ \$\d+ SHIPPING/, ' SHIPPING');
+          }
+        } else {
+          // Show only USD: "€4 / $5 SHIPPING" → "$5 SHIPPING"
+          const originalText = el.textContent;
+          if (originalText.includes(' / ')) {
+            const usdPart = originalText.match(/\$(\d+) SHIPPING/);
+            if (usdPart) {
+              el.textContent = `$${usdPart[1]} SHIPPING`;
+            }
+          } else if (originalText.match(/€[\d.]+/)) {
+            // Convert from EUR display to USD
+            const eurMatch = originalText.match(/€([\d.]+)/);
+            if (eurMatch) {
+              const eurValue = parseFloat(eurMatch[1]);
+              let usdValue;
+              if (eurValue === 4) usdValue = 5;
+              else if (eurValue === 5.5) usdValue = 6;
+              else if (eurValue === 12) usdValue = 14;
+              else usdValue = Math.round(eurValue * 1.17);
+              el.textContent = `$${usdValue} SHIPPING`;
+            }
+          }
+        }
+      });
+      
+      console.log(`Showing ${isEurozone ? 'EUR only' : 'USD only'} prices for ${countryCode}`);
+      
+      // Track currency display
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'currency_displayed', {
+          event_category: 'user_data',
+          event_label: isEurozone ? 'EUR' : 'USD',
+          custom_parameter: countryCode,
+          value: 1
+        });
+      }
+    }
+
+    // Simple function for easy testing
+    window.updateCountry = function() {
+      if (window.testCountry) {
+        showPricesForRegion(window.testCountry);
+      } else {
+        console.log('Set window.testCountry first! Example: window.testCountry = "US"');
+      }
+    };
     // Track packages page view
     if (typeof gtag !== 'undefined') {
       gtag('event', 'page_view', {
@@ -553,6 +670,22 @@
         });
       }
     }
+    
+    // Simple function for easy testing
+    window.updateCountry = function() {
+      if (window.testCountry) {
+        updatePricesBasedOnLocation();
+      } else {
+        console.log('Set window.testCountry first! Example: window.testCountry = "US"');
+      }
+    };
+    
+    // Initialize currency conversion on page load (only if package cards exist)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.querySelectorAll('.package-card').length > 0) {
+        updatePricesBasedOnLocation();
+      }
+    });
   </script>
 </body>
 </html>

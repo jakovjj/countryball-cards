@@ -108,12 +108,12 @@ function updateCarousel(){
 function nextSlide(){ 
   currentSlide=(currentSlide+1)%totalSlides; 
   updateCarousel(); 
-  trackCarouselInteraction('next_slide', countryBalls[currentSlide].name);
+  trackCarouselInteraction('next_slide', cardData[currentSlide].alt);
 }
 function prevSlide(){ 
   currentSlide=(currentSlide-1+totalSlides)%totalSlides; 
   updateCarousel(); 
-  trackCarouselInteraction('prev_slide', countryBalls[currentSlide].name);
+  trackCarouselInteraction('prev_slide', cardData[currentSlide].alt);
 }
 
 function handleUserInteraction(){
