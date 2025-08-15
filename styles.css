@@ -176,7 +176,7 @@ font-size:16px}
   .privacy-notice{text-align:center !important}
   .wrap{padding:clamp(16px,4vw,20px)}
   .frame{padding:clamp(16px,4vw,20px)}
-  .logo{max-height:clamp(120px,20vw,150px)}
+  .logo{max-height:clamp(120px,20vw,150px);margin:8px auto 6px;display:block}
   .badges{justify-content:center;margin:0 0 16px 0}
   h1{text-align:center}
   .sub{text-align:center;font-size:clamp(14px,3.5vw,16px);line-height:1.5}
