@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://tally.so https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com; img-src 'self' data: https:; frame-src https://tally.so;">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com; img-src 'self' data: https:;">
   <title>Countryball Cards - Card Game</title>
   <meta name="description" content="Countryball Cards is a strategic, countryball-themed card game. Get the free print-and-play and join the Kickstarter prelaunch community on Discord and Reddit." />
   <link rel="canonical" href="https://countryballcards.com/" />
@@ -62,7 +62,6 @@
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
-  <link rel="preconnect" href="https://tally.so" crossorigin>
   <link rel="dns-prefetch" href="https://ipapi.co">
   <link rel="dns-prefetch" href="https://discord.com">
   
@@ -226,9 +225,49 @@
   
   <link rel="stylesheet" href="styles.css">
 
+  <!-- EmailJS SDK - Load synchronously and wait for it -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // Wait for EmailJS to be fully loaded
+    function waitForEmailJS() {
+      return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const maxAttempts = 20; // 10 seconds max
+        
+        function checkEmailJS() {
+          attempts++;
+          if (typeof emailjs !== 'undefined' && emailjs.init) {
+            console.log('EmailJS loaded successfully');
+            try {
+              emailjs.init("hvatz7pPDbme6A77h");
+              window.emailJSReady = true;
+              resolve(true);
+            } catch (error) {
+              console.error('EmailJS init failed:', error);
+              reject(error);
+            }
+          } else if (attempts >= maxAttempts) {
+            console.error('EmailJS failed to load after', maxAttempts, 'attempts');
+            reject(new Error('EmailJS loading timeout'));
+          } else {
+            setTimeout(checkEmailJS, 500);
+          }
+        }
+        
+        checkEmailJS();
+      });
+    }
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      waitForEmailJS().catch(error => {
+        console.error('EmailJS initialization failed:', error);
+        window.emailJSReady = false;
+      });
+    });
+  </script>
+
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
-  <!-- Tally popup (email capture). Create a form at tally.so → Share → Popup → copy ID -->
-  <script async src="https://tally.so/widgets/embed.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -263,8 +302,7 @@
           </div>
           <div class="cta">
             <!-- Primary CTA - Kickstarter Sign-up -->
-            <button class="btn primary cta-primary" id="emailBtn"
-              data-tally-open="mYAbWd" data-tally-layout="modal" data-tally-auto-close="1500" onclick="trackEmailSignup()">
+            <button class="btn primary cta-primary" id="emailBtn" onclick="showEmailModal()">
               <span class="btn-row">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
@@ -432,6 +470,64 @@
       </ol>
       <footer>
         <span class="small">Want to influence this? Join Discord for votes and playtests.</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Email Signup Modal -->
+  <div class="modal-overlay" id="emailOverlay" hidden aria-hidden="true">
+    <div class="modal email-modal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" tabindex="-1">
+      <header>
+        <h2 id="emailModalTitle">🚀 Get Kickstarter Updates</h2>
+        <button class="modal-close" type="button" id="emailCloseBtn" aria-label="Close email signup">✕</button>
+      </header>
+      <div class="email-modal-content">
+        <p>Be the first to know when our Kickstarter launches on October 1st!</p>
+        <form id="emailForm" class="email-form">
+          <div class="form-group">
+            <label for="emailInput" class="visually-hidden">Email address</label>
+            <input 
+              type="email" 
+              id="emailInput" 
+              placeholder="Enter your email address" 
+              required 
+              autocomplete="email"
+              class="email-input"
+            >
+            <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
+              <span class="submit-text">Get Updates</span>
+              <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-message" id="formMessage"></div>
+        </form>
+        <div class="email-benefits">
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>Kickstarter launch notification</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>Game updates and community news</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>No spam, unsubscribe anytime</span>
+          </div>
+        </div>
+      </div>
+      <footer class="email-modal-footer">
+        <span class="privacy-text">
+          We respect your privacy. See our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.
+        </span>
       </footer>
     </div>
   </div>

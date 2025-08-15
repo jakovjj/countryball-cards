@@ -377,12 +377,21 @@ font-size:16px}
   .carousel-slide .card {
     width: min(88%, 280px);
   }
-  /* Hide background countryball */
+  /* Hide background countryball and fix carousel dots */
   body {
     background-image: none !important;
   }
   body > div[style*="background"] {
     display: none !important;
+  }
+  .carousel-dot {
+    width: 4px !important;
+    height: 4px !important;
+  }
+  .carousel-dots {
+    gap: 3px !important;
+    margin-bottom: 6px !important;
+    margin-top: 6px !important;
   }
 }
 
@@ -784,13 +793,13 @@ font-size:16px}
 }
 
 /* LOADING AND ERROR STATES */
-.loading {
+.loading:not(.email-submit-btn) {
   position: relative;
   opacity: 0.7;
   pointer-events: none;
 }
 
-.loading::after {
+.loading:not(.email-submit-btn)::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -871,5 +880,207 @@ a:focus-visible {
   button, .btn, a[role="button"] {
     min-height: 44px;
     min-width: 44px;
+  }
+}
+
+/* Email Modal Styles */
+.email-modal {
+  max-width: 500px;
+  width: min(100%, 500px);
+}
+
+.email-modal-content {
+  margin-bottom: 16px;
+}
+
+.email-modal-content p {
+  margin: 0 0 20px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.email-form {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid rgba(199, 164, 85, 0.3);
+  transition: border-color 0.2s ease;
+}
+
+.form-group:focus-within {
+  border-color: var(--gold);
+}
+
+.email-input {
+  flex: 1;
+  padding: 14px 16px;
+  border: none;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  outline: none;
+  font-family: inherit;
+}
+
+.email-input::placeholder {
+  color: var(--muted);
+}
+
+.email-submit-btn {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--gold), #b8973e);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.email-submit-btn:hover {
+  background: linear-gradient(135deg, #d4b366, var(--gold));
+  transform: translateY(-1px);
+}
+
+.email-submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.form-message {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  display: none;
+}
+
+.form-message.success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  display: block;
+}
+
+.form-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  display: block;
+}
+
+.email-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.benefit svg {
+  width: 16px;
+  height: 16px;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.email-modal-footer {
+  border-top: 1px solid rgba(199, 164, 85, 0.2);
+  padding-top: 12px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.privacy-text {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.privacy-text a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.privacy-text a:hover {
+  text-decoration: underline;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Loading state for submit button */
+.email-submit-btn.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.email-submit-btn.loading .submit-text::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success state for submit button */
+.email-submit-btn.success {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+@media (max-width: 480px) {
+  .email-modal {
+    max-width: 95%;
+  }
+  
+  .form-group {
+    flex-direction: column;
+  }
+  
+  .email-input {
+    border-radius: 0;
+  }
+  
+  .email-submit-btn {
+    border-radius: 0;
+    justify-content: center;
   }
 }

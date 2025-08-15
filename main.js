@@ -358,28 +358,7 @@ const emailBtn=document.getElementById('emailBtn');
 // Enhanced email button with success state
 if(emailBtn){
   emailBtn.addEventListener('click', function(){
-    try{ if(window.rdt) rdt('track','SignUp',{event_name:'EmailSignup',content_name:'Newsletter',content_category:'Email Marketing',content_ids:['email_signup'],content_type:'signup'}); }catch(_){ }
-    try{ if(window.rdt) rdt('track','Custom',{customEventName:'EmailSignup',content_name:'Newsletter'}); }catch(_){ }
-    
-    // Show success state after form submission
-    setTimeout(() => {
-      const originalContent = emailBtn.innerHTML;
-      emailBtn.innerHTML = `
-        <span class="btn-row">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-          </svg>
-          <span class="btn-label">✅ You're In!</span>
-        </span>
-      `;
-      emailBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-      
-      // Reset after 3 seconds
-      setTimeout(() => {
-        emailBtn.innerHTML = originalContent;
-        emailBtn.style.background = '';
-      }, 3000);
-    }, 2000);
+    showEmailModal();
   });
 }
 
@@ -439,6 +418,225 @@ if(redditBtn){
   openBtn.addEventListener('click', open);
   closeBtn.addEventListener('click', close);
 })();
+
+// Email modal
+function showEmailModal() {
+  const overlay = document.getElementById('emailOverlay');
+  const dialog = overlay ? overlay.querySelector('.modal') : null;
+  const closeBtn = document.getElementById('emailCloseBtn');
+  const emailForm = document.getElementById('emailForm');
+  const emailInput = document.getElementById('emailInput');
+  const submitBtn = document.getElementById('emailSubmitBtn');
+  const formMessage = document.getElementById('formMessage');
+  
+  if (!overlay || !dialog) return;
+  
+  let lastFocus = null;
+  
+  function open() {
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Track modal open
+    trackEmailSignup();
+    
+    // Focus the email input
+    setTimeout(() => emailInput.focus(), 100);
+    
+    document.addEventListener('keydown', onKeyDown);
+    overlay.addEventListener('click', onOverlayClick);
+  }
+  
+  function close() {
+    overlay.hidden = true;
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKeyDown);
+    overlay.removeEventListener('click', onOverlayClick);
+    
+    // Reset form
+    emailForm.reset();
+    formMessage.className = 'form-message';
+    formMessage.textContent = '';
+    submitBtn.className = 'email-submit-btn';
+    submitBtn.disabled = false;
+    
+    if (lastFocus && typeof lastFocus.focus === 'function') {
+      lastFocus.focus();
+    }
+  }
+  
+  function onOverlayClick(e) {
+    if (e.target === overlay) close();
+  }
+  
+  function onKeyDown(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+      return;
+    }
+  }
+  
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+  
+  function showMessage(message, type) {
+    formMessage.className = `form-message ${type}`;
+    formMessage.textContent = message;
+  }
+  
+  async function handleSubmit(e) {
+    e.preventDefault();
+    
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+      showMessage('Please enter your email address.', 'error');
+      emailInput.focus();
+      return;
+    }
+    
+    if (!validateEmail(email)) {
+      showMessage('Please enter a valid email address.', 'error');
+      emailInput.focus();
+      return;
+    }
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.classList.add('loading');
+    showMessage('', '');
+    
+    try {
+      // Check if EmailJS is ready
+      if (!window.emailJSReady || typeof emailjs === 'undefined') {
+        // Wait a bit more for EmailJS to load
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        if (!window.emailJSReady || typeof emailjs === 'undefined') {
+          throw new Error('EmailJS service is not available. Please check your internet connection and try again.');
+        }
+      }
+      
+      // Check for duplicate emails locally first
+      const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+      
+      if (emails.includes(email)) {
+        showMessage('You\'re already subscribed! 🎉', 'success');
+      } else {
+        // Send email via EmailJS
+        const templateParams = {
+          from_name: email,
+          from_email: email,
+          to_name: 'Countryball Cards Team',
+          message: `New newsletter signup from ${email}`,
+          signup_date: new Date().toLocaleString(),
+          source_page: 'Homepage',
+          user_email: email,
+          reply_to: email
+        };
+
+        console.log('Sending email with EmailJS...');
+        const result = await emailjs.send(
+          'service_icdib4n',
+          'template_j6fy2w2', 
+          templateParams
+        );
+
+        console.log('EmailJS response:', result);
+
+        if (result.status === 200) {
+          // Store email locally to prevent duplicates
+          emails.push(email);
+          localStorage.setItem('countryball_emails', JSON.stringify(emails));
+          
+          showMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
+          console.log('Email sent successfully via EmailJS');
+          
+          // Track successful signup
+          try {
+            if (window.rdt) rdt('track', 'SignUp', {
+              event_name: 'EmailSignup',
+              content_name: 'Newsletter',
+              content_category: 'Email Marketing',
+              content_ids: ['email_signup'],
+              content_type: 'signup'
+            });
+          } catch (_) {}
+          
+          try {
+            if (window.rdt) rdt('track', 'Custom', {
+              customEventName: 'EmailSignup',
+              content_name: 'Newsletter'
+            });
+          } catch (_) {}
+        } else {
+          throw new Error('Email sending failed');
+        }
+      }
+      
+      // Show success state
+      submitBtn.classList.remove('loading');
+      submitBtn.classList.add('success');
+      submitBtn.querySelector('.submit-text').textContent = 'Subscribed!';
+      
+      // Update main button state
+      setTimeout(() => {
+        const mainEmailBtn = document.getElementById('emailBtn');
+        if (mainEmailBtn) {
+          const originalContent = mainEmailBtn.innerHTML;
+          mainEmailBtn.innerHTML = `
+            <span class="btn-row">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+              <span class="btn-label">✅ You're In!</span>
+            </span>
+          `;
+          mainEmailBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+          
+          // Reset after 3 seconds
+          setTimeout(() => {
+            mainEmailBtn.innerHTML = originalContent;
+            mainEmailBtn.style.background = '';
+          }, 3000);
+        }
+        
+        // Close modal after showing success
+        setTimeout(close, 2000);
+      }, 1000);
+      
+    } catch (error) {
+      console.error('Email submission error:', error);
+      
+      // More specific error messages
+      if (error.message && error.message.includes('EmailJS service is not available')) {
+        showMessage('Service temporarily unavailable. Please try again in a moment.', 'error');
+      } else if (error.status === 400) {
+        showMessage('Invalid email format. Please check your email address.', 'error');
+      } else if (error.status === 401 || error.status === 403) {
+        showMessage('Authentication error. Please try again later.', 'error');
+      } else {
+        showMessage('Unable to send email. Please try again or contact support.', 'error');
+      }
+      
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+    }
+  }
+  
+  // Event listeners
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  if (emailForm) emailForm.addEventListener('submit', handleSubmit);
+  
+  // Open the modal
+  open();
+}
 
 // Boot
 initCountdown();

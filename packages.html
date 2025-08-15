@@ -32,8 +32,47 @@
   
   <link rel="stylesheet" href="styles.css">
   
-  <!-- Tally popup (email capture). Create a form at tally.so → Share → Popup → copy ID -->
-  <script async src="https://tally.so/widgets/embed.js"></script>
+  <!-- EmailJS SDK - Load synchronously and wait for it -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    // Wait for EmailJS to be fully loaded
+    function waitForEmailJS() {
+      return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const maxAttempts = 20; // 10 seconds max
+        
+        function checkEmailJS() {
+          attempts++;
+          if (typeof emailjs !== 'undefined' && emailjs.init) {
+            console.log('EmailJS loaded successfully');
+            try {
+              emailjs.init("hvatz7pPDbme6A77h");
+              window.emailJSReady = true;
+              resolve(true);
+            } catch (error) {
+              console.error('EmailJS init failed:', error);
+              reject(error);
+            }
+          } else if (attempts >= maxAttempts) {
+            console.error('EmailJS failed to load after', maxAttempts, 'attempts');
+            reject(new Error('EmailJS loading timeout'));
+          } else {
+            setTimeout(checkEmailJS, 500);
+          }
+        }
+        
+        checkEmailJS();
+      });
+    }
+    
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      waitForEmailJS().catch(error => {
+        console.error('EmailJS initialization failed:', error);
+        window.emailJSReady = false;
+      });
+    });
+  </script>
   
   <style>
     .packages-hero {
@@ -767,8 +806,7 @@
       <div class="packages-bottom-cta">
         <h3>Stay Updated & Join Our Community</h3>
         <div class="cta">
-          <button class="btn primary" id="emailBtn"
-            data-tally-open="mYAbWd" data-tally-layout="modal" data-tally-auto-close="1500" onclick="trackEmailSignup()">
+          <button class="btn primary" id="emailBtn" onclick="showEmailModal()">
             <span class="btn-row">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
@@ -803,6 +841,64 @@
         <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a> • 
         <a href="terms-and-conditions.html" style="color:var(--gold);text-decoration:none">Terms & Conditions</a>
       </div>
+    </div>
+  </div>
+
+  <!-- Email Signup Modal -->
+  <div class="modal-overlay" id="emailOverlay" hidden aria-hidden="true">
+    <div class="modal email-modal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" tabindex="-1">
+      <header>
+        <h2 id="emailModalTitle">🚀 Get Kickstarter Updates</h2>
+        <button class="modal-close" type="button" id="emailCloseBtn" aria-label="Close email signup">✕</button>
+      </header>
+      <div class="email-modal-content">
+        <p>Be the first to know when our Kickstarter launches on October 1st!</p>
+        <form id="emailForm" class="email-form">
+          <div class="form-group">
+            <label for="emailInput" class="visually-hidden">Email address</label>
+            <input 
+              type="email" 
+              id="emailInput" 
+              placeholder="Enter your email address" 
+              required 
+              autocomplete="email"
+              class="email-input"
+            >
+            <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
+              <span class="submit-text">Get Updates</span>
+              <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-message" id="formMessage"></div>
+        </form>
+        <div class="email-benefits">
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>Kickstarter launch notification</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>Game updates and community news</span>
+          </div>
+          <div class="benefit">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            <span>No spam, unsubscribe anytime</span>
+          </div>
+        </div>
+      </div>
+      <footer class="email-modal-footer">
+        <span class="privacy-text">
+          We respect your privacy. See our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.
+        </span>
+      </footer>
     </div>
   </div>
 
@@ -1036,6 +1132,202 @@
       // Check on resize
       window.addEventListener('resize', handleHolographicClass);
     });
+
+    // Email modal functionality
+    function showEmailModal() {
+      const overlay = document.getElementById('emailOverlay');
+      const dialog = overlay ? overlay.querySelector('.modal') : null;
+      const closeBtn = document.getElementById('emailCloseBtn');
+      const emailForm = document.getElementById('emailForm');
+      const emailInput = document.getElementById('emailInput');
+      const submitBtn = document.getElementById('emailSubmitBtn');
+      const formMessage = document.getElementById('formMessage');
+      
+      if (!overlay || !dialog) return;
+      
+      let lastFocus = null;
+      
+      function open() {
+        lastFocus = document.activeElement;
+        overlay.hidden = false;
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        
+        // Track modal open
+        trackEmailSignup();
+        
+        // Focus the email input
+        setTimeout(() => emailInput.focus(), 100);
+        
+        document.addEventListener('keydown', onKeyDown);
+        overlay.addEventListener('click', onOverlayClick);
+      }
+      
+      function close() {
+        overlay.hidden = true;
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onKeyDown);
+        overlay.removeEventListener('click', onOverlayClick);
+        
+        // Reset form
+        emailForm.reset();
+        formMessage.className = 'form-message';
+        formMessage.textContent = '';
+        submitBtn.className = 'email-submit-btn';
+        submitBtn.disabled = false;
+        
+        if (lastFocus && typeof lastFocus.focus === 'function') {
+          lastFocus.focus();
+        }
+      }
+      
+      function onOverlayClick(e) {
+        if (e.target === overlay) close();
+      }
+      
+      function onKeyDown(e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          close();
+          return;
+        }
+      }
+      
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+      
+      function showMessage(message, type) {
+        formMessage.className = `form-message ${type}`;
+        formMessage.textContent = message;
+      }
+      
+      async function handleSubmit(e) {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        
+        if (!email) {
+          showMessage('Please enter your email address.', 'error');
+          emailInput.focus();
+          return;
+        }
+        
+        if (!validateEmail(email)) {
+          showMessage('Please enter a valid email address.', 'error');
+          emailInput.focus();
+          return;
+        }
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.classList.add('loading');
+        showMessage('', '');
+        
+        try {
+          // Check if EmailJS is ready
+          if (!window.emailJSReady || typeof emailjs === 'undefined') {
+            // Wait a bit more for EmailJS to load
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            if (!window.emailJSReady || typeof emailjs === 'undefined') {
+              throw new Error('EmailJS service is not available. Please check your internet connection and try again.');
+            }
+          }
+          
+          // Check for duplicate emails locally first
+          const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+          
+          if (emails.includes(email)) {
+            showMessage('You\'re already subscribed! 🎉', 'success');
+          } else {
+            // Send email via EmailJS
+            const templateParams = {
+              from_name: email,
+              from_email: email,
+              to_name: 'Countryball Cards Team',
+              message: `New newsletter signup from ${email}`,
+              signup_date: new Date().toLocaleString(),
+              source_page: 'Packages Page',
+              user_email: email,
+              reply_to: email
+            };
+
+            console.log('Sending email with EmailJS...');
+            const result = await emailjs.send(
+              'service_icdib4n',
+              'template_j6fy2w2', 
+              templateParams
+            );
+
+            console.log('EmailJS response:', result);
+
+            if (result.status === 200) {
+              // Store email locally to prevent duplicates
+              emails.push(email);
+              localStorage.setItem('countryball_emails', JSON.stringify(emails));
+              
+              showMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
+              console.log('Email sent successfully via EmailJS');
+              
+              // Track successful signup
+              try {
+                if (window.rdt) rdt('track', 'SignUp', {
+                  event_name: 'EmailSignup',
+                  content_name: 'Newsletter',
+                  content_category: 'Email Marketing',
+                  content_ids: ['email_signup'],
+                  content_type: 'signup'
+                });
+              } catch (_) {}
+              
+              try {
+                if (window.rdt) rdt('track', 'Custom', {
+                  customEventName: 'EmailSignup',
+                  content_name: 'Newsletter'
+                });
+              } catch (_) {}
+            } else {
+              throw new Error('Email sending failed');
+            }
+          }
+          
+          // Show success state
+          submitBtn.classList.remove('loading');
+          submitBtn.classList.add('success');
+          submitBtn.querySelector('.submit-text').textContent = 'Subscribed!';
+          
+          // Close modal after showing success
+          setTimeout(close, 2000);
+          
+        } catch (error) {
+          console.error('Email submission error:', error);
+          
+          // More specific error messages
+          if (error.message && error.message.includes('EmailJS service is not available')) {
+            showMessage('Service temporarily unavailable. Please try again in a moment.', 'error');
+          } else if (error.status === 400) {
+            showMessage('Invalid email format. Please check your email address.', 'error');
+          } else if (error.status === 401 || error.status === 403) {
+            showMessage('Authentication error. Please try again later.', 'error');
+          } else {
+            showMessage('Unable to send email. Please try again or contact support.', 'error');
+          }
+          
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('loading');
+        }
+      }
+      
+      // Event listeners
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (emailForm) emailForm.addEventListener('submit', handleSubmit);
+      
+      // Open the modal
+      open();
+    }
   </script>
 </body>
 </html>
