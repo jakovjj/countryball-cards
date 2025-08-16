@@ -802,6 +802,16 @@ function trackRoadmapView() {
   }
 }
 
+function trackDiceClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'dice_page_clicked', {
+      event_category: 'navigation',
+      event_label: 'dice_roller',
+      value: 1
+    });
+  }
+}
+
 function trackCarouselInteraction(action, cardName) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'carousel_interaction', {

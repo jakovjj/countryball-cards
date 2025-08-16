@@ -818,6 +818,14 @@
               <span class="btn-label">Back to Home</span>
             </span>
           </a>
+          <a class="btn tertiary" href="dice.html" aria-label="Dice Roller" onclick="trackDiceClick()">
+            <span class="btn-row">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M5 3H19C20.1 3 21 3.9 21 5V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3M7.5 6C6.7 6 6 6.7 6 7.5S6.7 9 7.5 9 9 8.3 9 7.5 8.3 6 7.5 6M16.5 15C15.7 15 15 15.7 15 16.5S15.7 18 16.5 18 18 17.3 18 16.5 17.3 15 16.5 15M16.5 6C15.7 6 15 6.7 15 7.5S15.7 9 16.5 9 18 8.3 18 7.5 17.3 6 16.5 6M7.5 15C6.7 15 6 15.7 6 16.5S6.7 18 7.5 18 9 17.3 9 16.5 8.3 15 7.5 15M12 10.5C11.2 10.5 10.5 11.2 10.5 12S11.2 13.5 12 13.5 13.5 12.8 13.5 12 12.8 10.5 12 10.5"/>
+              </svg>
+              <span class="btn-label">Dice Roller</span>
+            </span>
+          </a>
         </div>
       </header>
 
@@ -1017,6 +1025,17 @@
         gtag('event', 'back_to_home_clicked', {
           event_category: 'navigation',
           event_label: 'rules_to_home',
+          value: 1
+        });
+      }
+    }
+
+    // Track dice roller click from rules page
+    function trackDiceClick() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'dice_page_clicked', {
+          event_category: 'navigation',
+          event_label: 'rules_to_dice',
           value: 1
         });
       }

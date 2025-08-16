@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Countryball Cards – Dice Roller</title>
+  <meta name="description" content="Digital dice roller for Countryball Cards - roll attack dice (D20) and resource dice (4x D6)." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#151515" />
+  
+  <!-- Favicons (optional but keeps consistency) -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" sizes="any" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .dice-header { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 12px; 
+      flex-wrap: wrap; 
+    }
+    .dice-title { 
+      margin: 0; 
+      font-size: clamp(28px, 4.5vw, 42px); 
+      letter-spacing: 0.5px; 
+    }
+    .dice-actions { 
+      display: flex; 
+      gap: 10px; 
+      flex-wrap: wrap; 
+    }
+    .dice-actions .btn { 
+      min-width: 160px; 
+    }
+    .dice-sub { 
+      color: var(--muted); 
+      margin: 6px 0 24px; 
+    }
+
+    .dice-content { 
+      max-width: 1000px; 
+      margin: 0 auto; 
+    }
+    
+    .dice-section {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(199, 164, 85, 0.3);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .dice-section:hover {
+      border-color: rgba(199, 164, 85, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .dice-section h2 {
+      color: var(--gold);
+      margin: 0 0 16px 0;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .dice-section p {
+      color: var(--text);
+      margin: 0 0 24px 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .dice-roller {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .dice-button {
+      background: linear-gradient(135deg, var(--gold), #d4b866);
+      border: none;
+      color: var(--bg);
+      padding: 20px 40px;
+      border-radius: 16px;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 24px rgba(199, 164, 85, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 200px;
+      justify-content: center;
+      font-family: system-ui, Segoe UI, Inter, Arial, sans-serif;
+    }
+
+    .dice-button:hover {
+      background: linear-gradient(135deg, #d4b866, #e6c875);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(199, 164, 85, 0.6);
+    }
+
+    .dice-button:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(199, 164, 85, 0.4);
+    }
+
+    .dice-button.rolling {
+      animation: dice-roll 0.6s ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes dice-roll {
+      0%, 100% { transform: translateY(-3px) rotate(0deg); }
+      25% { transform: translateY(-6px) rotate(5deg); }
+      50% { transform: translateY(-3px) rotate(-5deg); }
+      75% { transform: translateY(-6px) rotate(3deg); }
+    }
+
+    .dice-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .dice-result {
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid rgba(199, 164, 85, 0.4);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+      min-height: 80px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .dice-result.show {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dice-result h3 {
+      color: var(--gold);
+      margin: 0 0 12px 0;
+      font-size: 20px;
+    }
+
+    .dice-value {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--text);
+      margin: 8px 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .dice-value.critical {
+      color: #22c55e;
+      animation: critical-glow 1s ease-in-out;
+    }
+
+    .dice-value.fumble {
+      color: #ef4444;
+      animation: fumble-shake 0.5s ease-in-out;
+    }
+
+    @keyframes critical-glow {
+      0%, 100% { text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+      50% { text-shadow: 0 0 20px #22c55e, 0 2px 4px rgba(0, 0, 0, 0.3); }
+    }
+
+    @keyframes fumble-shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .resource-dice-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .resource-die {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(199, 164, 85, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .resource-die.grains {
+      border-color: rgba(255, 193, 7, 0.4);
+      background: rgba(255, 193, 7, 0.08);
+    }
+
+    .resource-die.horse {
+      border-color: rgba(139, 69, 19, 0.6);
+      background: rgba(139, 69, 19, 0.1);
+    }
+
+    .resource-die.oil {
+      border-color: rgba(51, 51, 51, 0.8);
+      background: rgba(51, 51, 51, 0.15);
+    }
+
+    .resource-die.iron {
+      border-color: rgba(156, 163, 175, 0.6);
+      background: rgba(156, 163, 175, 0.1);
+    }
+
+    .resource-die h4 {
+      color: var(--gold);
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .resource-die .dice-value {
+      font-size: 24px;
+      margin: 4px 0;
+    }
+
+    .resource-icon {
+      max-width: 20px;
+      max-height: 20px;
+      width: auto;
+      height: auto;
+      margin: 0 auto 8px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .dice-history {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(199, 164, 85, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 32px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .dice-history h3 {
+      color: var(--gold);
+      margin: 0 0 16px 0;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .history-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(199, 164, 85, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .history-type {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .history-result {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .clear-history {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 12px;
+      width: 100%;
+    }
+
+    .clear-history:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    @media (max-width: 719px) {
+      .dice-header { 
+        justify-content: center; 
+      }
+      .dice-actions { 
+        width: 100%; 
+        justify-content: center; 
+      }
+      
+      .dice-section {
+        padding: 24px 16px;
+        margin: 16px 0;
+      }
+      
+      .dice-button {
+        min-width: 180px;
+        padding: 16px 32px;
+        font-size: 18px;
+      }
+      
+      .resource-dice-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .dice-history {
+        margin-top: 24px;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <header class="dice-header" aria-label="Dice roller header">
+        <h1 class="dice-title">
+          <img src="logo.png" alt="Countryball Cards" class="logo" style="max-height:80px;margin:0 0 6px 0;" onerror="this.style.display='none'">
+          <span class="visually-hidden">Countryball Cards</span>
+          Dice Roller
+        </h1>
+        <div class="dice-actions">
+          <a class="btn secondary" href="index.html" aria-label="Back to Home" onclick="trackBackToHome()">
+            <span class="btn-row">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"/>
+              </svg>
+              <span class="btn-label">Back to Home</span>
+            </span>
+          </a>
+        </div>
+      </header>
+
+      <p class="dice-sub">Roll dice for your Countryball Cards game! Use the D20 for attacks and abilities, or roll all 4 resource dice to set market prices.</p>
+
+      <div class="dice-content">
+        <!-- Attack Dice Section -->
+        <section class="dice-section">
+          <h2>
+            <img src="icons/dice.png" alt="Attack Dice" style="height:28px;vertical-align:middle;margin:0 8px 0 0;">
+            Attack Dice (D20)
+          </h2>
+          <p>Roll a 20-sided die for attack abilities and combat resolution. Higher rolls mean better success!</p>
+          
+          <div class="dice-roller">
+            <button class="dice-button" id="attackDiceBtn" onclick="rollAttackDice()">
+              <img src="icons/dice.png" alt="Dice" class="dice-icon">
+              Roll D20
+            </button>
+            
+            <div class="dice-result" id="attackResult">
+              <h3>Attack Roll Result</h3>
+              <div class="dice-value" id="attackValue">--</div>
+              <p id="attackComment"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resource Dice Section -->
+        <section class="dice-section">
+          <h2>
+            <img src="icons/coin_resource.png" alt="Resource Dice" style="height:28px;vertical-align:middle;margin:0 8px 0 0;">
+            Resource Dice (4x D6)
+          </h2>
+          <p>Roll all 4 resource dice to set market prices at the start of the game or when market events occur.</p>
+          
+          <div class="dice-roller">
+            <button class="dice-button" id="resourceDiceBtn" onclick="rollResourceDice()">
+              <img src="icons/dice.png" alt="Dice" class="dice-icon">
+              Roll 4x D6
+            </button>
+            
+            <div class="dice-result" id="resourceResult">
+              <h3>Resource Market Prices</h3>
+              <div class="resource-dice-container">
+                <div class="resource-die grains">
+                  <img src="icons/grains_resource.png" alt="Grains" class="resource-icon">
+                  <h4>Grains</h4>
+                  <div class="dice-value" id="grainsValue">--</div>
+                </div>
+                <div class="resource-die horse">
+                  <img src="icons/horse_resource.png" alt="Horse" class="resource-icon">
+                  <h4>Horse</h4>
+                  <div class="dice-value" id="horseValue">--</div>
+                </div>
+                <div class="resource-die oil">
+                  <img src="icons/oil_resource.png" alt="Oil" class="resource-icon">
+                  <h4>Oil</h4>
+                  <div class="dice-value" id="oilValue">--</div>
+                </div>
+                <div class="resource-die iron">
+                  <img src="icons/iron_resource.png" alt="Iron" class="resource-icon">
+                  <h4>Iron</h4>
+                  <div class="dice-value" id="ironValue">--</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dice History -->
+        <div class="dice-history">
+          <h3>Roll History</h3>
+          <div id="historyContainer">
+            <p style="color: var(--muted); text-align: center; margin: 20px 0;">No rolls yet. Start rolling dice to see your history!</p>
+          </div>
+          <button class="clear-history" id="clearHistoryBtn" onclick="clearHistory()" style="display: none;">
+            Clear History
+          </button>
+        </div>
+      </div>
+
+      <div class="footer" style="margin-top:18px">
+        © 2025 Glare Studios • Countryball Cards
+      </div>
+    </div>
+  </div>
+
+  <script src="analytics.js" defer></script>
+  <script>
+    // Dice rolling history
+    let rollHistory = [];
+
+    // Resource dice faces: 2, 3, 3, 4, 4, 5
+    const resourceDiceFaces = [2, 3, 3, 4, 4, 5];
+
+    function rollAttackDice() {
+      const button = document.getElementById('attackDiceBtn');
+      const result = document.getElementById('attackResult');
+      const value = document.getElementById('attackValue');
+      const comment = document.getElementById('attackComment');
+
+      // Add rolling animation
+      button.classList.add('rolling');
+      
+      // Simulate rolling delay
+      setTimeout(() => {
+        const roll = Math.floor(Math.random() * 20) + 1;
+        
+        // Update display
+        value.textContent = roll;
+        value.classList.remove('critical', 'fumble');
+        
+        // Add special styling for critical/fumble
+        if (roll === 20) {
+          value.classList.add('critical');
+          comment.textContent = "🎉 Critical Success! Maximum damage!";
+          comment.style.color = "#22c55e";
+        } else if (roll === 1) {
+          value.classList.add('fumble');
+          comment.textContent = "💀 Critical Fumble! Something went wrong...";
+          comment.style.color = "#ef4444";
+        } else if (roll >= 15) {
+          comment.textContent = "⚔️ Excellent roll! High chance of success!";
+          comment.style.color = "#22c55e";
+        } else if (roll >= 10) {
+          comment.textContent = "✅ Good roll! Decent chance of success.";
+          comment.style.color = "#3b82f6";
+        } else if (roll >= 5) {
+          comment.textContent = "⚠️ Low roll. Might need some luck...";
+          comment.style.color = "#f59e0b";
+        } else {
+          comment.textContent = "😬 Very low roll. Success is unlikely.";
+          comment.style.color = "#ef4444";
+        }
+        
+        // Show result
+        result.classList.add('show');
+        
+        // Add to history
+        addToHistory('Attack (D20)', roll);
+        
+        // Remove rolling animation
+        button.classList.remove('rolling');
+
+        // Track event
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'dice_roll', {
+            event_category: 'gameplay',
+            event_label: 'attack_d20',
+            value: roll
+          });
+        }
+      }, 600);
+    }
+
+    function rollResourceDice() {
+      const button = document.getElementById('resourceDiceBtn');
+      const result = document.getElementById('resourceResult');
+      
+      // Add rolling animation
+      button.classList.add('rolling');
+      
+      // Simulate rolling delay
+      setTimeout(() => {
+        // Roll each resource die
+        const grains = resourceDiceFaces[Math.floor(Math.random() * resourceDiceFaces.length)];
+        const horse = resourceDiceFaces[Math.floor(Math.random() * resourceDiceFaces.length)];
+        const oil = resourceDiceFaces[Math.floor(Math.random() * resourceDiceFaces.length)];
+        const iron = resourceDiceFaces[Math.floor(Math.random() * resourceDiceFaces.length)];
+        
+        // Update display
+        document.getElementById('grainsValue').textContent = grains;
+        document.getElementById('horseValue').textContent = horse;
+        document.getElementById('oilValue').textContent = oil;
+        document.getElementById('ironValue').textContent = iron;
+        
+        // Show result
+        result.classList.add('show');
+        
+        // Add to history
+        addToHistory('Resource Dice', `G:${grains}, H:${horse}, O:${oil}, I:${iron}`);
+        
+        // Remove rolling animation
+        button.classList.remove('rolling');
+
+        // Track event
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'dice_roll', {
+            event_category: 'gameplay',
+            event_label: 'resource_4d6',
+            value: grains + horse + oil + iron
+          });
+        }
+      }, 600);
+    }
+
+    function addToHistory(type, result) {
+      const timestamp = new Date().toLocaleTimeString();
+      rollHistory.unshift({ type, result, timestamp });
+      
+      // Keep only last 10 rolls
+      if (rollHistory.length > 10) {
+        rollHistory = rollHistory.slice(0, 10);
+      }
+      
+      updateHistoryDisplay();
+    }
+
+    function updateHistoryDisplay() {
+      const container = document.getElementById('historyContainer');
+      const clearBtn = document.getElementById('clearHistoryBtn');
+      
+      if (rollHistory.length === 0) {
+        container.innerHTML = '<p style="color: var(--muted); text-align: center; margin: 20px 0;">No rolls yet. Start rolling dice to see your history!</p>';
+        clearBtn.style.display = 'none';
+      } else {
+        container.innerHTML = rollHistory.map(item => `
+          <div class="history-item">
+            <span class="history-type">${item.type}</span>
+            <span class="history-result">${item.result}</span>
+            <span style="color: var(--muted); font-size: 12px;">${item.timestamp}</span>
+          </div>
+        `).join('');
+        clearBtn.style.display = 'block';
+      }
+    }
+
+    function clearHistory() {
+      rollHistory = [];
+      updateHistoryDisplay();
+      
+      // Track event
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'clear_history', {
+          event_category: 'gameplay',
+          event_label: 'dice_history'
+        });
+      }
+    }
+
+    // Track back to home click from dice page
+    function trackBackToHome() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'back_to_home_clicked', {
+          event_category: 'navigation',
+          event_label: 'dice_to_home',
+          value: 1
+        });
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      updateHistoryDisplay();
+    });
+  </script>
+</body>
+</html>
