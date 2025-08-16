@@ -748,6 +748,21 @@ font-size:16px}
   }
 }
 
+/* Rules CTA Button - Red Variant */
+.rules-cta-button {
+  background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+  box-shadow: 0 8px 32px rgba(231, 76, 60, 0.3) !important;
+}
+
+.rules-cta-button::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.rules-cta-button:hover {
+  background: linear-gradient(135deg, #f55a4e, #e74c3c) !important;
+  box-shadow: 0 12px 48px rgba(231, 76, 60, 0.4) !important;
+}
+
 /* FAQ Section */
 .faq-section {
   margin: 40px 0;

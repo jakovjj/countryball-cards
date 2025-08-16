@@ -752,6 +752,16 @@ function trackPackagesClick() {
   }
 }
 
+function trackRulesClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'rules_button_clicked', {
+      event_category: 'engagement',
+      event_label: 'view_rules_cta',
+      value: 1
+    });
+  }
+}
+
 function trackDiscordClick() {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'discord_clicked', {
