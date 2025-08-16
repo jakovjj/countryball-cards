@@ -255,6 +255,23 @@
       object-fit: contain;
     }
 
+    /* Price-based color coding for quick identification */
+    .resource-die .dice-value[data-value="2"] {
+      color: #22c55e; /* Green - Cheap */
+    }
+
+    .resource-die .dice-value[data-value="3"] {
+      color: #fbbf24; /* Bright Yellow - Medium */
+    }
+
+    .resource-die .dice-value[data-value="4"] {
+      color: #ea580c; /* Dark Orange - High */
+    }
+
+    .resource-die .dice-value[data-value="5"] {
+      color: #ef4444; /* Red - Expensive */
+    }
+
     .dice-history {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(199, 164, 85, 0.2);
@@ -537,6 +554,12 @@
         document.getElementById('horseValue').textContent = horse;
         document.getElementById('oilValue').textContent = oil;
         document.getElementById('ironValue').textContent = iron;
+        
+        // Add data attributes for color coding
+        document.getElementById('grainsValue').setAttribute('data-value', grains);
+        document.getElementById('horseValue').setAttribute('data-value', horse);
+        document.getElementById('oilValue').setAttribute('data-value', oil);
+        document.getElementById('ironValue').setAttribute('data-value', iron);
         
         // Show result
         result.classList.add('show');
