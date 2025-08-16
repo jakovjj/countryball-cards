@@ -62,9 +62,9 @@
     }
     
     .crash-step:nth-child(4) {
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(168, 85, 247, 0.08));
-      border-color: rgba(168, 85, 247, 0.5);
-      box-shadow: 0 2px 8px rgba(168, 85, 247, 0.15);
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 193, 7, 0.08));
+      border-color: rgba(255, 193, 7, 0.5);
+      box-shadow: 0 2px 8px rgba(255, 193, 7, 0.15);
     }
     
     .crash-step:hover {
@@ -91,9 +91,9 @@
     }
     
     .crash-step:nth-child(4):hover {
-      border-color: rgba(168, 85, 247, 0.7);
-      background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(168, 85, 247, 0.15));
-      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
+      border-color: rgba(255, 193, 7, 0.7);
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(255, 193, 7, 0.15));
+      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
     }
     
     .crash-step h4 {
@@ -335,6 +335,12 @@
       border-color: rgba(168, 85, 247, 0.4);
       box-shadow: 0 2px 8px rgba(168, 85, 247, 0.1);
     }
+    
+    .phase:nth-child(5) {
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.12), rgba(255, 193, 7, 0.06));
+      border-color: rgba(255, 193, 7, 0.4);
+      box-shadow: 0 2px 8px rgba(255, 193, 7, 0.1);
+    }
 
     .phase:hover {
       transform: translateY(-2px);
@@ -363,6 +369,12 @@
       border-color: rgba(168, 85, 247, 0.6);
       background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(168, 85, 247, 0.12));
       box-shadow: 0 4px 16px rgba(168, 85, 247, 0.2);
+    }
+    
+    .phase:nth-child(5):hover {
+      border-color: rgba(255, 193, 7, 0.6);
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.18), rgba(255, 193, 7, 0.12));
+      box-shadow: 0 4px 16px rgba(255, 193, 7, 0.2);
     }
     
     .phase h4 {
@@ -813,6 +825,7 @@
           <ul>
             <li><a href="#crash-course">Crash Course</a></li>
             <li><a href="#overview">Game Overview</a></li>
+            <li><a href="#components">Game Components</a></li>
             <li><a href="#setup">Game Setup</a></li>
             <li><a href="#gameplay">How to Play</a></li>
             <li><a href="#special-rules">Combat & Abilities</a></li>
@@ -825,11 +838,11 @@
           <div class="crash-course">
             <div class="crash-step">
               <h4>1. Setup</h4>
-              <p>Each player draws 5 <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;">, reveals 3 face-up. Set up the resource market with random prices.</p>
+              <p>Each player draws 4 <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;">, discards 1, then both players reveal 3 face-up simultaneously. Roll 4 resource dice to set market prices.</p>
             </div>
             <div class="crash-step">
               <h4>2. Your Turn</h4>
-              <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> → Buy/sell resources at market → Use <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities (pay costs) → Attack enemies</p>
+              <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> • Buy/sell resources at dice prices • Use <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities (pay costs) • Attack enemies • Pay 2 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> to unstun</p>
             </div>
             <div class="crash-step">
               <h4>3. Abilities</h4>
@@ -859,35 +872,69 @@
           </div>
         </section>
 
+        <section id="components" class="rules-section">
+          <h2><img src="icons/coin_resource.png" alt="Components" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Game Components</h2>
+          
+          <div class="components-grid">
+            <div class="component">
+              <h4>Countryball Cards</h4>
+              <p>Each player draws 4 cards at start, discards 1, and reveals 3 face-up to form their army.</p>
+            </div>
+            <div class="component">
+              <h4>Coin Tokens</h4>
+              <p>5 coin tokens per player. Gain 5 coins each turn. Spend for resources and emergency unstunning (2 coins).</p>
+            </div>
+            <div class="component">
+              <h4>Resource Dice (4)</h4>
+              <p>Yellow (Grains), Brown (Horse), Black (Oil), Gray (Iron). 6-sided dice with faces: 2, 3, 3, 4, 4, 5.</p>
+            </div>
+            <div class="component">
+              <h4>D20 Combat Die</h4>
+              <p>Used for ability rolls and combat resolution. Roll to meet or exceed ability requirements.</p>
+            </div>
+          </div>
+        </section>
+
         <section id="setup" class="rules-section">
           <h2><img src="icons/shield.png" alt="Setup" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Setup</h2>
-          <p><strong>1.</strong> Draw 5 cards each (keep hidden) → <strong>2.</strong> Reveal 3 cards face-up (your army) → <strong>3.</strong> Setup market with 4 resources at random prices → <strong>4.</strong> First player: who revealed cards first</p>
+          <p><strong>1.</strong> Each player draws 4 cards → <strong>2.</strong> Each player discards 1 card (keep hidden) → <strong>3.</strong> Both players simultaneously reveal 3 cards face-up (your army) → <strong>4.</strong> Roll 4 resource dice to set market prices: Yellow (Grains), Brown (Horse), Black (Oil), Gray (Iron) → <strong>5.</strong> First player: who revealed cards first</p>
+          
+          <div class="market-info">
+            <h4><img src="icons/dice.png" alt="Market Dice" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Resource Market Dice</h4>
+            <p>Each resource has a colored 6-sided die that determines its price. Dice faces show: <strong>2, 3, 3, 4, 4, 5</strong> coins. Roll all 4 dice at game start to set initial prices. Prices change during gameplay based on market events.</p>
+            <ul>
+              <li><strong>Yellow Die:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grains price</li>
+              <li><strong>Brown Die:</strong> <img src="icons/horse_resource.png" alt="Horse" style="height:16px;vertical-align:middle;margin:0 2px;"> Horse price</li>
+              <li><strong>Black Die:</strong> <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> Oil price</li>
+              <li><strong>Gray Die:</strong> <img src="icons/iron_resource.png" alt="Iron" style="height:16px;vertical-align:middle;margin:0 2px;"> Iron price</li>
+            </ul>
+          </div>
         </section>
 
         <section id="gameplay" class="rules-section">
           <h2><img src="icons/dice.png" alt="Gameplay" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> How to Play</h2>
-          <p>Players alternate turns with these phases:</p>
+          <p>Players alternate turns in which they can:</p>
 
           <div class="phase">
-            <h4><img src="icons/coin_resource.png" alt="Coins" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> 1. Gain Coins & Trade</h4>
-            <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;">, then buy/sell resources at market prices (2-5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> each, prices change every round). <strong>Resources:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grains, <img src="icons/horse_resource.png" alt="Horse" style="height:16px;vertical-align:middle;margin:0 2px;"> Horse, <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> Oil, <img src="icons/iron_resource.png" alt="Iron" style="height:16px;vertical-align:middle;margin:0 2px;"> Iron</p>
+            <h4><img src="icons/coin_resource.png" alt="Coins" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Gain Coins & Trade</h4>
+            <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;">, then buy/sell resources at current dice prices (shown on the 4 colored dice). <strong>Resources:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grains (Yellow), <img src="icons/horse_resource.png" alt="Horse" style="height:16px;vertical-align:middle;margin:0 2px;"> Horse (Brown), <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> Oil (Black), <img src="icons/iron_resource.png" alt="Iron" style="height:16px;vertical-align:middle;margin:0 2px;"> Iron (Gray)</p>
           </div>
 
           <div class="phase">
-            <h4><img src="icons/card.png" alt="Abilities" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> 2. Use Abilities</h4>
+            <h4><img src="icons/card.png" alt="Abilities" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Use Abilities</h4>
             <p>Pay resource costs to activate <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities multiple times. Each ability shows its cost and effect.</p>
           </div>
 
           <div class="phase">
-            <h4><img src="icons/dice.png" alt="Combat" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> 3. Combat</h4>
+            <h4><img src="icons/dice.png" alt="Combat" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Battle</h4>
             <p>Attack enemies: Pay resource cost → Roll <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;"> (if required) → Need number shown on <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> or higher to hit → Hit = stun + 1 <img src="icons/skull.png" alt="skull" style="height:16px;vertical-align:middle;margin:0 2px;">. Give each enemy countryball 3 <img src="icons/skull.png" alt="skulls" style="height:16px;vertical-align:middle;margin:0 2px;"> to eliminate them.</p>
             <div class="combat-note">
-              <strong>Note:</strong> Failed attacks still cost resources. Stunned cards can't act next turn.
+              <strong>Note:</strong> Failed attacks still cost resources. Stunned cards can't act next turn. <strong>Pay 2 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> to unstun any card at any time.</strong>
             </div>
           </div>
 
           <div class="phase">
-            <h4><img src="icons/crown.png" alt="Victory" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Win Condition</h4>
+            <h4><img src="icons/crown.png" alt="Victory" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Win</h4>
             <p>Eliminate all enemy countryballs (3 <img src="icons/skull.png" alt="skulls" style="height:16px;vertical-align:middle;margin:0 2px;"> each) to win! <img src="icons/crown.png" alt="victory" style="height:16px;vertical-align:middle;margin:0 2px;"></p>
           </div>
         </section>
@@ -906,7 +953,7 @@
             <p>Some abilities provide other effects (healing, resource generation, etc.) but may still require dice rolls for success</p>
             
             <h4><img src="icons/shield.png" alt="Stun" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Stun Mechanic</h4>
-            <p>Stunned <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;"> can't use abilities next turn, then automatically reactivate</p>
+            <p>Stunned <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;"> can't use abilities next turn, then automatically reactivate. <strong>Emergency Unstun:</strong> Pay 2 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> to immediately unstun any card at any time during your turn.</p>
             
             <h4><img src="icons/card.png" alt="Multiple Targets" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Multiple Targets</h4>
             <p>When an ability affects multiple targets, roll separately for each one</p>
@@ -925,7 +972,7 @@
             <div class="team-setup">
               <div class="team-step">
                 <h4><img src="icons/card.png" alt="Setup" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Team Setup</h4>
-                <p>Each player draws 4 <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;"> and chooses 2 to reveal face-up. Form two teams of 2 players each.</p>
+                <p>Each player draws 4 <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;">, discards 1, then chooses 2 to reveal face-up. Form two teams of 2 players each.</p>
               </div>
               
               <div class="team-step">
