@@ -210,6 +210,11 @@
       padding: 16px;
       text-align: center;
       transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 140px;
     }
 
     .resource-die.grains {
@@ -242,14 +247,30 @@
 
     .resource-die .dice-value {
       font-size: 24px;
+      margin: 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      line-height: 1;
+    }
+
+    .resource-die .price-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       margin: 4px 0;
+    }
+
+    .resource-die .coin-icon {
+      height: 24px;
+      width: auto;
+      flex-shrink: 0;
     }
 
     .resource-icon {
       max-width: 20px;
       max-height: 20px;
-      width: auto;
-      height: auto;
+      width: 20px;
+      height: 20px;
       margin: 0 auto 8px;
       display: block;
       object-fit: contain;
@@ -424,7 +445,7 @@
           <div class="dice-roller">
             <button class="dice-button" id="resourceDiceBtn" onclick="rollResourceDice()">
               <img src="icons/dice.png" alt="Dice" class="dice-icon">
-              Roll 4x D6
+              Roll Market Prices
             </button>
             
             <div class="dice-result" id="resourceResult">
@@ -433,22 +454,34 @@
                 <div class="resource-die grains">
                   <img src="icons/grains_resource.png" alt="Grains" class="resource-icon">
                   <h4>Grains</h4>
-                  <div class="dice-value" id="grainsValue">--</div>
+                  <div class="price-container">
+                    <div class="dice-value" id="grainsValue">--</div>
+                    <img src="icons/coin_resource.png" alt="coins" class="coin-icon">
+                  </div>
                 </div>
                 <div class="resource-die horse">
                   <img src="icons/horse_resource.png" alt="Horse" class="resource-icon">
                   <h4>Horse</h4>
-                  <div class="dice-value" id="horseValue">--</div>
+                  <div class="price-container">
+                    <div class="dice-value" id="horseValue">--</div>
+                    <img src="icons/coin_resource.png" alt="coins" class="coin-icon">
+                  </div>
                 </div>
                 <div class="resource-die oil">
                   <img src="icons/oil_resource.png" alt="Oil" class="resource-icon">
                   <h4>Oil</h4>
-                  <div class="dice-value" id="oilValue">--</div>
+                  <div class="price-container">
+                    <div class="dice-value" id="oilValue">--</div>
+                    <img src="icons/coin_resource.png" alt="coins" class="coin-icon">
+                  </div>
                 </div>
                 <div class="resource-die iron">
                   <img src="icons/iron_resource.png" alt="Iron" class="resource-icon">
                   <h4>Iron</h4>
-                  <div class="dice-value" id="ironValue">--</div>
+                  <div class="price-container">
+                    <div class="dice-value" id="ironValue">--</div>
+                    <img src="icons/coin_resource.png" alt="coins" class="coin-icon">
+                  </div>
                 </div>
               </div>
             </div>
@@ -501,23 +534,23 @@
         // Add special styling for critical/fumble
         if (roll === 20) {
           value.classList.add('critical');
-          comment.textContent = "🎉 Critical Success! Maximum damage!";
+          comment.textContent = "🎉 Great Success!";
           comment.style.color = "#22c55e";
         } else if (roll === 1) {
           value.classList.add('fumble');
-          comment.textContent = "💀 Critical Fumble! Something went wrong...";
+          comment.textContent = "💀 Critical Fumble!";
           comment.style.color = "#ef4444";
         } else if (roll >= 15) {
-          comment.textContent = "⚔️ Excellent roll! High chance of success!";
+          comment.textContent = "Excellent roll!";
           comment.style.color = "#22c55e";
         } else if (roll >= 10) {
-          comment.textContent = "✅ Good roll! Decent chance of success.";
+          comment.textContent = "Nice roll!";
           comment.style.color = "#3b82f6";
         } else if (roll >= 5) {
-          comment.textContent = "⚠️ Low roll. Might need some luck...";
+          comment.textContent = "Low roll.";
           comment.style.color = "#f59e0b";
         } else {
-          comment.textContent = "😬 Very low roll. Success is unlikely.";
+          comment.textContent = "Very low roll.";
           comment.style.color = "#ef4444";
         }
         
