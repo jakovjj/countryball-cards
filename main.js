@@ -51,9 +51,20 @@ const countryBackgrounds = {
   'NL': 'netherlands-bg.png',
   'SE': 'sweden-bg.png',
   'FR': 'france-bg.png',
-  'GB': 'britain-bg.png',
+  'GB': 'uk-bg.png',
   'CH': 'switzerland-bg.png',
-  'PL': 'poland-bg.png'
+  'PL': 'poland-bg.png',
+  'NO': 'norway-bg.png',
+  'RU': 'russia-bg.png',
+  'RO': 'romania-bg.png',
+  'MX': 'mexico-bg.png',
+  'IT': 'italy-bg.png',
+  'AU': 'australia-bg.png',
+  'CA': 'canada-bg.png',
+  'UA': 'ukraine-bg.png',
+  'TR': 'turkey-bg.png',
+  'CN': 'china-bg.png',
+  'JP': 'japan-bg.png'
 };
 
 async function detectCountryAndSetBackground(){
