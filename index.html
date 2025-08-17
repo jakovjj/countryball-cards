@@ -597,6 +597,24 @@
     </div>
   </div>
 
+  <!-- Bottom Email Signup Popup -->
+  <div class="bottom-popup" id="bottomPopup" hidden>
+    <div class="bottom-popup-content">
+      <div class="bottom-popup-text">
+        <span class="bottom-popup-title">🚀 Don't miss our Kickstarter launch!</span>
+        <span class="bottom-popup-subtitle">Get notified when we go live on October 1st</span>
+      </div>
+      <div class="bottom-popup-actions">
+        <button class="bottom-popup-btn primary" onclick="showEmailModal(); trackBottomPopupClick('signup')">
+          Sign Up for Updates
+        </button>
+      </div>
+      <button class="bottom-popup-close" onclick="dismissBottomPopup(); trackBottomPopupClick('close')" aria-label="Close">
+        ✕
+      </button>
+    </div>
+  </div>
+
   <script src="analytics.js" defer></script>
   <script src="main.js" defer></script>
 </body>

@@ -601,6 +601,9 @@ function showEmailModal() {
       submitBtn.classList.add('success');
       submitBtn.querySelector('.submit-text').textContent = 'Subscribed!';
       
+      // Hide bottom popup since user signed up
+      dismissBottomPopup();
+      
       // Update main button state
       setTimeout(() => {
         const mainEmailBtn = document.getElementById('emailBtn');
@@ -828,6 +831,108 @@ function trackCountryDetection(country) {
     gtag('event', 'country_detected', {
       event_category: 'user_data',
       event_label: country,
+      value: 1
+    });
+  }
+}
+
+// ===== BOTTOM POPUP FUNCTIONALITY =====
+function showBottomPopup() {
+  const popup = document.getElementById('bottomPopup');
+  if (!popup) {
+    console.log('Bottom popup element not found');
+    return;
+  }
+  
+  // Check if user has already dismissed or signed up
+  const dismissed = localStorage.getItem('bottom_popup_dismissed');
+  const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+  
+  console.log('Bottom popup check:', { dismissed, emailCount: emails.length });
+  
+  if (dismissed || emails.length > 0) {
+    console.log('Bottom popup blocked - user already dismissed or signed up');
+    return;
+  }
+  
+  console.log('Showing bottom popup');
+  popup.hidden = false;
+  popup.classList.add('show');
+  
+  // Track popup show
+  trackBottomPopupShow();
+}
+
+function dismissBottomPopup() {
+  const popup = document.getElementById('bottomPopup');
+  if (!popup) return;
+  
+  popup.classList.add('hide');
+  setTimeout(() => {
+    popup.hidden = true;
+    popup.classList.remove('show', 'hide');
+  }, 300);
+  
+  // Remember that user dismissed it
+  localStorage.setItem('bottom_popup_dismissed', 'true');
+}
+
+// Debug function to reset popup state (for testing)
+function resetBottomPopup() {
+  localStorage.removeItem('bottom_popup_dismissed');
+  localStorage.removeItem('countryball_emails');
+  console.log('Bottom popup state reset - refresh page to test');
+}
+
+// Make reset function available globally for testing
+window.resetBottomPopup = resetBottomPopup;
+
+// Show bottom popup after user has been on page for 10 seconds
+setTimeout(() => {
+  // Only show if user hasn't scrolled much (still at top)
+  if (window.pageYOffset < 200) {
+    showBottomPopup();
+  }
+}, 10000);
+
+// Show bottom popup when user scrolls to 70% of page
+function checkScrollForPopup() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / documentHeight) * 100;
+  
+  if (scrollPercent >= 70) {
+    showBottomPopup();
+    window.removeEventListener('scroll', checkScrollForPopup);
+  }
+}
+
+window.addEventListener('scroll', checkScrollForPopup, { passive: true });
+
+function trackBottomPopupShow() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'bottom_popup_shown', {
+      event_category: 'engagement',
+      event_label: 'email_signup_popup',
+      value: 1
+    });
+    
+    // Additional GA4 event for popup frequency tracking
+    gtag('event', 'popup_display', {
+      event_category: 'conversion_funnel',
+      event_label: 'bottom_email_popup',
+      popup_type: 'bottom_signup',
+      popup_trigger: 'timer_or_scroll',
+      value: 1
+    });
+  }
+}
+
+function trackBottomPopupClick(action) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'bottom_popup_clicked', {
+      event_category: 'engagement',
+      event_label: action,
       value: 1
     });
   }
