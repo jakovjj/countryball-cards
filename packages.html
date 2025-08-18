@@ -124,6 +124,204 @@
       background-clip: text;
     }
     
+    /* Country Shipping Card Styles */
+    .your-country-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.06));
+      border: 2px solid rgba(16, 185, 129, 0.4);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      animation: slideInUp 0.6s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .country-flag-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+    }
+    
+    .country-flag-emoji {
+      font-size: 48px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      transition: transform 0.3s ease;
+    }
+    
+    .your-country-card:hover .country-flag-emoji {
+      transform: scale(1.1);
+    }
+    
+    .country-info h4 {
+      color: #10b981;
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    
+    .shipping-status {
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+    }
+    
+    .shipping-status.free {
+      color: #10b981;
+      font-weight: 600;
+    }
+    
+    .shipping-status.paid {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+    
+    .shipping-cost-display {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      min-width: 120px;
+    }
+    
+    .cost-label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .cost-amount {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 20px;
+    }
+    
+    .cost-amount.free {
+      color: #10b981;
+    }
+    
+    .cost-amount.paid {
+      color: #f59e0b;
+    }
+    
+    /* Shipping Zones Toggle */
+    .shipping-zones-toggle {
+      text-align: center;
+      margin: 16px 0;
+    }
+    
+    .toggle-shipping-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: none;
+      border-radius: 6px;
+      color: var(--muted);
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin: 0 auto;
+      min-width: 180px;
+    }
+    
+    .toggle-shipping-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+    }
+    
+    .toggle-icon {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .toggle-shipping-btn.expanded .toggle-icon {
+      transform: rotate(180deg);
+    }
+    
+    .shipping-zones {
+      animation: slideDown 0.3s ease-out;
+      overflow: hidden;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        max-height: 500px;
+        transform: translateY(0);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .your-country-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 12px;
+      }
+      
+      .country-flag-section {
+        width: 100%;
+      }
+      
+      .country-flag-emoji {
+        font-size: 36px;
+      }
+      
+      .country-info h4 {
+        font-size: 16px;
+      }
+      
+      .shipping-cost-display {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-width: auto;
+      }
+      
+      .cost-amount {
+        font-size: 18px;
+      }
+      
+      .toggle-shipping-btn {
+        min-width: 160px;
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+      
+      .toggle-icon {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    
     .kickstarter-banner {
       background: linear-gradient(135deg, var(--gold), #d4b866);
       color: var(--bg);
@@ -377,33 +575,17 @@
       gap: 20px;
     }
     
+    .shipping-zones[hidden] {
+      display: none !important;
+    }
+    
     .shipping-zone {
       background: rgba(255, 255, 255, 0.05);
       padding: 20px;
       border-radius: 12px;
       border: 2px solid rgba(199, 164, 85, 0.2);
-      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-    }
-    
-    .shipping-zone:hover {
-      transform: translateY(-2px);
-      border-color: rgba(199, 164, 85, 0.4);
-      box-shadow: 0 8px 25px rgba(199, 164, 85, 0.1);
-    }
-    
-    .shipping-zone:first-child {
-      border-color: #10b981;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
-    }
-    
-    .shipping-zone:first-child::before {
-      content: '✨';
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 18px;
     }
     
     .shipping-zone h4 {
@@ -414,10 +596,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-    }
-    
-    .shipping-zone:first-child h4 {
-      color: #10b981;
     }
     
     .shipping-zone h4::before {
@@ -787,9 +965,9 @@
           </div>
           <ul class="package-features">
             <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
-            <li><span class="feature-check">✓</span> Handdrawn version of each card</li>
-            <li><span class="feature-check">✓</span> 5 random unique holographic cards</li>
-            <li><span class="feature-check">✓</span> 20 blank templates for custom cards</li>
+            <li><span class="feature-check">✓</span> Numbered Founder's certificate card</li>
+            <li><span class="feature-check">✓</span> 5 holographic Megaball evolution cards</li>
+            <li><span class="feature-check">✓</span> 8 blank templates for custom cards</li>
             <li><span class="feature-check">✓</span> Limited collector's edition</li>
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
           </ul>
@@ -813,14 +991,39 @@
 
       <div class="shipping-info">
         <h3>Shipping Information</h3>
-        <div class="shipping-zones">
+        
+        <!-- Country-Specific Shipping Card -->
+        <div class="your-country-card" id="countryShippingCard" hidden>
+          <div class="country-flag-section">
+            <span class="country-flag-emoji" id="countryFlagEmoji">🌍</span>
+            <div class="country-info">
+              <h4 id="countryName">Detecting your location...</h4>
+              <p class="shipping-status" id="shippingStatus">Calculating shipping for your country...</p>
+            </div>
+          </div>
+          <div class="shipping-cost-display">
+            <span class="cost-label">Your shipping cost:</span>
+            <span class="cost-amount" id="costAmount">-</span>
+          </div>
+        </div>
+        
+        <div class="shipping-zones-toggle">
+          <button class="toggle-shipping-btn" id="toggleShippingBtn" onclick="toggleShippingZones()">
+            <span class="toggle-text">View Shipping to Other Countries</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="shipping-zones" id="shippingZones" hidden>
           <div class="shipping-zone">
             <h4>FREE SHIPPING</h4>
-            <p>US, AT, BE, CZ, DK, FR, IT, HR, HU, NL, DE, PL, SI, SK</p>
+            <p>US, AT, BE, CZ, DK, FI, FR, IT, HR, HU, NL, DE, PL, SE, SI, SK</p>
           </div>
           <div class="shipping-zone">
             <h4 class="shipping-price" data-eur="4" data-usd="5">€4 / $5 SHIPPING</h4>
-            <p>BG, CY, EE, FI, GR, IE, LV, LT, LU, MT, PT, RO, ES, SE</p>
+            <p>BG, CY, EE, ES, FI, GR, IE, LV, LT, LU, MT, NO, PT, RO</p>
           </div>
           <div class="shipping-zone">
             <h4 class="shipping-price" data-eur="5.5" data-usd="6">€5.5 / $6 SHIPPING</h4>
@@ -944,6 +1147,80 @@
       'AT', 'BE', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES', 'HR'
     ];
 
+    // Country shipping data with flag emojis
+    const shippingData = {
+      // Free shipping countries
+      'US': { cost: 'FREE', flag: '🇺🇸', name: 'United States' },
+      'AT': { cost: 'FREE', flag: '🇦🇹', name: 'Austria' },
+      'BE': { cost: 'FREE', flag: '🇧🇪', name: 'Belgium' },
+      'CZ': { cost: 'FREE', flag: '🇨🇿', name: 'Czech Republic' },
+      'DK': { cost: 'FREE', flag: '🇩🇰', name: 'Denmark' },
+      'FI': { cost: 'FREE', flag: '🇫🇮', name: 'Finland' },
+      'FR': { cost: 'FREE', flag: '🇫🇷', name: 'France' },
+      'IT': { cost: 'FREE', flag: '🇮🇹', name: 'Italy' },
+      'HR': { cost: 'FREE', flag: '🇭🇷', name: 'Croatia' },
+      'HU': { cost: 'FREE', flag: '🇭🇺', name: 'Hungary' },
+      'NL': { cost: 'FREE', flag: '🇳🇱', name: 'Netherlands' },
+      'DE': { cost: 'FREE', flag: '🇩🇪', name: 'Germany' },
+      'PL': { cost: 'FREE', flag: '🇵🇱', name: 'Poland' },
+      'SE': { cost: 'FREE', flag: '🇸🇪', name: 'Sweden' },
+      'SI': { cost: 'FREE', flag: '🇸🇮', name: 'Slovenia' },
+      'SK': { cost: 'FREE', flag: '🇸🇰', name: 'Slovakia' },
+      
+      // €4 / $5 shipping
+      'BG': { cost: '€4 / $5', flag: '🇧🇬', name: 'Bulgaria' },
+      'CY': { cost: '€4 / $5', flag: '🇨🇾', name: 'Cyprus' },
+      'EE': { cost: '€4 / $5', flag: '🇪🇪', name: 'Estonia' },
+      'ES': { cost: '€4 / $5', flag: '🇪🇸', name: 'Spain' },
+      'GR': { cost: '€4 / $5', flag: '🇬🇷', name: 'Greece' },
+      'IE': { cost: '€4 / $5', flag: '🇮🇪', name: 'Ireland' },
+      'LV': { cost: '€4 / $5', flag: '🇱🇻', name: 'Latvia' },
+      'LT': { cost: '€4 / $5', flag: '🇱🇹', name: 'Lithuania' },
+      'LU': { cost: '€4 / $5', flag: '🇱🇺', name: 'Luxembourg' },
+      'MT': { cost: '€4 / $5', flag: '🇲🇹', name: 'Malta' },
+      'NO': { cost: '€4 / $5', flag: '🇳🇴', name: 'Norway' },
+      'PT': { cost: '€4 / $5', flag: '🇵🇹', name: 'Portugal' },
+      'RO': { cost: '€4 / $5', flag: '🇷🇴', name: 'Romania' },
+      
+      // €5.5 / $6 shipping
+      'AL': { cost: '€5.5 / $6', flag: '🇦🇱', name: 'Albania' },
+      'AD': { cost: '€5.5 / $6', flag: '🇦🇩', name: 'Andorra' },
+      'BA': { cost: '€5.5 / $6', flag: '🇧🇦', name: 'Bosnia and Herzegovina' },
+      'ME': { cost: '€5.5 / $6', flag: '🇲🇪', name: 'Montenegro' },
+      'GG': { cost: '€5.5 / $6', flag: '🇬🇬', name: 'Guernsey' },
+      'XK': { cost: '€5.5 / $6', flag: '🇽🇰', name: 'Kosovo' },
+      'LI': { cost: '€5.5 / $6', flag: '🇱🇮', name: 'Liechtenstein' },
+      'MK': { cost: '€5.5 / $6', flag: '🇲🇰', name: 'North Macedonia' },
+      'MD': { cost: '€5.5 / $6', flag: '🇲🇩', name: 'Moldova' },
+      'MC': { cost: '€5.5 / $6', flag: '🇲🇨', name: 'Monaco' },
+      'IM': { cost: '€5.5 / $6', flag: '🇮🇲', name: 'Isle of Man' },
+      'FO': { cost: '€5.5 / $6', flag: '🇫🇴', name: 'Faroe Islands' },
+      'SM': { cost: '€5.5 / $6', flag: '🇸🇲', name: 'San Marino' },
+      'RS': { cost: '€5.5 / $6', flag: '🇷🇸', name: 'Serbia' },
+      'CH': { cost: '€5.5 / $6', flag: '🇨🇭', name: 'Switzerland' },
+      'GB': { cost: '€5.5 / $6', flag: '🇬🇧', name: 'United Kingdom' },
+      'UA': { cost: '€5.5 / $6', flag: '🇺🇦', name: 'Ukraine' },
+      'VA': { cost: '€5.5 / $6', flag: '🇻🇦', name: 'Vatican City' },
+      'AE': { cost: '€5.5 / $6', flag: '🇦🇪', name: 'United Arab Emirates' },
+      
+      // Popular countries with €12 / $14 shipping
+      'AU': { cost: '€12 / $14', flag: '🇦🇺', name: 'Australia' },
+      'CA': { cost: '€12 / $14', flag: '🇨🇦', name: 'Canada' },
+      'JP': { cost: '€12 / $14', flag: '🇯🇵', name: 'Japan' },
+      'NZ': { cost: '€12 / $14', flag: '🇳🇿', name: 'New Zealand' },
+      'SG': { cost: '€12 / $14', flag: '🇸🇬', name: 'Singapore' },
+      'KR': { cost: '€12 / $14', flag: '🇰🇷', name: 'South Korea' },
+      'HK': { cost: '€12 / $14', flag: '🇭🇰', name: 'Hong Kong' },
+      'CN': { cost: '€12 / $14', flag: '🇨🇳', name: 'China' },
+      'BR': { cost: '€12 / $14', flag: '🇧🇷', name: 'Brazil' },
+      'MX': { cost: '€12 / $14', flag: '🇲🇽', name: 'Mexico' },
+      'RU': { cost: '€12 / $14', flag: '🇷🇺', name: 'Russia' },
+      'TR': { cost: '€12 / $14', flag: '🇹🇷', name: 'Turkey' },
+      'IN': { cost: '€12 / $14', flag: '🇮🇳', name: 'India' },
+      'IL': { cost: '€12 / $14', flag: '🇮🇱', name: 'Israel' },
+      'ZA': { cost: '€12 / $14', flag: '🇿🇦', name: 'South Africa' }
+    };
+
     // Static price display (1€ = 1.17$, already calculated and rounded)
     function updatePricesBasedOnLocation() {
       try {
@@ -953,6 +1230,7 @@
           countryCode = window.testCountry;
           console.log('Using test country:', countryCode);
           showPricesForRegion(countryCode);
+          updateShippingCard(countryCode);
         } else {
           fetch('https://ipapi.co/json/')
             .then(response => response.json())
@@ -960,14 +1238,88 @@
               countryCode = data.country_code;
               console.log('Detected country:', countryCode);
               showPricesForRegion(countryCode);
+              updateShippingCard(countryCode, data.country_name);
             })
             .catch(() => {
               console.log('Could not detect location, showing EUR prices');
               showPricesForRegion('DE'); // Default to EUR
+              updateShippingCard('DE', 'Germany');
             });
         }
       } catch (error) {
         console.log('Error in price update:', error);
+      }
+    }
+    
+    function updateShippingCard(countryCode, countryName = null) {
+      const card = document.getElementById('countryShippingCard');
+      const flagEmoji = document.getElementById('countryFlagEmoji');
+      const nameEl = document.getElementById('countryName');
+      const statusEl = document.getElementById('shippingStatus');
+      const costEl = document.getElementById('costAmount');
+      
+      if (!card || !flagEmoji || !nameEl || !statusEl || !costEl) {
+        console.log('Shipping card elements not found');
+        return;
+      }
+      
+      const shipping = shippingData[countryCode];
+      const isEurozone = eurozoneCountries.includes(countryCode);
+      
+      if (shipping) {
+        // Update flag emoji
+        flagEmoji.textContent = shipping.flag;
+        
+        // Update country name
+        nameEl.textContent = shipping.name;
+        
+        // Update shipping cost
+        let displayCost = shipping.cost;
+        if (shipping.cost !== 'FREE' && shipping.cost.includes('/')) {
+          displayCost = isEurozone ? shipping.cost.split(' / ')[0] : shipping.cost.split(' / ')[1];
+        }
+        costEl.textContent = displayCost;
+        
+        // Update status and styling
+        if (shipping.cost === 'FREE') {
+          statusEl.textContent = '🎉 You qualify for free shipping!';
+          statusEl.className = 'shipping-status free';
+          costEl.className = 'cost-amount free';
+        } else {
+          statusEl.textContent = `Shipping to ${shipping.name}`;
+          statusEl.className = 'shipping-status paid';
+          costEl.className = 'cost-amount paid';
+        }
+        
+        // Show the card with animation
+        card.hidden = false;
+        
+        console.log(`Updated shipping card for ${shipping.name} (${countryCode})`);
+      } else {
+        // Country not in shipping data - show generic worldwide shipping
+        flagEmoji.textContent = '🌍';
+        
+        nameEl.textContent = countryName || 'Your Location';
+        statusEl.textContent = 'Worldwide shipping available';
+        statusEl.className = 'shipping-status paid';
+        
+        // Show worldwide shipping cost
+        const worldCost = isEurozone ? '€12' : '$14';
+        costEl.textContent = worldCost;
+        costEl.className = 'cost-amount paid';
+        
+        card.hidden = false;
+        console.log(`Updated shipping card for worldwide shipping (${countryCode})`);
+      }
+      
+      // Track shipping info display
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'shipping_info_displayed', {
+          event_category: 'user_data',
+          event_label: countryCode,
+          custom_parameter: shipping ? shipping.cost : 'worldwide',
+          value: 1
+        });
       }
     }
     
@@ -1049,13 +1401,74 @@
     }
 
     // Simple function for easy testing
-    window.updateCountry = function() {
-      if (window.testCountry) {
+    window.updateCountry = function(testCountry) {
+      if (testCountry) {
+        window.testCountry = testCountry;
+        showPricesForRegion(testCountry);
+        updateShippingCard(testCountry);
+        console.log(`Updated to test country: ${testCountry}`);
+      } else if (window.testCountry) {
         showPricesForRegion(window.testCountry);
+        updateShippingCard(window.testCountry);
+        console.log(`Refreshed for test country: ${window.testCountry}`);
       } else {
-        console.log('Set window.testCountry first! Example: window.testCountry = "US"');
+        console.log('Set window.testCountry first! Example: window.updateCountry("US")');
+        console.log('Available countries: US, DE, CA, AU, JP, GB, FR, IT, ES, NL, CH, NO, etc.');
       }
     };
+    
+    // Debug function to test different countries quickly
+    window.testShipping = function() {
+      const testCountries = ['US', 'DE', 'CA', 'AU', 'JP', 'GB', 'FR', 'NO', 'CH', 'UA', 'CN', 'BR'];
+      let index = 0;
+      
+      function cycleCountry() {
+        const country = testCountries[index];
+        window.updateCountry(country);
+        console.log(`Testing ${country} (${index + 1}/${testCountries.length})`);
+        index = (index + 1) % testCountries.length;
+      }
+      
+      cycleCountry();
+      console.log('Use window.testShipping() again to cycle to next country');
+      return cycleCountry;
+    };
+    
+    // Toggle shipping zones visibility
+    function toggleShippingZones() {
+      const zones = document.getElementById('shippingZones');
+      const btn = document.getElementById('toggleShippingBtn');
+      const toggleText = btn.querySelector('.toggle-text');
+      
+      if (!zones || !btn || !toggleText) return;
+      
+      if (zones.hidden) {
+        // Show zones
+        zones.hidden = false;
+        btn.classList.add('expanded');
+        toggleText.textContent = 'Hide Other Countries';
+        
+        // Track expansion
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'shipping_zones_expanded', {
+            event_category: 'engagement',
+            event_label: 'view_all_shipping',
+            value: 1
+          });
+        }
+      } else {
+        // Hide zones
+        zones.hidden = true;
+        btn.classList.remove('expanded');
+        toggleText.textContent = 'View Shipping to Other Countries';
+        
+        // Scroll back to the shipping section smoothly
+        const shippingInfo = document.querySelector('.shipping-info');
+        if (shippingInfo) {
+          shippingInfo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
     // Track packages page view
     if (typeof gtag !== 'undefined') {
       gtag('event', 'page_view', {
