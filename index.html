@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://ads.reddit.com https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com https://cdn.emailjs.com; connect-src 'self' https://www.redditstatic.com https://ads.reddit.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com https://api.emailjs.com; img-src 'self' data: https:;">
   <title>Join Newsletter - Countryball Cards</title>
   <meta name="description" content="Sign up for Countryball Cards newsletter to get notified when we launch on Kickstarter October 1st!" />
   <link rel="canonical" href="https://countryballcards.com/" />
@@ -457,89 +456,27 @@
     });
   </script>
 
-  <!-- Analytics and Reddit Pixel -->
+  <!-- Reddit Pixel Code -->
   <script>
-    // Reddit Pixel bootstrap - Enhanced version
-    (function(w,d){
+    !function(w,d){
       if(!w.rdt){
         var p=w.rdt=function(){
-          p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments);
+          p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)
         };
         p.callQueue=[];
-
-        var isValidDomain=function(){
-          var h=w.location.hostname;
-          return h!=='localhost' && h!=='127.0.0.1' && h!=='' && !h.endsWith('.local') &&
-                 !h.startsWith('192.168.') && !h.startsWith('10.') && !h.startsWith('172.') &&
-                 h.indexOf('.')>-1 && (w.location.protocol==='https:' || w.location.protocol==='http:');
-        };
-
-        if(isValidDomain()){
-          var t=d.createElement('script');
-          t.src='https://www.redditstatic.com/ads/pixel.js';
-          t.async=true;
-          t.crossOrigin='anonymous';
-          t.referrerPolicy='no-referrer-when-downgrade';
-          t.setAttribute('data-nonce', '');
-          t.onerror=function(e){
-            console.warn('Reddit pixel failed to load:', e);
-            if(!w.rdt.sendEvent){ 
-              w.rdt = function(){ console.log('Reddit pixel fallback called with:', arguments); }; 
-              w.rdt.sendEvent=w.rdt; 
-            }
-          };
-          t.onload=function(){
-            console.log('Reddit pixel loaded successfully');
-          };
-          var firstScript = d.getElementsByTagName('script')[0];
-          if(firstScript && firstScript.parentNode){
-            firstScript.parentNode.insertBefore(t, firstScript);
-          } else {
-            d.head.appendChild(t);
-          }
-        } else {
-          console.log('Invalid domain for Reddit pixel, using mock');
-          w.rdt=function(){ console.log('Reddit pixel mock called with:', arguments); }; 
-          w.rdt.sendEvent=w.rdt;
-        }
+        var t=d.createElement("script");
+        t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;
+        var s=d.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(t,s)
       }
-    })(window,document);
-
-    // Init Reddit pixel with better error handling
-    function initRedditPixel() {
-      var h=location.hostname;
-      var ok = h && h.indexOf('.')>-1 && h!=='localhost' && h!=='127.0.0.1' && !h.endsWith('.local');
-      if(!ok) {
-        console.log('Skipping Reddit pixel init - invalid domain');
-        return;
-      }
-      
-      try{
-        console.log('Initializing Reddit pixel...');
-        rdt('init','a2_hgzcstbb8534',{ 
-          optOut:false, 
-          useDecimalCurrencyValues:true, 
-          debug:true 
-        });
-        console.log('Reddit pixel initialized');
-        
-        rdt('track','PageVisit');
-        console.log('Reddit pixel PageVisit tracked');
-      }catch(e){ 
-        console.error('Reddit pixel initialization failed:', e);
-      }
-    }
-
-    // Try to init after delays
-    setTimeout(initRedditPixel, 500);
-    setTimeout(initRedditPixel, 2000);
+    }(window,document);
     
-    // Also try on page load
-    if(document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(initRedditPixel, 1000);
-      });
-    }
+    rdt('init','a2_hgzcstbb8534', {
+      optOut: false,
+      useDecimalCurrencyValues: true
+    });
+    rdt('track', 'PageVisit');
+  </script>
   </script>
   </script>
 </body>
