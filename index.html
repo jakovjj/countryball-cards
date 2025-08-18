@@ -4,16 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com https://cdn.emailjs.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com https://api.emailjs.com; img-src 'self' data: https:;">
-  <title>Join Newsletter - Countryball Cards</title>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://ads.reddit.com https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com https://cdn.emailjs.com; connect-src 'self' https://www.redditstatic.com https://ads.reddit.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com https://api.emailjs.com; img-src 'self' data: https:;">\n  <title>Join Newsletter - Countryball Cards</title>
   <meta name="description" content="Sign up for Countryball Cards newsletter to get notified when we launch on Kickstarter October 1st!" />
-  <link rel="canonical" href="https://countryballcards.com/join.html" />
+  <link rel="canonical" href="https://countryballcards.com/" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#151515" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://countryballcards.com/join.html">
+  <meta property="og:url" content="https://countryballcards.com/">
   <meta property="og:title" content="Join Newsletter - Countryball Cards">
   <meta property="og:description" content="Sign up for Countryball Cards newsletter to get notified when we launch on Kickstarter October 1st!">
   <meta property="og:image" content="https://countryballcards.com/logo.png">
@@ -21,7 +20,7 @@
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://countryballcards.com/join.html">
+  <meta property="twitter:url" content="https://countryballcards.com/">
   <meta property="twitter:title" content="Join Newsletter - Countryball Cards">
   <meta property="twitter:description" content="Sign up for Countryball Cards newsletter to get notified when we launch on Kickstarter October 1st!">
   <meta property="twitter:image" content="https://countryballcards.com/logo.png">
@@ -38,7 +37,10 @@
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ads.reddit.com" crossorigin>
   <link rel="dns-prefetch" href="https://api.emailjs.com">
+  <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
+  <link rel="dns-prefetch" href="https://events.reddit.com">
   
   <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z"></script>
@@ -456,7 +458,7 @@
 
   <!-- Analytics and Reddit Pixel -->
   <script>
-    // Reddit Pixel bootstrap
+    // Reddit Pixel bootstrap - Enhanced version
     (function(w,d){
       if(!w.rdt){
         var p=w.rdt=function(){
@@ -468,7 +470,7 @@
           var h=w.location.hostname;
           return h!=='localhost' && h!=='127.0.0.1' && h!=='' && !h.endsWith('.local') &&
                  !h.startsWith('192.168.') && !h.startsWith('10.') && !h.startsWith('172.') &&
-                 (w.location.protocol==='https:' || w.location.protocol==='http:');
+                 h.indexOf('.')>-1 && (w.location.protocol==='https:' || w.location.protocol==='http:');
         };
 
         if(isValidDomain()){
@@ -477,27 +479,67 @@
           t.async=true;
           t.crossOrigin='anonymous';
           t.referrerPolicy='no-referrer-when-downgrade';
+          t.setAttribute('data-nonce', '');
           t.onerror=function(e){
-            console.warn('Reddit pixel failed to load', e);
-            if(!w.rdt.sendEvent){ w.rdt = function(){ /* noop fallback */ }; w.rdt.sendEvent=w.rdt; }
+            console.warn('Reddit pixel failed to load:', e);
+            if(!w.rdt.sendEvent){ 
+              w.rdt = function(){ console.log('Reddit pixel fallback called with:', arguments); }; 
+              w.rdt.sendEvent=w.rdt; 
+            }
           };
-          (d.getElementsByTagName('script')[0]||d.head).parentNode.insertBefore(t,d.scripts[0]);
+          t.onload=function(){
+            console.log('Reddit pixel loaded successfully');
+          };
+          var firstScript = d.getElementsByTagName('script')[0];
+          if(firstScript && firstScript.parentNode){
+            firstScript.parentNode.insertBefore(t, firstScript);
+          } else {
+            d.head.appendChild(t);
+          }
         } else {
-          w.rdt=function(){ /* local mock */ }; w.rdt.sendEvent=w.rdt;
+          console.log('Invalid domain for Reddit pixel, using mock');
+          w.rdt=function(){ console.log('Reddit pixel mock called with:', arguments); }; 
+          w.rdt.sendEvent=w.rdt;
         }
       }
     })(window,document);
 
-    // Init Reddit pixel after a short delay
-    setTimeout(function(){
+    // Init Reddit pixel with better error handling
+    function initRedditPixel() {
       var h=location.hostname;
       var ok = h && h.indexOf('.')>-1 && h!=='localhost' && h!=='127.0.0.1' && !h.endsWith('.local');
-      if(!ok) return;
+      if(!ok) {
+        console.log('Skipping Reddit pixel init - invalid domain');
+        return;
+      }
+      
       try{
-        rdt('init','a2_hgzcstbb8534',{ optOut:false, useDecimalCurrencyValues:true, debug:false });
+        console.log('Initializing Reddit pixel...');
+        rdt('init','a2_hgzcstbb8534',{ 
+          optOut:false, 
+          useDecimalCurrencyValues:true, 
+          debug:true 
+        });
+        console.log('Reddit pixel initialized');
+        
         rdt('track','PageVisit');
-      }catch(e){ /* ignore */ }
-    },500);
+        console.log('Reddit pixel PageVisit tracked');
+      }catch(e){ 
+        console.error('Reddit pixel initialization failed:', e);
+      }
+    }
+
+    // Try to init after delays
+    setTimeout(initRedditPixel, 500);
+    setTimeout(initRedditPixel, 2000);
+    
+    // Also try on page load
+    if(document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initRedditPixel, 1000);
+      });
+    }
+  </script>
   </script>
 </body>
 </html>
