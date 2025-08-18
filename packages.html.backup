@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -571,8 +571,8 @@
     
     .shipping-zones {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
     
     .shipping-zones[hidden] {
@@ -581,8 +581,8 @@
     
     .shipping-zone {
       background: rgba(255, 255, 255, 0.05);
-      padding: 16px;
-      border-radius: 8px;
+      padding: 20px;
+      border-radius: 12px;
       border: 2px solid rgba(199, 164, 85, 0.2);
       position: relative;
       overflow: hidden;
@@ -590,7 +590,7 @@
     
     .shipping-zone h4 {
       color: var(--gold);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       font-size: 16px;
       font-weight: 700;
       display: flex;
@@ -910,7 +910,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Base Game</div>
-            <div class="package-price" data-eur="25">25€ / $29</div>
+            <div class="package-price" data-eur="25">€25 / $29</div>
             <div class="package-subtitle">Perfect for getting started</div>
           </div>
           <ul class="package-features">
@@ -926,7 +926,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">2-Pack</div>
-            <div class="package-price" data-eur="40">40€ / $47</div>
+            <div class="package-price" data-eur="40">€40 / $47</div>
             <div class="package-subtitle">Great value for friends</div>
           </div>
           <ul class="package-features">
@@ -943,7 +943,7 @@
         <div class="package-card extended-edition">
           <div class="package-header">
             <div class="package-name">Extended Edition</div>
-            <div class="package-price" data-eur="35">35€ / $41</div>
+            <div class="package-price" data-eur="35">€35 / $41</div>
             <div class="package-subtitle">Enhanced gameplay experience</div>
           </div>
           <ul class="package-features">
@@ -960,7 +960,7 @@
         <div class="package-card founders-edition">
           <div class="package-header">
             <div class="package-name">Founder's Edition</div>
-            <div class="package-price" data-eur="50">50€ / $59</div>
+            <div class="package-price" data-eur="50">€50 / $59</div>
             <div class="package-subtitle">The ultimate collector's package</div>
           </div>
           <ul class="package-features">
@@ -1019,14 +1019,14 @@
         <div class="shipping-zones" id="shippingZones" hidden>
           <div class="shipping-zone">
             <h4>FREE SHIPPING</h4>
-            <p>All EU countries and the US.</p>
+            <p>All of EU countries and the US.</p>
           </div>
           <div class="shipping-zone">
-            <h4 class="shipping-price" data-eur="4" data-usd="5">4€/$5 SHIPPING</h4>
-            <p>AL, BA, CH, ME, MK, NO, RS, UA, UK</p>
+            <h4 class="shipping-price" data-eur="4" data-usd="5">+€4 SHIPPING</h4>
+            <p>Other European countries: AL, BA, CH, ME, MK, NO, RS, UA, UK</p>
           </div>
           <div class="shipping-zone">
-            <h4 class="shipping-price" data-eur="12" data-usd="14">12€/$14 SHIPPING</h4>
+            <h4 class="shipping-price" data-eur="12" data-usd="14">+€12 SHIPPING</h4>
             <p>Rest of the world (e.g., Australia, Canada, Japan, NZ...)</p>
           </div>
         </div>
@@ -1145,79 +1145,63 @@
 
     // Country shipping data with flag emojis
     const shippingData = {
-      // FREE SHIPPING - EU and US
+      // Free shipping countries - EU and US
       'US': { cost: 'FREE', flag: '🇺🇸', name: 'United States' },
       'AT': { cost: 'FREE', flag: '🇦🇹', name: 'Austria' },
       'BE': { cost: 'FREE', flag: '🇧🇪', name: 'Belgium' },
-      'BG': { cost: 'FREE', flag: '🇧🇬', name: 'Bulgaria' },
-      'HR': { cost: 'FREE', flag: '🇭🇷', name: 'Croatia' },
-      'CY': { cost: 'FREE', flag: '🇨🇾', name: 'Cyprus' },
-      'CZ': { cost: 'FREE', flag: '🇨🇿', name: 'Czech Republic' },
-      'DK': { cost: 'FREE', flag: '🇩🇰', name: 'Denmark' },
-      'EE': { cost: 'FREE', flag: '🇪🇪', name: 'Estonia' },
-      'FI': { cost: 'FREE', flag: '🇫🇮', name: 'Finland' },
-      'FR': { cost: 'FREE', flag: '🇫🇷', name: 'France' },
+      'BG': { cost: 'FREE', flag: '��', name: 'Bulgaria' },
+      'HR': { cost: 'FREE', flag: '��', name: 'Croatia' },
+      'CY': { cost: 'FREE', flag: '��', name: 'Cyprus' },
+      'CZ': { cost: 'FREE', flag: '��', name: 'Czech Republic' },
+      'DK': { cost: 'FREE', flag: '��', name: 'Denmark' },
+      'EE': { cost: 'FREE', flag: '��', name: 'Estonia' },
+      'FI': { cost: 'FREE', flag: '��', name: 'Finland' },
+      'FR': { cost: 'FREE', flag: '��', name: 'France' },
       'DE': { cost: 'FREE', flag: '🇩🇪', name: 'Germany' },
-      'GR': { cost: 'FREE', flag: '🇬🇷', name: 'Greece' },
-      'HU': { cost: 'FREE', flag: '🇭🇺', name: 'Hungary' },
-      'IE': { cost: 'FREE', flag: '🇮🇪', name: 'Ireland' },
-      'IT': { cost: 'FREE', flag: '🇮🇹', name: 'Italy' },
-      'LV': { cost: 'FREE', flag: '🇱🇻', name: 'Latvia' },
-      'LT': { cost: 'FREE', flag: '🇱🇹', name: 'Lithuania' },
-      'LU': { cost: 'FREE', flag: '🇱🇺', name: 'Luxembourg' },
-      'MT': { cost: 'FREE', flag: '🇲🇹', name: 'Malta' },
-      'NL': { cost: 'FREE', flag: '🇳🇱', name: 'Netherlands' },
-      'PL': { cost: 'FREE', flag: '🇵🇱', name: 'Poland' },
-      'PT': { cost: 'FREE', flag: '🇵🇹', name: 'Portugal' },
-      'RO': { cost: 'FREE', flag: '🇷🇴', name: 'Romania' },
-      'SK': { cost: 'FREE', flag: '🇸🇰', name: 'Slovakia' },
-      'SI': { cost: 'FREE', flag: '🇸🇮', name: 'Slovenia' },
-      'ES': { cost: 'FREE', flag: '🇪🇸', name: 'Spain' },
-      'SE': { cost: 'FREE', flag: '🇸🇪', name: 'Sweden' },
+      'GR': { cost: 'FREE', flag: '��', name: 'Greece' },
+      'HU': { cost: 'FREE', flag: '��', name: 'Hungary' },
+      'IE': { cost: 'FREE', flag: '🇪', name: 'Ireland' },
+      'IT': { cost: 'FREE', flag: '��', name: 'Italy' },
+      'LV': { cost: 'FREE', flag: '��', name: 'Latvia' },
+      'LT': { cost: 'FREE', flag: '��', name: 'Lithuania' },
+      'LU': { cost: 'FREE', flag: '��', name: 'Luxembourg' },
+      'MT': { cost: 'FREE', flag: '��', name: 'Malta' },
+      'NL': { cost: 'FREE', flag: '��', name: 'Netherlands' },
+      'PL': { cost: 'FREE', flag: '��', name: 'Poland' },
+      'PT': { cost: 'FREE', flag: '�🇹', name: 'Portugal' },
+      'RO': { cost: 'FREE', flag: '��', name: 'Romania' },
+      'SK': { cost: 'FREE', flag: '��', name: 'Slovakia' },
+      'SI': { cost: 'FREE', flag: '��', name: 'Slovenia' },
+      'ES': { cost: 'FREE', flag: '��', name: 'Spain' },
+      'SE': { cost: 'FREE', flag: '��', name: 'Sweden' },
       
-      // 4€/$5 SHIPPING
-      'AL': { cost: '4€/$5', flag: '🇦🇱', name: 'Albania' },
-      'BA': { cost: '4€/$5', flag: '🇧🇦', name: 'Bosnia and Herzegovina' },
-      'CH': { cost: '4€/$5', flag: '🇨🇭', name: 'Switzerland' },
-      'ME': { cost: '4€/$5', flag: '🇲🇪', name: 'Montenegro' },
-      'MK': { cost: '4€/$5', flag: '🇲🇰', name: 'North Macedonia' },
-      'NO': { cost: '4€/$5', flag: '🇳🇴', name: 'Norway' },
-      'RS': { cost: '4€/$5', flag: '🇷🇸', name: 'Serbia' },
-      'UA': { cost: '4€/$5', flag: '🇺🇦', name: 'Ukraine' },
-      'GB': { cost: '4€/$5', flag: '🇬🇧', name: 'United Kingdom' },
+      // +€4 shipping
+      'AL': { cost: '+€4', flag: '🇦🇱', name: 'Albania' },
+      'BA': { cost: '+€4', flag: '🇧🇦', name: 'Bosnia and Herzegovina' },
+      'CH': { cost: '+€4', flag: '��', name: 'Switzerland' },
+      'ME': { cost: '+€4', flag: '��', name: 'Montenegro' },
+      'MK': { cost: '+€4', flag: '🇲🇰', name: 'North Macedonia' },
+      'NO': { cost: '+€4', flag: '�🇴', name: 'Norway' },
+      'RS': { cost: '+€4', flag: '🇷🇸', name: 'Serbia' },
+      'UA': { cost: '+€4', flag: '��', name: 'Ukraine' },
+      'GB': { cost: '+€4', flag: '🇬🇧', name: 'United Kingdom' },
       
-      // 12€/$14 SHIPPING - Rest of the world
-      'AU': { cost: '12€/$14', flag: '🇦🇺', name: 'Australia' },
-      'BR': { cost: '12€/$14', flag: '🇧🇷', name: 'Brazil' },
-      'CA': { cost: '12€/$14', flag: '🇨🇦', name: 'Canada' },
-      'CL': { cost: '12€/$14', flag: '🇨🇱', name: 'Chile' },
-      'CO': { cost: '12€/$14', flag: '🇨🇴', name: 'Colombia' },
-      'CR': { cost: '12€/$14', flag: '🇨🇷', name: 'Costa Rica' },
-      'DO': { cost: '12€/$14', flag: '🇩🇴', name: 'Dominican Republic' },
-      'EC': { cost: '12€/$14', flag: '🇪🇨', name: 'Ecuador' },
-      'GT': { cost: '12€/$14', flag: '🇬🇹', name: 'Guatemala' },
-      'JM': { cost: '12€/$14', flag: '🇯🇲', name: 'Jamaica' },
-      'JP': { cost: '12€/$14', flag: '🇯🇵', name: 'Japan' },
-      'KR': { cost: '12€/$14', flag: '🇰🇷', name: 'South Korea' },
-      'MX': { cost: '12€/$14', flag: '🇲🇽', name: 'Mexico' },
-      'NZ': { cost: '12€/$14', flag: '🇳🇿', name: 'New Zealand' },
-      'PA': { cost: '12€/$14', flag: '🇵🇦', name: 'Panama' },
-      'PE': { cost: '12€/$14', flag: '🇵🇪', name: 'Peru' },
-      'SG': { cost: '12€/$14', flag: '🇸🇬', name: 'Singapore' },
-      'TW': { cost: '12€/$14', flag: '🇹🇼', name: 'Taiwan' },
-      'UY': { cost: '12€/$14', flag: '🇺🇾', name: 'Uruguay' },
-      'CN': { cost: '12€/$14', flag: '🇨🇳', name: 'China' },
-      'EG': { cost: '12€/$14', flag: '🇪🇬', name: 'Egypt' },
-      'ID': { cost: '12€/$14', flag: '🇮🇩', name: 'Indonesia' },
-      'MA': { cost: '12€/$14', flag: '🇲🇦', name: 'Morocco' },
-      'MY': { cost: '12€/$14', flag: '🇲🇾', name: 'Malaysia' },
-      'NG': { cost: '12€/$14', flag: '🇳🇬', name: 'Nigeria' },
-      'PH': { cost: '12€/$14', flag: '🇵🇭', name: 'Philippines' },
-      'RU': { cost: '12€/$14', flag: '🇷🇺', name: 'Russia' },
-      'TR': { cost: '12€/$14', flag: '🇹🇷', name: 'Turkey' },
-      'IN': { cost: '12€/$14', flag: '🇮🇳', name: 'India' },
-      'IL': { cost: '12€/$14', flag: '🇮🇱', name: 'Israel' },
-      'ZA': { cost: '12€/$14', flag: '🇿🇦', name: 'South Africa' }
+      // Popular countries with +€12 shipping
+      'AU': { cost: '+€12', flag: '🇦🇺', name: 'Australia' },
+      'CA': { cost: '+€12', flag: '🇨🇦', name: 'Canada' },
+      'JP': { cost: '+€12', flag: '🇯🇵', name: 'Japan' },
+      'NZ': { cost: '+€12', flag: '🇳🇿', name: 'New Zealand' },
+      'SG': { cost: '+€12', flag: '🇸🇬', name: 'Singapore' },
+      'KR': { cost: '+€12', flag: '🇰🇷', name: 'South Korea' },
+      'HK': { cost: '+€12', flag: '🇭🇰', name: 'Hong Kong' },
+      'CN': { cost: '+€12', flag: '🇨🇳', name: 'China' },
+      'BR': { cost: '+€12', flag: '🇧🇷', name: 'Brazil' },
+      'MX': { cost: '+€12', flag: '🇲🇽', name: 'Mexico' },
+      'RU': { cost: '+€12', flag: '🇷🇺', name: 'Russia' },
+      'TR': { cost: '+€12', flag: '🇹🇷', name: 'Turkey' },
+      'IN': { cost: '+€12', flag: '🇮🇳', name: 'India' },
+      'IL': { cost: '+€12', flag: '🇮🇱', name: 'Israel' },
+      'ZA': { cost: '+€12', flag: '🇿🇦', name: 'South Africa' }
     };
 
     // Static price display (1€ = 1.17$, already calculated and rounded)
@@ -1301,7 +1285,7 @@
         statusEl.className = 'shipping-status paid';
         
         // Show worldwide shipping cost
-        const worldCost = '12€/$14';
+        const worldCost = '+€12';
         costEl.textContent = worldCost;
         costEl.className = 'cost-amount paid';
         
@@ -1326,17 +1310,17 @@
       // Update package prices
       document.querySelectorAll('.package-price').forEach(el => {
         if (isEurozone) {
-          // Show only EUR: "25€ / $29" → "25€"
+          // Show only EUR: "€25 / $29" → "€25"
           const originalText = el.textContent;
           if (originalText.includes(' / ')) {
             el.textContent = originalText.split(' / ')[0];
           }
         } else {
-          // Show only USD: "25€ / $29" → "$29"
+          // Show only USD: "€25 / $29" → "$29"
           const originalText = el.textContent;
           if (originalText.includes(' / ')) {
             el.textContent = originalText.split(' / ')[1];
-          } else if (originalText.includes('€')) {
+          } else if (originalText.startsWith('€')) {
             // Convert from EUR display to USD
             const eurValue = parseInt(originalText.replace('€', ''));
             let usdValue;
@@ -1355,13 +1339,13 @@
       // Update shipping prices
       document.querySelectorAll('.shipping-price').forEach(el => {
         if (isEurozone) {
-          // Show only EUR: "4€ / $5 SHIPPING" → "4€ SHIPPING"
+          // Show only EUR: "€4 / $5 SHIPPING" → "€4 SHIPPING"
           const originalText = el.textContent;
           if (originalText.includes(' / ')) {
             el.textContent = originalText.replace(/ \/ \$\d+ SHIPPING/, ' SHIPPING');
           }
         } else {
-          // Show only USD: "4€ / $5 SHIPPING" → "$5 SHIPPING"
+          // Show only USD: "€4 / $5 SHIPPING" → "$5 SHIPPING"
           const originalText = el.textContent;
           if (originalText.includes(' / ')) {
             const usdPart = originalText.match(/\$(\d+) SHIPPING/);
@@ -1789,11 +1773,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
