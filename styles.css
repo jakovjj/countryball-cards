@@ -8,30 +8,24 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 /* Countdown Banner */
 .countdown-banner {
   background: rgba(199, 164, 85, 0.1);
-  border: 1px solid rgba(199, 164, 85, 0.3);
   color: var(--text);
-  padding: 16px 20px;
+  padding: 12px 16px;
   border-radius: 12px;
-  margin: 16px 0 20px 0;
+  margin: 12px 0 16px 0;
   text-align: center;
   font-weight: 700;
   position: relative;
   overflow: hidden;
-  animation: countdown-glow 3s ease-in-out infinite alternate;
   box-sizing: border-box;
   max-width: 100%;
 }
 
-@keyframes countdown-glow {
-  from { border-color: rgba(199, 164, 85, 0.3); }
-  to { border-color: rgba(199, 164, 85, 0.5); }
-}
 
 .countdown-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .countdown-label {
@@ -43,28 +37,37 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 
 .countdown-timer {
   display: flex;
-  gap: 20px;
+  gap: 8px;
   justify-content: center;
   align-items: center;
-}
-
-.countdown-unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
 }
 
 .countdown-number {
   font-size: 28px;
   font-weight: 800;
-  line-height: 1;
-  min-width: 45px;
-  background: rgba(199, 164, 85, 0.2);
-  border: 1px solid rgba(199, 164, 85, 0.4);
-  border-radius: 8px;
-  padding: 8px 12px;
   color: var(--gold);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  min-width: 40px;
+  display: inline-block;
+}
+
+@keyframes countdown-glow {
+  0% { 
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  50% { 
+    text-shadow: 0 0 12px rgba(199, 164, 85, 0.8), 0 0 24px rgba(199, 164, 85, 0.4);
+  }
+  100% { 
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.countdown-separator {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--gold);
+  opacity: 0.7;
 }
 
 .countdown-label-small {
@@ -77,17 +80,16 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 
 @media (max-width: 480px) {
   .countdown-timer {
-    gap: 12px;
+    gap: 6px;
   }
   
   .countdown-number {
     font-size: 22px;
-    min-width: 36px;
-    padding: 6px 8px;
+    min-width: 32px;
   }
   
-  .countdown-label-small {
-    font-size: 10px;
+  .countdown-separator {
+    font-size: 18px;
   }
   
   .countdown-label {
@@ -99,7 +101,7 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
     margin: 12px 0 16px 0;
   }
 }
-.logo{max-width:100%;height:auto;max-height:200px;margin:8px 0 6px;display:block}
+.logo{max-width:100%;height:auto;max-height:280px;margin:8px 0 6px;display:block;transform:none}
 .logo-fallback{display:none}
 .sub{color:var(--muted);margin:0 0 18px}
 .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
@@ -138,6 +140,227 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
           backface-visibility:hidden;
           -webkit-backface-visibility:hidden;
           will-change:transform}
+
+/* Inline Email Signup Form */
+.inline-email-signup {
+  background: linear-gradient(135deg, rgba(199, 164, 85, 0.15), rgba(199, 164, 85, 0.08));
+  border: 2px solid rgba(199, 164, 85, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 16px 0;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Holographic glare effect for the email signup form */
+.inline-email-signup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    transparent,
+    rgba(199, 164, 85, 0.06),
+    rgba(255, 215, 0, 0.08),
+    rgba(199, 164, 85, 0.06),
+    transparent,
+    transparent
+  );
+  animation: holographic-glare 6s infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.inline-email-signup > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes holographic-glare {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.inline-email-title {
+  color: var(--gold);
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.inline-email-subtitle {
+  color: var(--text);
+  font-size: 15px;
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+}
+
+.inline-email-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.inline-form-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.inline-email-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 14px;
+  border: 2px solid rgba(199, 164, 85, 0.4);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.inline-email-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(199, 164, 85, 0.2);
+}
+
+.inline-email-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.inline-email-submit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, var(--gold), #d4b866);
+  border: none;
+  border-radius: 8px;
+  color: var(--bg);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(199, 164, 85, 0.3);
+}
+
+.inline-email-submit:hover {
+  background: linear-gradient(135deg, #d4b866, #e6c875);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(199, 164, 85, 0.4);
+}
+
+.inline-email-submit:active {
+  transform: translateY(0);
+}
+
+.inline-email-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.inline-email-submit.loading .inline-submit-text {
+  opacity: 0.7;
+}
+
+.inline-submit-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s ease;
+}
+
+.inline-email-submit:hover .inline-submit-icon {
+  transform: translateX(2px);
+}
+
+.inline-form-message {
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.inline-form-message.success {
+  background: rgba(76, 175, 80, 0.2);
+  color: #81c784;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  opacity: 1;
+}
+
+.inline-form-message.error {
+  background: rgba(244, 67, 54, 0.2);
+  color: #ef5350;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  opacity: 1;
+}
+
+.inline-form-message.info {
+  background: rgba(33, 150, 243, 0.2);
+  color: #64b5f6;
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  opacity: 1;
+}
+
+/* Alternative modal button styling */
+.cta-alternative {
+  width: 100%;
+  margin-top: 12px;
+  opacity: 0.8;
+  font-size: 14px !important;
+  padding: 12px 16px !important;
+}
+
+.cta-alternative:hover {
+  opacity: 1;
+}
+
+/* Responsive adjustments for inline email form */
+@media (max-width: 640px) {
+  .inline-email-signup {
+    margin: 12px 0;
+    padding: 16px 14px;
+  }
+  
+  .inline-email-title {
+    font-size: 18px;
+  }
+  
+  .inline-email-subtitle {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  
+  .inline-form-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .inline-email-input {
+    min-width: unset;
+  }
+  
+  .inline-email-submit {
+    justify-content: center;
+  }
+}
 
 /* Buttons */
 .btn {
@@ -294,6 +517,9 @@ font-size:16px}
                      transform:translateY(-2px);
                      box-shadow:0 6px 20px rgba(199,164,85,0.2),
                                 0 0 0 2px rgba(199,164,85,0.15)}
+
+
+
 .btn-icon{width:20px;height:20px;flex-shrink:0;transition:transform 0.3s ease}
 .btn:hover .btn-icon{transform:scale(1.1)}
 .footer{margin-top:30px;color:var(--muted);font-size:14px}
@@ -424,7 +650,7 @@ font-size:16px}
   .privacy-notice{text-align:center !important}
   .wrap{padding:clamp(16px,4vw,20px);max-width:calc(100vw - 8px)}
   .frame{padding:clamp(16px,4vw,20px)}
-  .logo{max-height:clamp(120px,20vw,150px);margin:8px auto 6px;display:block}
+  .logo{max-height:clamp(150px,25vw,200px);margin:8px auto 6px;display:block;transform:none !important}
   .badges{justify-content:center;margin:0 0 16px 0}
   h1{text-align:center}
   .sub{text-align:center;font-size:clamp(14px,3.5vw,16px);line-height:1.5}
@@ -432,6 +658,13 @@ font-size:16px}
 
 /* Additional mobile-specific adjustments */
 @media (max-width:480px){
+  /* Fix logo alignment on mobile */
+  .logo {
+    transform: none !important;
+    transform-origin: center !important;
+    image-orientation: from-image;
+  }
+  
   /* Tighten vertical spacing around the carousel on small screens */
   .carousel-container{max-width:90vw;padding:6px 2px}
   /* Place the carousel at the top and avoid extra whitespace */

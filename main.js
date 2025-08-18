@@ -18,10 +18,29 @@ function initCountdown() {
       const minutesEl = document.getElementById('minutes');
       const secondsEl = document.getElementById('seconds');
       
-      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
-      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
-      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
-      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+      // Helper function to update with animation
+      function updateWithAnimation(element, newValue) {
+        if (!element) return;
+        const currentValue = element.textContent;
+        const formattedValue = newValue.toString().padStart(2, '0');
+        
+        if (currentValue !== formattedValue && currentValue !== '--') {
+          // Add glow animation only (no scaling)
+          element.style.animation = 'countdown-glow 0.6s ease-in-out';
+          
+          // Remove animation after it completes
+          setTimeout(() => {
+            element.style.animation = '';
+          }, 600);
+        }
+        
+        element.textContent = formattedValue;
+      }
+      
+      updateWithAnimation(daysEl, days);
+      updateWithAnimation(hoursEl, hours);
+      updateWithAnimation(minutesEl, minutes);
+      updateWithAnimation(secondsEl, seconds);
     } else {
       // Launch day reached
       const countdownBanner = document.querySelector('.countdown-banner');
@@ -826,6 +845,24 @@ function trackDiceClick() {
   }
 }
 
+function trackFreePrintPlayClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'free_print_play_clicked', {
+      event_category: 'navigation',
+      event_label: 'from_homepage',
+      value: 1
+    });
+  }
+  
+  // Track with Reddit Pixel if available
+  if (typeof rdt !== 'undefined') {
+    rdt('track', 'Custom', {
+      customEventName: 'FreePrintPlayClick',
+      content_name: 'Free Print and Play Button'
+    });
+  }
+}
+
 function trackCarouselInteraction(action, cardName) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'carousel_interaction', {
@@ -948,3 +985,156 @@ function trackBottomPopupClick(action) {
     });
   }
 }
+
+// Inline Email Form Handler
+document.addEventListener('DOMContentLoaded', function() {
+  const inlineEmailForm = document.getElementById('inlineEmailForm');
+  const inlineEmailInput = document.getElementById('inlineEmailInput');
+  const inlineSubmitBtn = document.getElementById('inlineEmailSubmitBtn');
+  const inlineFormMessage = document.getElementById('inlineFormMessage');
+  
+  if (!inlineEmailForm || !inlineEmailInput || !inlineSubmitBtn || !inlineFormMessage) {
+    return;
+  }
+  
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+  
+  function showInlineMessage(message, type) {
+    inlineFormMessage.className = `inline-form-message ${type}`;
+    inlineFormMessage.textContent = message;
+  }
+  
+  async function handleInlineSubmit(e) {
+    e.preventDefault();
+    
+    const email = inlineEmailInput.value.trim();
+    
+    if (!email) {
+      showInlineMessage('Please enter your email address.', 'error');
+      inlineEmailInput.focus();
+      return;
+    }
+    
+    if (!validateEmail(email)) {
+      showInlineMessage('Please enter a valid email address.', 'error');
+      inlineEmailInput.focus();
+      return;
+    }
+    
+    // Show loading state
+    inlineSubmitBtn.disabled = true;
+    inlineSubmitBtn.classList.add('loading');
+    showInlineMessage('', '');
+    
+    try {
+      // Check if EmailJS is ready
+      if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
+        console.log('EmailJS not ready for inline form, waiting...');
+        showInlineMessage('Connecting to email service...', 'info');
+        
+        // Wait for EmailJS to load
+        let waitAttempts = 0;
+        const maxWaitAttempts = 10;
+        
+        while (waitAttempts < maxWaitAttempts && (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send)) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          waitAttempts++;
+          console.log(`EmailJS wait attempt ${waitAttempts}/${maxWaitAttempts} (inline form)`);
+        }
+        
+        if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
+          throw new Error('EmailJS service failed to load. Please refresh the page and try again.');
+        }
+        
+        console.log('EmailJS is now ready for inline form');
+        showInlineMessage('', '');
+      }
+      
+      // Check for duplicate emails locally first
+      const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+      
+      if (emails.includes(email)) {
+        showInlineMessage('You\'re already subscribed! 🎉', 'success');
+      } else {
+        // Send email via EmailJS
+        const templateParams = {
+          from_name: email,
+          from_email: email,
+          to_name: 'Countryball Cards Team',
+          message: `New newsletter signup from ${email} (inline form)`,
+          signup_date: new Date().toLocaleString(),
+          source_page: 'Homepage - Inline Form',
+          user_email: email,
+          reply_to: email
+        };
+
+        console.log('Sending email with EmailJS (inline form)...');
+        const result = await emailjs.send(
+          'service_icdib4n',
+          'template_j6fy2w2', 
+          templateParams
+        );
+
+        console.log('EmailJS response (inline form):', result);
+
+        if (result.status === 200) {
+          // Store email locally to prevent duplicates
+          emails.push(email);
+          localStorage.setItem('countryball_emails', JSON.stringify(emails));
+          
+          showInlineMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
+          console.log('Email sent successfully via EmailJS (inline form)');
+          
+          // Track successful signup
+          try {
+            if (window.rdt) rdt('track', 'SignUp', {
+              event_name: 'EmailSignup',
+              content_name: 'Newsletter',
+              content_category: 'Email Marketing',
+              content_ids: ['inline_email_signup'],
+              content_type: 'signup'
+            });
+          } catch (_) {}
+          
+          try {
+            if (window.gtag) {
+              gtag('event', 'email_signup', {
+                event_category: 'conversion',
+                event_label: 'inline_form',
+                value: 1
+              });
+            }
+          } catch (_) {}
+          
+          // Clear the form
+          inlineEmailInput.value = '';
+          
+        } else {
+          throw new Error('Failed to send email');
+        }
+      }
+    } catch (error) {
+      console.error('Inline email signup error:', error);
+      showInlineMessage('Something went wrong. Please try again later.', 'error');
+    } finally {
+      // Reset button state
+      inlineSubmitBtn.disabled = false;
+      inlineSubmitBtn.classList.remove('loading');
+    }
+  }
+  
+  inlineEmailForm.addEventListener('submit', handleInlineSubmit);
+  
+  // Focus and blur events for subtle styling (removed transform animation)
+  inlineEmailInput.addEventListener('focus', function() {
+    // Just add a subtle glow effect instead of scaling
+    this.style.boxShadow = '0 0 0 4px rgba(199, 164, 85, 0.3)';
+  });
+  
+  inlineEmailInput.addEventListener('blur', function() {
+    this.style.boxShadow = '';
+  });
+});
