@@ -4,4 +4,10 @@ Allow: /
 # Disallow internal files
 Disallow: /pixel-test.html
 
+# Important files for crawlers
+Allow: /favicon.ico
+Allow: /favicon-*.png
+Allow: /android-chrome-*.png
+Allow: /apple-touch-icon.png
+
 Sitemap: https://countryballcards.com/sitemap.xml
