@@ -345,6 +345,15 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
       margin: 40px 0;
+      padding: 40px 20px;
+      position: relative;
+    }
+    
+    /* Extended Edition - Purple Theme */
+    .package-card.extended-edition {
+      border-color: #8b5cf6;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
+      position: relative;
     }
     
     .package-card {
@@ -698,6 +707,49 @@
     .package-card.extended-edition {
       border-color: #8b5cf6;
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
+      position: relative;
+    }
+    
+    /* Extended Edition card needs relative positioning for sticker */
+    .package-card.extended-edition {
+      position: relative;
+    }
+    
+    /* External sticker element */
+    .extended-sticker {
+      position: absolute;
+      top: -22px;
+      right: -22px;
+      width: 110px;
+      height: 110px;
+      background-image: url('extended.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 50%;
+      z-index: 1000;
+      opacity: 1;
+      transform: rotate(-10deg);
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    @keyframes holographicGlow {
+      0% { 
+        filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.3)) hue-rotate(0deg);
+      }
+      25% { 
+        filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.2)) hue-rotate(8deg);
+      }
+      50% { 
+        filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.3)) hue-rotate(15deg);
+      }
+      75% { 
+        filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.2)) hue-rotate(22deg);
+      }
+      100% { 
+        filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.3)) hue-rotate(30deg);
+      }
     }
     
     .package-card.extended-edition:hover {
@@ -851,6 +903,7 @@
       .packages-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+        padding: 30px 15px;
       }
       
       .package-card {
@@ -882,6 +935,14 @@
       
       .packages-bottom-cta .btn {
         min-width: 260px;
+      }
+      
+      /* Mobile sticker sizing */
+      .extended-sticker {
+        width: 80px;
+        height: 80px;
+        top: -25px;
+        right: -25px;
       }
     }
   </style>
@@ -940,20 +1001,24 @@
         </div>
 
         <!-- Extended Edition -->
-        <div class="package-card extended-edition">
-          <div class="package-header">
-            <div class="package-name">Extended Edition</div>
-            <div class="package-price" data-eur="49">49€ / $59</div>
-            <div class="package-subtitle">Enhanced gameplay experience</div>
+        <div style="position: relative;">
+          <div class="package-card extended-edition">
+            <div class="package-header">
+              <div class="package-name">Extended Edition</div>
+              <div class="package-price" data-eur="49">49€ / $59</div>
+              <div class="package-subtitle">Enhanced gameplay experience</div>
+            </div>
+            <ul class="package-features">
+              <li><span class="feature-check">✓</span> Complete base game</li>
+              <li><span class="feature-check">✓</span> 2 exclusive mini-expansions (Bazaar Boom, Banners United)</li>
+              <li><span class="feature-check">✓</span> Additional strategic depth</li>
+              <li><span class="feature-check">✓</span> Extended replayability</li>
+              <li><span class="feature-check">✓</span> Enhanced gameplay components</li>
+              <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
+            </ul>
+            <button class="select-package-btn" onclick="showEmailModal(); trackPackageInterest('Extended Edition', 35)">Sign Up</button>
           </div>
-          <ul class="package-features">
-            <li><span class="feature-check">✓</span> Complete base game</li>
-            <li><span class="feature-check">✓</span> 2 exclusive mini-expansions (Bazaar Boom, Banners United)</li>
-            <li><span class="feature-check">✓</span> Additional strategic depth</li>
-            <li><span class="feature-check">✓</span> Extended replayability</li>
-            <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
-          </ul>
-          <button class="select-package-btn" onclick="showEmailModal(); trackPackageInterest('Extended Edition', 35)">Sign Up</button>
+          <div class="extended-sticker"></div>
         </div>
 
         <!-- Founder's Edition -->
