@@ -374,19 +374,35 @@
         showMessage('', '');
         
         try {
-          console.log('Submitting email with new backend...');
+          console.log('Submitting email directly to mineward backend...');
           
-          const result = await emailCollector.subscribe(email, {
-            source: 'join_page',
-            formData: {
-              page: 'join',
-              timestamp: new Date().toISOString()
-            }
+          // Direct call to your working backend
+          const response = await fetch('http://mineward.us.to/countryball_cards/backend/subscribe.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+              source: 'join_page',
+              form_data: {
+                page_url: window.location.href,
+                page_title: document.title,
+                timestamp: new Date().toISOString()
+              }
+            })
           });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log('Backend response:', result);
 
           if (result.success) {
             showSuccess();
-            console.log('Email subscription successful via new backend');
+            console.log('Email subscription successful via direct backend call');
           } else {
             throw new Error(result.message || 'Subscription failed');
           }
