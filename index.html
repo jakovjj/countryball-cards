@@ -605,6 +605,14 @@
           submitBtn.disabled = true;
           submitBtn.classList.add('loading');
           
+          // Store original button text
+          const submitText = submitBtn.querySelector('.submit-text');
+          let originalText = 'Get Updates';
+          if (submitText) {
+            originalText = submitText.textContent;
+            submitText.textContent = 'Subscribing...';
+          }
+          
           try {
             const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
               method: 'POST',
@@ -627,7 +635,9 @@
               showFormMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
               emailInput.value = '';
               submitBtn.classList.add('success');
-              submitBtn.querySelector('.submit-text').textContent = 'Subscribed!';
+              if (submitText) {
+                submitText.textContent = 'Subscribed!';
+              }
               
               // Close modal after success
               setTimeout(() => {
@@ -643,6 +653,10 @@
           } finally {
             submitBtn.disabled = false;
             submitBtn.classList.remove('loading');
+            // Restore original text if not successful
+            if (submitText && !submitBtn.classList.contains('success')) {
+              submitText.textContent = originalText;
+            }
           }
         });
       }
@@ -664,6 +678,14 @@
           if (!email) {
             showInlineMessage('Please enter your email address.', 'error');
             return;
+          }
+          
+          // Store original button text
+          const submitText = submitBtn.querySelector('.inline-submit-text');
+          let originalText = 'Get Updates';
+          if (submitText) {
+            originalText = submitText.textContent;
+            submitText.textContent = 'Subscribing...';
           }
           
           submitBtn.disabled = true;
@@ -690,6 +712,10 @@
             if (result.success) {
               showInlineMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
               emailInput.value = '';
+              submitBtn.classList.add('success');
+              if (submitText) {
+                submitText.textContent = 'Subscribed!';
+              }
             } else {
               throw new Error(result.message || 'Subscription failed');
             }
@@ -699,6 +725,10 @@
           } finally {
             submitBtn.disabled = false;
             submitBtn.classList.remove('loading');
+            // Restore original text if not successful
+            if (submitText && !submitBtn.classList.contains('success')) {
+              submitText.textContent = originalText;
+            }
           }
         });
       }

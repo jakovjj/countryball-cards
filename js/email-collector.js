@@ -383,9 +383,14 @@ class EmailFormHandler {
             const submitText = this.submitButton.querySelector('.inline-submit-text, .submit-text');
             if (submitText) {
                 if (loading) {
+                    // Store original text before changing
+                    if (!submitText.dataset.originalText) {
+                        submitText.dataset.originalText = submitText.textContent;
+                    }
                     submitText.textContent = 'Subscribing...';
                 } else {
-                    submitText.textContent = submitText.dataset.originalText || 'Subscribe';
+                    // Restore original text
+                    submitText.textContent = submitText.dataset.originalText || 'Get Updates';
                 }
             }
         }
