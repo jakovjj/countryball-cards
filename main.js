@@ -570,63 +570,40 @@ function showEmailModal() {
     showMessage('', '');
     
     try {
-      // Check if EmailJS is ready with more thorough checks
-      if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
-        console.log('EmailJS not ready, waiting...');
-        showMessage('Connecting to email service...', 'info');
-        
-        // Wait longer for EmailJS to load with multiple checks
-        let waitAttempts = 0;
-        const maxWaitAttempts = 10;
-        
-        while (waitAttempts < maxWaitAttempts && (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send)) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          waitAttempts++;
-          console.log(`EmailJS wait attempt ${waitAttempts}/${maxWaitAttempts}`);
-        }
-        
-        if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
-          throw new Error('EmailJS service failed to load. Please refresh the page and try again.');
-        }
-        
-        console.log('EmailJS is now ready');
-        showMessage('', '');
-      }
-      
       // Check for duplicate emails locally first
       const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
       
       if (emails.includes(email)) {
         showMessage('You\'re already subscribed! 🎉', 'success');
       } else {
-        // Send email via EmailJS
-        const templateParams = {
-          from_name: email,
-          from_email: email,
-          to_name: 'Countryball Cards Team',
-          message: `New newsletter signup from ${email}`,
-          signup_date: new Date().toLocaleString(),
-          source_page: 'Homepage',
-          user_email: email,
-          reply_to: email
-        };
+        // Send email via PHP backend (reliable fallback)
+        console.log('Sending email via backend...');
+        
+        const response = await fetch('backend/subscribe.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            source: 'homepage_modal'
+          })
+        });
 
-        console.log('Sending email with EmailJS...');
-        const result = await emailjs.send(
-          'service_icdib4n',
-          'template_j6fy2w2', 
-          templateParams
-        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        console.log('EmailJS response:', result);
+        const result = await response.json();
+        console.log('Backend response:', result);
 
-        if (result.status === 200) {
+        if (result.success) {
           // Store email locally to prevent duplicates
           emails.push(email);
           localStorage.setItem('countryball_emails', JSON.stringify(emails));
           
           showMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
-          console.log('Email sent successfully via EmailJS');
+          console.log('Email sent successfully via backend');
           
           // Track successful signup
           try {
@@ -646,7 +623,7 @@ function showEmailModal() {
             });
           } catch (_) {}
         } else {
-          throw new Error('Email sending failed');
+          throw new Error(result.message || 'Email submission failed');
         }
       }
       
@@ -688,14 +665,12 @@ function showEmailModal() {
       console.error('Email submission error:', error);
       
       // More specific error messages
-      if (error.message && error.message.includes('EmailJS service is not available')) {
-        showMessage('Service temporarily unavailable. Please try again in a moment.', 'error');
-      } else if (error.status === 400) {
-        showMessage('Invalid email format. Please check your email address.', 'error');
-      } else if (error.status === 401 || error.status === 403) {
-        showMessage('Authentication error. Please try again later.', 'error');
+      if (error.message && error.message.includes('Failed to fetch')) {
+        showMessage('Connection error. Please check your internet connection and try again.', 'error');
+      } else if (error.message && error.message.includes('HTTP error')) {
+        showMessage('Server error. Please try again in a moment.', 'error');
       } else {
-        showMessage('Unable to send email. Please try again or contact support.', 'error');
+        showMessage('Unable to submit email. Please try again or contact support.', 'error');
       }
       
       submitBtn.disabled = false;
@@ -1079,63 +1054,40 @@ document.addEventListener('DOMContentLoaded', function() {
     showInlineMessage('', '');
     
     try {
-      // Check if EmailJS is ready
-      if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
-        console.log('EmailJS not ready for inline form, waiting...');
-        showInlineMessage('Connecting to email service...', 'info');
-        
-        // Wait for EmailJS to load
-        let waitAttempts = 0;
-        const maxWaitAttempts = 10;
-        
-        while (waitAttempts < maxWaitAttempts && (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send)) {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          waitAttempts++;
-          console.log(`EmailJS wait attempt ${waitAttempts}/${maxWaitAttempts} (inline form)`);
-        }
-        
-        if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
-          throw new Error('EmailJS service failed to load. Please refresh the page and try again.');
-        }
-        
-        console.log('EmailJS is now ready for inline form');
-        showInlineMessage('', '');
-      }
-      
       // Check for duplicate emails locally first
       const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
       
       if (emails.includes(email)) {
         showInlineMessage('You\'re already subscribed! 🎉', 'success');
       } else {
-        // Send email via EmailJS
-        const templateParams = {
-          from_name: email,
-          from_email: email,
-          to_name: 'Countryball Cards Team',
-          message: `New newsletter signup from ${email} (inline form)`,
-          signup_date: new Date().toLocaleString(),
-          source_page: 'Homepage - Inline Form',
-          user_email: email,
-          reply_to: email
-        };
+        // Send email via PHP backend
+        console.log('Sending email via backend (inline form)...');
+        
+        const response = await fetch('backend/subscribe.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            source: 'homepage_inline'
+          })
+        });
 
-        console.log('Sending email with EmailJS (inline form)...');
-        const result = await emailjs.send(
-          'service_icdib4n',
-          'template_j6fy2w2', 
-          templateParams
-        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        console.log('EmailJS response (inline form):', result);
+        const result = await response.json();
+        console.log('Backend response (inline form):', result);
 
-        if (result.status === 200) {
+        if (result.success) {
           // Store email locally to prevent duplicates
           emails.push(email);
           localStorage.setItem('countryball_emails', JSON.stringify(emails));
           
           showInlineMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
-          console.log('Email sent successfully via EmailJS (inline form)');
+          console.log('Email sent successfully via backend (inline form)');
           
           // Track successful signup
           try {
@@ -1162,12 +1114,17 @@ document.addEventListener('DOMContentLoaded', function() {
           inlineEmailInput.value = '';
           
         } else {
-          throw new Error('Failed to send email');
+          throw new Error(result.message || 'Email submission failed');
         }
       }
     } catch (error) {
       console.error('Inline email signup error:', error);
-      showInlineMessage('Something went wrong. Please try again later.', 'error');
+      
+      if (error.message && error.message.includes('Failed to fetch')) {
+        showInlineMessage('Connection error. Please try again.', 'error');
+      } else {
+        showInlineMessage('Something went wrong. Please try again later.', 'error');
+      }
     } finally {
       // Reset button state
       inlineSubmitBtn.disabled = false;
