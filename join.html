@@ -72,15 +72,17 @@
     .join-logo{max-width:200px;height:auto;margin:0 auto 20px;display:block}
     .join-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .join-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
-    .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:16px;margin-bottom:16px;color:#28a745;font-size:14px;font-weight:600}
-    .success-message.show{display:block}
+    .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:24px;margin-bottom:20px;color:#28a745;font-size:14px;font-weight:600;text-align:center;max-width:500px;width:100%;box-sizing:border-box}
+    .success-message.show{display:block !important}
+    .success-message h3{color:#28a745;margin:0 0 12px 0;font-size:18px}
+    .success-message p{margin:0 0 16px 0;line-height:1.4}
     .homepage-btn{background:var(--gold);color:var(--bg);padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all 0.3s ease}
     .homepage-btn:hover{background:#b8954a;transform:translateY(-2px)}
     .join-footer{margin-top:auto;padding-top:24px;color:var(--muted);font-size:12px;text-align:center}
     .join-footer a{color:var(--gold);text-decoration:none}
     .join-footer a:hover{text-decoration:underline}
     .email-form-container{max-width:400px;width:100%;text-align:center;margin:0 auto}
-    .email-input{padding:16px 20px;border:3px solid var(--gold);border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(199,164,85,0.3);text-align:center}
+    .email-input{padding:16px 20px;border:3px solid var(--gold);border-radius:12px !important;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(199,164,85,0.3);text-align:center;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;-webkit-border-radius:12px !important;-moz-border-radius:12px !important}
     .email-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,164,85,0.5);background:rgba(255,255,255,0.08)}
     .email-input::placeholder{color:rgba(238,238,238,0.6);text-align:center}
     .email-submit{padding:16px 24px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:12px;color:var(--bg);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin:0 auto}
@@ -101,6 +103,27 @@
     @media(max-width:768px){
       .join-content{padding:20px 16px}
       .join-logo{max-width:120px}
+      .email-input{
+        -webkit-border-radius:12px !important;
+        -moz-border-radius:12px !important;
+        border-radius:12px !important;
+        -webkit-appearance:none !important;
+        -moz-appearance:none !important;
+        appearance:none !important;
+      }
+    }
+    @media(max-width:480px){
+      .email-input{
+        -webkit-border-radius:12px !important;
+        -moz-border-radius:12px !important;
+        border-radius:12px !important;
+        -webkit-appearance:none !important;
+        -moz-appearance:none !important;
+        appearance:none !important;
+        border-style:solid !important;
+        border-width:3px !important;
+        border-color:var(--gold) !important;
+      }
     }
   </style>
   
@@ -227,6 +250,23 @@
       // Initialize currency display
       updateDiscountCurrency();
       
+      // Prevent the automatic EmailFormHandler from email-collector.js from handling this form
+      // by removing the form from the DOM temporarily during auto-initialization
+      const joinEmailForm = document.getElementById('joinEmailForm');
+      const originalId = joinEmailForm.id;
+      joinEmailForm.id = 'joinEmailForm_manual'; // Temporary change to prevent auto-init
+      
+      // Wait for email-collector.js auto-initialization to complete
+      setTimeout(() => {
+        // Restore original ID
+        joinEmailForm.id = originalId;
+        
+        // Now manually initialize our form handler
+        initializeJoinForm();
+      }, 100);
+    });
+
+    function initializeJoinForm() {
       // Initialize the new email collector
       const emailCollector = new CountryballEmailCollector({ debug: true });
       
@@ -238,6 +278,7 @@
       const emailFormContainer = document.getElementById('emailFormContainer');
       
       if (!joinEmailForm || !joinEmailInput || !joinSubmitBtn || !joinFormMessage) {
+        console.error('Join form elements not found');
         return;
       }
       
@@ -247,13 +288,20 @@
       }
       
       function showMessage(message, type) {
-        joinFormMessage.className = `inline-form-message ${type}`;
+        joinFormMessage.className = `form-message ${type}`;
         joinFormMessage.textContent = message;
+        joinFormMessage.style.display = message ? 'block' : 'none';
       }
       
       function showSuccess() {
+        // Hide the form container
         emailFormContainer.style.display = 'none';
+        
+        // Show the success message
+        successMessage.style.display = 'block';
         successMessage.classList.add('show');
+        
+        console.log('Success message should now be visible');
         
         // Track successful signup
         try {
@@ -281,6 +329,7 @@
       
       async function handleSubmit(e) {
         e.preventDefault();
+        e.stopPropagation(); // Prevent any other handlers from firing
         
         const email = joinEmailInput.value.trim();
         
@@ -299,41 +348,25 @@
         // Show loading state
         joinSubmitBtn.disabled = true;
         joinSubmitBtn.classList.add('loading');
+        const originalText = joinSubmitBtn.querySelector('span').textContent;
+        joinSubmitBtn.querySelector('span').textContent = 'Subscribing...';
         showMessage('', '');
         
         try {
-          console.log('Submitting email directly to mineward backend...');
+          console.log('Submitting email using EmailCollector...');
           
-          // Direct call to your working backend
-          const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: email,
-              source: 'join_page',
-              form_data: {
-                page_url: window.location.href,
-                page_title: document.title,
-                timestamp: new Date().toISOString()
-              }
-            })
+          // Use the EmailCollector's subscribe method
+          const result = await emailCollector.subscribe(email, {
+            source: 'join_page',
+            formData: {
+              page_url: window.location.href,
+              page_title: document.title,
+              timestamp: new Date().toISOString()
+            }
           });
 
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const result = await response.json();
-          console.log('Backend response:', result);
-
-          if (result.success) {
-            showSuccess();
-            console.log('Email subscription successful via direct backend call');
-          } else {
-            throw new Error(result.message || 'Subscription failed');
-          }
+          console.log('Email subscription successful:', result);
+          showSuccess();
 
         } catch (error) {
           console.error('Email signup error:', error);
@@ -342,9 +375,12 @@
           // Reset button state
           joinSubmitBtn.disabled = false;
           joinSubmitBtn.classList.remove('loading');
+          joinSubmitBtn.querySelector('span').textContent = originalText;
         }
       }
       
+      // Remove any existing event listeners and add our own
+      joinEmailForm.removeEventListener('submit', handleSubmit);
       joinEmailForm.addEventListener('submit', handleSubmit);
       
       // Focus effects
@@ -355,7 +391,9 @@
       joinEmailInput.addEventListener('blur', function() {
         this.style.boxShadow = '';
       });
-    });
+      
+      console.log('Join form initialized successfully');
+    }
   </script>
 
   <!-- Reddit Pixel Code -->
