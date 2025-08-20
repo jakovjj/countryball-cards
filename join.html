@@ -38,9 +38,15 @@
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
   <link rel="preconnect" href="https://ads.reddit.com" crossorigin>
+  <link rel="preconnect" href="https://mineward.us.to" crossorigin>
   <link rel="dns-prefetch" href="https://api.emailjs.com">
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
   <link rel="dns-prefetch" href="https://events.reddit.com">
+  
+  <!-- Preload critical assets -->
+  <link rel="preload" as="image" href="logo.png" fetchpriority="high" />
+  <link rel="preload" href="styles.css?v=2025081801" as="style" />
+  <link rel="preload" href="js/email-collector.js?v=1.0.0" as="script" />
   
   <!-- Google tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z"></script>
@@ -55,143 +61,66 @@
     });
   </script>
   
-  <link rel="stylesheet" href="styles.css?v=2025081801">
-
-  <!-- Countryball Cards Email Collection System -->
-  <script src="js/email-collector.js?v=1.0.0"></script>
-
+  <!-- Critical CSS (above-the-fold) -->
   <style>
-    /* Custom styles for join page */
-    .join-container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 28px;
-      box-sizing: border-box;
-    }
-    
-    .join-content {
-      background: var(--card);
-      border: 3px solid var(--gold);
-      border-radius: 18px;
-      padding: 24px;
-      max-width: 360px;
-      width: 100%;
-      text-align: center;
-      box-sizing: border-box;
-    }
-    
-    .join-logo {
-      max-width: 140px;
-      height: auto;
-      margin: 0 auto 16px;
-      display: block;
-    }
-    
-    .join-title {
-      font-size: clamp(22px, 4vw, 28px);
-      color: var(--text);
-      margin: 0 0 12px;
-      font-weight: 700;
-    }
-    
-    .join-subtitle {
-      color: var(--muted);
-      margin: 0 0 20px;
-      font-size: 14px;
-      line-height: 1.3;
-    }
-    
-    .success-message {
-      display: none;
-      background: rgba(40, 167, 69, 0.1);
-      border: 2px solid rgba(40, 167, 69, 0.5);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      color: #28a745;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    
-    .success-message.show {
-      display: block;
-    }
-    
-    .homepage-btn {
-      background: var(--gold);
-      color: var(--bg);
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      margin-top: 12px;
-    }
-    
-    .homepage-btn:hover {
-      background: #b8954a;
-      transform: translateY(-2px);
-    }
-    
-    .join-footer {
-      margin-top: auto;
-      padding-top: 24px;
-      color: var(--muted);
-      font-size: 12px;
-      text-align: center;
-    }
-    
-    .join-footer a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-    
-    .join-footer a:hover {
-      text-decoration: underline;
-    }
-    
-    @media (max-width: 768px) {
-      .join-content {
-        padding: 20px 16px;
-      }
-      
-      .join-logo {
-        max-width: 120px;
-      }
-    }
-    
-    /* Reduce button margin for tighter spacing */
-    .inline-email-submit {
-      margin-bottom: 0 !important;
-    }
-    
-    /* Reduce form group spacing */
-    .inline-form-group {
-      margin-bottom: 2px !important;
-    }
-    
-    /* Remove any spacing from form message */
-    .inline-form-message {
-      margin: 0 !important;
-      padding: 0 !important;
-      height: 0 !important;
-      overflow: hidden;
-    }
-    
-    /* Ensure the form itself has no spacing */
-    .inline-email-form {
-      margin: 0 !important;
+    :root{--bg:#151515;--card:#1d1d1d;--gold:#c7a455;--text:#eee;--muted:#b7b7b7}
+    *{box-sizing:border-box;max-width:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;max-width:100vw}
+    .join-container{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px;box-sizing:border-box}
+    .join-content{background:var(--card);border:3px solid var(--gold);border-radius:18px;padding:12px;max-width:320px;width:100%;text-align:center;box-sizing:border-box}
+    .join-logo{max-width:140px;height:auto;margin:0 auto 6px;display:block}
+    .join-title{font-size:clamp(22px,4vw,28px);color:var(--text);margin:0 0 4px;font-weight:700}
+    .join-subtitle{color:var(--muted);margin:0 0 8px;font-size:14px;line-height:1.3}
+    .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:16px;margin-bottom:16px;color:#28a745;font-size:14px;font-weight:600}
+    .success-message.show{display:block}
+    .homepage-btn{background:var(--gold);color:var(--bg);padding:10px 20px;border:none;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all 0.3s ease}
+    .homepage-btn:hover{background:#b8954a;transform:translateY(-2px)}
+    .join-footer{margin-top:auto;padding-top:24px;color:var(--muted);font-size:12px;text-align:center}
+    .join-footer a{color:var(--gold);text-decoration:none}
+    .join-footer a:hover{text-decoration:underline}
+    .inline-email-signup{background:rgba(199,164,85,0.08);border:2px solid rgba(199,164,85,0.3);border-radius:16px;padding:8px;margin:8px 0;text-align:center;max-width:280px}
+    .inline-email-form{display:flex;flex-direction:column;gap:2px;margin:0}
+    .inline-form-group{margin-bottom:2px}
+    .inline-email-input{padding:8px 14px;border:2px solid rgba(199,164,85,0.4);border-radius:8px;background:rgba(255,255,255,0.05);color:var(--text);font-size:15px;width:100%}
+    .inline-email-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(199,164,85,0.2)}
+    .inline-email-input::placeholder{color:rgba(238,238,238,0.6)}
+    .inline-email-submit{padding:8px 18px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:8px;color:var(--bg);font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:0}
+    .inline-email-submit:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px)}
+    .inline-submit-icon{width:16px;height:16px;fill:currentColor}
+    .inline-submit-text{white-space:nowrap}
+    .inline-form-message{margin:0;padding:0;height:0;overflow:hidden;font-size:14px;font-weight:600}
+    .inline-form-message.success{color:#00ff88;height:auto;padding:8px 0}
+    .inline-form-message.error{color:#ff6b6b;height:auto;padding:8px 0}
+    svg{flex-shrink:0}
+    input,button{font-family:inherit}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .join-content{animation:fadeIn 0.3s ease-in-out}
+    @media(max-width:768px){
+      .join-content{padding:20px 16px}
+      .join-logo{max-width:120px}
     }
   </style>
+  
+  <!-- Load non-critical CSS asynchronously -->
+  <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css?v=2025081801"></noscript>
+
+  <!-- Countryball Cards Email Collection System - defer to avoid blocking -->
+  <script src="js/email-collector.js?v=1.0.0" defer></script>
+  
+  <!-- Performance monitoring and optimization -->
+  <script src="performance.js?v=1.0.0" defer></script>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => console.log('SW registered'))
+          .catch(error => console.log('SW registration failed'));
+      });
+    }
+  </script>
 </head>
 <body>
   <div class="join-container">
@@ -211,9 +140,9 @@
       </div>
       
       <div id="emailFormContainer">
-        <h1 class="join-title">🚀 Stay Updated! Launching Oct 1!</h1>
+        <h1 class="join-title">🚀 Stay Updated!</h1>
         <p class="join-subtitle">
-          <strong>Free EU/US shipping.</strong><br>
+          <strong>Launching Oct 1 on Kickstarter</strong><br>
           Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
         </p>
         
