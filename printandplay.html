@@ -8,6 +8,7 @@
   <link rel="canonical" href="https://countryballcards.com/printandplay.html" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#151515" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://alb.reddit.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://mineward.us.to; frame-src 'none'; object-src 'none'; base-uri 'self';" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:title" content="Print-and-Play - Countryball Cards" />
@@ -639,7 +640,15 @@
       
       // Disable form during submission
       submitBtn.disabled = true;
-      submitBtn.querySelector('.submit-text').textContent = 'Sending...';
+      
+      // Store original button text to preserve it
+      const submitText = submitBtn.querySelector('.submit-text');
+      let originalText = 'Get Updates';
+      if (submitText) {
+        originalText = submitText.textContent;
+        submitText.textContent = 'Sending...';
+      }
+      
       messageDiv.innerHTML = '';
       
       // Initialize email collector
@@ -656,6 +665,10 @@
       .then(function(result) {
         messageDiv.innerHTML = '<span style="color: #00ff88;">✓ Thanks! You\'ll be notified when we launch on Kickstarter.</span>';
         emailInput.value = '';
+        submitBtn.classList.add('success');
+        if (submitText) {
+          submitText.textContent = 'Subscribed!';
+        }
         
         // Track successful signup
         if (typeof gtag !== 'undefined') {
@@ -681,7 +694,10 @@
       })
       .finally(function() {
         submitBtn.disabled = false;
-        submitBtn.querySelector('.submit-text').textContent = 'Get Updates';
+        // Restore original text if not successful
+        if (submitText && !submitBtn.classList.contains('success')) {
+          submitText.textContent = originalText;
+        }
       });
     });
 
