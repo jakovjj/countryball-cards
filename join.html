@@ -376,21 +376,19 @@
         try {
           console.log('Submitting email directly to mineward backend...');
           
-          // Direct call to your working backend
+          // Direct call to your working backend using FormData to avoid CORS preflight
+          const formData = new FormData();
+          formData.append('email', email);
+          formData.append('source', 'join_page');
+          formData.append('form_data', JSON.stringify({
+            page_url: window.location.href,
+            page_title: document.title,
+            timestamp: new Date().toISOString()
+          }));
+          
           const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: email,
-              source: 'join_page',
-              form_data: {
-                page_url: window.location.href,
-                page_title: document.title,
-                timestamp: new Date().toISOString()
-              }
-            })
+            body: formData
           });
 
           if (!response.ok) {
