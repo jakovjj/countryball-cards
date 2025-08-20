@@ -320,6 +320,52 @@
         } catch (_) {}
       }
       
+      function focusInputOnMobile() {
+        // Always focus first
+        joinEmailInput.focus();
+        
+        // For mobile devices, use multiple techniques to ensure virtual keyboard opens
+        if (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          // Method 1: Programmatic click
+          setTimeout(() => {
+            joinEmailInput.click();
+          }, 100);
+          
+          // Method 2: Touch events simulation
+          setTimeout(() => {
+            const touchStart = new TouchEvent('touchstart', {
+              bubbles: true,
+              cancelable: true,
+              touches: [new Touch({
+                identifier: 0,
+                target: joinEmailInput,
+                clientX: 0,
+                clientY: 0,
+                radiusX: 2.5,
+                radiusY: 2.5,
+                rotationAngle: 10,
+                force: 0.5,
+              })]
+            });
+            const touchEnd = new TouchEvent('touchend', {
+              bubbles: true,
+              cancelable: true,
+              touches: []
+            });
+            
+            joinEmailInput.dispatchEvent(touchStart);
+            setTimeout(() => {
+              joinEmailInput.dispatchEvent(touchEnd);
+            }, 50);
+          }, 150);
+          
+          // Method 3: Re-focus after a short delay
+          setTimeout(() => {
+            joinEmailInput.focus();
+          }, 200);
+        }
+      }
+      
       async function handleSubmit(e) {
         e.preventDefault();
         e.stopPropagation(); // Prevent any other handlers from firing
@@ -328,21 +374,13 @@
         
         if (!email) {
           showMessage('Please enter your email address.', 'error');
-          joinEmailInput.focus();
-          // On mobile, also trigger the virtual keyboard
-          if (window.innerWidth <= 768) {
-            joinEmailInput.click();
-          }
+          focusInputOnMobile();
           return;
         }
         
         if (!validateEmail(email)) {
           showMessage('Please enter a valid email address.', 'error');
-          joinEmailInput.focus();
-          // On mobile, also trigger the virtual keyboard
-          if (window.innerWidth <= 768) {
-            joinEmailInput.click();
-          }
+          focusInputOnMobile();
           return;
         }
         
