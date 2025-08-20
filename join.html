@@ -329,12 +329,20 @@
         if (!email) {
           showMessage('Please enter your email address.', 'error');
           joinEmailInput.focus();
+          // On mobile, also trigger the virtual keyboard
+          if (window.innerWidth <= 768) {
+            joinEmailInput.click();
+          }
           return;
         }
         
         if (!validateEmail(email)) {
           showMessage('Please enter a valid email address.', 'error');
           joinEmailInput.focus();
+          // On mobile, also trigger the virtual keyboard
+          if (window.innerWidth <= 768) {
+            joinEmailInput.click();
+          }
           return;
         }
         
