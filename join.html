@@ -155,10 +155,10 @@
         <img src="logo.png" alt="Countryball Cards" class="join-logo" onerror="this.style.display='none';">
         
         <div class="success-message" id="successMessage" style="display:none;">
-          <div style="font-size: 18px; margin-bottom: 6px;">🎉 Early Bird Spot Reserved!</div>
-          <div>You'll get your 5€ discount when we launch on Kickstarter October 1st!</div>
+          <h3>🎉 Early Bird Spot Reserved!</h3>
+          <p>You'll get your 5€ discount when we launch on Kickstarter October 1st!</p>
           
-          <a href="index.html" class="homepage-btn" style="margin-top: 16px;">
+          <a href="index.html" class="homepage-btn" style="margin-top: 8px;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
             </svg>
@@ -250,18 +250,8 @@
       // Initialize currency display
       updateDiscountCurrency();
       
-      // Prevent the automatic EmailFormHandler from email-collector.js from handling this form
-      // by removing the form from the DOM temporarily during auto-initialization
-      const joinEmailForm = document.getElementById('joinEmailForm');
-      const originalId = joinEmailForm.id;
-      joinEmailForm.id = 'joinEmailForm_manual'; // Temporary change to prevent auto-init
-      
-      // Wait for email-collector.js auto-initialization to complete
+      // Initialize join form after a short delay to ensure all scripts are loaded
       setTimeout(() => {
-        // Restore original ID
-        joinEmailForm.id = originalId;
-        
-        // Now manually initialize our form handler
         initializeJoinForm();
       }, 100);
     });
@@ -294,6 +284,8 @@
       }
       
       function showSuccess() {
+        console.log('Showing success message...');
+        
         // Hide the form container
         emailFormContainer.style.display = 'none';
         
@@ -301,7 +293,8 @@
         successMessage.style.display = 'block';
         successMessage.classList.add('show');
         
-        console.log('Success message should now be visible');
+        console.log('Success message visibility:', window.getComputedStyle(successMessage).display);
+        console.log('Success message classes:', successMessage.classList.toString());
         
         // Track successful signup
         try {
@@ -379,8 +372,7 @@
         }
       }
       
-      // Remove any existing event listeners and add our own
-      joinEmailForm.removeEventListener('submit', handleSubmit);
+      // Add event listener
       joinEmailForm.addEventListener('submit', handleSubmit);
       
       // Focus effects

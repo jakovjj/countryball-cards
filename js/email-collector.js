@@ -446,11 +446,11 @@ window.EmailFormHandler = EmailFormHandler;
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize collectors for common form patterns
     const formSelectors = [
-        '#joinEmailForm',
         '#inlineEmailForm', 
         '#emailForm',
         '.email-signup form',
         '.newsletter-form'
+        // Note: Removed '#joinEmailForm' to let join.html handle it manually
     ];
 
     const collector = new CountryballEmailCollector({ debug: false });
