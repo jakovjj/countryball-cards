@@ -44,7 +44,7 @@ class CountryballEmailCollector {
 
             // Try multiple backend endpoints as fallback
             const baseUrls = [
-                'http://mineward.us.to/countryball_cards/backend',  // Your actual backend server
+                'https://mineward.us.to/countryball_cards/backend',  // Your actual backend server
                 window.location.origin + '/backend',               // Local backend (if exists)
                 window.location.origin                             // Root level endpoints
             ];
