@@ -101,23 +101,21 @@
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes shake{
       0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-15px); }
-      20%, 40%, 60%, 80% { transform: translateX(15px); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
     }
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
     .join-content{animation:fadeIn 0.3s ease-in-out}
     .button-error{
-      background:linear-gradient(135deg,#ff4757,#ff6b7a) !important;
+      background:linear-gradient(135deg,#c0392b,#e74c3c) !important;
       color:#fff !important;
-      border:2px solid #ff3742 !important;
-      box-shadow:0 4px 20px rgba(255,71,87,0.6) !important;
-      animation:shake 0.8s ease-in-out,pulse 1.2s ease-in-out infinite !important;
-      transform:scale(1.05) !important;
+      border:2px solid #a93226 !important;
+      box-shadow:0 2px 4px rgba(192,57,43,0.2) !important;
+      animation:shake 0.6s ease-in-out !important;
       transition:all 0.3s ease !important;
     }
     .button-error:hover{
-      background:linear-gradient(135deg,#ff3742,#ff4757) !important;
-      transform:scale(1.08) !important;
+      background:linear-gradient(135deg,#a93226,#c0392b) !important;
       cursor:not-allowed !important;
     }
     @media(max-width:768px){
@@ -314,6 +312,7 @@
       function triggerErrorState() {
         console.log('triggerErrorState called');
         const buttonSpan = joinSubmitBtn.querySelector('span');
+        const buttonIcon = joinSubmitBtn.querySelector('svg');
         if (!buttonSpan) {
           console.error('Button span not found');
           return;
@@ -322,26 +321,29 @@
         const originalText = buttonSpan.textContent;
         console.log('Original button text:', originalText);
         
-        // Apply error styles directly and forcefully
-        joinSubmitBtn.style.setProperty('background', 'linear-gradient(135deg,#ff4757,#ff6b7a)', 'important');
+        // Apply softer red error styles
+        joinSubmitBtn.style.setProperty('background', 'linear-gradient(135deg,#c0392b,#e74c3c)', 'important');
         joinSubmitBtn.style.setProperty('color', '#fff', 'important');
-        joinSubmitBtn.style.setProperty('border', '2px solid #ff3742', 'important');
-        joinSubmitBtn.style.setProperty('box-shadow', '0 4px 20px rgba(255,71,87,0.6)', 'important');
-        joinSubmitBtn.style.setProperty('animation', 'shake 0.8s ease-in-out', 'important');
-        joinSubmitBtn.style.setProperty('transform', 'scale(1.05)', 'important');
+        joinSubmitBtn.style.setProperty('border', '2px solid #a93226', 'important');
+        joinSubmitBtn.style.setProperty('box-shadow', '0 2px 4px rgba(192,57,43,0.2)', 'important');
+        joinSubmitBtn.style.setProperty('animation', 'shake 0.6s ease-in-out', 'important');
         joinSubmitBtn.disabled = true;
         
+        // Hide the paper airplane icon
+        if (buttonIcon) {
+          buttonIcon.style.display = 'none';
+        }
+        
         // Change button text
-        buttonSpan.textContent = 'Enter a valid email address!';
+        buttonSpan.textContent = 'Please enter a valid email';
         console.log('Button text changed to:', buttonSpan.textContent);
         
-        // Style input field
-        joinEmailInput.style.setProperty('border-color', '#ff4757', 'important');
-        joinEmailInput.style.setProperty('box-shadow', '0 0 0 4px rgba(255, 71, 87, 0.4)', 'important');
-        joinEmailInput.style.setProperty('background-color', 'rgba(255, 71, 87, 0.1)', 'important');
-        joinEmailInput.style.setProperty('animation', 'shake 0.8s ease-in-out', 'important');
+        // Style input field with softer red colors
+        joinEmailInput.style.setProperty('border-color', '#c0392b', 'important');
+        joinEmailInput.style.setProperty('box-shadow', '0 0 0 3px rgba(192, 57, 43, 0.15)', 'important');
+        joinEmailInput.style.setProperty('background-color', 'rgba(192, 57, 43, 0.05)', 'important');
         
-        // Reset after 4 seconds
+        // Reset after 3 seconds (shorter duration)
         setTimeout(() => {
           console.log('Resetting error state');
           joinSubmitBtn.style.removeProperty('background');
@@ -353,11 +355,16 @@
           joinSubmitBtn.disabled = false;
           buttonSpan.textContent = originalText;
           
+          // Show the paper airplane icon again
+          if (buttonIcon) {
+            buttonIcon.style.display = '';
+          }
+          
           joinEmailInput.style.removeProperty('border-color');
           joinEmailInput.style.removeProperty('box-shadow');
           joinEmailInput.style.removeProperty('background-color');
           joinEmailInput.style.removeProperty('animation');
-        }, 4000);
+        }, 3000);
       }
       
       function showSuccess() {
