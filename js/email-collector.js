@@ -5,7 +5,7 @@
 
 class CountryballEmailCollector {
     constructor(options = {}) {
-        this.baseUrl = options.baseUrl || window.location.origin + '/backend/api.php';
+        this.baseUrl = options.baseUrl || window.location.origin + '/backend';
         this.debug = options.debug || false;
         this.retryAttempts = options.retryAttempts || 3;
         this.retryDelay = options.retryDelay || 1000;
@@ -42,24 +42,74 @@ class CountryballEmailCollector {
 
             this.log('Attempting subscription', { email, source: data.source });
 
-            const result = await this.makeRequest('/subscribe', 'POST', data);
+            // Try multiple backend endpoints as fallback
+            const baseUrls = [
+                'http://mineward.us.to/countryball_cards/backend',  // Your actual backend server
+                window.location.origin + '/backend',               // Local backend (if exists)
+                window.location.origin                             // Root level endpoints
+            ];
 
-            if (result.success) {
-                this.log('Subscription successful', result.data);
-                this.trackAnalytics('email_signup', {
-                    event_category: 'conversion',
-                    event_label: data.source,
-                    value: 1
-                });
-                
-                return {
-                    success: true,
-                    message: result.data.message,
-                    subscriberId: result.data.subscriber_id
-                };
-            } else {
-                throw new Error(result.error || 'Subscription failed');
+            const endpoints = [
+                '/subscribe.php',
+                '/api.php'
+            ];
+
+            let lastError = null;
+
+            for (const baseUrl of baseUrls) {
+                for (const endpoint of endpoints) {
+                    try {
+                        const url = baseUrl + endpoint;
+                        this.log(`Trying endpoint: ${url}`);
+                        
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        let result;
+                        const contentType = response.headers.get('content-type');
+                        
+                        if (contentType && contentType.includes('application/json')) {
+                            result = await response.json();
+                        } else {
+                            const text = await response.text();
+                            this.log(`Non-JSON response from ${url}:`, { status: response.status, text: text.substring(0, 200) });
+                            continue; // Try next endpoint
+                        }
+
+                        if (response.ok && result.success) {
+                            this.log('Subscription successful', result);
+                            this.trackAnalytics('email_signup', {
+                                event_category: 'conversion',
+                                event_label: data.source,
+                                value: 1
+                            });
+                            
+                            return {
+                                success: true,
+                                message: result.message || 'Successfully subscribed!',
+                                subscriberId: result.data?.subscriber_id || result.subscriber_id
+                            };
+                        } else {
+                            lastError = new Error(result.error || result.message || `HTTP ${response.status}`);
+                            continue; // Try next endpoint
+                        }
+
+                    } catch (error) {
+                        this.log(`Endpoint ${url || baseUrl + endpoint} failed:`, { error: error.message });
+                        lastError = error;
+                        continue; // Try next endpoint
+                    }
+                }
             }
+
+            // If all endpoints failed, throw the last error
+            throw lastError || new Error('All subscription endpoints failed');
 
         } catch (error) {
             this.log('Subscription error', { error: error.message });
@@ -144,13 +194,35 @@ class CountryballEmailCollector {
                 options.body = JSON.stringify(data);
             }
 
-            this.log(`Making ${method} request to ${endpoint}`, { data, attempt });
+            this.log(`Making ${method} request to ${url}`, { data, attempt });
 
             const response = await fetch(url, options);
-            const result = await response.json();
+            
+            // Better error handling for different response types
+            let result;
+            const contentType = response.headers.get('content-type');
+            
+            if (contentType && contentType.includes('application/json')) {
+                result = await response.json();
+            } else {
+                // Handle non-JSON responses (like error pages)
+                const text = await response.text();
+                this.log(`Non-JSON response received: ${response.status}`, { text });
+                
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                }
+                
+                // Try to parse as JSON anyway in case it's malformed
+                try {
+                    result = JSON.parse(text);
+                } catch (e) {
+                    throw new Error(`Invalid response format from server`);
+                }
+            }
 
             if (!response.ok) {
-                throw new Error(result.error || `HTTP ${response.status}`);
+                throw new Error(result.error || result.message || `HTTP ${response.status}`);
             }
 
             return result;

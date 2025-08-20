@@ -1060,8 +1060,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (emails.includes(email)) {
         showInlineMessage('You\'re already subscribed! 🎉', 'success');
       } else {
-        // Send email via PHP backend
-        console.log('Sending email via backend (inline form)...');
+        // Send email via PHP backend (reliable fallback)
+        console.log('Sending email via backend...');
         
         const response = await fetch('backend/subscribe.php', {
           method: 'POST',
