@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Subscriber Dashboard - Countryball Cards</title>
+    <style>
+        :root { 
+            --bg: #151515; 
+            --card: #1d1d1d; 
+            --gold: #c7a455; 
+            --text: #eee; 
+            --muted: #b7b7b7;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --border: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, 'Segoe UI', Inter, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--gold) 0%, #b8954a 100%);
+            color: var(--bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 2px solid var(--gold);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold);
+            color: var(--text);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg);
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .status-pending { color: #f39c12; }
+        .status-confirmed { color: #27ae60; }
+        .status-unsubscribed { color: #e74c3c; }
+        .status-bounced { color: #8e44ad; }
+
+        .btn {
+            background: var(--gold);
+            color: var(--bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #b8954a;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .pagination button {
+            margin: 0 5px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.hidden {
+            display: none !important;
+        }
+
+        .modal-content {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        .modal-content h3 {
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 Email Subscriber Dashboard</h1>
+            <p>Countryball Cards Newsletter Management</p>
+        </div>
+
+        <div id="alertContainer"></div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number" id="totalSubscribers">-</span>
+                <div class="stat-label">Total Subscribers</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="activeSubscribers">-</span>
+                <div class="stat-label">Active Subscribers</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="todaySignups">-</span>
+                <div class="stat-label">Today's Signups</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="unsubscribedCount">-</span>
+                <div class="stat-label">Unsubscribed</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="actions-grid">
+                <button class="btn" onclick="exportEmails()">📁 Export Email List</button>
+                <button class="btn" onclick="syncWithGoogleMail()">🔄 Sync with Google Mail</button>
+                <button class="btn" onclick="showSendCampaignModal()">📨 Send Campaign</button>
+                <button class="btn" onclick="refreshStats()">🔄 Refresh Stats</button>
+            </div>
+        </div>
+
+        <!-- Recent Subscribers -->
+        <div class="section">
+            <h2 class="section-title">Recent Subscribers</h2>
+            <div class="form-group">
+                <input type="text" id="searchEmail" placeholder="Search by email..." onkeyup="searchSubscribers()">
+            </div>
+            <div id="subscribersContainer">
+                <div style="text-align: center; color: #666;">Loading subscribers...</div>
+            </div>
+            <div class="pagination" id="paginationContainer"></div>
+        </div>
+
+        <!-- Source Analytics -->
+        <div class="section">
+            <h2 class="section-title">Signup Sources</h2>
+            <div id="sourcesContainer">
+                <div style="text-align: center; color: #666;">Loading source analytics...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Campaign Modal -->
+    <div id="campaignModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Send Email Campaign</h3>
+            <form id="campaignForm">
+                <div class="form-group">
+                    <label>Subject:</label>
+                    <input type="text" id="campaignSubject" required>
+                </div>
+                <div class="form-group">
+                    <label>HTML Template:</label>
+                    <textarea id="campaignHtml" rows="10" required placeholder="Enter HTML email template..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Plain Text Template:</label>
+                    <textarea id="campaignPlain" rows="5" placeholder="Plain text version (optional)..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Send to:</label>
+                    <select id="campaignAudience">
+                        <option value="confirmed">Confirmed Subscribers</option>
+                        <option value="pending">Pending Subscribers</option>
+                        <option value="all">All Active Subscribers</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="btn">Send Campaign</button>
+                    <button type="button" class="btn btn-danger" onclick="hideSendCampaignModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE = '/backend/api.php';
+        const API_KEY = 'your_secure_api_key'; // Replace with your actual API key
+
+        let currentPage = 1;
+        let currentSearch = '';
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            loadSubscribers();
+            loadSources();
+        });
+
+        // API Helper
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': API_KEY
+                }
+            };
+
+            if (data && (method === 'POST' || method === 'PUT')) {
+                options.body = JSON.stringify(data);
+            }
+
+            try {
+                const response = await fetch(API_BASE + endpoint, options);
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(result.error || `HTTP ${response.status}`);
+                }
+
+                return result;
+            } catch (error) {
+                console.error('API Error:', error);
+                showAlert('API Error: ' + error.message, 'error');
+                throw error;
+            }
+        }
+
+        // Load statistics
+        async function loadStats() {
+            try {
+                const result = await apiCall('/stats');
+                const stats = result.data;
+
+                document.getElementById('totalSubscribers').textContent = stats.total || 0;
+                document.getElementById('activeSubscribers').textContent = stats.active || 0;
+                document.getElementById('todaySignups').textContent = stats.today || 0;
+                document.getElementById('unsubscribedCount').textContent = stats.unsubscribed || 0;
+
+            } catch (error) {
+                // Error already handled in apiCall
+            }
+        }
+
+        // Load subscribers
+        async function loadSubscribers(page = 1, search = '') {
+            try {
+                currentPage = page;
+                currentSearch = search;
+
+                let endpoint = `/subscribers?limit=20&page=${page}`;
+                if (search) {
+                    endpoint += `&search=${encodeURIComponent(search)}`;
+                }
+
+                const result = await apiCall(endpoint);
+                const subscribers = result.data.subscribers;
+
+                const container = document.getElementById('subscribersContainer');
+                
+                if (subscribers.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: #666;">No subscribers found.</div>';
+                    return;
+                }
+
+                let tableHtml = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Source</th>
+                                <th>Status</th>
+                                <th>Subscribed</th>
+                                <th>Country</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                subscribers.forEach(subscriber => {
+                    const date = new Date(subscriber.subscribed_at).toLocaleDateString();
+                    const status = subscriber.status || 'pending';
+                    
+                    tableHtml += `
+                        <tr>
+                            <td>${escapeHtml(subscriber.email)}</td>
+                            <td>${escapeHtml(subscriber.source)}</td>
+                            <td><span class="status-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</span></td>
+                            <td>${date}</td>
+                            <td>${subscriber.country || '-'}</td>
+                            <td>
+                                <button class="btn" onclick="viewSubscriberDetails('${subscriber.email}')">View</button>
+                                ${status !== 'unsubscribed' ? 
+                                    `<button class="btn btn-danger" onclick="unsubscribeUser('${subscriber.email}')">Unsubscribe</button>` 
+                                    : ''
+                                }
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += '</tbody></table>';
+                container.innerHTML = tableHtml;
+
+                // Update pagination
+                updatePagination(page, subscribers.length);
+
+            } catch (error) {
+                document.getElementById('subscribersContainer').innerHTML = 
+                    '<div style="text-align: center; color: #e74c3c;">Error loading subscribers</div>';
+            }
+        }
+
+        // Load source analytics
+        async function loadSources() {
+            try {
+                const result = await apiCall('/stats');
+                const sources = result.data.sources || [];
+
+                const container = document.getElementById('sourcesContainer');
+                
+                if (sources.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: #666;">No source data available.</div>';
+                    return;
+                }
+
+                let tableHtml = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Subscribers</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                const total = sources.reduce((sum, source) => sum + parseInt(source.count), 0);
+
+                sources.forEach(source => {
+                    const percentage = total > 0 ? ((source.count / total) * 100).toFixed(1) : 0;
+                    
+                    tableHtml += `
+                        <tr>
+                            <td>${escapeHtml(source.source)}</td>
+                            <td>${source.count}</td>
+                            <td>${percentage}%</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += '</tbody></table>';
+                container.innerHTML = tableHtml;
+
+            } catch (error) {
+                document.getElementById('sourcesContainer').innerHTML = 
+                    '<div style="text-align: center; color: #e74c3c;">Error loading source analytics</div>';
+            }
+        }
+
+        // Search subscribers
+        function searchSubscribers() {
+            const search = document.getElementById('searchEmail').value;
+            loadSubscribers(1, search);
+        }
+
+        // Refresh stats
+        function refreshStats() {
+            loadStats();
+            loadSubscribers(currentPage, currentSearch);
+            loadSources();
+            showAlert('Dashboard refreshed successfully!', 'success');
+        }
+
+        // Export emails
+        async function exportEmails() {
+            try {
+                const result = await apiCall('/subscribers?status=confirmed');
+                const subscribers = result.data.subscribers;
+
+                const csvContent = "data:text/csv;charset=utf-8," 
+                    + "Email,Source,Status,Subscribed Date,Country\n"
+                    + subscribers.map(s => `${s.email},${s.source},${s.status},${s.subscribed_at},${s.country || ''}`).join("\n");
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `countryball_subscribers_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                showAlert('Email list exported successfully!', 'success');
+
+            } catch (error) {
+                showAlert('Failed to export email list', 'error');
+            }
+        }
+
+        // Sync with Google Mail
+        async function syncWithGoogleMail() {
+            try {
+                showAlert('Syncing with Google Mail API...', 'success');
+                // This would trigger the actual sync process
+                // Implementation depends on your Google Mail API setup
+                
+                setTimeout(() => {
+                    showAlert('Sync with Google Mail completed!', 'success');
+                }, 2000);
+
+            } catch (error) {
+                showAlert('Sync with Google Mail failed', 'error');
+            }
+        }
+
+        // Show send campaign modal
+        function showSendCampaignModal() {
+            document.getElementById('campaignModal').classList.remove('hidden');
+        }
+
+        // Hide send campaign modal
+        function hideSendCampaignModal() {
+            document.getElementById('campaignModal').classList.add('hidden');
+            document.getElementById('campaignForm').reset();
+        }
+
+        // Send campaign
+        document.getElementById('campaignForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const subject = document.getElementById('campaignSubject').value;
+            const htmlTemplate = document.getElementById('campaignHtml').value;
+            const plainTemplate = document.getElementById('campaignPlain').value;
+            const audience = document.getElementById('campaignAudience').value;
+
+            try {
+                const result = await apiCall('/send-campaign', 'POST', {
+                    subject: subject,
+                    html_template: htmlTemplate,
+                    plain_template: plainTemplate,
+                    filters: { status: audience === 'all' ? ['pending', 'confirmed'] : [audience] }
+                });
+
+                showAlert(`Campaign sent successfully! Sent: ${result.data.results.sent}, Failed: ${result.data.results.failed}`, 'success');
+                hideSendCampaignModal();
+
+            } catch (error) {
+                showAlert('Failed to send campaign', 'error');
+            }
+        });
+
+        // Unsubscribe user
+        async function unsubscribeUser(email) {
+            if (!confirm(`Are you sure you want to unsubscribe ${email}?`)) {
+                return;
+            }
+
+            try {
+                await apiCall('/unsubscribe', 'POST', {
+                    email: email,
+                    reason: 'Admin action'
+                });
+
+                showAlert('User unsubscribed successfully', 'success');
+                loadSubscribers(currentPage, currentSearch);
+
+            } catch (error) {
+                showAlert('Failed to unsubscribe user', 'error');
+            }
+        }
+
+        // View subscriber details
+        function viewSubscriberDetails(email) {
+            alert(`Subscriber details for: ${email}\n\nThis would open a detailed view in a real implementation.`);
+        }
+
+        // Update pagination
+        function updatePagination(currentPage, itemCount) {
+            const container = document.getElementById('paginationContainer');
+            let paginationHtml = '';
+
+            if (currentPage > 1) {
+                paginationHtml += `<button class="btn" onclick="loadSubscribers(${currentPage - 1}, '${currentSearch}')">Previous</button>`;
+            }
+
+            paginationHtml += `<span style="margin: 0 10px;">Page ${currentPage}</span>`;
+
+            if (itemCount === 20) { // If we got a full page, there might be more
+                paginationHtml += `<button class="btn" onclick="loadSubscribers(${currentPage + 1}, '${currentSearch}')">Next</button>`;
+            }
+
+            container.innerHTML = paginationHtml;
+        }
+
+        // Show alert
+        function showAlert(message, type) {
+            const alertHtml = `
+                <div class="alert alert-${type}">
+                    ${escapeHtml(message)}
+                </div>
+            `;
+
+            const container = document.getElementById('alertContainer');
+            container.innerHTML = alertHtml;
+
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

@@ -32,82 +32,8 @@
   
   <link rel="stylesheet" href="styles.css">
   
-  <!-- EmailJS SDK - Multiple CDN fallbacks for reliability -->
-  <script>
-    // Global variable to track EmailJS loading state
-    window.emailJSReady = false;
-    window.emailJSAttempts = 0;
-    
-    // Function to load EmailJS with fallbacks
-    function loadEmailJS() {
-      return new Promise((resolve, reject) => {
-        const cdns = [
-          'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js',
-          'https://unpkg.com/@emailjs/browser@3/dist/email.min.js',
-          'https://cdn.emailjs.com/dist/email.min.js'
-        ];
-        
-        let cdnIndex = 0;
-        
-        function tryLoadFromCDN() {
-          if (cdnIndex >= cdns.length) {
-            reject(new Error('All EmailJS CDNs failed to load'));
-            return;
-          }
-          
-          const script = document.createElement('script');
-          script.src = cdns[cdnIndex];
-          script.async = false; // Load synchronously
-          
-          script.onload = function() {
-            console.log(`EmailJS loaded successfully from CDN ${cdnIndex + 1}:`, cdns[cdnIndex]);
-            
-            // Wait a moment for the library to be fully available
-            setTimeout(() => {
-              if (typeof emailjs !== 'undefined' && emailjs.init) {
-                try {
-                  emailjs.init("hvatz7pPDbme6A77h");
-                  window.emailJSReady = true;
-                  console.log('EmailJS initialized successfully');
-                  resolve(true);
-                } catch (error) {
-                  console.error('EmailJS init failed:', error);
-                  reject(error);
-                }
-              } else {
-                console.warn('EmailJS loaded but not available, trying next CDN...');
-                cdnIndex++;
-                tryLoadFromCDN();
-              }
-            }, 100);
-          };
-          
-          script.onerror = function() {
-            console.warn(`Failed to load EmailJS from CDN ${cdnIndex + 1}:`, cdns[cdnIndex]);
-            cdnIndex++;
-            tryLoadFromCDN();
-          };
-          
-          document.head.appendChild(script);
-        }
-        
-        tryLoadFromCDN();
-      });
-    }
-    
-    // Initialize EmailJS when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Starting EmailJS initialization...');
-      loadEmailJS()
-        .then(() => {
-          console.log('EmailJS ready for use');
-        })
-        .catch(error => {
-          console.error('EmailJS failed to load from all sources:', error);
-          window.emailJSReady = false;
-        });
-    });
-  </script>
+  <!-- Countryball Cards Email Collection System -->
+  <script src="js/email-collector.js?v=1.0.0"></script>
   
   <style>
     .packages-hero {

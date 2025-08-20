@@ -572,10 +572,10 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <!-- Countryball Cards Email Collection System -->
+  <script src="js/email-collector.js?v=1.0.0"></script>
   <script>
-    // Initialize EmailJS
-    emailjs.init('PQqJyQ5nk-DKqGMvD');
+    // Initialize the new email collector for print-and-play page
 
     // Email modal functionality
     function openEmailModal() {
@@ -642,12 +642,18 @@
       submitBtn.querySelector('.submit-text').textContent = 'Sending...';
       messageDiv.innerHTML = '';
       
-      // Send email via EmailJS
-      emailjs.send('service_kjluw5r', 'template_yz3j6xq', {
-        email: email,
-        source: 'Print-and-Play Page'
+      // Initialize email collector
+      const emailCollector = new CountryballEmailCollector({ debug: false });
+      
+      // Send email via new backend
+      emailCollector.subscribe(email, {
+        source: 'printandplay_page',
+        formData: {
+          page: 'printandplay',
+          timestamp: new Date().toISOString()
+        }
       })
-      .then(function(response) {
+      .then(function(result) {
         messageDiv.innerHTML = '<span style="color: #00ff88;">✓ Thanks! You\'ll be notified when we launch on Kickstarter.</span>';
         emailInput.value = '';
         
@@ -671,7 +677,7 @@
       })
       .catch(function(error) {
         messageDiv.innerHTML = '<span style="color: #ff6b6b;">Something went wrong. Please try again.</span>';
-        console.error('EmailJS error:', error);
+        console.error('Email subscription error:', error);
       })
       .finally(function() {
         submitBtn.disabled = false;

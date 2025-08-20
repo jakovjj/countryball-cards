@@ -57,80 +57,8 @@
   
   <link rel="stylesheet" href="styles.css?v=2025081801">
 
-  <!-- EmailJS SDK - Multiple CDN fallbacks for reliability -->
-  <script>
-    // Global variable to track EmailJS loading state
-    window.emailJSReady = false;
-    
-    // Function to load EmailJS with fallbacks
-    function loadEmailJS() {
-      return new Promise((resolve, reject) => {
-        const cdns = [
-          'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js',
-          'https://unpkg.com/@emailjs/browser@3/dist/email.min.js',
-          'https://cdn.emailjs.com/dist/email.min.js'
-        ];
-        
-        let cdnIndex = 0;
-        
-        function tryLoadFromCDN() {
-          if (cdnIndex >= cdns.length) {
-            reject(new Error('All EmailJS CDNs failed to load'));
-            return;
-          }
-          
-          const script = document.createElement('script');
-          script.src = cdns[cdnIndex];
-          script.async = false;
-          
-          script.onload = function() {
-            console.log(`EmailJS loaded successfully from CDN ${cdnIndex + 1}:`, cdns[cdnIndex]);
-            
-            setTimeout(() => {
-              if (typeof emailjs !== 'undefined' && emailjs.init) {
-                try {
-                  emailjs.init("hvatz7pPDbme6A77h");
-                  window.emailJSReady = true;
-                  console.log('EmailJS initialized successfully');
-                  resolve(true);
-                } catch (error) {
-                  console.error('EmailJS init failed:', error);
-                  reject(error);
-                }
-              } else {
-                console.warn('EmailJS loaded but not available, trying next CDN...');
-                cdnIndex++;
-                tryLoadFromCDN();
-              }
-            }, 100);
-          };
-          
-          script.onerror = function() {
-            console.warn(`Failed to load EmailJS from CDN ${cdnIndex + 1}:`, cdns[cdnIndex]);
-            cdnIndex++;
-            tryLoadFromCDN();
-          };
-          
-          document.head.appendChild(script);
-        }
-        
-        tryLoadFromCDN();
-      });
-    }
-    
-    // Initialize EmailJS when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Starting EmailJS initialization...');
-      loadEmailJS()
-        .then(() => {
-          console.log('EmailJS ready for use');
-        })
-        .catch(error => {
-          console.error('EmailJS failed to load from all sources:', error);
-          window.emailJSReady = false;
-        });
-    });
-  </script>
+  <!-- Countryball Cards Email Collection System -->
+  <script src="js/email-collector.js?v=1.0.0"></script>
 
   <style>
     /* Custom styles for join page */
@@ -283,10 +211,10 @@
       </div>
       
       <div id="emailFormContainer">
-        <h1 class="join-title">🚀 Reserve Your Early Bird Spot</h1>
+        <h1 class="join-title">🚀 Sign Up for our Newsletter</h1>
         <p class="join-subtitle">
-          <strong>Launching Oct 1. Free EU/US shipping.</strong><br>
-          Join now to secure your <span style="color: var(--gold); font-weight: 600;">5€ early bird discount</span> and be first in line when we go live.
+          <strong>Launching Oct 1 on Kickstarter. Free EU/US shipping.</strong><br>
+          Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
         </p>
         
         <!-- Email Signup Form -->
@@ -302,7 +230,7 @@
                 class="inline-email-input"
               >
               <button type="submit" class="inline-email-submit" id="joinEmailSubmitBtn">
-                <span class="inline-submit-text">Reserve My Spot</span>
+                <span class="inline-submit-text">Get Updates</span>
                 <svg class="inline-submit-icon" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
                 </svg>
@@ -370,6 +298,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize currency display
       updateDiscountCurrency();
+      
+      // Initialize the new email collector
+      const emailCollector = new CountryballEmailCollector({ debug: false });
       
       const joinEmailForm = document.getElementById('joinEmailForm');
       const joinEmailInput = document.getElementById('joinEmailInput');
@@ -443,63 +374,23 @@
         showMessage('', '');
         
         try {
-          // Check if EmailJS is ready
-          if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
-            console.log('EmailJS not ready, waiting...');
-            showMessage('Connecting to email service...', 'info');
-            
-            // Wait for EmailJS to load
-            let waitAttempts = 0;
-            const maxWaitAttempts = 10;
-            
-            while (waitAttempts < maxWaitAttempts && (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send)) {
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              waitAttempts++;
-            }
-            
-            if (!window.emailJSReady || typeof emailjs === 'undefined' || !emailjs.send) {
-              throw new Error('EmailJS service failed to load. Please refresh the page and try again.');
-            }
-            
-            showMessage('', '');
-          }
+          console.log('Submitting email with new backend...');
           
-          // Check for duplicate emails locally first
-          const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
-          
-          if (emails.includes(email)) {
+          const result = await emailCollector.subscribe(email, {
+            source: 'join_page',
+            formData: {
+              page: 'join',
+              timestamp: new Date().toISOString()
+            }
+          });
+
+          if (result.success) {
             showSuccess();
+            console.log('Email subscription successful via new backend');
           } else {
-            // Send email via EmailJS
-            const templateParams = {
-              from_name: email,
-              from_email: email,
-              to_name: 'Countryball Cards Team',
-              message: `New newsletter signup from ${email} (join page)`,
-              signup_date: new Date().toLocaleString(),
-              source_page: 'Join Page',
-              user_email: email,
-              reply_to: email
-            };
-
-            console.log('Sending email with EmailJS...');
-            const result = await emailjs.send(
-              'service_icdib4n',
-              'template_j6fy2w2', 
-              templateParams
-            );
-
-            if (result.status === 200) {
-              // Store email locally to prevent duplicates
-              emails.push(email);
-              localStorage.setItem('countryball_emails', JSON.stringify(emails));
-              
-              showSuccess();
-              console.log('Email sent successfully via EmailJS');
-            } else {
-              throw new Error('Failed to send email');
-            }
+            throw new Error(result.message || 'Subscription failed');
           }
+
         } catch (error) {
           console.error('Email signup error:', error);
           showMessage('Something went wrong. Please try again later.', 'error');
