@@ -99,8 +99,27 @@
     svg{flex-shrink:0}
     input,button{font-family:inherit}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-    @keyframes shake{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-4px)}20%,40%,60%,80%{transform:translateX(4px)}}
+    @keyframes shake{
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-15px); }
+      20%, 40%, 60%, 80% { transform: translateX(15px); }
+    }
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
     .join-content{animation:fadeIn 0.3s ease-in-out}
+    .button-error{
+      background:linear-gradient(135deg,#ff4757,#ff6b7a) !important;
+      color:#fff !important;
+      border:2px solid #ff3742 !important;
+      box-shadow:0 4px 20px rgba(255,71,87,0.6) !important;
+      animation:shake 0.8s ease-in-out,pulse 1.2s ease-in-out infinite !important;
+      transform:scale(1.05) !important;
+      transition:all 0.3s ease !important;
+    }
+    .button-error:hover{
+      background:linear-gradient(135deg,#ff3742,#ff4757) !important;
+      transform:scale(1.08) !important;
+      cursor:not-allowed !important;
+    }
     @media(max-width:768px){
       .join-content{padding:20px 16px}
       .join-logo{max-width:120px}
@@ -258,6 +277,8 @@
     });
 
     function initializeJoinForm() {
+      console.log('initializeJoinForm called');
+      
       // Initialize the new email collector
       const emailCollector = new CountryballEmailCollector({ debug: true });
       
@@ -267,6 +288,13 @@
       const joinFormMessage = document.getElementById('joinFormMessage');
       const successMessage = document.getElementById('successMessage');
       const emailFormContainer = document.getElementById('emailFormContainer');
+      
+      console.log('Elements found:', {
+        form: !!joinEmailForm,
+        input: !!joinEmailInput,
+        button: !!joinSubmitBtn,
+        message: !!joinFormMessage
+      });
       
       if (!joinEmailForm || !joinEmailInput || !joinSubmitBtn || !joinFormMessage) {
         console.error('Join form elements not found');
@@ -282,6 +310,55 @@
         joinFormMessage.className = `form-message ${type}`;
         joinFormMessage.textContent = message;
         joinFormMessage.style.display = message ? 'block' : 'none';
+      }
+      
+      function triggerErrorState() {
+        console.log('triggerErrorState called');
+        const buttonSpan = joinSubmitBtn.querySelector('span');
+        if (!buttonSpan) {
+          console.error('Button span not found');
+          return;
+        }
+        
+        const originalText = buttonSpan.textContent;
+        console.log('Original button text:', originalText);
+        
+        // Apply error styles directly and forcefully
+        joinSubmitBtn.style.setProperty('background', 'linear-gradient(135deg,#ff4757,#ff6b7a)', 'important');
+        joinSubmitBtn.style.setProperty('color', '#fff', 'important');
+        joinSubmitBtn.style.setProperty('border', '2px solid #ff3742', 'important');
+        joinSubmitBtn.style.setProperty('box-shadow', '0 4px 20px rgba(255,71,87,0.6)', 'important');
+        joinSubmitBtn.style.setProperty('animation', 'shake 0.8s ease-in-out', 'important');
+        joinSubmitBtn.style.setProperty('transform', 'scale(1.05)', 'important');
+        joinSubmitBtn.disabled = true;
+        
+        // Change button text
+        buttonSpan.textContent = 'Enter a valid email address!';
+        console.log('Button text changed to:', buttonSpan.textContent);
+        
+        // Style input field
+        joinEmailInput.style.setProperty('border-color', '#ff4757', 'important');
+        joinEmailInput.style.setProperty('box-shadow', '0 0 0 4px rgba(255, 71, 87, 0.4)', 'important');
+        joinEmailInput.style.setProperty('background-color', 'rgba(255, 71, 87, 0.1)', 'important');
+        joinEmailInput.style.setProperty('animation', 'shake 0.8s ease-in-out', 'important');
+        
+        // Reset after 4 seconds
+        setTimeout(() => {
+          console.log('Resetting error state');
+          joinSubmitBtn.style.removeProperty('background');
+          joinSubmitBtn.style.removeProperty('color');
+          joinSubmitBtn.style.removeProperty('border');
+          joinSubmitBtn.style.removeProperty('box-shadow');
+          joinSubmitBtn.style.removeProperty('animation');
+          joinSubmitBtn.style.removeProperty('transform');
+          joinSubmitBtn.disabled = false;
+          buttonSpan.textContent = originalText;
+          
+          joinEmailInput.style.removeProperty('border-color');
+          joinEmailInput.style.removeProperty('box-shadow');
+          joinEmailInput.style.removeProperty('background-color');
+          joinEmailInput.style.removeProperty('animation');
+        }, 4000);
       }
       
       function showSuccess() {
@@ -321,51 +398,25 @@
         } catch (_) {}
       }
       
-      function showButtonError(message) {
-        const buttonSpan = joinSubmitBtn.querySelector('span');
-        const originalText = buttonSpan.textContent;
-        
-        // Add error styling to button
-        joinSubmitBtn.style.background = 'linear-gradient(135deg, #ff4757, #ff6b7a)';
-        joinSubmitBtn.style.transform = 'scale(1.05)';
-        joinSubmitBtn.style.boxShadow = '0 4px 15px rgba(255, 71, 87, 0.4)';
-        
-        // Change button text with animation
-        buttonSpan.style.transition = 'all 0.3s ease';
-        buttonSpan.textContent = message;
-        
-        // Add shake animation
-        joinSubmitBtn.style.animation = 'shake 0.5s ease-in-out';
-        
-        // Reset after 3 seconds
-        setTimeout(() => {
-          buttonSpan.textContent = originalText;
-          joinSubmitBtn.style.background = '';
-          joinSubmitBtn.style.transform = '';
-          joinSubmitBtn.style.boxShadow = '';
-          joinSubmitBtn.style.animation = '';
-        }, 3000);
-      }
       
       async function handleSubmit(e) {
+        console.log('handleSubmit called - form submitted!');
         e.preventDefault();
-        e.stopPropagation(); // Prevent any other handlers from firing
+        e.stopPropagation();
         
         const email = joinEmailInput.value.trim();
+        console.log('Email entered:', email);
         
-        if (!email) {
-          showMessage('Please enter your email address.', 'error');
-          showButtonError('Type in your email!');
-          joinEmailInput.focus();
-          return;
-        }
-        
-        if (!validateEmail(email)) {
+        // Check validation
+        if (!email || !validateEmail(email)) {
+          console.log('Email validation failed');
           showMessage('Please enter a valid email address.', 'error');
-          showButtonError('Type in your email!');
+          triggerErrorState();
           joinEmailInput.focus();
           return;
         }
+        
+        console.log('Email validation passed, proceeding with submission');
         
         // Show loading state
         joinSubmitBtn.disabled = true;
@@ -401,8 +452,20 @@
         }
       }
       
-      // Add event listener
+      // Add event listeners
       joinEmailForm.addEventListener('submit', handleSubmit);
+      
+      // Also add click listener to button as backup
+      joinSubmitBtn.addEventListener('click', function(e) {
+        console.log('Button clicked directly');
+        // If form submission doesn't work, handle it here
+        if (!joinEmailInput.value.trim() || !validateEmail(joinEmailInput.value.trim())) {
+          e.preventDefault();
+          console.log('Button click - validation failed');
+          triggerErrorState();
+          joinEmailInput.focus();
+        }
+      });
       
       // Focus effects
       joinEmailInput.addEventListener('focus', function() {
