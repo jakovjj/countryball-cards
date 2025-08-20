@@ -1777,6 +1777,56 @@
       // Open the modal
       open();
     }
+    
+    // Override email collector with direct backend calls
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait for email collector to load, then override it
+      setTimeout(() => {
+        if (window.CountryballEmailCollector) {
+          // Override the subscribe method
+          const originalPrototype = window.CountryballEmailCollector.prototype;
+          originalPrototype.subscribe = async function(email, options = {}) {
+            try {
+              const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  email: email,
+                  source: options.source || 'packages_page',
+                  form_data: {
+                    page_url: window.location.href,
+                    page_title: document.title,
+                    timestamp: new Date().toISOString(),
+                    ...options.formData
+                  }
+                })
+              });
+              
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              
+              const result = await response.json();
+              
+              if (result.success) {
+                return {
+                  success: true,
+                  message: result.message || 'Successfully subscribed!',
+                  subscriberId: result.data?.subscriber_id || result.subscriber_id
+                };
+              } else {
+                throw new Error(result.message || 'Subscription failed');
+              }
+            } catch (error) {
+              console.error('Email subscription error:', error);
+              throw error;
+            }
+          };
+        }
+      }, 100);
+    });
   </script>
 </body>
 </html>
