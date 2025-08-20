@@ -579,7 +579,7 @@ function showEmailModal() {
         // Send email via PHP backend (reliable fallback)
         console.log('Sending email via backend...');
         
-        const response = await fetch('backend/subscribe.php', {
+        const response = await fetch('http://mineward.us.to/countryball_cards/backend/subscribe.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1063,7 +1063,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Send email via PHP backend (reliable fallback)
         console.log('Sending email via backend...');
         
-        const response = await fetch('backend/subscribe.php', {
+        const response = await fetch('http://mineward.us.to/countryball_cards/backend/subscribe.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

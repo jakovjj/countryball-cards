@@ -484,6 +484,10 @@
                             <td>${subscriber.country || '-'}</td>
                             <td>
                                 <button class="btn" onclick="viewSubscriberDetails('${subscriber.email}')">View</button>
+                                ${status === 'pending' ? 
+                                    `<button class="btn" onclick="confirmSubscriber('${subscriber.email}')">Confirm</button>` 
+                                    : ''
+                                }
                                 ${status !== 'unsubscribed' ? 
                                     `<button class="btn btn-danger" onclick="unsubscribeUser('${subscriber.email}')">Unsubscribe</button>` 
                                     : ''
