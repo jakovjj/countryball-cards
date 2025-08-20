@@ -228,11 +228,10 @@
     .countdown-number{font-size:28px;font-weight:800;color:var(--gold);text-shadow:0 2px 4px rgba(0,0,0,0.3);min-width:40px;display:inline-block}
     .countdown-separator{font-size:24px;font-weight:700;color:var(--gold);opacity:0.7}
     .logo-section{text-align:center;margin-bottom:24px}
-    .logo{max-height:80px;width:auto;filter:brightness(1.1)saturate(1.1);transition:all 0.3s ease}
+    .logo{max-height:120px;width:auto;filter:brightness(1.1)saturate(1.1);transition:all 0.3s ease}
     .logo-fallback{display:none;font-size:32px;font-weight:bold;color:var(--gold);text-shadow:0 0 10px rgba(255,215,0,0.3)}
     .hero{text-align:center;margin:32px 0}
-    .hero h1{background:linear-gradient(135deg,var(--gold),#e6c875);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero h1 img,.hero h1 picture{-webkit-text-fill-color:initial;background:none}
+    .main-logo{display:block;max-height:2000px;width:auto;margin:0 auto 24px;filter:brightness(1.1)saturate(1.1)}
     .hero-subtitle{font-size:clamp(18px,2.8vw,24px);margin:16px 0 32px 0;color:var(--muted);line-height:1.5}
     .copy{text-align:center}
     .cta,.cta-section{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:32px 0}
@@ -296,14 +295,8 @@
     <div class="frame">
       <div class="hero">
         <div class="copy">
-          <!-- badges removed -->
-          <h1>
-            <picture>
-              <source srcset="logo.webp" type="image/webp">
-              <img src="logo.png" alt="Countryball Cards" class="logo" width="200" height="80" loading="eager" fetchpriority="high" onerror="this.style.display='none'; this.parentElement.nextElementSibling.style.display='block';">
-            </picture>
-            <span class="logo-fallback" style="display:none;">Countryball Cards</span>
-          </h1>
+          <!-- Logo -->
+          <img src="logo.png" alt="Countryball Cards" class="main-logo" width="600" height="240" loading="eager" fetchpriority="high">
           
           <!-- Countdown to Kickstarter -->
           <div class="countdown-banner">
