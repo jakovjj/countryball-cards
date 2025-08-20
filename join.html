@@ -99,6 +99,7 @@
     svg{flex-shrink:0}
     input,button{font-family:inherit}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes shake{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-4px)}20%,40%,60%,80%{transform:translateX(4px)}}
     .join-content{animation:fadeIn 0.3s ease-in-out}
     @media(max-width:768px){
       .join-content{padding:20px 16px}
@@ -320,50 +321,30 @@
         } catch (_) {}
       }
       
-      function focusInputOnMobile() {
-        // Always focus first
-        joinEmailInput.focus();
+      function showButtonError(message) {
+        const buttonSpan = joinSubmitBtn.querySelector('span');
+        const originalText = buttonSpan.textContent;
         
-        // For mobile devices, use multiple techniques to ensure virtual keyboard opens
-        if (window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-          // Method 1: Programmatic click
-          setTimeout(() => {
-            joinEmailInput.click();
-          }, 100);
-          
-          // Method 2: Touch events simulation
-          setTimeout(() => {
-            const touchStart = new TouchEvent('touchstart', {
-              bubbles: true,
-              cancelable: true,
-              touches: [new Touch({
-                identifier: 0,
-                target: joinEmailInput,
-                clientX: 0,
-                clientY: 0,
-                radiusX: 2.5,
-                radiusY: 2.5,
-                rotationAngle: 10,
-                force: 0.5,
-              })]
-            });
-            const touchEnd = new TouchEvent('touchend', {
-              bubbles: true,
-              cancelable: true,
-              touches: []
-            });
-            
-            joinEmailInput.dispatchEvent(touchStart);
-            setTimeout(() => {
-              joinEmailInput.dispatchEvent(touchEnd);
-            }, 50);
-          }, 150);
-          
-          // Method 3: Re-focus after a short delay
-          setTimeout(() => {
-            joinEmailInput.focus();
-          }, 200);
-        }
+        // Add error styling to button
+        joinSubmitBtn.style.background = 'linear-gradient(135deg, #ff4757, #ff6b7a)';
+        joinSubmitBtn.style.transform = 'scale(1.05)';
+        joinSubmitBtn.style.boxShadow = '0 4px 15px rgba(255, 71, 87, 0.4)';
+        
+        // Change button text with animation
+        buttonSpan.style.transition = 'all 0.3s ease';
+        buttonSpan.textContent = message;
+        
+        // Add shake animation
+        joinSubmitBtn.style.animation = 'shake 0.5s ease-in-out';
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          buttonSpan.textContent = originalText;
+          joinSubmitBtn.style.background = '';
+          joinSubmitBtn.style.transform = '';
+          joinSubmitBtn.style.boxShadow = '';
+          joinSubmitBtn.style.animation = '';
+        }, 3000);
       }
       
       async function handleSubmit(e) {
@@ -374,13 +355,15 @@
         
         if (!email) {
           showMessage('Please enter your email address.', 'error');
-          focusInputOnMobile();
+          showButtonError('Type in your email!');
+          joinEmailInput.focus();
           return;
         }
         
         if (!validateEmail(email)) {
           showMessage('Please enter a valid email address.', 'error');
-          focusInputOnMobile();
+          showButtonError('Type in your email!');
+          joinEmailInput.focus();
           return;
         }
         
