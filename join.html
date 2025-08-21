@@ -486,6 +486,93 @@
     }
   </script>
 
+  <!-- Mobile-First CVR Optimization Script -->
+  <script>
+    (function () {
+      const emailInput = document.querySelector('#joinEmailInput');
+      const submitBtn = document.querySelector('#joinEmailSubmitBtn');
+
+      // Enhanced autofocus for mobile and desktop
+      function initializeFocus() {
+        // Desktop autofocus on page load
+        if (window.innerWidth > 768) {
+          window.requestAnimationFrame(() => {
+            emailInput?.focus();
+          });
+        }
+        
+        // Mobile: focus after first interaction to respect user experience
+        let hasInteracted = false;
+        const handleFirstInteraction = function() {
+          if (!hasInteracted && emailInput) {
+            hasInteracted = true;
+            setTimeout(() => emailInput.focus(), 100);
+            document.removeEventListener('touchstart', handleFirstInteraction);
+            document.removeEventListener('click', handleFirstInteraction);
+          }
+        };
+        
+        document.addEventListener('touchstart', handleFirstInteraction, {passive: true});
+        document.addEventListener('click', handleFirstInteraction, {passive: true});
+      }
+
+      // Enhanced keyboard shortcuts
+      emailInput?.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && emailInput.value.trim()) {
+          e.preventDefault();
+          submitBtn?.click();
+        }
+      });
+
+      // Enhanced mobile UX improvements
+      function enhanceMobileUX() {
+        if (emailInput) {
+          // Prevent zoom on focus for iOS
+          emailInput.addEventListener('focus', function() {
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+              document.querySelector('meta[name=viewport]')
+                ?.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+            }
+          });
+
+          // Restore viewport on blur
+          emailInput.addEventListener('blur', function() {
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+              setTimeout(() => {
+                document.querySelector('meta[name=viewport]')
+                  ?.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+              }, 100);
+            }
+          });
+
+          // Enhanced input validation feedback
+          emailInput.addEventListener('input', function() {
+            const email = this.value.trim();
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+              this.style.borderColor = 'rgba(192, 57, 43, 0.6)';
+            } else {
+              this.style.borderColor = 'var(--gold)';
+            }
+          });
+        }
+      }
+
+      // Initialize all improvements when DOM is ready
+      function initializeCVROptimizations() {
+        initializeFocus();
+        enhanceMobileUX();
+      }
+
+      // Wait for DOM and other scripts to load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeCVROptimizations);
+      } else {
+        // DOM already loaded, wait a bit for other scripts
+        setTimeout(initializeCVROptimizations, 200);
+      }
+    })();
+  </script>
+
   <!-- Reddit Pixel Code -->
   <script>
     !function(w,d){
@@ -506,8 +593,6 @@
       useDecimalCurrencyValues: true
     });
     rdt('track', 'PageVisit');
-  </script>
-  </script>
   </script>
 </body>
 </html>
