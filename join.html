@@ -121,8 +121,9 @@
     .email-input{padding:16px 20px;border:3px solid var(--gold);border-radius:12px !important;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(199,164,85,0.3);text-align:center;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;-webkit-border-radius:12px !important;-moz-border-radius:12px !important}
     .email-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,164,85,0.5);background:rgba(255,255,255,0.08)}
     .email-input::placeholder{color:rgba(238,238,238,0.6);text-align:center}
-    .email-submit{padding:16px 24px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:12px;color:var(--bg);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin:0 auto}
+    .email-submit{padding:16px 24px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:12px;color:var(--bg);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin:0 auto;min-height:56px;position:relative}
     .email-submit:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px)}
+    .email-submit span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 32px);transition:all 0.3s ease}
     .form-message{margin:16px auto 0;padding:0;font-size:14px;font-weight:600;text-align:center;max-width:400px}
     .form-message.success{color:#00ff88}
     .form-message.error{color:#ff6b6b}
@@ -165,6 +166,15 @@
         -moz-appearance:none !important;
         appearance:none !important;
       }
+      .signup-benefits{max-width:100% !important;margin-left:0 !important;margin-right:0 !important}
+      .signup-benefits div{padding:18px 12px !important;margin:0 !important}
+      .signup-benefits h3{font-size:14px !important;margin-bottom:14px !important}
+      .signup-benefits div > div{gap:6px !important}
+      .signup-benefits div > div > div{gap:6px !important;padding:4px 0 !important}
+      .signup-benefits div > div > div > div{width:4px !important;height:4px !important}
+      .signup-benefits span{font-size:12px !important;line-height:1.3 !important}
+      .email-submit{font-size:14px !important;padding:14px 16px !important;min-height:50px !important}
+      .email-submit span{font-size:14px !important}
     }
     @media(max-width:480px){
       .email-input{
@@ -257,23 +267,68 @@
           </p>
           
           <div class="email-form-container">
-            <form id="joinEmailForm">
+            <form id="joinEmailForm" action="collect-email.php" method="POST">
               <input 
                 type="email" 
                 id="joinEmailInput" 
+                name="email"
                 placeholder="Enter your email address" 
                 required 
                 autocomplete="email"
                 class="email-input"
               >
+              <input type="hidden" name="source" value="join_page">
+              <input type="hidden" name="page_url" id="pageUrl">
+              <input type="hidden" name="timestamp" id="timestamp">
               <button type="submit" class="email-submit" id="joinEmailSubmitBtn">
-                <span>Get Updates</span>
+                <span>Join Now</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
                 </svg>
               </button>
               <div class="form-message" id="joinFormMessage"></div>
             </form>
+            
+            <div class="signup-benefits" style="margin-top: 24px; max-width: 420px; width: 100%;">
+              <div style="background: linear-gradient(135deg, rgba(199, 164, 85, 0.08) 0%, rgba(199, 164, 85, 0.12) 100%); border: 1px solid rgba(199, 164, 85, 0.25); border-radius: 16px; padding: 24px 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); box-sizing: border-box;">
+                <h3 style="color: var(--gold); font-size: 15px; font-weight: 600; margin: 0 0 18px 0; text-align: center; letter-spacing: 0.5px; text-transform: uppercase;">
+                  ✨ Newsletter Perks
+                </h3>
+                <div style="display: grid; gap: 12px;">
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+                    <div style="width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px rgba(199, 164, 85, 0.5);"></div>
+                    <span style="color: var(--text); font-size: 13px; line-height: 1.4; font-weight: 500;">
+                      <strong style="color: var(--gold);">Free giveaway</strong> (5 Base Editions)!
+                    </span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+                    <div style="width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px rgba(199, 164, 85, 0.5);"></div>
+                    <span style="color: var(--text); font-size: 13px; line-height: 1.4; font-weight: 500;">
+                      <strong style="color: var(--gold);">Free shipping</strong> in EU/US
+                    </span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+                    <div style="width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px rgba(199, 164, 85, 0.5);"></div>
+                    <span style="color: var(--text); font-size: 13px; line-height: 1.4; font-weight: 500;">
+                      <strong style="color: var(--gold);">Early access</strong> discount
+                    </span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+                    <div style="width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px rgba(199, 164, 85, 0.5);"></div>
+                    <span style="color: var(--text); font-size: 13px; line-height: 1.4; font-weight: 500;">
+                      <strong style="color: var(--gold);">Launch alerts</strong> & updates
+                    </span>
+                  </div>
+
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0;">
+                    <div style="width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px rgba(199, 164, 85, 0.5);"></div>
+                    <span style="color: var(--text); font-size: 13px; line-height: 1.4; font-weight: 500;">
+                      <strong style="color: var(--gold);">Support</strong> indie development <3
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -333,6 +388,28 @@
       // Initialize currency display
       updateDiscountCurrency();
       
+      // Set hidden form fields
+      document.getElementById('pageUrl').value = window.location.href;
+      document.getElementById('timestamp').value = new Date().toISOString();
+      
+      // Check for URL parameters (success/error messages from non-JS submissions)
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const message = urlParams.get('message');
+      
+      if (status && message) {
+        if (status === 'success') {
+          showSuccess();
+          // Clean URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } else if (status === 'error') {
+          showMessage(decodeURIComponent(message), 'error');
+          // Clean URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        return; // Don't initialize JS form handling if we just processed a non-JS submission
+      }
+      
       // Initialize join form after a short delay to ensure all scripts are loaded
       setTimeout(() => {
         initializeJoinForm();
@@ -341,9 +418,6 @@
 
     function initializeJoinForm() {
       console.log('initializeJoinForm called');
-      
-      // Initialize the new email collector
-      const emailCollector = new CountryballEmailCollector({ debug: true });
       
       const joinEmailForm = document.getElementById('joinEmailForm');
       const joinEmailInput = document.getElementById('joinEmailInput');
@@ -401,7 +475,7 @@
         }
         
         // Change button text
-        buttonSpan.textContent = 'Please enter a valid email';
+        buttonSpan.textContent = 'Invalid email';
         console.log('Button text changed to:', buttonSpan.textContent);
         
         // Style input field with softer red colors
@@ -498,24 +572,42 @@
         showMessage('', '');
         
         try {
-          console.log('Submitting email using EmailCollector...');
+          console.log('Submitting email using direct fetch...');
           
-          // Use the EmailCollector's subscribe method
-          const result = await emailCollector.subscribe(email, {
-            source: 'join_page',
-            formData: {
-              page_url: window.location.href,
-              page_title: document.title,
-              timestamp: new Date().toISOString()
-            }
+          // Direct submission to collect-email.php
+          const response = await fetch('collect-email.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({
+              email: email,
+              source: 'join_page',
+              form_data: {
+                page_url: window.location.href,
+                page_title: document.title,
+                timestamp: new Date().toISOString()
+              }
+            })
           });
 
-          console.log('Email subscription successful:', result);
-          showSuccess();
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            console.log('Email subscription successful:', result);
+            showSuccess();
+          } else {
+            throw new Error(result.error || result.message || 'Subscription failed');
+          }
 
         } catch (error) {
           console.error('Email signup error:', error);
-          showMessage('Something went wrong. Please try again later.', 'error');
+          
+          // If fetch fails, fall back to regular form submission
+          console.log('Falling back to regular form submission');
+          joinEmailForm.submit();
+          return;
         } finally {
           // Reset button state
           joinSubmitBtn.disabled = false;

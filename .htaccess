@@ -22,6 +22,13 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
     # Handle preflight requests
     RewriteCond %{REQUEST_METHOD} OPTIONS
     RewriteRule ^(.*)$ $1 [R=200,L]
+    
+    # Special CORS handling for email collection
+    <FilesMatch "collect-email\.php">
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+        Header always set Access-Control-Allow-Headers "Content-Type, X-Requested-With"
+    </FilesMatch>
 </IfModule>
 
 # API Routing
@@ -39,6 +46,15 @@ RewriteRule ^backend/api/(.*)$ backend/api.php/$1 [QSA,L]
     Order allow,deny
     Deny from all
 </Files>
+
+# Protect emails.csv from direct web access
+<FilesMatch "emails\.csv$">
+    Order deny,allow
+    Deny from all
+    # Allow only from localhost for testing
+    Allow from 127.0.0.1
+    Allow from ::1
+</FilesMatch>
 
 <FilesMatch "\.(json|txt)$">
     <RequireAll>
