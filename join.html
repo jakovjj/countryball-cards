@@ -70,7 +70,6 @@
   <link rel="dns-prefetch" href="https://events.reddit.com">
   
   <!-- Preload critical assets -->
-  <link rel="preload" as="image" href="card.png" fetchpriority="high" />
   <link rel="preload" href="js/email-collector.js?v=1.0.0" as="script" />
   
   <!-- Google tag (GA4) - Defer to not block initial render -->
@@ -214,7 +213,30 @@
   <div class="wrap">
     <div class="frame">
       <div class="join-container">
-        <img src="card.png" alt="Countryball Cards" class="join-logo" onerror="this.style.display='none';">
+        <img data-src="card.webp" alt="Countryball Cards" class="join-logo lazy-load" style="opacity:0;transition:opacity 0.3s ease" onerror="this.style.display='none';">
+        
+        <script>
+          // Lazy load the logo after page is interactive
+          function loadLogo() {
+            const logo = document.querySelector('.join-logo.lazy-load');
+            if (logo && logo.dataset.src) {
+              const img = new Image();
+              img.onload = function() {
+                logo.src = this.src;
+                logo.style.opacity = '1';
+                logo.classList.remove('lazy-load');
+              };
+              img.src = logo.dataset.src;
+            }
+          }
+          
+          // Load logo after a short delay to not block initial render
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => setTimeout(loadLogo, 100));
+          } else {
+            setTimeout(loadLogo, 100);
+          }
+        </script>
         
         <div class="success-message" id="successMessage" style="display:none;">
           <h3>🎉 Early Bird Spot Reserved!</h3>
