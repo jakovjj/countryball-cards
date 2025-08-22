@@ -12,10 +12,26 @@ function sendJsonResponse($data, $httpCode = 200) {
 
 // Function to redirect for standard form submissions
 function redirectWithMessage($success, $message) {
-    $status = $success ? 'success' : 'error';
-    $encodedMessage = urlencode($message);
-    header("Location: join.php?status=$status&message=$encodedMessage");
-    exit;
+    // Check if this is an iframe submission (form target="hidden_iframe")
+    $isIframeSubmission = isset($_SERVER['HTTP_REFERER']) && 
+                         (strpos($_SERVER['HTTP_REFERER'], 'join.html') !== false || 
+                          strpos($_SERVER['HTTP_REFERER'], 'join.php') !== false);
+    
+    if ($isIframeSubmission) {
+        // For iframe submissions, just return a simple response
+        header('Content-Type: text/html; charset=UTF-8');
+        echo '<!DOCTYPE html><html><head><title>Success</title></head><body>';
+        echo '<script>window.parent.handleFormResponse && window.parent.handleFormResponse();</script>';
+        echo '<p>' . htmlspecialchars($message) . '</p>';
+        echo '</body></html>';
+        exit;
+    } else {
+        // For direct submissions, redirect as before
+        $status = $success ? 'success' : 'error';
+        $encodedMessage = urlencode($message);
+        header("Location: join.html?status=$status&message=$encodedMessage");
+        exit;
+    }
 }
 
 // CORS headers for AJAX requests
@@ -36,7 +52,7 @@ if (!in_array($method, ['POST', 'GET'])) {
     header('Content-Type: text/html; charset=UTF-8');
     echo '<!DOCTYPE html><html><head><title>Error</title></head><body>';
     echo '<h2>Method Not Allowed</h2>';
-    echo '<p>This form only accepts POST requests. Please <a href="join.php">go back and try again</a>.</p>';
+    echo '<p>This form only accepts POST requests. Please <a href="join.html">go back and try again</a>.</p>';
     echo '</body></html>';
     exit;
 }
