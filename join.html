@@ -45,6 +45,7 @@
   
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="logo.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="cards.png" fetchpriority="high" />
   <link rel="preload" href="styles.css?v=2025081801" as="style" />
   <link rel="preload" href="js/email-collector.js?v=1.0.0" as="script" />
   
@@ -69,7 +70,11 @@
     .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
     .frame{border:3px solid var(--gold);border-radius:18px;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
     .join-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center}
-    .join-logo{max-width:200px;height:auto;margin:0 auto 20px;display:block}
+    .join-logo{max-width:400px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 8px rgba(199,164,85,0.3));transition:all 0.5s ease;position:relative;animation:float 3s ease-in-out infinite}
+    .join-logo:hover{filter:drop-shadow(0 0 12px rgba(199,164,85,0.5));transform:scale(1.02) translateY(var(--float-offset, 0px))}
+    .join-logo::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;background:radial-gradient(circle at 20% 30%, rgba(255,255,255,0.2) 1px, transparent 2px),radial-gradient(circle at 80% 70%, rgba(199,164,85,0.3) 1px, transparent 2px),radial-gradient(circle at 60% 15%, rgba(255,255,255,0.1) 1px, transparent 2px);pointer-events:none;opacity:0.6;animation:sparkle 3s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0px);--float-offset:0px}50%{transform:translateY(-8px);--float-offset:-8px}}
+    @keyframes sparkle{0%,100%{opacity:0.3;transform:rotate(0deg)}25%{opacity:0.7;transform:rotate(90deg)}50%{opacity:0.4;transform:rotate(180deg)}75%{opacity:0.8;transform:rotate(270deg)}}
     .join-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .join-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
     .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:24px;margin-bottom:20px;color:#28a745;font-size:14px;font-weight:600;text-align:center;max-width:500px;width:100%;box-sizing:border-box}
@@ -120,7 +125,7 @@
     }
     @media(max-width:768px){
       .join-content{padding:20px 16px}
-      .join-logo{max-width:120px}
+      .join-logo{max-width:250px}
       .email-input{
         -webkit-border-radius:12px !important;
         -moz-border-radius:12px !important;
@@ -170,7 +175,7 @@
   <div class="wrap">
     <div class="frame">
       <div class="join-container">
-        <img src="logo.png" alt="Countryball Cards" class="join-logo" onerror="this.style.display='none';">
+        <img src="card.png" alt="Countryball Cards" class="join-logo" onerror="this.style.display='none';">
         
         <div class="success-message" id="successMessage" style="display:none;">
           <h3>🎉 Early Bird Spot Reserved!</h3>
