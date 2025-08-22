@@ -462,31 +462,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-// Fallback for legacy EmailJS code
-if (!window.emailjs) {
-    window.emailjs = {
-        init: function() {
-            console.log('EmailJS compatibility mode enabled');
-        },
-        send: async function(serviceId, templateId, templateParams) {
-            const collector = new CountryballEmailCollector();
-            const email = templateParams.from_email || templateParams.user_email;
-            
-            if (email) {
-                try {
-                    await collector.subscribe(email, {
-                        source: 'emailjs_compatibility'
-                    });
-                    return { status: 200 };
-                } catch (error) {
-                    throw new Error(error.message);
-                }
-            } else {
-                throw new Error('No email found in template parameters');
-            }
-        }
-    };
-
-    window.emailJSReady = true;
-}
