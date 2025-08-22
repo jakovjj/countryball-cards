@@ -268,7 +268,7 @@
           
           <div class="email-form-container">
                   <!-- Email Signup Form - Submits to hidden iframe to avoid redirect -->
-      <form class="email-form" action="collect-email.php" method="POST" target="hidden_iframe" id="joinEmailForm" onsubmit="trackFormSubmission()">
+      <form class="email-form" action="collect-email.php" method="POST" target="hidden_iframe" id="joinEmailForm">
               <input 
                 type="email" 
                 id="joinEmailInput" 
@@ -334,7 +334,7 @@
         </div>
         
         <!-- Hidden iframe to receive form submission without redirect -->
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormResponse()"></iframe>
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
         
         <!-- Form submission status display -->
         <div id="form-status" style="display:none; margin-top: 20px; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; max-width: 420px; width: 100%;"></div>
@@ -823,42 +823,63 @@
       }
     }
     
-    // Handle form submission via hidden iframe (no JavaScript dependency)
-    function handleFormResponse() {
-      // This function runs when the iframe loads after form submission
-      // For now, we'll show a generic success message since we can't read iframe content due to CORS
-      const statusDiv = document.getElementById('form-status');
+    // Simple form handling - show success message after form submission
+    document.addEventListener('DOMContentLoaded', function() {
       const form = document.getElementById('joinEmailForm');
+      const statusDiv = document.getElementById('form-status');
       
-      // Only show message if form was actually submitted (iframe loaded after form submit)
-      if (form && statusDiv && window.formSubmitted) {
-        statusDiv.style.display = 'block';
-        statusDiv.style.backgroundColor = '#4CAF50';
-        statusDiv.style.color = 'white';
-        statusDiv.innerHTML = '✅ Thank you! Your email has been submitted. Please check your email for confirmation.';
-        
-        // Reset the form
-        form.reset();
-        
-        // Auto-hide after 5 seconds
-        setTimeout(() => {
-          statusDiv.style.opacity = '0';
-          statusDiv.style.transition = 'opacity 0.5s';
-          setTimeout(() => {
-            statusDiv.style.display = 'none';
-            statusDiv.style.opacity = '1';
-          }, 500);
-        }, 5000);
-        
-        // Reset the flag
-        window.formSubmitted = false;
+      if (form && statusDiv) {
+        // Add form validation and submission handling
+        form.addEventListener('submit', function(e) {
+          const emailInput = form.querySelector('input[name="email"]');
+          const email = emailInput.value.trim();
+          
+          // Basic validation
+          if (!email) {
+            e.preventDefault();
+            statusDiv.style.display = 'block';
+            statusDiv.style.backgroundColor = '#f44336';
+            statusDiv.style.color = 'white';
+            statusDiv.innerHTML = '❌ Please enter an email address.';
+            return;
+          }
+          
+          if (!email.includes('@')) {
+            e.preventDefault();
+            statusDiv.style.display = 'block';
+            statusDiv.style.backgroundColor = '#f44336';
+            statusDiv.style.color = 'white';
+            statusDiv.innerHTML = '❌ Please enter a valid email address.';
+            return;
+          }
+          
+          // Set hidden field values
+          form.querySelector('#pageUrl').value = window.location.href;
+          form.querySelector('#timestamp').value = new Date().toISOString();
+          
+          // Show success message after a short delay (form will submit to iframe)
+          setTimeout(function() {
+            statusDiv.style.display = 'block';
+            statusDiv.style.backgroundColor = '#4CAF50';
+            statusDiv.style.color = 'white';
+            statusDiv.innerHTML = '✅ Thank you! Your email has been submitted successfully.';
+            
+            // Reset the form
+            form.reset();
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+              statusDiv.style.opacity = '0';
+              statusDiv.style.transition = 'opacity 0.5s';
+              setTimeout(() => {
+                statusDiv.style.display = 'none';
+                statusDiv.style.opacity = '1';
+              }, 500);
+            }, 5000);
+          }, 1000); // Delay to allow form submission
+        });
       }
-    }
-    
-    // Track form submission
-    function trackFormSubmission() {
-      window.formSubmitted = true;
-    }
+    });
     
     // Check for feedback when page loads
     if (document.readyState === 'loading') {

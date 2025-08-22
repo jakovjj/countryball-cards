@@ -18,12 +18,11 @@ function redirectWithMessage($success, $message) {
                           strpos($_SERVER['HTTP_REFERER'], 'join.php') !== false);
     
     if ($isIframeSubmission) {
-        // For iframe submissions, just return a simple response
+        // For iframe submissions, return minimal response
         header('Content-Type: text/html; charset=UTF-8');
-        echo '<!DOCTYPE html><html><head><title>Success</title></head><body>';
-        echo '<script>window.parent.handleFormResponse && window.parent.handleFormResponse();</script>';
-        echo '<p>' . htmlspecialchars($message) . '</p>';
-        echo '</body></html>';
+        echo '<!DOCTYPE html>';
+        echo '<html><head><meta charset="UTF-8"><title>Success</title></head>';
+        echo '<body><p>Success</p></body></html>';
         exit;
     } else {
         // For direct submissions, redirect as before
