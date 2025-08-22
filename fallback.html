@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Signup - Fallback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #151515;
+            color: #eee;
+        }
+        .container {
+            background: #1d1d1d;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #c7a455;
+        }
+        h2 {
+            color: #c7a455;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #c7a455;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: #eee;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background: #c7a455;
+            color: #151515;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #b8954a;
+        }
+        .note {
+            font-size: 12px;
+            color: #b7b7b7;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #c7a455;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📧 Join Our Newsletter</h2>
+        <p style="text-align: center; margin-bottom: 25px;">
+            Get notified when Countryball Cards launches on Kickstarter!
+        </p>
+        
+        <!-- Primary form (POST method) -->
+        <form action="collect-email.php" method="POST" style="margin-bottom: 20px;">
+            <input type="email" name="email" placeholder="Enter your email address" required>
+            <input type="hidden" name="source" value="fallback_post">
+            <input type="hidden" name="page_url" value="fallback.html">
+            <input type="hidden" name="timestamp" id="timestamp">
+            <button type="submit">Sign Up (POST)</button>
+        </form>
+        
+        <!-- Fallback form (GET method) -->
+        <details style="margin-top: 15px;">
+            <summary style="color: #c7a455; cursor: pointer; font-size: 14px;">
+                Having trouble? Try alternative method
+            </summary>
+            <form action="collect-email.php" method="GET" style="margin-top: 15px;">
+                <input type="email" name="email" placeholder="Enter your email address" required>
+                <input type="hidden" name="source" value="fallback_get">
+                <input type="hidden" name="page_url" value="fallback.html">
+                <button type="submit">Sign Up (GET)</button>
+            </form>
+        </details>
+        
+        <div class="note">
+            Both methods will add you to our newsletter for launch updates.
+        </div>
+        
+        <div class="back-link">
+            <a href="join.html">← Back to main signup page</a>
+        </div>
+    </div>
+
+    <script>
+        // Set timestamp
+        document.getElementById('timestamp').value = new Date().toISOString();
+        
+        // Check URL parameters for results
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const message = urlParams.get('message');
+        
+        if (status && message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                padding: 15px; 
+                margin-bottom: 20px; 
+                border-radius: 8px; 
+                text-align: center;
+                ${status === 'success' ? 
+                    'background: rgba(40, 167, 69, 0.2); color: #28a745; border: 1px solid #28a745;' : 
+                    'background: rgba(220, 53, 69, 0.2); color: #dc3545; border: 1px solid #dc3545;'
+                }
+            `;
+            alertDiv.textContent = decodeURIComponent(message);
+            document.querySelector('.container').insertBefore(alertDiv, document.querySelector('h2').nextSibling);
+        }
+    </script>
+</body>
+</html>

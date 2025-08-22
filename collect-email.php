@@ -29,13 +29,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    sendJsonResponse(['error' => 'Method not allowed'], 405);
+// Check if we have a valid request method
+$method = $_SERVER['REQUEST_METHOD'] ?? '';
+if (!in_array($method, ['POST', 'GET'])) {
+    // For non-JS users, show a helpful error page instead of JSON
+    header('Content-Type: text/html; charset=UTF-8');
+    echo '<!DOCTYPE html><html><head><title>Error</title></head><body>';
+    echo '<h2>Method Not Allowed</h2>';
+    echo '<p>This form only accepts POST requests. Please <a href="join.html">go back and try again</a>.</p>';
+    echo '</body></html>';
+    exit;
 }
 
 // Determine if this is an AJAX request
 $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+// For debugging: log the request details
+error_log("Email collection request: Method=" . ($method ?? 'unknown') . ", Ajax=" . ($isAjax ? 'yes' : 'no') . ", UserAgent=" . ($_SERVER['HTTP_USER_AGENT'] ?? 'unknown'));
 
 // Get input data
 $email = '';
@@ -43,19 +54,28 @@ $source = 'unknown';
 $pageUrl = '';
 $timestamp = '';
 
-if ($isAjax) {
-    // Handle AJAX request (JSON input)
-    $input = json_decode(file_get_contents('php://input'), true);
-    $email = $input['email'] ?? '';
-    $source = $input['source'] ?? 'unknown';
-    $pageUrl = $input['form_data']['page_url'] ?? '';
-    $timestamp = $input['form_data']['timestamp'] ?? '';
-} else {
-    // Handle standard form submission
-    $email = $_POST['email'] ?? '';
-    $source = $_POST['source'] ?? 'unknown';
-    $pageUrl = $_POST['page_url'] ?? '';
-    $timestamp = $_POST['timestamp'] ?? '';
+// Handle both AJAX and form submissions, but also GET as fallback
+if ($method === 'POST') {
+    if ($isAjax) {
+        // Handle AJAX request (JSON input)
+        $input = json_decode(file_get_contents('php://input'), true);
+        $email = $input['email'] ?? '';
+        $source = $input['source'] ?? 'ajax_unknown';
+        $pageUrl = $input['form_data']['page_url'] ?? '';
+        $timestamp = $input['form_data']['timestamp'] ?? '';
+    } else {
+        // Handle standard form submission
+        $email = $_POST['email'] ?? '';
+        $source = $_POST['source'] ?? 'form_unknown';
+        $pageUrl = $_POST['page_url'] ?? '';
+        $timestamp = $_POST['timestamp'] ?? '';
+    }
+} else if ($method === 'GET') {
+    // Fallback to GET if server blocks POST
+    $email = $_GET['email'] ?? '';
+    $source = $_GET['source'] ?? 'get_fallback';
+    $pageUrl = $_GET['page_url'] ?? '';
+    $timestamp = $_GET['timestamp'] ?? '';
 }
 
 // Validate email
