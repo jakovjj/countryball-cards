@@ -621,20 +621,7 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
   flex-shrink: 0;
 }
 
-/* Make secondary and tertiary buttons consistent */
-.btn.secondary, .btn.tertiary {
-  border: 2px solid var(--gold);
-  color: var(--text);
-  background: transparent;
-}
-
-.btn.secondary:hover, .btn.tertiary:hover {
-  background: rgba(199, 164, 85, 0.1);
-  border-color: #d4b866;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(199, 164, 85, 0.2),
-             0 0 0 2px rgba(199, 164, 85, 0.15);
-}
+/* Make secondary and tertiary buttons consistent - REMOVED DUPLICATE */
 .btn{appearance:none;border:none;background:transparent;color:var(--bg);
        padding:14px 18px;border-radius:12px;cursor:pointer;font-weight:800;
        display:inline-flex;align-items:center;gap:8px;text-decoration:none;
@@ -646,16 +633,36 @@ font-size:16px}
 .btn.primary:hover{background:#d4b866;transform:translateY(-2px);
                    box-shadow:0 6px 20px rgba(199,164,85,0.4),
                               0 0 0 3px rgba(199,164,85,0.1)}
-.btn.secondary{border:2px solid var(--gold);color:var(--text)}
+.btn.secondary{border:2px solid var(--gold);color:var(--text);background:transparent}
 .btn.secondary:hover{background:rgba(199,164,85,0.1);border-color:#d4b866;
                      transform:translateY(-2px);
                      box-shadow:0 6px 20px rgba(199,164,85,0.2),
-                                0 0 0 2px rgba(199,164,85,0.15)}
+                                0 0 0 2px rgba(199,164,85,0.15);
+                     color:var(--text)} /* Ensure text stays white */
+.btn.tertiary{border:2px solid var(--gold);color:var(--text);background:transparent}
+.btn.tertiary:hover{background:rgba(199,164,85,0.1);border-color:#d4b866;
+                    transform:translateY(-2px);
+                    box-shadow:0 6px 20px rgba(199,164,85,0.2),
+                               0 0 0 2px rgba(199,164,85,0.15);
+                    color:var(--text)} /* Ensure text stays white */
 
 
 
 .btn-icon{width:20px;height:20px;flex-shrink:0;transition:transform 0.3s ease}
 .btn:hover .btn-icon{transform:scale(1.1)}
+
+/* Ensure icons stay white on hover for secondary and tertiary buttons */
+.btn.secondary .btn-icon,
+.btn.tertiary .btn-icon {
+  fill: var(--text);
+  color: var(--text);
+}
+
+.btn.secondary:hover .btn-icon,
+.btn.tertiary:hover .btn-icon {
+  fill: var(--text);
+  color: var(--text);
+}
 
 /* Bottom Email CTA */
 .bottom-email-cta {

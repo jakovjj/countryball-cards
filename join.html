@@ -71,22 +71,28 @@
   <link rel="dns-prefetch" href="https://events.reddit.com">
   
   <!-- Preload critical assets -->
-  <link rel="preload" as="image" href="logo.png" fetchpriority="high" />
-  <link rel="preload" as="image" href="cards.png" fetchpriority="high" />
-  <link rel="preload" href="styles.css?v=2025081801" as="style" />
+  <link rel="preload" as="image" href="card.png" fetchpriority="high" />
   <link rel="preload" href="js/email-collector.js?v=1.0.0" as="script" />
   
-  <!-- Google tag (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z"></script>
+  <!-- Google tag (GA4) - Defer to not block initial render -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} 
-    gtag('js', new Date());
-    gtag('config', 'G-M366HCYL8Z', {
-      transport_type: 'beacon',
-      anonymize_ip: true,
-      allow_google_signals: false
-    });
+    // Defer Google Analytics loading
+    setTimeout(() => {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z';
+      document.head.appendChild(script);
+      
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'G-M366HCYL8Z', {
+        transport_type: 'beacon',
+        anonymize_ip: true,
+        allow_google_signals: false
+      });
+      window.gtag = gtag;
+    }, 100);
   </script>
   
   <!-- Critical CSS (above-the-fold) -->
@@ -178,14 +184,21 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'" media="print">
   <noscript><link rel="stylesheet" href="styles.css?v=2025081801"></noscript>
 
   <!-- Countryball Cards Email Collection System - defer to avoid blocking -->
   <script src="js/email-collector.js?v=1.0.0" defer></script>
   
-  <!-- Performance monitoring and optimization -->
-  <script src="performance.js?v=1.0.0" defer></script>
+  <!-- Performance monitoring and optimization - defer to not block -->
+  <script>
+    setTimeout(() => {
+      const script = document.createElement('script');
+      script.src = 'performance.js?v=1.0.0';
+      script.defer = true;
+      document.head.appendChild(script);
+    }, 500);
+  </script>
   
   <!-- Service Worker Registration -->
   <script>
@@ -605,26 +618,29 @@
     })();
   </script>
 
-  <!-- Reddit Pixel Code -->
+  <!-- Reddit Pixel Code - Defer to not block initial render -->
   <script>
-    !function(w,d){
-      if(!w.rdt){
-        var p=w.rdt=function(){
-          p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)
-        };
-        p.callQueue=[];
-        var t=d.createElement("script");
-        t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;
-        var s=d.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(t,s)
-      }
-    }(window,document);
-    
-    rdt('init','a2_hgzcstbb8534', {
-      optOut: false,
-      useDecimalCurrencyValues: true
-    });
-    rdt('track', 'PageVisit');
+    // Defer Reddit Pixel to improve load time
+    setTimeout(() => {
+      !function(w,d){
+        if(!w.rdt){
+          var p=w.rdt=function(){
+            p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)
+          };
+          p.callQueue=[];
+          var t=d.createElement("script");
+          t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;
+          var s=d.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(t,s)
+        }
+      }(window,document);
+      
+      rdt('init','a2_hgzcstbb8534', {
+        optOut: false,
+        useDecimalCurrencyValues: true
+      });
+      rdt('track', 'PageVisit');
+    }, 200);
   </script>
 </body>
 </html>
