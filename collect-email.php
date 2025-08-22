@@ -14,7 +14,7 @@ function sendJsonResponse($data, $httpCode = 200) {
 function redirectWithMessage($success, $message) {
     $status = $success ? 'success' : 'error';
     $encodedMessage = urlencode($message);
-    header("Location: join.html?status=$status&message=$encodedMessage");
+    header("Location: join.php?status=$status&message=$encodedMessage");
     exit;
 }
 
@@ -36,7 +36,7 @@ if (!in_array($method, ['POST', 'GET'])) {
     header('Content-Type: text/html; charset=UTF-8');
     echo '<!DOCTYPE html><html><head><title>Error</title></head><body>';
     echo '<h2>Method Not Allowed</h2>';
-    echo '<p>This form only accepts POST requests. Please <a href="join.html">go back and try again</a>.</p>';
+    echo '<p>This form only accepts POST requests. Please <a href="join.php">go back and try again</a>.</p>';
     echo '</body></html>';
     exit;
 }
