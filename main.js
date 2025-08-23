@@ -544,8 +544,9 @@ function showEmailModal() {
   }
   
   function validateEmail(email) {
+    if (!email) return false;
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    return re.test(email) && email.length >= 5 && email.length <= 254;
   }
   
   function showMessage(message, type) {
@@ -553,8 +554,71 @@ function showEmailModal() {
     formMessage.textContent = message;
   }
   
+  // Form submission handler
+  function handleSubmit(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const email = emailInput.value.trim();
+    
+    if (!email) {
+      showMessage('Please enter your email address.', 'error');
+      emailInput.focus();
+      return false;
+    }
+    
+    if (!validateEmail(email)) {
+      showMessage('Please enter a valid email address.', 'error');
+      emailInput.focus();
+      return false;
+    }
+    
+    // Disable submit button
+    submitBtn.disabled = true;
+    showMessage('Sending...', 'info');
+    
+    // Create hidden iframe for form submission to avoid CORS
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'modalEmailSubmissionFrame';
+    document.body.appendChild(iframe);
+    
+    // Set form target to iframe
+    emailForm.target = 'modalEmailSubmissionFrame';
+    
+    // Submit form normally
+    emailForm.submit();
+    
+    // Show success message after delay
+    setTimeout(() => {
+      showMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+      emailInput.value = '';
+      submitBtn.classList.add('success');
+      
+      // Track successful signup
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'email_signup', {
+          event_category: 'conversion',
+          event_label: 'homepage_modal',
+          value: 1
+        });
+      }
+      
+      // Clean up and close
+      setTimeout(() => {
+        if (iframe.parentNode) {
+          iframe.parentNode.removeChild(iframe);
+        }
+        close();
+      }, 2000);
+    }, 1500);
+    
+    return false;
+  }
+  
   // Event listeners
   if (closeBtn) closeBtn.addEventListener('click', close);
+  if (emailForm) emailForm.addEventListener('submit', handleSubmit);
   
   // Open the modal
   open();
@@ -925,40 +989,42 @@ document.addEventListener('DOMContentLoaded', function() {
       return false;
     }
     
-    // If validation passes, submit via fetch to prevent page redirect
+    // Instead of fetch (which causes CORS), submit form normally but prevent redirect
     inlineSubmitBtn.disabled = true;
     showInlineMessage('Sending...', 'info');
     
-    const formData = new FormData(inlineEmailForm);
+    // Create hidden iframe for form submission to avoid redirect
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'emailSubmissionFrame';
+    document.body.appendChild(iframe);
     
-    fetch(inlineEmailForm.action, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      if (response.ok) {
-        showInlineMessage('✓ Success! You\'ll be notified when we launch!', 'success');
-        inlineEmailInput.value = '';
-        
-        // Track successful signup
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'email_signup', {
-            event_category: 'conversion',
-            event_label: 'homepage_inline',
-            value: 1
-          });
-        }
-      } else {
-        throw new Error('Network response was not ok');
+    // Set form target to iframe
+    inlineEmailForm.target = 'emailSubmissionFrame';
+    
+    // Submit form normally
+    inlineEmailForm.submit();
+    
+    // Show success message after short delay
+    setTimeout(() => {
+      showInlineMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+      inlineEmailInput.value = '';
+      
+      // Track successful signup
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'email_signup', {
+          event_category: 'conversion',
+          event_label: 'homepage_inline',
+          value: 1
+        });
       }
-    })
-    .catch(error => {
-      console.error('Email submission error:', error);
-      showInlineMessage('Error sending email. Please try again.', 'error');
-    })
-    .finally(() => {
+      
+      // Clean up
       inlineSubmitBtn.disabled = false;
-    });
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 1000);
+    }, 1500);
     
     return false;
   });

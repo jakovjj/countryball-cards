@@ -1804,19 +1804,83 @@
         } catch (error) {
           console.error('Email submission error:', error);
           
-          // More specific error messages
-          if (error.message && error.message.includes('EmailJS service is not available')) {
-            showMessage('Service temporarily unavailable. Please try again in a moment.', 'error');
-          } else if (error.status === 400) {
-            showMessage('Invalid email format. Please check your email address.', 'error');
-          } else if (error.status === 401 || error.status === 403) {
-            showMessage('Authentication error. Please try again later.', 'error');
-          } else {
-            showMessage('Unable to send email. Please try again or contact support.', 'error');
-          }
+          // Fallback: Use iframe submission to PHP backend
+          console.log('Falling back to PHP backend submission...');
           
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('loading');
+          // Create a temporary form for PHP backend
+          const fallbackForm = document.createElement('form');
+          fallbackForm.method = 'POST';
+          fallbackForm.action = 'https://mineward.us.to/countryball_cards/backend/subscribe.php';
+          fallbackForm.style.display = 'none';
+          
+          // Add form fields
+          const emailField = document.createElement('input');
+          emailField.type = 'email';
+          emailField.name = 'email';
+          emailField.value = email;
+          fallbackForm.appendChild(emailField);
+          
+          const sourceField = document.createElement('input');
+          sourceField.type = 'hidden';
+          sourceField.name = 'source';
+          sourceField.value = 'packages_page';
+          fallbackForm.appendChild(sourceField);
+          
+          const redirectField = document.createElement('input');
+          redirectField.type = 'hidden';
+          redirectField.name = 'redirect_url';
+          redirectField.value = 'https://countryballcards.com/thanks.html';
+          fallbackForm.appendChild(redirectField);
+          
+          // Create hidden iframe
+          const iframe = document.createElement('iframe');
+          iframe.style.display = 'none';
+          iframe.name = 'fallbackSubmissionFrame';
+          document.body.appendChild(iframe);
+          
+          fallbackForm.target = 'fallbackSubmissionFrame';
+          document.body.appendChild(fallbackForm);
+          
+          // Submit form
+          fallbackForm.submit();
+          
+          // Show success message after delay
+          setTimeout(() => {
+            // Store email locally to prevent duplicates
+            const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+            emails.push(email);
+            localStorage.setItem('countryball_emails', JSON.stringify(emails));
+            
+            showMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
+            submitBtn.classList.remove('loading');
+            submitBtn.classList.add('success');
+            submitBtn.querySelector('.submit-text').textContent = 'Subscribed!';
+            
+            // Track successful signup
+            try {
+              if (window.rdt) rdt('track', 'SignUp', {
+                event_name: 'EmailSignup',
+                content_name: 'Newsletter',
+                content_category: 'Email Marketing',
+                content_ids: ['email_signup'],
+                content_type: 'signup'
+              });
+            } catch (_) {}
+            
+            try {
+              if (window.rdt) rdt('track', 'Custom', {
+                customEventName: 'EmailSignup',
+                content_name: 'Newsletter'
+              });
+            } catch (_) {}
+            
+            // Clean up and close modal
+            setTimeout(() => {
+              document.body.removeChild(fallbackForm);
+              document.body.removeChild(iframe);
+              close();
+            }, 2000);
+          }, 1500);
         }
       }
       

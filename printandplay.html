@@ -691,18 +691,24 @@
       
       messageDiv.innerHTML = '';
       
-      // Initialize email collector
-      const emailCollector = new CountryballEmailCollector({ debug: false });
+      // Create hidden iframe for form submission to avoid CORS and redirect issues
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.name = 'emailSubmissionFrame';
+      document.body.appendChild(iframe);
       
-      // Send email via new backend
-      emailCollector.subscribe(email, {
-        source: 'printandplay_page',
-        formData: {
-          page: 'printandplay',
-          timestamp: new Date().toISOString()
-        }
-      })
-      .then(function(result) {
+      // Set form target to iframe
+      const emailForm = document.getElementById('emailForm');
+      emailForm.target = 'emailSubmissionFrame';
+      
+      // Add email to form data (reuse existing emailInput variable)
+      emailInput.value = email;
+      
+      // Submit form normally (avoids CORS)
+      emailForm.submit();
+      
+      // Show success message and handle UI after submission
+      setTimeout(() => {
         messageDiv.innerHTML = '<span style="color: #00ff88;">✓ Thanks! You\'ll be notified when we launch on Kickstarter.</span>';
         emailInput.value = '';
         submitBtn.classList.add('success');
@@ -724,21 +730,16 @@
           rdt('track', 'Lead');
         }
         
+        submitBtn.disabled = false;
+        
+        // Clean up iframe
         setTimeout(() => {
+          if (iframe.parentNode) {
+            iframe.parentNode.removeChild(iframe);
+          }
           closeEmailModal();
         }, 2000);
-      })
-      .catch(function(error) {
-        messageDiv.innerHTML = '<span style="color: #ff6b6b;">Something went wrong. Please try again.</span>';
-        console.error('Email subscription error:', error);
-      })
-      .finally(function() {
-        submitBtn.disabled = false;
-        // Restore original text if not successful
-        if (submitText && !submitBtn.classList.contains('success')) {
-          submitText.textContent = originalText;
-        }
-      });
+      }, 1500);
     });
 
     // Track print-and-play page view
