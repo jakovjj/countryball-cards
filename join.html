@@ -104,6 +104,10 @@
     @keyframes sparkle{0%,100%{opacity:0.3;transform:rotate(0deg)}25%{opacity:0.7;transform:rotate(90deg)}50%{opacity:0.4;transform:rotate(180deg)}75%{opacity:0.8;transform:rotate(270deg)}}
     .join-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .join-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
+    .benefits-list{margin:0 auto 32px;max-width:500px;text-align:left}
+    .benefits-list ul{margin:0;padding:0 0 0 20px;list-style:none}
+    .benefits-list li{margin:8px 0;color:var(--text);font-size:16px;line-height:1.4;position:relative}
+    .benefits-list li:before{content:'✨';position:absolute;left:-20px;color:var(--gold)}
     .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:24px;margin-bottom:20px;color:#28a745;font-size:14px;font-weight:600;text-align:center;max-width:500px;width:100%;box-sizing:border-box}
     .success-message.show{display:block !important}
     .success-message h3{color:#28a745;margin:0 0 12px 0;font-size:18px}
@@ -122,12 +126,6 @@
     .form-message{margin:16px auto 0;padding:0;font-size:14px;font-weight:600;text-align:center;max-width:400px}
     .form-message.success{color:#00ff88}
     .form-message.error{color:#ff6b6b}
-    .inline-email-submit:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px)}
-    .inline-submit-icon{width:16px;height:16px;fill:currentColor}
-    .inline-submit-text{white-space:nowrap}
-    .inline-form-message{margin:0;padding:0;height:0;overflow:hidden;font-size:14px;font-weight:600}
-    .inline-form-message.success{color:#00ff88;height:auto;padding:8px 0}
-    .inline-form-message.error{color:#ff6b6b;height:auto;padding:8px 0}
     svg{flex-shrink:0}
     input,button{font-family:inherit}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -138,18 +136,6 @@
     }
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
     .join-content{animation:fadeIn 0.3s ease-in-out}
-    .button-error{
-      background:linear-gradient(135deg,#c0392b,#e74c3c) !important;
-      color:#fff !important;
-      border:2px solid #a93226 !important;
-      box-shadow:0 2px 4px rgba(192,57,43,0.2) !important;
-      animation:shake 0.6s ease-in-out !important;
-      transition:all 0.3s ease !important;
-    }
-    .button-error:hover{
-      background:linear-gradient(135deg,#a93226,#c0392b) !important;
-      cursor:not-allowed !important;
-    }
     @media(max-width:768px){
       .join-content{padding:20px 16px}
       .join-logo{max-width:250px}
@@ -177,8 +163,8 @@
     }
   </style>
   
-  <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'" media="print">
+  <!-- Fix CSS preload - remove invalid "media" attribute for preload -->
+  <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="styles.css?v=2025081801"></noscript>
   
   <!-- Performance monitoring and optimization - defer to not block -->
@@ -249,6 +235,16 @@
             Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
           </p>
           
+          <!-- Add the missing benefits list -->
+          <div class="benefits-list">
+            <ul>
+              <li><strong>Early bird discount</strong> when we launch</li>
+              <li><strong>Exclusive updates</strong> on game development</li>
+              <li><strong>First access</strong> to limited edition cards</li>
+              <li><strong>Behind-the-scenes</strong> content & sneak peeks</li>
+            </ul>
+          </div>
+          
           <div class="email-form-container">
             <!-- Email form that submits to your backend -->
             <form class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
@@ -290,7 +286,6 @@
   <script>
     // Simple success message handler for backend responses
     document.addEventListener('DOMContentLoaded', function() {
-<<<<<<< HEAD
       const urlParams = new URLSearchParams(window.location.search);
       const status = urlParams.get('status');
       const message = urlParams.get('message');
@@ -334,314 +329,6 @@
         window.history.replaceState({}, document.title, newUrl);
       }
     });
-=======
-      // Initialize currency display
-      updateDiscountCurrency();
-      
-      // Initialize join form after a short delay to ensure all scripts are loaded
-      setTimeout(() => {
-        initializeJoinForm();
-      }, 100);
-    });
-
-    function initializeJoinForm() {
-      console.log('initializeJoinForm called');
-      
-      // Initialize the new email collector
-      const emailCollector = new CountryballEmailCollector({ debug: true });
-      
-      const joinEmailForm = document.getElementById('joinEmailForm');
-      const joinEmailInput = document.getElementById('joinEmailInput');
-      const joinSubmitBtn = document.getElementById('joinEmailSubmitBtn');
-      const joinFormMessage = document.getElementById('joinFormMessage');
-      const successMessage = document.getElementById('successMessage');
-      const emailFormContainer = document.getElementById('emailFormContainer');
-      
-      console.log('Elements found:', {
-        form: !!joinEmailForm,
-        input: !!joinEmailInput,
-        button: !!joinSubmitBtn,
-        message: !!joinFormMessage
-      });
-      
-      if (!joinEmailForm || !joinEmailInput || !joinSubmitBtn || !joinFormMessage) {
-        console.error('Join form elements not found');
-        return;
-      }
-      
-      function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-      }
-      
-      function showMessage(message, type) {
-        joinFormMessage.className = `form-message ${type}`;
-        joinFormMessage.textContent = message;
-        joinFormMessage.style.display = message ? 'block' : 'none';
-      }
-      
-      function triggerErrorState() {
-        console.log('triggerErrorState called');
-        const buttonSpan = joinSubmitBtn.querySelector('span');
-        const buttonIcon = joinSubmitBtn.querySelector('svg');
-        if (!buttonSpan) {
-          console.error('Button span not found');
-          return;
-        }
-        
-        const originalText = buttonSpan.textContent;
-        console.log('Original button text:', originalText);
-        
-        // Apply softer red error styles
-        joinSubmitBtn.style.setProperty('background', 'linear-gradient(135deg,#c0392b,#e74c3c)', 'important');
-        joinSubmitBtn.style.setProperty('color', '#fff', 'important');
-        joinSubmitBtn.style.setProperty('border', '2px solid #a93226', 'important');
-        joinSubmitBtn.style.setProperty('box-shadow', '0 2px 4px rgba(192,57,43,0.2)', 'important');
-        joinSubmitBtn.style.setProperty('animation', 'shake 0.6s ease-in-out', 'important');
-        joinSubmitBtn.disabled = true;
-        
-        // Hide the paper airplane icon
-        if (buttonIcon) {
-          buttonIcon.style.display = 'none';
-        }
-        
-        // Change button text
-        buttonSpan.textContent = 'Please enter a valid email';
-        console.log('Button text changed to:', buttonSpan.textContent);
-        
-        // Style input field with softer red colors
-        joinEmailInput.style.setProperty('border-color', '#c0392b', 'important');
-        joinEmailInput.style.setProperty('box-shadow', '0 0 0 3px rgba(192, 57, 43, 0.15)', 'important');
-        joinEmailInput.style.setProperty('background-color', 'rgba(192, 57, 43, 0.05)', 'important');
-        
-        // Reset after 3 seconds (shorter duration)
-        setTimeout(() => {
-          console.log('Resetting error state');
-          joinSubmitBtn.style.removeProperty('background');
-          joinSubmitBtn.style.removeProperty('color');
-          joinSubmitBtn.style.removeProperty('border');
-          joinSubmitBtn.style.removeProperty('box-shadow');
-          joinSubmitBtn.style.removeProperty('animation');
-          joinSubmitBtn.style.removeProperty('transform');
-          joinSubmitBtn.disabled = false;
-          buttonSpan.textContent = originalText;
-          
-          // Show the paper airplane icon again
-          if (buttonIcon) {
-            buttonIcon.style.display = '';
-          }
-          
-          joinEmailInput.style.removeProperty('border-color');
-          joinEmailInput.style.removeProperty('box-shadow');
-          joinEmailInput.style.removeProperty('background-color');
-          joinEmailInput.style.removeProperty('animation');
-        }, 3000);
-      }
-      
-      function showSuccess() {
-        console.log('Showing success message...');
-        
-        // Hide the form container
-        emailFormContainer.style.display = 'none';
-        
-        // Show the success message
-        successMessage.style.display = 'block';
-        successMessage.classList.add('show');
-        
-        console.log('Success message visibility:', window.getComputedStyle(successMessage).display);
-        console.log('Success message classes:', successMessage.classList.toString());
-        
-        // Track successful signup
-        try {
-          if (window.rdt) {
-            rdt('track', 'SignUp', {
-              event_name: 'EmailSignup',
-              content_name: 'Newsletter',
-              content_category: 'Email Marketing',
-              content_ids: ['join_page_signup'],
-              content_type: 'signup'
-            });
-          }
-        } catch (_) {}
-        
-        try {
-          if (window.gtag) {
-            gtag('event', 'email_signup', {
-              event_category: 'conversion',
-              event_label: 'join_page',
-              value: 1
-            });
-          }
-        } catch (_) {}
-      }
-      
-      
-      async function handleSubmit(e) {
-        console.log('handleSubmit called - form submitted!');
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const email = joinEmailInput.value.trim();
-        console.log('Email entered:', email);
-        
-        // Check validation
-        if (!email || !validateEmail(email)) {
-          console.log('Email validation failed');
-          showMessage('Please enter a valid email address.', 'error');
-          triggerErrorState();
-          joinEmailInput.focus();
-          return;
-        }
-        
-        console.log('Email validation passed, proceeding with submission');
-        
-        // Show loading state
-        joinSubmitBtn.disabled = true;
-        joinSubmitBtn.classList.add('loading');
-        const originalText = joinSubmitBtn.querySelector('span').textContent;
-        joinSubmitBtn.querySelector('span').textContent = 'Subscribing...';
-        showMessage('', '');
-        
-        try {
-          console.log('Submitting email using EmailCollector...');
-          
-          // Use the EmailCollector's subscribe method
-          const result = await emailCollector.subscribe(email, {
-            source: 'join_page',
-            formData: {
-              page_url: window.location.href,
-              page_title: document.title,
-              timestamp: new Date().toISOString()
-            }
-          });
-
-          console.log('Email subscription successful:', result);
-          showSuccess();
-
-        } catch (error) {
-          console.error('Email signup error:', error);
-          showMessage('Something went wrong. Please try again later.', 'error');
-        } finally {
-          // Reset button state
-          joinSubmitBtn.disabled = false;
-          joinSubmitBtn.classList.remove('loading');
-          joinSubmitBtn.querySelector('span').textContent = originalText;
-        }
-      }
-      
-      // Add event listeners
-      joinEmailForm.addEventListener('submit', handleSubmit);
-      
-      // Also add click listener to button as backup
-      joinSubmitBtn.addEventListener('click', function(e) {
-        console.log('Button clicked directly');
-        // If form submission doesn't work, handle it here
-        if (!joinEmailInput.value.trim() || !validateEmail(joinEmailInput.value.trim())) {
-          e.preventDefault();
-          console.log('Button click - validation failed');
-          triggerErrorState();
-          joinEmailInput.focus();
-        }
-      });
-      
-      // Focus effects
-      joinEmailInput.addEventListener('focus', function() {
-        this.style.boxShadow = '0 0 0 4px rgba(199, 164, 85, 0.3)';
-      });
-      
-      joinEmailInput.addEventListener('blur', function() {
-        this.style.boxShadow = '';
-      });
-      
-      console.log('Join form initialized successfully');
-    }
-  </script>
-
-  <!-- Mobile-First CVR Optimization Script -->
-  <script>
-    (function () {
-      const emailInput = document.querySelector('#joinEmailInput');
-      const submitBtn = document.querySelector('#joinEmailSubmitBtn');
-
-      // Enhanced autofocus for mobile and desktop
-      function initializeFocus() {
-        // Desktop autofocus on page load
-        if (window.innerWidth > 768) {
-          window.requestAnimationFrame(() => {
-            emailInput?.focus();
-          });
-        }
-        
-        // Mobile: focus after first interaction to respect user experience
-        let hasInteracted = false;
-        const handleFirstInteraction = function() {
-          if (!hasInteracted && emailInput) {
-            hasInteracted = true;
-            setTimeout(() => emailInput.focus(), 100);
-            document.removeEventListener('touchstart', handleFirstInteraction);
-            document.removeEventListener('click', handleFirstInteraction);
-          }
-        };
-        
-        document.addEventListener('touchstart', handleFirstInteraction, {passive: true});
-        document.addEventListener('click', handleFirstInteraction, {passive: true});
-      }
-
-      // Enhanced keyboard shortcuts
-      emailInput?.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && emailInput.value.trim()) {
-          e.preventDefault();
-          submitBtn?.click();
-        }
-      });
-
-      // Enhanced mobile UX improvements
-      function enhanceMobileUX() {
-        if (emailInput) {
-          // Prevent zoom on focus for iOS
-          emailInput.addEventListener('focus', function() {
-            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-              document.querySelector('meta[name=viewport]')
-                ?.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
-            }
-          });
-
-          // Restore viewport on blur
-          emailInput.addEventListener('blur', function() {
-            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-              setTimeout(() => {
-                document.querySelector('meta[name=viewport]')
-                  ?.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
-              }, 100);
-            }
-          });
-
-          // Enhanced input validation feedback
-          emailInput.addEventListener('input', function() {
-            const email = this.value.trim();
-            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-              this.style.borderColor = 'rgba(192, 57, 43, 0.6)';
-            } else {
-              this.style.borderColor = 'var(--gold)';
-            }
-          });
-        }
-      }
-
-      // Initialize all improvements when DOM is ready
-      function initializeCVROptimizations() {
-        initializeFocus();
-        enhanceMobileUX();
-      }
-
-      // Wait for DOM and other scripts to load
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeCVROptimizations);
-      } else {
-        // DOM already loaded, wait a bit for other scripts
-        setTimeout(initializeCVROptimizations, 200);
-      }
-    })();
   </script>
 
   <!-- Reddit Pixel Code - Defer to not block initial render -->
@@ -667,7 +354,6 @@
       });
       rdt('track', 'PageVisit');
     }, 200);
->>>>>>> parent of 5edd6a0 (cvr optim)
   </script>
 </body>
 </html>
