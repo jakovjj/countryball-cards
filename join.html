@@ -4,7 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <title>Join Newsletter & Get Updates - Countryball Cards</title>
+  <title>Join News            <!-- Benefits list moved below the email button -->
+            <div class="benefits-list" style="margin-top: 24px;">
+              <div style="text-align: center; color: var(--gold); font-weight: 600; margin-bottom: 16px;">✨ WHAT'S NEXT?</div>
+              <ul>
+                <li>Free giveaway entry (5 Base Editions!)</li>
+                <li>Early bird discount when we launch</li>
+                <li>Launch day notifications & updates</li>
+                <li>Exclusive behind-the-scenes content</li>
+                <li>Free shipping in EU/US</li>
+              </ul>
+            </div>t Updates - Countryball Cards</title>
   <meta name="description" content="Join the Countryball Cards newsletter for Kickstarter updates. Get notified when we launch October 1st, 2025 and receive exclusive updates." />
   <link rel="canonical" href="https://countryballcards.com/join.html" />
   <meta name="robots" content="index,follow" />
@@ -91,7 +101,7 @@
   
   <!-- Critical CSS (above-the-fold) -->
   <style>
-    :root{--bg:#151515;--card:#1d1d1d;--gold:#c7a455;--text:#eee;--muted:#b7b7b7}
+    :root{--bg:#151515;--card:#1d1d1d;--gold:#c7a455;--text:#eee;--muted:#b7b7b7;--pink:#e6a8e6}
     *{box-sizing:border-box;max-width:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;max-width:100vw}
     .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
@@ -105,9 +115,10 @@
     .join-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .join-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
     .benefits-list{margin:0 auto 32px;max-width:500px;text-align:left}
-    .benefits-list ul{margin:0;padding:0 0 0 20px;list-style:none}
-    .benefits-list li{margin:8px 0;color:var(--text);font-size:16px;line-height:1.4;position:relative}
-    .benefits-list li:before{content:'✨';position:absolute;left:-20px;color:var(--gold)}
+    .benefits-container{background:linear-gradient(135deg,rgba(230,168,230,0.15),rgba(255,182,193,0.12));border:2px solid rgba(230,168,230,0.3);border-radius:16px;padding:20px;box-shadow:0 4px 12px rgba(230,168,230,0.1),inset 0 1px 0 rgba(255,255,255,0.1);backdrop-filter:blur(10px)}
+    .benefits-list ul{margin:0;padding:0 0 0 24px;list-style-type:disc;list-style-position:outside}
+    .benefits-list li{margin:6px 0;color:var(--text);font-size:14px;line-height:1.4}
+    .benefits-list li::marker{color:var(--pink)}
     .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:24px;margin-bottom:20px;color:#28a745;font-size:14px;font-weight:600;text-align:center;max-width:500px;width:100%;box-sizing:border-box}
     .success-message.show{display:block !important}
     .success-message h3{color:#28a745;margin:0 0 12px 0;font-size:18px}
@@ -138,7 +149,11 @@
     .join-content{animation:fadeIn 0.3s ease-in-out}
     @media(max-width:768px){
       .join-content{padding:20px 16px}
-      .join-logo{max-width:250px}
+      .join-logo{max-width:320px;margin:20px auto 30px}
+      .wrap{padding:20px}
+      .frame{padding:20px}
+      .benefits-list li{font-size:13px;margin:4px 0}
+      .benefits-container{padding:16px;border-radius:12px}
       .email-input{
         -webkit-border-radius:12px !important;
         -moz-border-radius:12px !important;
@@ -149,6 +164,12 @@
       }
     }
     @media(max-width:480px){
+      .join-logo{max-width:280px;margin:25px auto 35px}
+      .wrap{padding:16px}
+      .frame{padding:16px}
+      .benefits-list li{font-size:12px;margin:3px 0}
+      .benefits-list ul{padding-left:20px}
+      .benefits-container{padding:12px;border-radius:10px}
       .email-input{
         -webkit-border-radius:12px !important;
         -moz-border-radius:12px !important;
@@ -235,16 +256,6 @@
             Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
           </p>
           
-          <!-- Add the missing benefits list -->
-          <div class="benefits-list">
-            <ul>
-              <li><strong>Early bird discount</strong> when we launch</li>
-              <li><strong>Exclusive updates</strong> on game development</li>
-              <li><strong>First access</strong> to limited edition cards</li>
-              <li><strong>Behind-the-scenes</strong> content & sneak peeks</li>
-            </ul>
-          </div>
-          
           <div class="email-form-container">
             <!-- Email form that submits to your backend -->
             <form class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
@@ -267,6 +278,20 @@
               </button>
               <div class="form-message" id="joinFormMessage"></div>
             </form>
+            
+            <!-- Benefits list moved below the email button -->
+            <div class="benefits-list" style="margin-top: 24px;">
+              <div class="benefits-container">
+                <div style="text-align: center; color: var(--pink); font-weight: 600; margin-bottom: 16px; text-shadow: 0 0 8px rgba(230,168,230,0.5);">✨ SIGN-UP PERKS</div>
+                <ul>
+                  <li>Free giveaway entry (5 Base Editions!)</li>
+                  <li>Early bird discount when we launch</li>
+                  <li>Launch day notifications & updates</li>
+                  <li>Exclusive behind-the-scenes content</li>
+                  <li>Free shipping in EU/US</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         
