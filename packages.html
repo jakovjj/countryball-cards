@@ -80,9 +80,6 @@
   
   <link rel="stylesheet" href="styles.css">
   
-  <!-- Countryball Cards Email Collection System -->
-  <script src="js/email-collector.js?v=1.0.0"></script>
-  
   <style>
     .packages-hero {
       text-align: center;
@@ -954,7 +951,7 @@
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
             <li><span class="feature-check">✓</span> Perfect for 2-4 players</li>
           </ul>
-          <button class="select-package-btn" onclick="showEmailModal(); trackPackageInterest('Base Game', 25)">Sign Up</button>
+          <a href="join.html" class="select-package-btn">Sign Up</a>
         </div>
 
         <!-- 2-Pack -->
@@ -971,7 +968,7 @@
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
             <li><span class="feature-check">✓</span> Perfect for tournaments</li>
           </ul>
-          <button class="select-package-btn" onclick="showEmailModal(); trackPackageInterest('2-Pack', 40)">Sign Up</button>
+          <a href="join.html" class="select-package-btn">Sign Up</a>
         </div>
 
         <!-- Extended Edition -->
@@ -990,7 +987,7 @@
               <li><span class="feature-check">✓</span> Enhanced gameplay components</li>
               <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
             </ul>
-            <button class="select-package-btn" onclick="showEmailModal(); trackPackageInterest('Extended Edition', 35)">Sign Up</button>
+            <a href="join.html" class="select-package-btn">Sign Up</a>
           </div>
           <div class="extended-sticker"></div>
         </div>
@@ -1010,7 +1007,7 @@
             <li><span class="feature-check">✓</span> Limited collector's edition</li>
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
           </ul>
-          <button class="select-package-btn" onclick="showEmailModal(); trackPackageInterest('Founders Edition', 50)">Sign Up</button>
+          <a href="join.html" class="select-package-btn">Sign Up</a>
         </div>
       </div>
 
@@ -1079,14 +1076,14 @@
       <div class="packages-bottom-cta">
         <h3>Stay Updated & Join Our Community</h3>
         <div class="cta">
-          <button class="btn primary" id="emailBtn" onclick="showEmailModal()">
+          <a class="btn primary" id="emailBtn" href="join.html">
             <span class="btn-row">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
               <span class="btn-label">Get Updates</span>
             </span>
-          </button>
+          </a>
           <a class="btn primary" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
             <span class="btn-row">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1126,17 +1123,19 @@
       </header>
       <div class="email-modal-content">
         <p>Be the first to know when our Kickstarter launches on October 1st!</p>
-        <form id="emailForm" class="email-form">
+        <form id="emailForm" class="email-form" action="simple-email.php" method="POST">
           <div class="form-group">
             <label for="emailInput" class="visually-hidden">Email address</label>
             <input 
               type="email" 
               id="emailInput" 
+              name="email"
               placeholder="Enter your email address" 
               required 
               autocomplete="email"
               class="email-input"
             >
+            <input type="hidden" name="source" value="packages_page">
             <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
               <span class="submit-text">Get Updates</span>
               <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -1826,54 +1825,57 @@
       open();
     }
     
-    // Override email collector with direct backend calls
+  <script>
+    // Simple form success message handler
     document.addEventListener('DOMContentLoaded', function() {
-      // Wait for email collector to load, then override it
-      setTimeout(() => {
-        if (window.CountryballEmailCollector) {
-          // Override the subscribe method
-          const originalPrototype = window.CountryballEmailCollector.prototype;
-          originalPrototype.subscribe = async function(email, options = {}) {
-            try {
-              const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  email: email,
-                  source: options.source || 'packages_page',
-                  form_data: {
-                    page_url: window.location.href,
-                    page_title: document.title,
-                    timestamp: new Date().toISOString(),
-                    ...options.formData
-                  }
-                })
-              });
-              
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              
-              const result = await response.json();
-              
-              if (result.success) {
-                return {
-                  success: true,
-                  message: result.message || 'Successfully subscribed!',
-                  subscriberId: result.data?.subscriber_id || result.subscriber_id
-                };
-              } else {
-                throw new Error(result.message || 'Subscription failed');
-              }
-            } catch (error) {
-              console.error('Email subscription error:', error);
-              throw error;
-            }
-          };
+      // Check for URL parameters to show success/error messages
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const message = urlParams.get('message');
+      
+      if (status && message) {
+        // Show a simple notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 15px 25px;
+          border-radius: 8px;
+          color: white;
+          font-weight: bold;
+          z-index: 10000;
+          max-width: 90%;
+          text-align: center;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        
+        if (status === 'success') {
+          notification.style.backgroundColor = '#4CAF50';
+          notification.innerHTML = '✅ ' + decodeURIComponent(message);
+        } else {
+          notification.style.backgroundColor = '#f44336';
+          notification.innerHTML = '❌ ' + decodeURIComponent(message);
         }
-      }, 100);
+        
+        document.body.appendChild(notification);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transition = 'opacity 0.5s';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 500);
+        }, 5000);
+        
+        // Clean URL (remove parameters)
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
     });
   </script>
 </body>

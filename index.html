@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com https://cdn.emailjs.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com https://api.emailjs.com https://mineward.us.to; img-src 'self' data: https:;">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' https://www.redditstatic.com https://ipapi.co https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://unpkg.com; connect-src 'self' https://www.redditstatic.com https://ipapi.co https://pixel-config.reddit.com https://conversions-config.reddit.com https://ads.reddit.com https://events.reddit.com https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://discord.com https://www.reddit.com; img-src 'self' data: https:;">
   <title>Countryball Cards - Strategic Card Game | Kickstarter October 2025</title>
   <meta name="description" content="Countryball Cards is a strategic card game featuring countryball memes. Get the free print-and-play, join our Discord community, and back our Kickstarter launching October 1st, 2025." />
   <link rel="canonical" href="https://countryballcards.com/" />
@@ -100,7 +100,6 @@
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
-  <link rel="preconnect" href="https://mineward.us.to" crossorigin>
   <link rel="dns-prefetch" href="https://ipapi.co">
   <link rel="dns-prefetch" href="https://discord.com">
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
@@ -327,9 +326,6 @@
   <link rel="preload" href="main.js" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
-  <!-- Countryball Cards Email Collection System - defer to avoid blocking -->
-  <script src="js/email-collector.js?v=1.0.0" defer></script>
-
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
 </head>
 <body>
@@ -359,16 +355,18 @@
           <div class="inline-email-signup">
             <h3 class="inline-email-title">🚀 Get Updates</h3>
             <p class="inline-email-subtitle">Be the first to know when we launch on October 1st!</p>
-            <form id="inlineEmailForm" class="inline-email-form">
+            <form id="inlineEmailForm" class="inline-email-form" action="simple-email.php" method="POST">
               <div class="inline-form-group">
                 <input 
                   type="email" 
                   id="inlineEmailInput" 
+                  name="email"
                   placeholder="Enter your email address" 
                   required 
                   autocomplete="email"
                   class="inline-email-input"
                 >
+                <input type="hidden" name="source" value="homepage_inline">
                 <button type="submit" class="inline-email-submit" id="inlineEmailSubmitBtn">
                   <span class="inline-submit-text">Get Updates</span>
                   <svg class="inline-submit-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -687,175 +685,56 @@
     }
   </script>
   
-  <!-- Email Backend Override Script -->
+  <!-- Simple form success message handler -->
   <script>
-    // Override email submission to use direct backend calls
     document.addEventListener('DOMContentLoaded', function() {
-      // Override the main modal email form
-      const emailForm = document.getElementById('emailForm');
-      if (emailForm) {
-        emailForm.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          const emailInput = document.getElementById('emailInput');
-          const submitBtn = document.getElementById('emailSubmitBtn');
-          const formMessage = document.getElementById('formMessage');
-          
-          if (!emailInput || !submitBtn || !formMessage) return;
-          
-          const email = emailInput.value.trim();
-          if (!email) {
-            showFormMessage('Please enter your email address.', 'error');
-            return;
-          }
-          
-          submitBtn.disabled = true;
-          submitBtn.classList.add('loading');
-          
-          // Store original button text
-          const submitText = submitBtn.querySelector('.submit-text');
-          let originalText = 'Get Updates';
-          if (submitText) {
-            originalText = submitText.textContent;
-            submitText.textContent = 'Subscribing...';
-          }
-          
-          try {
-            const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email: email,
-                source: 'homepage_modal'
-              })
-            });
-            
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const result = await response.json();
-            
-            if (result.success) {
-              showFormMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
-              emailInput.value = '';
-              submitBtn.classList.add('success');
-              if (submitText) {
-                submitText.textContent = 'Subscribed!';
-              }
-              
-              // Close modal after success
-              setTimeout(() => {
-                const overlay = document.getElementById('emailOverlay');
-                if (overlay) overlay.hidden = true;
-              }, 2000);
-            } else {
-              throw new Error(result.message || 'Subscription failed');
-            }
-          } catch (error) {
-            console.error('Email submission error:', error);
-            showFormMessage('Unable to submit email. Please try again.', 'error');
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('loading');
-            // Restore original text if not successful
-            if (submitText && !submitBtn.classList.contains('success')) {
-              submitText.textContent = originalText;
-            }
-          }
-        });
-      }
+      // Check for URL parameters to show success/error messages
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status');
+      const message = urlParams.get('message');
       
-      // Override the inline email form
-      const inlineEmailForm = document.getElementById('inlineEmailForm');
-      if (inlineEmailForm) {
-        inlineEmailForm.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          
-          const emailInput = document.getElementById('inlineEmailInput');
-          const submitBtn = document.getElementById('inlineEmailSubmitBtn');
-          const formMessage = document.getElementById('inlineFormMessage');
-          
-          if (!emailInput || !submitBtn || !formMessage) return;
-          
-          const email = emailInput.value.trim();
-          if (!email) {
-            showInlineMessage('Please enter your email address.', 'error');
-            return;
-          }
-          
-          // Store original button text
-          const submitText = submitBtn.querySelector('.inline-submit-text');
-          let originalText = 'Get Updates';
-          if (submitText) {
-            originalText = submitText.textContent;
-            submitText.textContent = 'Subscribing...';
-          }
-          
-          submitBtn.disabled = true;
-          submitBtn.classList.add('loading');
-          
-          try {
-            const response = await fetch('https://mineward.us.to/countryball_cards/backend/subscribe.php', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email: email,
-                source: 'homepage_inline'
-              })
-            });
-            
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const result = await response.json();
-            
-            if (result.success) {
-              showInlineMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
-              emailInput.value = '';
-              submitBtn.classList.add('success');
-              if (submitText) {
-                submitText.textContent = 'Subscribed!';
-              }
-            } else {
-              throw new Error(result.message || 'Subscription failed');
-            }
-          } catch (error) {
-            console.error('Inline email submission error:', error);
-            showInlineMessage('Unable to submit email. Please try again.', 'error');
-          } finally {
-            submitBtn.disabled = false;
-            submitBtn.classList.remove('loading');
-            // Restore original text if not successful
-            if (submitText && !submitBtn.classList.contains('success')) {
-              submitText.textContent = originalText;
-            }
-          }
-        });
-      }
-      
-      // Helper functions
-      function showFormMessage(message, type) {
-        const formMessage = document.getElementById('formMessage');
-        if (formMessage) {
-          formMessage.className = `form-message ${type}`;
-          formMessage.textContent = message;
+      if (status && message) {
+        // Show a simple notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 15px 25px;
+          border-radius: 8px;
+          color: white;
+          font-weight: bold;
+          z-index: 10000;
+          max-width: 90%;
+          text-align: center;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        
+        if (status === 'success') {
+          notification.style.backgroundColor = '#4CAF50';
+          notification.innerHTML = '✅ ' + decodeURIComponent(message);
+        } else {
+          notification.style.backgroundColor = '#f44336';
+          notification.innerHTML = '❌ ' + decodeURIComponent(message);
         }
-      }
-      
-      function showInlineMessage(message, type) {
-        const formMessage = document.getElementById('inlineFormMessage');
-        if (formMessage) {
-          formMessage.className = `inline-form-message ${type}`;
-          formMessage.textContent = message;
-        }
+        
+        document.body.appendChild(notification);
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transition = 'opacity 0.5s';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 500);
+        }, 5000);
+        
+        // Clean URL (remove parameters)
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
       }
     });
   </script>

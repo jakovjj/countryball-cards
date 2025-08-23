@@ -20,9 +20,8 @@ function redirectWithMessage($success, $message) {
     if ($isIframeSubmission) {
         // For iframe submissions, return minimal response
         header('Content-Type: text/html; charset=UTF-8');
-        echo '<!DOCTYPE html>';
-        echo '<html><head><meta charset="UTF-8"><title>Success</title></head>';
-        echo '<body><p>Success</p></body></html>';
+        http_response_code(200);
+        echo '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>OK</body></html>';
         exit;
     } else {
         // For direct submissions, redirect as before
@@ -46,12 +45,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Check if we have a valid request method
 $method = $_SERVER['REQUEST_METHOD'] ?? '';
+
+// Debug logging
+error_log("collect-email.php: Received request - Method: $method, User-Agent: " . ($_SERVER['HTTP_USER_AGENT'] ?? 'unknown'));
+
 if (!in_array($method, ['POST', 'GET'])) {
     // For non-JS users, show a helpful error page instead of JSON
+    error_log("collect-email.php: Method not allowed - $method");
+    http_response_code(405);
     header('Content-Type: text/html; charset=UTF-8');
-    echo '<!DOCTYPE html><html><head><title>Error</title></head><body>';
+    echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Error</title></head><body>';
     echo '<h2>Method Not Allowed</h2>';
-    echo '<p>This form only accepts POST requests. Please <a href="join.html">go back and try again</a>.</p>';
+    echo '<p>This form only accepts POST requests. Method received: ' . htmlspecialchars($method) . '</p>';
+    echo '<p><a href="join.html">Go back and try again</a>.</p>';
     echo '</body></html>';
     exit;
 }

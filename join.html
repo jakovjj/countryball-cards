@@ -65,12 +65,8 @@
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
   <link rel="preconnect" href="https://ads.reddit.com" crossorigin>
-  <link rel="preconnect" href="https://mineward.us.to" crossorigin>
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
   <link rel="dns-prefetch" href="https://events.reddit.com">
-  
-  <!-- Preload critical assets -->
-  <link rel="preload" href="js/email-collector.js?v=1.0.0" as="script" />
   
   <!-- Google tag (GA4) - Defer to not block initial render -->
   <script>
@@ -194,9 +190,6 @@
   <!-- Load non-critical CSS asynchronously -->
   <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'" media="print">
   <noscript><link rel="stylesheet" href="styles.css?v=2025081801"></noscript>
-
-  <!-- Countryball Cards Email Collection System - defer to avoid blocking -->
-  <script src="js/email-collector.js?v=1.0.0" defer></script>
   
   <!-- Performance monitoring and optimization - defer to not block -->
   <script>
@@ -267,8 +260,8 @@
           </p>
           
           <div class="email-form-container">
-                  <!-- Email Signup Form - Submits to hidden iframe to avoid redirect -->
-      <form class="email-form" action="collect-email.php" method="POST" target="hidden_iframe" id="joinEmailForm">
+            <!-- Simple Email Signup Form -->
+            <form class="email-form" action="simple-email.php" method="POST" id="joinEmailForm">
               <input 
                 type="email" 
                 id="joinEmailInput" 
@@ -279,8 +272,6 @@
                 class="email-input"
               >
               <input type="hidden" name="source" value="join_page">
-              <input type="hidden" name="page_url" id="pageUrl">
-              <input type="hidden" name="timestamp" id="timestamp">
               <button type="submit" class="email-submit" id="joinEmailSubmitBtn">
                 <span>Join Now</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -333,12 +324,6 @@
           </div>
         </div>
         
-        <!-- Hidden iframe to receive form submission without redirect -->
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-        
-        <!-- Form submission status display -->
-        <div id="form-status" style="display:none; margin-top: 20px; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; max-width: 420px; width: 100%;"></div>
-        
         <div class="privacy-notice" style="font-size:10px;color:var(--muted);margin:12px auto 0;text-align:center;max-width:400px">
           By subscribing, you agree to our <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a>
         </div>
@@ -353,540 +338,54 @@
   </div>
 
   <script>
-    // Eurozone countries
-    const eurozoneCountries = [
-      'AT', 'BE', 'CY', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PT', 'SK', 'SI', 'ES', 'HR'
-    ];
-
-    // Currency conversion for discount display
-    function updateDiscountCurrency() {
-      try {
-        fetch('https://ipapi.co/json/')
-          .then(response => response.json())
-          .then(data => {
-            const countryCode = data.country_code;
-            const isEurozone = eurozoneCountries.includes(countryCode);
-            
-            // Update discount amount in subtitle
-            const subtitleEl = document.querySelector('.join-subtitle');
-            if (subtitleEl) {
-              let currentText = subtitleEl.innerHTML;
-              if (isEurozone) {
-                // Show EUR (already default)
-                currentText = currentText.replace(/\$6 early bird discount/g, '5€ early bird discount');
-              } else {
-                // Show USD
-                currentText = currentText.replace(/5€ early bird discount/g, '$6 early bird discount');
-              }
-              subtitleEl.innerHTML = currentText;
-            }
-          })
-          .catch(() => {
-            // Default to EUR if detection fails
-            console.log('Country detection failed, using EUR pricing');
-          });
-      } catch (error) {
-        console.log('Currency update error:', error);
-      }
-    }
-
-    // Email form functionality for join page
+    // Simple form success message handler
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize currency display
-      updateDiscountCurrency();
-      
-      // Set hidden form fields
-      document.getElementById('pageUrl').value = window.location.href;
-      document.getElementById('timestamp').value = new Date().toISOString();
-      
-      // Check for URL parameters (success/error messages from non-JS submissions)
+      // Check for URL parameters to show success/error messages
       const urlParams = new URLSearchParams(window.location.search);
       const status = urlParams.get('status');
       const message = urlParams.get('message');
       
       if (status && message) {
+        const successMessage = document.getElementById('successMessage');
+        const emailFormContainer = document.getElementById('emailFormContainer');
+        
         if (status === 'success') {
-          showSuccess();
-          // Clean URL
-          window.history.replaceState({}, document.title, window.location.pathname);
+          // Show success message and hide form
+          if (successMessage && emailFormContainer) {
+            emailFormContainer.style.display = 'none';
+            successMessage.style.display = 'block';
+            successMessage.classList.add('show');
+          }
         } else if (status === 'error') {
-          showMessage(decodeURIComponent(message), 'error');
-          // Clean URL
-          window.history.replaceState({}, document.title, window.location.pathname);
-        }
-        return; // Don't initialize JS form handling if we just processed a non-JS submission
-      }
-      
-      // Initialize join form after a short delay to ensure all scripts are loaded
-      setTimeout(() => {
-        initializeJoinForm();
-      }, 100);
-    });
-
-    function initializeJoinForm() {
-      console.log('initializeJoinForm called');
-      
-      const joinEmailForm = document.getElementById('joinEmailForm');
-      const joinEmailInput = document.getElementById('joinEmailInput');
-      const joinSubmitBtn = document.getElementById('joinEmailSubmitBtn');
-      const joinFormMessage = document.getElementById('joinFormMessage');
-      const successMessage = document.getElementById('successMessage');
-      const emailFormContainer = document.getElementById('emailFormContainer');
-      
-      console.log('Elements found:', {
-        form: !!joinEmailForm,
-        input: !!joinEmailInput,
-        button: !!joinSubmitBtn,
-        message: !!joinFormMessage
-      });
-      
-      if (!joinEmailForm || !joinEmailInput || !joinSubmitBtn || !joinFormMessage) {
-        console.error('Join form elements not found');
-        return;
-      }
-      
-      function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-      }
-      
-      function showMessage(message, type) {
-        joinFormMessage.className = `form-message ${type}`;
-        joinFormMessage.textContent = message;
-        joinFormMessage.style.display = message ? 'block' : 'none';
-      }
-      
-      function triggerErrorState() {
-        console.log('triggerErrorState called');
-        const buttonSpan = joinSubmitBtn.querySelector('span');
-        const buttonIcon = joinSubmitBtn.querySelector('svg');
-        if (!buttonSpan) {
-          console.error('Button span not found');
-          return;
-        }
-        
-        const originalText = buttonSpan.textContent;
-        console.log('Original button text:', originalText);
-        
-        // Apply softer red error styles
-        joinSubmitBtn.style.setProperty('background', 'linear-gradient(135deg,#c0392b,#e74c3c)', 'important');
-        joinSubmitBtn.style.setProperty('color', '#fff', 'important');
-        joinSubmitBtn.style.setProperty('border', '2px solid #a93226', 'important');
-        joinSubmitBtn.style.setProperty('box-shadow', '0 2px 4px rgba(192,57,43,0.2)', 'important');
-        joinSubmitBtn.style.setProperty('animation', 'shake 0.6s ease-in-out', 'important');
-        joinSubmitBtn.disabled = true;
-        
-        // Hide the paper airplane icon
-        if (buttonIcon) {
-          buttonIcon.style.display = 'none';
-        }
-        
-        // Change button text
-        buttonSpan.textContent = 'Invalid email';
-        console.log('Button text changed to:', buttonSpan.textContent);
-        
-        // Style input field with softer red colors
-        joinEmailInput.style.setProperty('border-color', '#c0392b', 'important');
-        joinEmailInput.style.setProperty('box-shadow', '0 0 0 3px rgba(192, 57, 43, 0.15)', 'important');
-        joinEmailInput.style.setProperty('background-color', 'rgba(192, 57, 43, 0.05)', 'important');
-        
-        // Reset after 3 seconds (shorter duration)
-        setTimeout(() => {
-          console.log('Resetting error state');
-          joinSubmitBtn.style.removeProperty('background');
-          joinSubmitBtn.style.removeProperty('color');
-          joinSubmitBtn.style.removeProperty('border');
-          joinSubmitBtn.style.removeProperty('box-shadow');
-          joinSubmitBtn.style.removeProperty('animation');
-          joinSubmitBtn.style.removeProperty('transform');
-          joinSubmitBtn.disabled = false;
-          buttonSpan.textContent = originalText;
-          
-          // Show the paper airplane icon again
-          if (buttonIcon) {
-            buttonIcon.style.display = '';
-          }
-          
-          joinEmailInput.style.removeProperty('border-color');
-          joinEmailInput.style.removeProperty('box-shadow');
-          joinEmailInput.style.removeProperty('background-color');
-          joinEmailInput.style.removeProperty('animation');
-        }, 3000);
-      }
-      
-      function showSuccess() {
-        console.log('Showing success message...');
-        
-        // Hide the form container
-        emailFormContainer.style.display = 'none';
-        
-        // Show the success message
-        successMessage.style.display = 'block';
-        successMessage.classList.add('show');
-        
-        console.log('Success message visibility:', window.getComputedStyle(successMessage).display);
-        console.log('Success message classes:', successMessage.classList.toString());
-        
-        // Track successful signup
-        try {
-          if (window.rdt) {
-            rdt('track', 'SignUp', {
-              event_name: 'EmailSignup',
-              content_name: 'Newsletter',
-              content_category: 'Email Marketing',
-              content_ids: ['join_page_signup'],
-              content_type: 'signup'
-            });
-          }
-        } catch (_) {}
-        
-        try {
-          if (window.gtag) {
-            gtag('event', 'email_signup', {
-              event_category: 'conversion',
-              event_label: 'join_page',
-              value: 1
-            });
-          }
-        } catch (_) {}
-      }
-      
-      
-      async function handleSubmit(e) {
-        console.log('handleSubmit called - form submitted!');
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const email = joinEmailInput.value.trim();
-        console.log('Email entered:', email);
-        
-        // Check validation
-        if (!email || !validateEmail(email)) {
-          console.log('Email validation failed');
-          showMessage('Please enter a valid email address.', 'error');
-          triggerErrorState();
-          joinEmailInput.focus();
-          return;
-        }
-        
-        console.log('Email validation passed, proceeding with submission');
-        
-        // Show loading state
-        joinSubmitBtn.disabled = true;
-        joinSubmitBtn.classList.add('loading');
-        const originalText = joinSubmitBtn.querySelector('span').textContent;
-        joinSubmitBtn.querySelector('span').textContent = 'Subscribing...';
-        showMessage('', '');
-        
-        try {
-          console.log('Submitting email using direct fetch...');
-          
-          // Direct submission to collect-email.php
-          const response = await fetch('collect-email.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({
-              email: email,
-              source: 'join_page',
-              form_data: {
-                page_url: window.location.href,
-                page_title: document.title,
-                timestamp: new Date().toISOString()
-              }
-            })
-          });
-
-          const result = await response.json();
-
-          if (response.ok && result.success) {
-            console.log('Email subscription successful:', result);
-            showSuccess();
-          } else {
-            throw new Error(result.error || result.message || 'Subscription failed');
-          }
-
-        } catch (error) {
-          console.error('Email signup error:', error);
-          
-          // If fetch fails, fall back to regular form submission
-          console.log('Falling back to regular form submission');
-          joinEmailForm.submit();
-          return;
-        } finally {
-          // Reset button state
-          joinSubmitBtn.disabled = false;
-          joinSubmitBtn.classList.remove('loading');
-          joinSubmitBtn.querySelector('span').textContent = originalText;
-        }
-      }
-      
-      // Add event listeners - DISABLED FOR NON-JS OPERATION
-      // joinEmailForm.addEventListener('submit', handleSubmit);
-      
-      // Let form submit naturally without JavaScript interference
-      console.log('Form will submit naturally without JavaScript handling');
-      
-      // Also add click listener to button as backup - DISABLED FOR NON-JS OPERATION
-      /*
-      joinSubmitBtn.addEventListener('click', function(e) {
-        console.log('Button clicked directly');
-        // If form submission doesn't work, handle it here
-        if (!joinEmailInput.value.trim() || !validateEmail(joinEmailInput.value.trim())) {
-          e.preventDefault();
-          console.log('Button click - validation failed');
-          triggerErrorState();
-          joinEmailInput.focus();
-        }
-      });
-      */
-      
-      // Focus effects - DISABLED FOR NON-JS OPERATION
-      /*
-      joinEmailInput.addEventListener('focus', function() {
-        this.style.boxShadow = '0 0 0 4px rgba(199, 164, 85, 0.3)';
-      });
-      
-      joinEmailInput.addEventListener('blur', function() {
-        this.style.boxShadow = '';
-      });
-      */
-      
-      console.log('Join form initialized successfully');
-    }
-  </script>
-
-  <!-- Mobile-First CVR Optimization Script -->
-  <script>
-    (function () {
-      const emailInput = document.querySelector('#joinEmailInput');
-      const submitBtn = document.querySelector('#joinEmailSubmitBtn');
-
-      // Enhanced autofocus for mobile and desktop
-      function initializeFocus() {
-        // Desktop autofocus on page load
-        if (window.innerWidth > 768) {
-          window.requestAnimationFrame(() => {
-            emailInput?.focus();
-          });
-        }
-        
-        // Mobile: focus after first interaction to respect user experience
-        let hasInteracted = false;
-        const handleFirstInteraction = function() {
-          if (!hasInteracted && emailInput) {
-            hasInteracted = true;
-            setTimeout(() => emailInput.focus(), 100);
-            document.removeEventListener('touchstart', handleFirstInteraction);
-            document.removeEventListener('click', handleFirstInteraction);
-          }
-        };
-        
-        document.addEventListener('touchstart', handleFirstInteraction, {passive: true});
-        document.addEventListener('click', handleFirstInteraction, {passive: true});
-      }
-
-      // Enhanced keyboard shortcuts
-      emailInput?.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && emailInput.value.trim()) {
-          e.preventDefault();
-          submitBtn?.click();
-        }
-      });
-
-      // Enhanced mobile UX improvements
-      function enhanceMobileUX() {
-        if (emailInput) {
-          // Prevent zoom on focus for iOS
-          emailInput.addEventListener('focus', function() {
-            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-              document.querySelector('meta[name=viewport]')
-                ?.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
-            }
-          });
-
-          // Restore viewport on blur
-          emailInput.addEventListener('blur', function() {
-            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-              setTimeout(() => {
-                document.querySelector('meta[name=viewport]')
-                  ?.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
-              }, 100);
-            }
-          });
-
-          // Enhanced input validation feedback
-          emailInput.addEventListener('input', function() {
-            const email = this.value.trim();
-            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-              this.style.borderColor = 'rgba(192, 57, 43, 0.6)';
-            } else {
-              this.style.borderColor = 'var(--gold)';
-            }
-          });
-        }
-      }
-
-      // Initialize all improvements when DOM is ready
-      function initializeCVROptimizations() {
-        initializeFocus();
-        enhanceMobileUX();
-      }
-
-      // Wait for DOM and other scripts to load
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeCVROptimizations);
-      } else {
-        // DOM already loaded, wait a bit for other scripts
-        setTimeout(initializeCVROptimizations, 200);
-      }
-    })();
-  </script>
-
-  <!-- Reddit Pixel Code - Defer to not block initial render -->
-  <script>
-    // Defer Reddit Pixel to improve load time
-    setTimeout(() => {
-      !function(w,d){
-        if(!w.rdt){
-          var p=w.rdt=function(){
-            p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)
-          };
-          p.callQueue=[];
-          var t=d.createElement("script");
-          t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;
-          var s=d.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(t,s)
-        }
-      }(window,document);
-      
-      rdt('init','a2_hgzcstbb8534', {
-        optOut: false,
-        useDecimalCurrencyValues: true
-      });
-      rdt('track', 'PageVisit');
-    }, 200);
-  </script>
-
-  <!-- Handle form submission feedback messages -->
-  <script>
-    // Check for URL parameters to show success/error messages
-    function checkFormFeedback() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const status = urlParams.get('status');
-      const message = urlParams.get('message');
-      
-      if (status && message) {
-        // Create a message element
-        const messageDiv = document.createElement('div');
-        messageDiv.style.cssText = `
-          position: fixed;
-          top: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          padding: 15px 25px;
-          border-radius: 8px;
-          color: white;
-          font-weight: bold;
-          z-index: 10000;
-          max-width: 90%;
-          text-align: center;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        `;
-        
-        if (status === 'success') {
-          messageDiv.style.backgroundColor = '#4CAF50';
-          messageDiv.innerHTML = '✅ ' + decodeURIComponent(message);
-        } else {
-          messageDiv.style.backgroundColor = '#f44336';
+          // Show error message
+          const messageDiv = document.createElement('div');
+          messageDiv.style.cssText = `
+            background: rgba(255, 107, 107, 0.1);
+            border: 2px solid rgba(255, 107, 107, 0.5);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+          `;
           messageDiv.innerHTML = '❌ ' + decodeURIComponent(message);
+          
+          const formContainer = document.querySelector('.email-form-container');
+          if (formContainer) {
+            formContainer.insertBefore(messageDiv, formContainer.firstChild);
+          }
         }
-        
-        document.body.appendChild(messageDiv);
-        
-        // Auto-hide after 5 seconds
-        setTimeout(() => {
-          messageDiv.style.opacity = '0';
-          messageDiv.style.transition = 'opacity 0.5s';
-          setTimeout(() => {
-            if (messageDiv.parentNode) {
-              messageDiv.parentNode.removeChild(messageDiv);
-            }
-          }, 500);
-        }, 5000);
         
         // Clean URL (remove parameters)
         const newUrl = window.location.pathname;
         window.history.replaceState({}, document.title, newUrl);
       }
-    }
-    
-    // Simple form handling - show success message after form submission
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('joinEmailForm');
-      const statusDiv = document.getElementById('form-status');
-      
-      if (form && statusDiv) {
-        // Add form validation and submission handling
-        form.addEventListener('submit', function(e) {
-          const emailInput = form.querySelector('input[name="email"]');
-          const email = emailInput.value.trim();
-          
-          // Basic validation
-          if (!email) {
-            e.preventDefault();
-            statusDiv.style.display = 'block';
-            statusDiv.style.backgroundColor = '#f44336';
-            statusDiv.style.color = 'white';
-            statusDiv.innerHTML = '❌ Please enter an email address.';
-            return;
-          }
-          
-          if (!email.includes('@')) {
-            e.preventDefault();
-            statusDiv.style.display = 'block';
-            statusDiv.style.backgroundColor = '#f44336';
-            statusDiv.style.color = 'white';
-            statusDiv.innerHTML = '❌ Please enter a valid email address.';
-            return;
-          }
-          
-          // Set hidden field values
-          form.querySelector('#pageUrl').value = window.location.href;
-          form.querySelector('#timestamp').value = new Date().toISOString();
-          
-          // Show success message after a short delay (form will submit to iframe)
-          setTimeout(function() {
-            statusDiv.style.display = 'block';
-            statusDiv.style.backgroundColor = '#4CAF50';
-            statusDiv.style.color = 'white';
-            statusDiv.innerHTML = '✅ Thank you! Your email has been submitted successfully.';
-            
-            // Reset the form
-            form.reset();
-            
-            // Auto-hide after 5 seconds
-            setTimeout(() => {
-              statusDiv.style.opacity = '0';
-              statusDiv.style.transition = 'opacity 0.5s';
-              setTimeout(() => {
-                statusDiv.style.display = 'none';
-                statusDiv.style.opacity = '1';
-              }, 500);
-            }, 5000);
-          }, 1000); // Delay to allow form submission
-        });
-      }
     });
-    
-    // Check for feedback when page loads
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkFormFeedback);
-    } else {
-      checkFormFeedback();
-    }
   </script>
 </body>
 </html>
