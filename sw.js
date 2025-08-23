@@ -8,7 +8,6 @@ const urlsToCache = [
   '/analytics.js',
   '/performance.js',
   '/logo.png',
-  '/logo.webp',
   '/extended.png',
   '/us.webp',
   '/favicon-32x32.png',

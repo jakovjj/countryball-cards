@@ -319,12 +319,18 @@ function initializeImageQuality(){
 
   async function fetchReddit(){
     try{
-      const res = await fetch('https://www.reddit.com/r/countryball_cards/about.json');
+      const res = await fetch('https://www.reddit.com/r/countryball_cards/about.json', {
+        mode: 'cors',
+        cache: 'no-cache'
+      });
       if(!res.ok) throw new Error('reddit status '+res.status);
       const json = await res.json();
       const n = json?.data?.subscribers ?? null;
       return n;
-    }catch(_){ return null; }
+    }catch(error){ 
+      // Reddit API might be blocked by CORS - this is expected
+      return null; 
+    }
   }
 
   async function loadCounts(){
@@ -918,7 +924,7 @@ document.addEventListener('DOMContentLoaded', function() {
   let isVisible = false;
   
   if (!floatingArrow) {
-    console.log('Floating arrow element not found');
+    // Floating arrow element not found - this is optional
     return;
   }
   

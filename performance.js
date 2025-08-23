@@ -37,17 +37,26 @@
         });
         fidObserver.observe({ entryTypes: ['first-input'] });
         
-        // Cumulative Layout Shift (CLS)
+        // Cumulative Layout Shift (CLS) - with feature detection
         let clsValue = 0;
-        const clsObserver = new PerformanceObserver((list) => {
-          const entries = list.getEntries();
-          entries.forEach((entry) => {
-            if (!entry.hadRecentInput) {
-              clsValue += entry.value;
-            }
+        try {
+          const clsObserver = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+              if (!entry.hadRecentInput) {
+                clsValue += entry.value;
+              }
+            });
           });
-        });
-        clsObserver.observe({ entryTypes: ['layout-shift'] });
+          
+          // Check if layout-shift is supported before observing
+          const supportedEntryTypes = PerformanceObserver.supportedEntryTypes;
+          if (supportedEntryTypes && supportedEntryTypes.includes('layout-shift')) {
+            clsObserver.observe({ entryTypes: ['layout-shift'] });
+          }
+        } catch (e) {
+          console.log('Layout shift measurement not supported in this browser');
+        }
         
         // Report CLS on page unload
         window.addEventListener('beforeunload', () => {
