@@ -1123,7 +1123,7 @@
       </header>
       <div class="email-modal-content">
         <p>Be the first to know when our Kickstarter launches on October 1st!</p>
-        <form id="emailForm" class="email-form" action="simple-email.php" method="POST">
+        <form id="emailForm" class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
           <div class="form-group">
             <label for="emailInput" class="visually-hidden">Email address</label>
             <input 
@@ -1136,6 +1136,7 @@
               class="email-input"
             >
             <input type="hidden" name="source" value="packages_page">
+            <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
             <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
               <span class="submit-text">Get Updates</span>
               <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">

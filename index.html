@@ -366,7 +366,7 @@
                   class="inline-email-input"
                 >
                 <input type="hidden" name="source" value="homepage_inline">
-                <input type="hidden" name="redirect_url" value="https://countryballcards.com/index.html">
+                <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
                 <button type="submit" class="inline-email-submit" id="inlineEmailSubmitBtn">
                   <span class="inline-submit-text">Get Updates</span>
                   <svg class="inline-submit-icon" viewBox="0 0 24 24" fill="currentColor">
@@ -587,17 +587,20 @@
       </header>
       <div class="email-modal-content">
         <p>Be the first to know when our Crowdfunding launches on October 1st!</p>
-        <form id="emailForm" class="email-form">
+        <form id="emailForm" class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
           <div class="form-group">
             <label for="emailInput" class="visually-hidden">Email address</label>
             <input 
               type="email" 
               id="emailInput" 
+              name="email"
               placeholder="Enter your email address" 
               required 
               autocomplete="email"
               class="email-input"
             >
+            <input type="hidden" name="source" value="homepage_modal">
+            <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
             <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
               <span class="submit-text">Get Updates</span>
               <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">

@@ -38,14 +38,17 @@
         <h1 class="email-title">📧 Email Collection</h1>
         
         <div class="form-container">
-          <form id="emailForm">
+          <form id="emailForm" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
             <input 
               type="email" 
               id="emailInput" 
+              name="email"
               placeholder="Enter your email address" 
               required 
               class="email-input"
             >
+            <input type="hidden" name="source" value="static_collection_page">
+            <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
             <button type="submit" class="email-submit">
               <span>Subscribe</span>
             </button>
