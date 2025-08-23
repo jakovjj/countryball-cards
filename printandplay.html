@@ -651,6 +651,7 @@
     // Handle email form submission
     document.getElementById('emailForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       
       const emailInput = document.getElementById('emailInput');
       const submitBtn = document.getElementById('emailSubmitBtn');
@@ -658,14 +659,23 @@
       
       const email = emailInput.value.trim();
       
-      if (!email) {
-        messageDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter your email address.</span>';
-        return;
+      // Comprehensive email validation
+      function validateEmail(email) {
+        if (!email) return false;
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email) && email.length >= 5 && email.length <= 254;
       }
       
-      if (!email.includes('@') || !email.includes('.')) {
+      if (!email) {
+        messageDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter your email address.</span>';
+        emailInput.focus();
+        return false;
+      }
+      
+      if (!validateEmail(email)) {
         messageDiv.innerHTML = '<span style="color: #ff6b6b;">Please enter a valid email address.</span>';
-        return;
+        emailInput.focus();
+        return false;
       }
       
       // Disable form during submission

@@ -1679,8 +1679,9 @@
       }
       
       function validateEmail(email) {
+        if (!email) return false;
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+        return re.test(email) && email.length >= 5 && email.length <= 254;
       }
       
       function showMessage(message, type) {
@@ -1690,19 +1691,20 @@
       
       async function handleSubmit(e) {
         e.preventDefault();
+        e.stopPropagation();
         
         const email = emailInput.value.trim();
         
         if (!email) {
           showMessage('Please enter your email address.', 'error');
           emailInput.focus();
-          return;
+          return false;
         }
         
         if (!validateEmail(email)) {
           showMessage('Please enter a valid email address.', 'error');
           emailInput.focus();
-          return;
+          return false;
         }
         
         // Show loading state

@@ -896,14 +896,72 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function validateEmail(email) {
+    if (!email) return false;
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    return re.test(email) && email.length >= 5 && email.length <= 254;
   }
   
   function showInlineMessage(message, type) {
     inlineFormMessage.className = `inline-form-message ${type}`;
     inlineFormMessage.textContent = message;
   }
+  
+  // Handle form submission with validation
+  inlineEmailForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const email = inlineEmailInput.value.trim();
+    
+    if (!email) {
+      showInlineMessage('Please enter your email address.', 'error');
+      inlineEmailInput.focus();
+      return false;
+    }
+    
+    if (!validateEmail(email)) {
+      showInlineMessage('Please enter a valid email address.', 'error');
+      inlineEmailInput.focus();
+      return false;
+    }
+    
+    // If validation passes, submit via fetch to prevent page redirect
+    inlineSubmitBtn.disabled = true;
+    showInlineMessage('Sending...', 'info');
+    
+    const formData = new FormData(inlineEmailForm);
+    
+    fetch(inlineEmailForm.action, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        showInlineMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+        inlineEmailInput.value = '';
+        
+        // Track successful signup
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'email_signup', {
+            event_category: 'conversion',
+            event_label: 'homepage_inline',
+            value: 1
+          });
+        }
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(error => {
+      console.error('Email submission error:', error);
+      showInlineMessage('Error sending email. Please try again.', 'error');
+    })
+    .finally(() => {
+      inlineSubmitBtn.disabled = false;
+    });
+    
+    return false;
+  });
   
   // Focus and blur events for subtle styling (removed transform animation)
   inlineEmailInput.addEventListener('focus', function() {
