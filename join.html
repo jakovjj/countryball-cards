@@ -363,6 +363,9 @@
         // Store original button text
         const originalText = submitBtn.querySelector('span').textContent;
         
+        // Disable button temporarily to prevent submission
+        submitBtn.disabled = true;
+        
         // Add error classes with animation
         emailInput.classList.add('error');
         submitBtn.classList.add('error');
@@ -381,6 +384,7 @@
           submitBtn.classList.remove('error');
           submitBtn.querySelector('span').textContent = originalText;
           formMessage.style.display = 'none';
+          submitBtn.disabled = false; // Re-enable button
         }, 1000);
       }
       
@@ -389,9 +393,13 @@
         const email = emailInput.value.trim();
         if (!email || !validateEmail(email)) {
           e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
           showInvalidEmail();
           return false;
         }
+        // If email is valid, allow normal form submission
+        return true;
       });
       
       // Also check on button click as backup
@@ -399,6 +407,8 @@
         const email = emailInput.value.trim();
         if (!email || !validateEmail(email)) {
           e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
           showInvalidEmail();
           return false;
         }
