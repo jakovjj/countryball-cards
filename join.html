@@ -4,17 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <title>Join News            <!-- Benefits list moved below the email button -->
-            <div class="benefits-list" style="margin-top: 24px;">
-              <div style="text-align: center; color: var(--gold); font-weight: 600; margin-bottom: 16px;">✨ WHAT'S NEXT?</div>
-              <ul>
-                <li>Free giveaway entry (5 Base Editions!)</li>
-                <li>Early bird discount when we launch</li>
-                <li>Launch day notifications & updates</li>
-                <li>Exclusive behind-the-scenes content</li>
-                <li>Free shipping in EU/US</li>
-              </ul>
-            </div>t Updates - Countryball Cards</title>
+  <title>Join Newsletter & Get Updates - Countryball Cards</title>
   <meta name="description" content="Join the Countryball Cards newsletter for Kickstarter updates. Get notified when we launch October 1st, 2025 and receive exclusive updates." />
   <link rel="canonical" href="https://countryballcards.com/join.html" />
   <meta name="robots" content="index,follow" />
@@ -137,6 +127,10 @@
     .form-message{margin:16px auto 0;padding:0;font-size:14px;font-weight:600;text-align:center;max-width:400px}
     .form-message.success{color:#00ff88}
     .form-message.error{color:#ff6b6b}
+    .email-input.error{border-color:#d4654d !important;box-shadow:0 0 0 3px rgba(212,101,77,0.3) !important;background:rgba(212,101,77,0.05) !important;animation:shakeInput 0.5s ease-in-out}
+    .email-submit.error{background:linear-gradient(135deg,#d4654d,#e07a5f) !important;animation:shakeButton 0.5s ease-in-out}
+    @keyframes shakeInput{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+    @keyframes shakeButton{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
     svg{flex-shrink:0}
     input,button{font-family:inherit}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -353,6 +347,62 @@
         const newUrl = window.location.pathname;
         window.history.replaceState({}, document.title, newUrl);
       }
+      
+      // Email validation functionality
+      const emailForm = document.getElementById('joinEmailForm');
+      const emailInput = document.getElementById('joinEmailInput');
+      const submitBtn = document.getElementById('joinEmailSubmitBtn');
+      const formMessage = document.getElementById('joinFormMessage');
+      
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+      
+      function showInvalidEmail() {
+        // Store original button text
+        const originalText = submitBtn.querySelector('span').textContent;
+        
+        // Add error classes with animation
+        emailInput.classList.add('error');
+        submitBtn.classList.add('error');
+        
+        // Change button text
+        submitBtn.querySelector('span').textContent = 'Invalid Email';
+        
+        // Show error message
+        formMessage.textContent = 'Please enter a valid email address';
+        formMessage.className = 'form-message error';
+        formMessage.style.display = 'block';
+        
+        // Reset after 1 second
+        setTimeout(() => {
+          emailInput.classList.remove('error');
+          submitBtn.classList.remove('error');
+          submitBtn.querySelector('span').textContent = originalText;
+          formMessage.style.display = 'none';
+        }, 1000);
+      }
+      
+      // Prevent form submission with invalid email
+      emailForm.addEventListener('submit', function(e) {
+        const email = emailInput.value.trim();
+        if (!email || !validateEmail(email)) {
+          e.preventDefault();
+          showInvalidEmail();
+          return false;
+        }
+      });
+      
+      // Also check on button click as backup
+      submitBtn.addEventListener('click', function(e) {
+        const email = emailInput.value.trim();
+        if (!email || !validateEmail(email)) {
+          e.preventDefault();
+          showInvalidEmail();
+          return false;
+        }
+      });
     });
   </script>
 
