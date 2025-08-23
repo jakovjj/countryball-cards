@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <title>Thank You! - Countryball Cards</title>
+  <meta name="description" content="Thank you for joining the Countryball Cards newsletter! You'll be notified when we launch on Kickstarter Octo      
+      <h1 class="thanks-title"><span style="background: none; -webkit-background-clip: initial; -webkit-text-fill-color: initial; color: inherit;">🎉</span> You're In!</h1>
+      <h2 class="thanks-subtitle">Successfully joined the newsletter!</h2> 1st, 2025." />
+  <link rel="canonical" href="https://countryballcards.com/thanks.html" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#151515" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://countryballcards.com/thanks.html">
+  <meta property="og:title" content="Thank You! - Countryball Cards">
+  <meta property="og:description" content="Thank you for joining our newsletter! You'll be the first to know when we launch.">
+  <meta property="og:image" content="https://countryballcards.com/logo.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Countryball Cards">
+  
+  <!-- Enhanced Favicon Implementation -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" sizes="any" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  
+  <style>
+    :root {
+      --bg: #151515;
+      --card: #1d1d1d;
+      --gold: #c7a455;
+      --text: #eee;
+      --muted: #b7b7b7;
+      --success-green: #10b981;
+      --success-green-light: #34d399;
+      --success-bg: rgba(16, 185, 129, 0.1);
+      --success-border: rgba(16, 185, 129, 0.3);
+    }
+    
+    * {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+    
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.4 system-ui, 'Segoe UI', Inter, Arial;
+      overflow-x: hidden;
+      max-width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    /* Animated background particles */
+    .bg-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: var(--success-green);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    .particle:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 6px; height: 6px; top: 60%; left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { width: 3px; height: 3px; top: 40%; left: 80%; animation-delay: 2s; }
+    .particle:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 70%; animation-delay: 0.5s; }
+    .particle:nth-child(5) { width: 4px; height: 4px; top: 30%; left: 60%; animation-delay: 1.5s; }
+    .particle:nth-child(6) { width: 3px; height: 3px; top: 70%; left: 40%; animation-delay: 2.5s; }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.6;
+      }
+      25% {
+        transform: translateY(-10px) rotate(90deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+        opacity: 0.4;
+      }
+      75% {
+        transform: translateY(-10px) rotate(270deg);
+        opacity: 0.8;
+      }
+    }
+    
+    .thanks-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      animation: slideInUp 0.8s ease-out;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .thanks-card {
+      background: linear-gradient(135deg, var(--success-bg) 0%, rgba(16, 185, 129, 0.15) 100%);
+      border: 2px solid var(--success-border);
+      border-radius: 24px;
+      padding: 48px 32px;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        0 0 40px rgba(16, 185, 129, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .thanks-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.1) 1px, transparent 2px),
+                  radial-gradient(circle at 80% 70%, rgba(52, 211, 153, 0.1) 1px, transparent 2px),
+                  radial-gradient(circle at 60% 15%, rgba(16, 185, 129, 0.05) 1px, transparent 2px);
+      pointer-events: none;
+      animation: shimmer 6s ease-in-out infinite;
+    }
+    
+    @keyframes shimmer {
+      0%, 100% {
+        opacity: 0.3;
+        transform: rotate(0deg);
+      }
+      25% {
+        opacity: 0.7;
+        transform: rotate(90deg);
+      }
+      50% {
+        opacity: 0.4;
+        transform: rotate(180deg);
+      }
+      75% {
+        opacity: 0.8;
+        transform: rotate(270deg);
+      }
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, var(--success-green), var(--success-green-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      animation: bounceIn 1s ease-out 0.3s both;
+      position: relative;
+    }
+    
+    .success-icon::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--success-green), var(--success-green-light));
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-180deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(-90deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.1;
+      }
+    }
+    
+    .checkmark {
+      width: 32px;
+      height: 32px;
+      fill: white;
+      position: relative;
+      z-index: 1;
+      animation: drawCheckmark 0.8s ease-out 0.8s both;
+    }
+    
+    @keyframes drawCheckmark {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .thanks-title {
+      font-size: clamp(32px, 6vw, 42px);
+      font-weight: 700;
+      color: var(--success-green);
+      margin: 0 0 16px 0;
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+      background: linear-gradient(135deg, var(--success-green), var(--success-green-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .thanks-subtitle {
+      font-size: 20px;
+      color: var(--text);
+      margin: 0 0 24px 0;
+      font-weight: 600;
+      animation: fadeInUp 0.8s ease-out 0.7s both;
+    }
+    
+    .thanks-message {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0 0 32px 0;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease-out 0.9s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .benefits-list {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 16px;
+      padding: 24px 20px;
+      margin: 0 0 32px 0;
+      animation: fadeInUp 0.8s ease-out 1.1s both;
+    }
+    
+    .benefits-title {
+      color: var(--success-green);
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .benefit-icon {
+      width: 6px;
+      height: 6px;
+      background: var(--success-green);
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+      animation: twinkle 2s ease-in-out infinite;
+    }
+    
+    .benefit-item:nth-child(2) .benefit-icon { animation-delay: 0.2s; }
+    .benefit-item:nth-child(3) .benefit-icon { animation-delay: 0.4s; }
+    .benefit-item:nth-child(4) .benefit-icon { animation-delay: 0.6s; }
+    .benefit-item:nth-child(5) .benefit-icon { animation-delay: 0.8s; }
+    
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+      }
+    }
+    
+    .homepage-btn {
+      background: linear-gradient(135deg, var(--gold), #d4b866);
+      color: var(--bg);
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(199, 164, 85, 0.3);
+      animation: fadeInUp 0.8s ease-out 1.3s both;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .homepage-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .homepage-btn:hover {
+      background: linear-gradient(135deg, #d4b866, #e6c875);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(199, 164, 85, 0.4);
+    }
+    
+    .homepage-btn:hover::before {
+      left: 100%;
+    }
+    
+    .countdown-text {
+      margin-top: 24px;
+      padding: 16px;
+      background: rgba(199, 164, 85, 0.1);
+      border: 1px solid rgba(199, 164, 85, 0.3);
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--gold);
+      font-weight: 600;
+      animation: fadeInUp 0.8s ease-out 1.5s both;
+    }
+    
+    @media (max-width: 768px) {
+      .thanks-container {
+        padding: 20px 16px;
+      }
+      
+      .thanks-card {
+        padding: 32px 24px;
+      }
+      
+      .success-icon {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .checkmark {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .benefits-list {
+        padding: 20px 16px;
+      }
+      
+      .homepage-btn {
+        padding: 14px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="bg-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="thanks-container">
+    <div class="thanks-card">
+      <div class="success-icon">
+        <svg class="checkmark" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        </svg>
+      </div>
+      
+      <h1 class="thanks-title">� You're In!</h1>
+      <h2 class="thanks-subtitle">Successfully joined the newsletter!</h2>
+      <p class="thanks-message">
+        Thank you for joining the Countryball Cards community! You'll be among the first to know when we launch our crowdfunding campaign on <strong>October 1st, 2025</strong>.
+      </p>
+      
+      <div class="benefits-list">
+        <div class="benefits-title">✨ What's Next?</div>
+        <div class="benefit-item">
+          <div class="benefit-icon"></div>
+          <span><strong>Early bird discount</strong> when we launch</span>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon"></div>
+          <span><strong>Free giveaway</strong> entry (5 Base Editions!)</span>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon"></div>
+          <span><strong>Launch day notifications</strong> & updates</span>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon"></div>
+          <span><strong>Exclusive behind-the-scenes</strong> content</span>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon"></div>
+          <span><strong>Free shipping</strong> in EU/US</span>
+        </div>
+      </div>
+      
+      <a href="index.html" class="homepage-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+        Back to Homepage
+      </a>
+      
+      <div class="countdown-text">
+        🚀 Kickstarter launches in <strong id="countdown">calculating...</strong>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Handle URL parameters from backend redirect
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const success = urlParams.get('success');
+      const alreadySubscribed = urlParams.get('already_subscribed');
+      const error = urlParams.get('error');
+      const email = urlParams.get('email');
+      
+      // Get elements to update
+      const title = document.querySelector('.thanks-title');
+      const subtitle = document.querySelector('.thanks-subtitle');
+      const message = document.querySelector('.thanks-message');
+      const card = document.querySelector('.thanks-card');
+      const icon = document.querySelector('.success-icon');
+      const benefitsList = document.querySelector('.benefits-list');
+      
+      if (error) {
+        // Show error state
+        title.textContent = '❌ Oops!';
+        title.style.color = '#ff6b6b';
+        title.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8a8a)';
+        title.style.webkitBackgroundClip = 'text';
+        title.style.webkitTextFillColor = 'transparent';
+        
+        subtitle.textContent = 'Something went wrong';
+        subtitle.style.color = '#ff6b6b';
+        
+        // Decode error message
+        const errorMessage = decodeURIComponent(error).replace(/[_+]/g, ' ');
+        message.innerHTML = `There was an issue with your subscription: <strong>${errorMessage}</strong><br><br>Please try again or contact us if the problem persists.`;
+        
+        // Update card styling for error
+        card.style.background = 'linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.15) 100%)';
+        card.style.borderColor = 'rgba(255, 107, 107, 0.3)';
+        
+        // Update icon for error
+        icon.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8a8a)';
+        icon.innerHTML = `
+          <svg class="checkmark" viewBox="0 0 24 24" fill="white">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        `;
+        
+        // Hide benefits list
+        benefitsList.style.display = 'none';
+        
+        // Update button text
+        const btn = document.querySelector('.homepage-btn');
+        btn.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+          </svg>
+          Try Again
+        `;
+        btn.href = 'join.html';
+        
+      } else if (success) {
+        if (alreadySubscribed) {
+          // Already subscribed - still success but different message
+          title.textContent = '✅ Already In!';
+          subtitle.textContent = 'You\'re already subscribed!';
+          message.innerHTML = email 
+            ? `Great news! <strong>${email}</strong> is already on our newsletter list. You won't miss our Kickstarter launch on <strong>October 1st, 2025</strong>!`
+            : 'Great news! You\'re already on our newsletter list. You won\'t miss our Kickstarter launch on <strong>October 1st, 2025</strong>!';
+        } else {
+          // New subscription success
+          if (email) {
+            message.innerHTML = `Thank you for joining the Countryball Cards community! We've added <strong>${email}</strong> to our newsletter. You'll be among the first to know when we launch our Kickstarter campaign on <strong>October 1st, 2025</strong>.`;
+          }
+        }
+        
+        // Clean URL after showing appropriate message
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    });
+
+    // Countdown to October 1st, 2025
+    function updateCountdown() {
+      const launchDate = new Date('2025-10-01T00:00:00Z');
+      const now = new Date();
+      const diff = launchDate - now;
+      
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        
+        let countdownText;
+        if (days > 0) {
+          countdownText = `${days} day${days !== 1 ? 's' : ''}`;
+          if (hours > 0) {
+            countdownText += ` and ${hours} hour${hours !== 1 ? 's' : ''}`;
+          }
+        } else if (hours > 0) {
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          countdownText = `${hours} hour${hours !== 1 ? 's' : ''}`;
+          if (minutes > 0) {
+            countdownText += ` and ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+          }
+        } else {
+          const minutes = Math.floor(diff / (1000 * 60));
+          countdownText = `${minutes} minute${minutes !== 1 ? 's' : ''}`;
+        }
+        
+        document.getElementById('countdown').textContent = countdownText;
+      } else {
+        document.getElementById('countdown').textContent = 'We\'ve launched! 🎉';
+      }
+    }
+    
+    // Update countdown immediately and then every minute
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+    
+    // Add some sparkle effects
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.style.cssText = `
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: var(--success-green);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 100;
+        opacity: 0;
+        animation: sparkleAnimation 2s ease-out forwards;
+      `;
+      
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      
+      document.body.appendChild(sparkle);
+      
+      setTimeout(() => {
+        sparkle.remove();
+      }, 2000);
+    }
+    
+    // Add sparkle animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes sparkleAnimation {
+        0% {
+          opacity: 0;
+          transform: scale(0) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1) rotate(180deg);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0) rotate(360deg);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Create sparkles periodically
+    setInterval(createSparkle, 3000);
+    
+    // Analytics tracking if available
+    try {
+      if (window.gtag) {
+        gtag('event', 'newsletter_signup_complete', {
+          event_category: 'conversion',
+          event_label: 'thanks_page_view',
+          value: 1
+        });
+      }
+    } catch (_) {}
+  </script>
+</body>
+</html>
