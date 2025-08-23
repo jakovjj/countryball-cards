@@ -355,7 +355,7 @@
           <div class="inline-email-signup">
             <h3 class="inline-email-title">🚀 Get Updates</h3>
             <p class="inline-email-subtitle">Be the first to know when we launch on October 1st!</p>
-            <form id="inlineEmailForm" class="inline-email-form" action="simple-email.php" method="POST">
+            <form id="inlineEmailForm" class="inline-email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
               <div class="inline-form-group">
                 <input 
                   type="email" 
@@ -685,10 +685,10 @@
     }
   </script>
   
-  <!-- Simple form success message handler -->
+  <!-- Backend response handler -->
   <script>
+    // Simple success message handler for backend responses
     document.addEventListener('DOMContentLoaded', function() {
-      // Check for URL parameters to show success/error messages
       const urlParams = new URLSearchParams(window.location.search);
       const status = urlParams.get('status');
       const message = urlParams.get('message');

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <title>Email Collection - Countryball Cards</title>
+  <meta name="description" content="Simple email collection that works on static hosting." />
+  <style>
+    :root{--bg:#151515;--card:#1d1d1d;--gold:#c7a455;--text:#eee;--muted:#b7b7b7}
+    *{box-sizing:border-box;max-width:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;max-width:100vw}
+    .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
+    .frame{border:3px solid var(--gold);border-radius:18px;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
+    .email-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center}
+    .email-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
+    .email-input{padding:16px 20px;border:3px solid var(--gold);border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(199,164,85,0.3);text-align:center}
+    .email-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,164,85,0.5);background:rgba(255,255,255,0.08)}
+    .email-input::placeholder{color:rgba(238,238,238,0.6);text-align:center}
+    .email-submit{padding:16px 24px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:12px;color:var(--bg);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin:0 auto;min-height:56px;position:relative}
+    .email-submit:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px)}
+    .message{margin:16px auto 0;padding:12px;font-size:14px;font-weight:600;text-align:center;max-width:400px;border-radius:8px}
+    .message.success{color:#00ff88;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3)}
+    .message.error{color:#ff6b6b;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3)}
+    .form-container{max-width:400px;width:100%}
+    .admin-panel{margin-top:40px;padding:20px;background:rgba(255,255,255,0.05);border-radius:12px;border:1px solid rgba(199,164,85,0.3)}
+    .admin-panel h3{color:var(--gold);margin:0 0 16px 0}
+    .email-list{max-height:200px;overflow-y:auto;background:rgba(0,0,0,0.3);padding:10px;border-radius:8px;margin:10px 0}
+    .email-item{padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.1);font-size:14px}
+    .btn{background:var(--gold);color:var(--bg);padding:10px 16px;border:none;border-radius:6px;cursor:pointer;margin:5px;font-weight:600}
+    .btn:hover{background:#b8954a}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <div class="email-container">
+        <h1 class="email-title">📧 Email Collection</h1>
+        
+        <div class="form-container">
+          <form id="emailForm">
+            <input 
+              type="email" 
+              id="emailInput" 
+              placeholder="Enter your email address" 
+              required 
+              class="email-input"
+            >
+            <button type="submit" class="email-submit">
+              <span>Subscribe</span>
+            </button>
+          </form>
+          <div id="message" class="message" style="display: none;"></div>
+        </div>
+
+        <div class="admin-panel">
+          <h3>📊 Admin Panel</h3>
+          <p>Collected emails are stored locally in your browser.</p>
+          <div>
+            <button class="btn" onclick="showEmails()">View Emails</button>
+            <button class="btn" onclick="exportEmails()">Export CSV</button>
+            <button class="btn" onclick="clearEmails()" style="background:#e74c3c">Clear All</button>
+          </div>
+          <div id="emailList" class="email-list" style="display: none;"></div>
+          <div id="emailCount">No emails collected yet.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Email storage using localStorage
+    class EmailStorage {
+      constructor() {
+        this.storageKey = 'countryball_emails';
+      }
+
+      getEmails() {
+        const stored = localStorage.getItem(this.storageKey);
+        return stored ? JSON.parse(stored) : [];
+      }
+
+      addEmail(email, source = 'static_form') {
+        const emails = this.getEmails();
+        
+        // Check if email already exists
+        if (emails.find(e => e.email === email)) {
+          return { success: false, message: 'Email already subscribed!' };
+        }
+
+        // Add new email
+        const newEmail = {
+          email: email,
+          date: new Date().toISOString(),
+          source: source,
+          timestamp: Date.now()
+        };
+
+        emails.push(newEmail);
+        localStorage.setItem(this.storageKey, JSON.stringify(emails));
+        
+        return { success: true, message: 'Successfully subscribed!' };
+      }
+
+      exportToCSV() {
+        const emails = this.getEmails();
+        if (emails.length === 0) {
+          return null;
+        }
+
+        let csv = 'email,date,source\n';
+        emails.forEach(item => {
+          csv += `"${item.email}","${item.date}","${item.source}"\n`;
+        });
+
+        return csv;
+      }
+
+      clear() {
+        localStorage.removeItem(this.storageKey);
+      }
+
+      count() {
+        return this.getEmails().length;
+      }
+    }
+
+    // Initialize email storage
+    const emailStorage = new EmailStorage();
+
+    // Form handling
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById('emailInput');
+      const message = document.getElementById('message');
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        showMessage('Please enter an email address.', 'error');
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        showMessage('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      const result = emailStorage.addEmail(email);
+      
+      if (result.success) {
+        showMessage(result.message, 'success');
+        emailInput.value = '';
+        updateEmailCount();
+      } else {
+        showMessage(result.message, 'error');
+      }
+    });
+
+    // Utility functions
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function showMessage(text, type) {
+      const message = document.getElementById('message');
+      message.textContent = text;
+      message.className = `message ${type}`;
+      message.style.display = 'block';
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        message.style.display = 'none';
+      }, 5000);
+    }
+
+    function showEmails() {
+      const emails = emailStorage.getEmails();
+      const emailList = document.getElementById('emailList');
+      
+      if (emails.length === 0) {
+        emailList.innerHTML = '<div class="email-item">No emails collected yet.</div>';
+      } else {
+        emailList.innerHTML = emails.map(item => 
+          `<div class="email-item">${item.email} - ${new Date(item.date).toLocaleDateString()} (${item.source})</div>`
+        ).join('');
+      }
+      
+      emailList.style.display = emailList.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function exportEmails() {
+      const csv = emailStorage.exportToCSV();
+      
+      if (!csv) {
+        showMessage('No emails to export.', 'error');
+        return;
+      }
+
+      // Create download link
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `countryball-emails-${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      showMessage('CSV file downloaded!', 'success');
+    }
+
+    function clearEmails() {
+      if (confirm('Are you sure you want to clear all collected emails?')) {
+        emailStorage.clear();
+        updateEmailCount();
+        document.getElementById('emailList').style.display = 'none';
+        showMessage('All emails cleared.', 'success');
+      }
+    }
+
+    function updateEmailCount() {
+      const count = emailStorage.count();
+      document.getElementById('emailCount').textContent = 
+        count === 0 ? 'No emails collected yet.' : `${count} email${count === 1 ? '' : 's'} collected.`;
+    }
+
+    // Initialize
+    updateEmailCount();
+  </script>
+</body>
+</html>

@@ -260,8 +260,8 @@
           </p>
           
           <div class="email-form-container">
-            <!-- Simple Email Signup Form -->
-            <form class="email-form" action="simple-email.php" method="POST" id="joinEmailForm">
+            <!-- Email form that submits to your backend -->
+            <form class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
               <input 
                 type="email" 
                 id="joinEmailInput" 
@@ -338,9 +338,8 @@
   </div>
 
   <script>
-    // Simple form success message handler
+    // Simple success message handler for backend responses
     document.addEventListener('DOMContentLoaded', function() {
-      // Check for URL parameters to show success/error messages
       const urlParams = new URLSearchParams(window.location.search);
       const status = urlParams.get('status');
       const message = urlParams.get('message');
@@ -350,14 +349,12 @@
         const emailFormContainer = document.getElementById('emailFormContainer');
         
         if (status === 'success') {
-          // Show success message and hide form
           if (successMessage && emailFormContainer) {
             emailFormContainer.style.display = 'none';
             successMessage.style.display = 'block';
             successMessage.classList.add('show');
           }
         } else if (status === 'error') {
-          // Show error message
           const messageDiv = document.createElement('div');
           messageDiv.style.cssText = `
             background: rgba(255, 107, 107, 0.1);
@@ -381,7 +378,7 @@
           }
         }
         
-        // Clean URL (remove parameters)
+        // Clean URL
         const newUrl = window.location.pathname;
         window.history.replaceState({}, document.title, newUrl);
       }
