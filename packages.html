@@ -1920,6 +1920,18 @@
     // Initialize currency conversion on page load (only if package cards exist)
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM Content Loaded - Starting initialization'); // LINE MARKER 1900
+      
+      // Clear any corrupted localStorage on page load
+      try {
+        const storedEmails = localStorage.getItem('countryball_emails');
+        if (storedEmails) {
+          JSON.parse(storedEmails); // Test if it's valid JSON
+        }
+      } catch (error) {
+        console.warn('Clearing corrupted localStorage data:', error);
+        localStorage.removeItem('countryball_emails');
+      }
+      
       try {
         if (document.querySelectorAll('.package-card').length > 0) {
           updatePricesBasedOnLocation();
@@ -2144,7 +2156,17 @@
           }
           
           // Check for duplicate emails locally first
-          const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+          let emails = [];
+          try {
+            const storedEmails = localStorage.getItem('countryball_emails');
+            if (storedEmails) {
+              emails = JSON.parse(storedEmails);
+            }
+          } catch (parseError) {
+            console.warn('Failed to parse stored emails, clearing localStorage:', parseError);
+            localStorage.removeItem('countryball_emails');
+            emails = [];
+          }
           
           if (emails.includes(email)) {
             showMessage('You\'re already subscribed! 🎉', 'success');
@@ -2254,7 +2276,17 @@
           // Show success message after delay
           setTimeout(() => {
             // Store email locally to prevent duplicates
-            const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
+            let emails = [];
+            try {
+              const storedEmails = localStorage.getItem('countryball_emails');
+              if (storedEmails) {
+                emails = JSON.parse(storedEmails);
+              }
+            } catch (parseError) {
+              console.warn('Failed to parse stored emails, clearing localStorage:', parseError);
+              localStorage.removeItem('countryball_emails');
+              emails = [];
+            }
             emails.push(email);
             localStorage.setItem('countryball_emails', JSON.stringify(emails));
             
