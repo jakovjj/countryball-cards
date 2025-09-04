@@ -1378,6 +1378,13 @@
             clearTimeout(timeoutId);
             
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            // Check if response is actually JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              throw new Error('Invalid content type - not JSON');
+            }
+            
             const data = await response.json();
             if (!data.country_code) throw new Error('No country data');
             return { countryCode: data.country_code, countryName: data.country_name };
@@ -1400,6 +1407,13 @@
             clearTimeout(timeoutId);
             
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            // Check if response is actually JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              throw new Error('Invalid content type - not JSON');
+            }
+            
             const data = await response.json();
             if (data.status !== 'success' || !data.countryCode) throw new Error('Service error or no country data');
             return { countryCode: data.countryCode, countryName: data.country };
@@ -1422,6 +1436,13 @@
             clearTimeout(timeoutId);
             
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            // Check if response is actually JSON
+            const contentType = response.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              throw new Error('Invalid content type - not JSON');
+            }
+            
             const data = await response.json();
             if (!data.country) throw new Error('No country data');
             return { countryCode: data.country, countryName: data.country };
