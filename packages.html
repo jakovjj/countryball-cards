@@ -1237,6 +1237,14 @@
   <script>
     // Global error handler for JSON parsing and other errors
     window.addEventListener('error', function(e) {
+      console.error('JavaScript error detected:', {
+        message: e.message,
+        filename: e.filename,
+        lineno: e.lineno,
+        colno: e.colno,
+        stack: e.error ? e.error.stack : 'No stack trace available'
+      });
+      
       if (e.message && e.message.includes('expected expression, got')) {
         console.warn('JSON parsing error caught and handled:', e.message, 'at line:', e.lineno);
         console.warn('Error details:', {
@@ -1254,6 +1262,7 @@
     
     // Also catch unhandled promise rejections
     window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled promise rejection:', e.reason);
       if (e.reason && e.reason.message && e.reason.message.includes('JSON')) {
         console.warn('Unhandled JSON promise rejection:', e.reason);
         e.preventDefault();
@@ -1412,9 +1421,13 @@
             
             let data;
             try {
+              console.log('Attempting to parse JSON response from ipapi.co');
               data = await response.json();
+              console.log('Successfully parsed JSON from ipapi.co:', data);
             } catch (parseError) {
-              throw new Error('Failed to parse JSON response');
+              console.error('Failed to parse JSON from ipapi.co:', parseError);
+              // Cannot read response.text() again after calling response.json()
+              throw new Error('Failed to parse JSON response from ipapi.co');
             }
             
             if (!data.country_code) throw new Error('No country data');
@@ -1906,6 +1919,7 @@
     
     // Initialize currency conversion on page load (only if package cards exist)
     document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM Content Loaded - Starting initialization'); // LINE MARKER 1900
       try {
         if (document.querySelectorAll('.package-card').length > 0) {
           updatePricesBasedOnLocation();
