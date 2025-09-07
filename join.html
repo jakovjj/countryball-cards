@@ -133,6 +133,7 @@
     @keyframes shakeButton{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
     svg{flex-shrink:0}
     input,button{font-family:inherit}
+    @keyframes arrowBounce{0%,100%{transform:translateY(0px);opacity:0.7}50%{transform:translateY(5px);opacity:1}}
     @keyframes emailGlow{0%,100%{box-shadow:0 0 0 2px rgba(199,164,85,0.3)}50%{box-shadow:0 0 0 4px rgba(199,164,85,0.6), 0 0 20px rgba(199,164,85,0.4)}}
     @keyframes bounce{0%,20%,53%,80%,100%{transform:translateY(0)}40%,43%{transform:translateY(-8px)}70%{transform:translateY(-4px)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -254,13 +255,20 @@
             </div>
           </div>
 
-          <h1 class="join-title">🚀 Join Kickstarter Prelaunch!</h1>
-          <p class="join-subtitle">
+          <h1 class="join-title">🚀 Join our Kickstarter Prelaunch!</h1>
+          <p class="join-subtitle" style="margin-bottom: 16px;">
             <strong>Launches October 1st! <span id="launchCountdown" style="color: #888; font-weight: 400;">(calculating...)</span></strong><br>
             Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
           </p>
           
           <div class="email-form-container">
+            <!-- Animated arrows pointing to input -->
+            <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 20px; height: 40px;">
+              <div style="color: var(--gold); font-size: 40px; animation: arrowBounce 1.5s ease-in-out infinite;">↓</div>
+              <div style="color: var(--gold); font-size: 40px; animation: arrowBounce 1.5s ease-in-out infinite;">↓</div>
+              <div style="color: var(--gold); font-size: 40px; animation: arrowBounce 1.5s ease-in-out infinite;">↓</div>
+            </div>
+            
             <!-- Email form that submits to your backend -->
             <form class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
               <input 
