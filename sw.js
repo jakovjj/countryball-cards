@@ -1,5 +1,5 @@
 // Service Worker for Countryball Cards
-const CACHE_NAME = 'countryball-cards-v1';
+const CACHE_NAME = 'countryball-cards-v2025090701'; // Update this version when you make changes
 const urlsToCache = [
   '/',
   '/index.html',
@@ -25,37 +25,60 @@ self.addEventListener('install', function(event) {
   );
 });
 
-// Fetch event - serve from cache when possible
+// Fetch event - serve from cache when possible with network-first strategy for HTML
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Return cached version or fetch from network
-        if (response) {
-          return response;
-        }
-        
-        // Clone the request because it's a stream
-        const fetchRequest = event.request.clone();
-        
-        return fetch(fetchRequest).then(function(response) {
-          // Check if valid response
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-          
-          // Clone the response because it's a stream
+  // For HTML requests, try network first to get fresh content
+  if (event.request.destination === 'document' || 
+      event.request.url.includes('.html') ||
+      event.request.url.endsWith('/')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(function(response) {
+          // Clone and cache the fresh response
           const responseToCache = response.clone();
-          
           caches.open(CACHE_NAME)
             .then(function(cache) {
               cache.put(event.request, responseToCache);
             });
-          
           return response;
-        });
-      })
-  );
+        })
+        .catch(function() {
+          // If network fails, try cache
+          return caches.match(event.request);
+        })
+    );
+  } else {
+    // For other assets, use cache-first strategy
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response) {
+          // Return cached version or fetch from network
+          if (response) {
+            return response;
+          }
+          
+          // Clone the request because it's a stream
+          const fetchRequest = event.request.clone();
+          
+          return fetch(fetchRequest).then(function(response) {
+            // Check if valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+            
+            // Clone the response because it's a stream
+            const responseToCache = response.clone();
+            
+            caches.open(CACHE_NAME)
+              .then(function(cache) {
+                cache.put(event.request, responseToCache);
+              });
+            
+            return response;
+          });
+        })
+    );
+  }
 });
 
 // Activate event - clean up old caches
