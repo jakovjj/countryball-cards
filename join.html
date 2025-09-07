@@ -366,10 +366,24 @@
           countryCode = debugCountry.toUpperCase();
           console.log(`Debug mode: Using country code ${countryCode}`);
         } else {
-          // Normal API call
-          const response = await fetch('http://ip-api.com/json/');
-          const data = await response.json();
-          countryCode = data.countryCode;
+          // Try primary API first
+          try {
+            const response = await fetch('https://ipapi.co/json/');
+            if (response.status === 429) {
+              throw new Error('Rate limited');
+            }
+            const data = await response.json();
+            countryCode = data.country_code;
+          } catch (primaryError) {
+            // Fallback to alternative service
+            try {
+              const fallbackResponse = await fetch('https://api.country.is/');
+              const fallbackData = await fallbackResponse.json();
+              countryCode = fallbackData.country;
+            } catch (fallbackError) {
+              throw new Error('All geolocation services failed');
+            }
+          }
         }
         
         if (countryCode && countryGreetings[countryCode]) {
