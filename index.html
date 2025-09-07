@@ -358,13 +358,36 @@
           <div class="inline-email-signup">
             <h3 class="inline-email-title">🚀 Get Updates</h3>
             <p class="inline-email-subtitle">Be the first to know when we launch on October 1st!</p>
+            
+            <!-- Inline signup benefits -->
+            <div class="inline-signup-benefits" style="margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: 14px;">
+              <div style="display: flex; align-items: center; gap: 6px; color: var(--text);">
+                <svg style="width: 16px; height: 16px; fill: var(--gold);" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <span>Launch notifications</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; color: var(--text);">
+                <svg style="width: 16px; height: 16px; fill: var(--gold);" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <span>Early bird discounts</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; color: var(--text);">
+                <svg style="width: 16px; height: 16px; fill: var(--gold);" viewBox="0 0 24 24">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <span>No spam</span>
+              </div>
+            </div>
+            
             <form id="inlineEmailForm" class="inline-email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
               <div class="inline-form-group">
                 <input 
                   type="email" 
                   id="inlineEmailInput" 
                   name="email"
-                  placeholder="Enter your email address" 
+                  placeholder="📧 Enter your email address" 
                   required 
                   autocomplete="email"
                   class="inline-email-input"
@@ -591,29 +614,7 @@
       </header>
       <div class="email-modal-content">
         <p>Be the first to know when our Crowdfunding launches on October 1st!</p>
-        <form id="emailForm" class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
-          <div class="form-group">
-            <label for="emailInput" class="visually-hidden">Email address</label>
-            <input 
-              type="email" 
-              id="emailInput" 
-              name="email"
-              placeholder="Enter your email address" 
-              required 
-              autocomplete="email"
-              class="email-input"
-            >
-            <input type="hidden" name="source" value="homepage_modal">
-            <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
-            <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
-              <span class="submit-text">Get Updates</span>
-              <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-              </svg>
-            </button>
-          </div>
-          <div class="form-message" id="formMessage"></div>
-        </form>
+        
         <div class="email-benefits">
           <div class="benefit">
             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -634,6 +635,30 @@
             <span>No spam, unsubscribe anytime</span>
           </div>
         </div>
+        
+        <form id="emailForm" class="email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
+          <div class="form-group">
+            <label for="emailInput" class="visually-hidden">Email address</label>
+            <input 
+              type="email" 
+              id="emailInput" 
+              name="email"
+              placeholder="📧 Enter your email address" 
+              required 
+              autocomplete="email"
+              class="email-input"
+            >
+            <input type="hidden" name="source" value="homepage_modal">
+            <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
+            <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
+              <span class="submit-text">Get Updates</span>
+              <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="form-message" id="formMessage"></div>
+        </form>
       </div>
       <footer class="email-modal-footer">
         <span class="privacy-text">
