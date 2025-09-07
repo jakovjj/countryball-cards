@@ -119,9 +119,9 @@
     .join-footer a{color:var(--gold);text-decoration:none}
     .join-footer a:hover{text-decoration:underline}
     .email-form-container{max-width:400px;width:100%;text-align:center;margin:0 auto}
-    .email-input{padding:16px 20px;border:3px solid var(--gold);border-radius:12px !important;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(199,164,85,0.3);text-align:center;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;-webkit-border-radius:12px !important;-moz-border-radius:12px !important}
+    .email-input{padding:16px 20px;border:3px solid var(--gold);border-radius:12px !important;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(199,164,85,0.3);text-align:center;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;-webkit-border-radius:12px !important;-moz-border-radius:12px !important;animation:emailGlow 2s ease-in-out infinite}
     .email-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(199,164,85,0.5);background:rgba(255,255,255,0.08)}
-    .email-input::placeholder{color:rgba(238,238,238,0.6);text-align:center}
+    .email-input::placeholder{color:rgba(238,238,238,0.6);text-align:center;font-weight:700}
     .email-submit{padding:16px 24px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:12px;color:var(--bg);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin:0 auto}
     .email-submit:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px)}
     .form-message{margin:16px auto 0;padding:0;font-size:14px;font-weight:600;text-align:center;max-width:400px}
@@ -133,6 +133,8 @@
     @keyframes shakeButton{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
     svg{flex-shrink:0}
     input,button{font-family:inherit}
+    @keyframes emailGlow{0%,100%{box-shadow:0 0 0 2px rgba(199,164,85,0.3)}50%{box-shadow:0 0 0 4px rgba(199,164,85,0.6), 0 0 20px rgba(199,164,85,0.4)}}
+    @keyframes bounce{0%,20%,53%,80%,100%{transform:translateY(0)}40%,43%{transform:translateY(-8px)}70%{transform:translateY(-4px)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes shake{
       0%, 100% { transform: translateX(0); }
@@ -244,9 +246,17 @@
         </div>
         
         <div id="emailFormContainer">
+          <!-- Country Detection and Greeting -->
+          <div id="countryGreeting" style="margin-bottom: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease-in-out;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+              <img id="countryFlag" src="" alt="" style="width: 48px; height: 48px; border-radius: 50%; display: none; transition: all 0.3s ease; animation: bounce 2s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));">
+              <span id="countryText" style="color: #ffffff; font-weight: 700; font-size: 22px; text-shadow: 0 0 12px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3);"></span>
+            </div>
+          </div>
+
           <h1 class="join-title">🚀 Join Kickstarter Prelaunch!</h1>
           <p class="join-subtitle">
-            <strong>Launches October 1st!</strong><br>
+            <strong>Launches October 1st! <span id="launchCountdown" style="color: #888; font-weight: 400;">(calculating...)</span></strong><br>
             Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
           </p>
           
@@ -303,6 +313,114 @@
   </div>
 
   <script>
+    // Country detection and greeting system for join page
+    const countryGreetings = {
+      'AU': { greeting: 'G\'day!', name: 'Australia', flag: 'cb/australia.png' },
+      'AT': { greeting: 'Grüß Gott!', name: 'Austria', flag: 'cb/austria.png' },
+      'CA': { greeting: 'Welcome!', name: 'Canada', flag: 'cb/canada.png' },
+      'CN': { greeting: '欢迎!', name: 'China', flag: 'cb/china.png' },
+      'HR': { greeting: 'Dobrodošli!', name: 'Croatia', flag: 'cb/croatia.png' },
+      'CZ': { greeting: 'Vítejte!', name: 'Czech Republic', flag: 'cb/czechia.png' },
+      'FI': { greeting: 'Tervetuloa!', name: 'Finland', flag: 'cb/finland.png' },
+      'FR': { greeting: 'Bienvenue!', name: 'France', flag: 'cb/france.png' },
+      'DE': { greeting: 'Willkommen!', name: 'Germany', flag: 'cb/germany.png' },
+      'ID': { greeting: 'Selamat datang!', name: 'Indonesia', flag: 'cb/indonesia.png' },
+      'IT': { greeting: 'Benvenuti!', name: 'Italy', flag: 'cb/italy.png' },
+      'JP': { greeting: 'いらっしゃいませ!', name: 'Japan', flag: 'cb/japan.png' },
+      'KR': { greeting: '환영합니다!', name: 'South Korea', flag: 'cb/korea.png' },
+      'MX': { greeting: '¡Bienvenidos!', name: 'Mexico', flag: 'cb/mexico.png' },
+      'MN': { greeting: 'Тавтай морил!', name: 'Mongolia', flag: 'cb/mongolia.png' },
+      'NL': { greeting: 'Welkom!', name: 'Netherlands', flag: 'cb/netherlands.png' },
+      'NO': { greeting: 'Velkommen!', name: 'Norway', flag: 'cb/norway.png' },
+      'PL': { greeting: 'Witajcie!', name: 'Poland', flag: 'cb/poland.png' },
+      'PT': { greeting: 'Bem-vindos!', name: 'Portugal', flag: 'cb/portugal.png' },
+      'RO': { greeting: 'Bun venit!', name: 'Romania', flag: 'cb/romania.png' },
+      'RU': { greeting: 'Добро пожаловать!', name: 'Russia', flag: 'cb/russia.png' },
+      'SA': { greeting: 'أهلاً وسهلاً!', name: 'Saudi Arabia', flag: 'cb/saudi_arabia.png' },
+      'ES': { greeting: '¡Bienvenidos!', name: 'Spain', flag: 'cb/spain.png' },
+      'SE': { greeting: 'Välkommen!', name: 'Sweden', flag: 'cb/sweden.png' },
+      'CH': { greeting: 'Willkommen!', name: 'Switzerland', flag: 'cb/switzerland.png' },
+      'TR': { greeting: 'Hoş geldiniz!', name: 'Turkey', flag: 'cb/turkiye.png' },
+      'GB': { greeting: 'Welcome!', name: 'United Kingdom', flag: 'cb/uk.png' },
+      'UA': { greeting: 'Ласкаво просимо!', name: 'Ukraine', flag: 'cb/ukraine.png' },
+      'US': { greeting: 'Welcome!', name: 'United States', flag: 'cb/us.png' }
+    };
+
+    async function detectCountryAndShowGreeting() {
+      try {
+        // Check for debug parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const debugCountry = urlParams.get('country');
+        
+        let countryCode;
+        if (debugCountry) {
+          // Use debug country code
+          countryCode = debugCountry.toUpperCase();
+          console.log(`Debug mode: Using country code ${countryCode}`);
+        } else {
+          // Normal API call
+          const response = await fetch('https://ipapi.co/json/');
+          const data = await response.json();
+          countryCode = data.country_code;
+        }
+        
+        if (countryCode && countryGreetings[countryCode]) {
+          const country = countryGreetings[countryCode];
+          const greetingContainer = document.getElementById('countryGreeting');
+          const flagImg = document.getElementById('countryFlag');
+          const countryText = document.getElementById('countryText');
+          
+          if (greetingContainer && flagImg && countryText) {
+            // Set the flag image
+            flagImg.src = country.flag;
+            flagImg.alt = `${country.name} flag`;
+            flagImg.style.display = 'block';
+            
+            // Set the greeting text
+            countryText.textContent = `👋 ${country.greeting}`;
+            
+            // Show the greeting container with fade-in effect
+            greetingContainer.style.opacity = '1';
+            
+            console.log(`Showing greeting for ${country.name}: ${country.greeting}`);
+          }
+        } else if (debugCountry) {
+          console.log(`Debug: Country code ${countryCode} not supported`);
+        }
+      } catch (error) {
+        console.log('Country detection failed, using default greeting');
+        // Fallback - don't show any greeting if detection fails
+      }
+    }
+
+    // Initialize country detection when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      detectCountryAndShowGreeting();
+      
+      // Initialize launch countdown
+      function updateLaunchCountdown() {
+        const launchDate = new Date('2025-10-01T00:00:00');
+        const now = new Date();
+        const timeDiff = launchDate.getTime() - now.getTime();
+        const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        
+        const countdownElement = document.getElementById('launchCountdown');
+        if (countdownElement) {
+          if (daysLeft > 0) {
+            countdownElement.textContent = `(in ${daysLeft} day${daysLeft !== 1 ? 's' : ''})`;
+          } else if (daysLeft === 0) {
+            countdownElement.textContent = '(launching today!)';
+          } else {
+            countdownElement.textContent = '(launched!)';
+          }
+        }
+      }
+      
+      // Update countdown immediately and then every hour
+      updateLaunchCountdown();
+      setInterval(updateLaunchCountdown, 3600000); // Update every hour
+    });
+
     // Simple success message handler for backend responses
     document.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
