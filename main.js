@@ -87,13 +87,41 @@ const countryBackgrounds = {
 };
 
 async function detectCountryAndSetBackground(){
+  // Track that country detection started
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'country_detection_started', {
+      event_category: 'user_data',
+      event_label: 'api_call_initiated',
+      value: 1
+    });
+  }
+
   try {
     const response = await fetch('https://ipapi.co/json/');
+    
+    // Track API response status
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'country_api_response', {
+        event_category: 'user_data',
+        event_label: `status_${response.status}`,
+        value: 1
+      });
+    }
+
     const data = await response.json();
     const countryCode = data.country_code;
     
-    // Track country detection
+    // Track country detection success
     trackCountryDetection(countryCode);
+    
+    // Track additional data for debugging
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'country_data_received', {
+        event_category: 'user_data',
+        event_label: `country_${countryCode}_ip_${data.ip ? 'present' : 'missing'}`,
+        value: 1
+      });
+    }
     
     let backgroundImage = countryBackgrounds[countryCode] || countryBackgrounds['PL'];
     const img = new Image();
@@ -109,6 +137,18 @@ async function detectCountryAndSetBackground(){
     };
     img.src = backgroundImage;
   } catch (e) {
+    // Track country detection failure
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'country_detection_failed', {
+        event_category: 'user_data',
+        event_label: `error_${e.name || 'unknown'}_${e.message ? e.message.substring(0, 50) : 'no_message'}`,
+        value: 1
+      });
+    }
+
+    // Fallback to Poland background
+    trackCountryDetection('PL_FALLBACK');
+    
     const backgroundImage = countryBackgrounds['PL'];
     const img = new Image();
     img.onload = () => {
@@ -1159,4 +1199,27 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Handle resize to show/hide arrow based on screen size
   window.addEventListener('resize', updateArrowVisibility);
+});
+
+// ===== ANALYTICS VERIFICATION =====
+// Track that main.js fully loaded and executed
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'main_js_loaded', {
+      event_category: 'technical',
+      event_label: 'main_script_executed',
+      value: 1
+    });
+  }
+
+  // Verify country detection is being called
+  setTimeout(function() {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'analytics_verification', {
+        event_category: 'technical',
+        event_label: `gtag_available_${typeof gtag !== 'undefined'}_fetch_${typeof fetch !== 'undefined'}`,
+        value: 1
+      });
+    }
+  }, 1000);
 });

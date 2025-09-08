@@ -1,5 +1,67 @@
 // Analytics and pixels (Reddit + GA4)
 (function(){
+  // Track JavaScript support immediately
+  function trackJavaScriptSupport() {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'javascript_supported', {
+        event_category: 'technical',
+        event_label: 'js_enabled',
+        value: 1
+      });
+    }
+  }
+
+  // Track browser capabilities
+  function trackBrowserCapabilities() {
+    if (typeof gtag !== 'undefined') {
+      const capabilities = {
+        fetch_supported: typeof fetch !== 'undefined',
+        async_supported: typeof Promise !== 'undefined',
+        local_storage: typeof localStorage !== 'undefined',
+        session_storage: typeof sessionStorage !== 'undefined',
+        geolocation: typeof navigator.geolocation !== 'undefined',
+        user_agent: navigator.userAgent.substring(0, 100) // Truncate for privacy
+      };
+
+      gtag('event', 'browser_capabilities', {
+        event_category: 'technical',
+        event_label: JSON.stringify(capabilities),
+        value: 1
+      });
+    }
+  }
+
+  // Track page load progress
+  function trackPageLoadStage(stage) {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_load_stage', {
+        event_category: 'technical',
+        event_label: stage,
+        value: 1
+      });
+    }
+  }
+
+  // Track immediately on script execution
+  trackJavaScriptSupport();
+  trackPageLoadStage('analytics_script_loaded');
+
+  // Track when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      trackPageLoadStage('dom_ready');
+      trackBrowserCapabilities();
+    });
+  } else {
+    trackPageLoadStage('dom_already_ready');
+    trackBrowserCapabilities();
+  }
+
+  // Track when everything is loaded
+  window.addEventListener('load', function() {
+    trackPageLoadStage('window_loaded');
+  });
+
   // GA4 loader remains in HTML head for early init
 
   // Reddit Pixel bootstrap
