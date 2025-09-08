@@ -293,7 +293,7 @@
     .inline-email-signup{background:rgba(199,164,85,0.08);border:2px solid rgba(199,164,85,0.3);border-radius:16px;padding:24px;margin:24px 0;text-align:center}
     .inline-email-title{color:var(--gold);font-size:20px;font-weight:700;margin:0 0 8px 0}
     .inline-email-subtitle{color:var(--text);margin:0 0 20px 0;opacity:0.9}
-    .inline-email-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+    .inline-email-form{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap}
     .inline-email-input{padding:14px 16px;border:2px solid rgba(199,164,85,0.4);border-radius:8px;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;min-width:250px;flex:1;max-width:350px}
     .inline-email-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(199,164,85,0.2)}
     .inline-email-input::placeholder{color:rgba(238,238,238,0.6)}
@@ -302,6 +302,7 @@
     .inline-submit-icon{width:16px;height:16px;fill:currentColor}
     .inline-submit-text{white-space:nowrap}
     .inline-form-message{margin-top:12px;font-size:14px;font-weight:600}
+    .inline-form-message:empty{margin-top:0;display:none}
     .inline-form-message.success{color:#00ff88}
     .inline-form-message.error{color:#ff6b6b}
     svg{flex-shrink:0}
@@ -356,31 +357,9 @@
           
           <!-- Inline Email Signup Form -->
           <div class="inline-email-signup">
-            <h3 class="inline-email-title">🚀 Get Updates</h3>
-            <p class="inline-email-subtitle">Be the first to know when we launch on October 1st!</p>
-            
-            <!-- Inline signup benefits -->
-            <div class="inline-signup-benefits" style="margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; font-size: 14px;">
-              <div style="display: flex; align-items: center; gap: 6px; color: var(--text);">
-                <svg style="width: 16px; height: 16px; fill: var(--gold);" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span>Launch notifications</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 6px; color: var(--text);">
-                <svg style="width: 16px; height: 16px; fill: var(--gold);" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span>Early bird discounts</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 6px; color: var(--text);">
-                <svg style="width: 16px; height: 16px; fill: var(--gold);" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-                <span>No spam</span>
-              </div>
-            </div>
-            
+            <h3 class="inline-email-title">🚀 Sign Up</h3>
+            <p class="inline-email-subtitle">Be the first to know when we launch on Kickstarter October 1st!</p>
+
             <form id="inlineEmailForm" class="inline-email-form" action="https://mineward.us.to/countryball_cards/backend/subscribe.php" method="POST">
               <div class="inline-form-group">
                 <input 
@@ -492,19 +471,19 @@
         <div class="faq-grid">
           <div class="faq-item">
             <h3>🎮 How do I play?</h3>
-            <p>Download the free print-and-play from our Discord! It includes rules, cards, and everything you need to start playing immediately.</p>
+            <p>The board game is still in production! You can help make it a reality and get your own copy by backing us on Kickstarter on October 1st! Meanwhile, you can try out our limited print-and-play and read the rules online.</p>
           </div>
           <div class="faq-item">
             <h3>📦 What's in the box?</h3>
-            <p>20+ country cards, dice, resource cards, tokens, and a complete strategy guide. See our packages page for detailed contents.</p>
+            <p>The base editions includes 20 countryball cards, 5 dice, a bunch resource cards, coin tokens, and a complete ruleset. See our packages page for detailed contents.</p>
           </div>
           <div class="faq-item">
             <h3>🚚 Shipping costs?</h3>
-            <p>Free shipping to US, EU, and 15+ other countries. Only €4-12 to most other regions worldwide.</p>
+            <p>Fully free shipping to US, EU, and several other countries! Cheap shipping worldwide!</p>
           </div>
           <div class="faq-item">
             <h3>⏰ When will it ship?</h3>
-            <p>Crowdfunding starts October 1st 2025. We aim to deliver to all backers in 2026.</p>
+            <p>Kickstarter launches October 1st 2025. Our goal is to deliver the game to all Kickstarter backers in 2026.</p>
           </div>
         </div>
       </section>
@@ -537,13 +516,17 @@
         <h3 style="color:var(--text);margin:16px 0 6px;font-size:18px">Try the print‑and‑play</h3>
         <p style="margin:0 0 10px">Join our <a href="https://discord.gg/GVkrHXvzf8" rel="noopener" style="color:var(--gold)">Discord</a> to get the <a href="printandplay.html" style="color:var(--gold)">free print‑and‑play PDF</a> and help us tune abilities before the <strong>Kickstarter</strong> launch. You can also follow updates by email using the button above.</p>
         <h3 style="color:var(--text);margin:16px 0 6px;font-size:18px">Game Features</h3>
-        <p style="margin:0 0 10px">Learn <a href="rules.html" style="color:var(--gold)">how to play</a> our strategic card game featuring resource management, tactical combat, and unique countryball abilities. Use our <a href="dice.html" style="color:var(--gold)">online dice roller</a> for attacks and market prices. Choose from multiple <a href="packages.html" style="color:var(--gold)">game packages</a> starting at €34 when we launch.</p>
+        <p style="margin:0 0 10px">Learn <a href="rules.html" style="color:var(--gold)">how to play</a> our strategic card game featuring resource management, tactical combat, and unique countryball abilities. Use our <a href="dice.html" style="color:var(--gold)">online dice roller</a> for attacks and market prices. Choose from multiple <a href="packages.html" style="color:var(--gold)">game packages</a> (editions) when we launch.</p>
       </section>
 
       <div class="footer">
         © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
         <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a> • 
-        <a href="terms-and-conditions.html" style="color:var(--gold);text-decoration:none">Terms & Conditions</a>
+        <a href="terms-and-conditions.html" style="color:var(--gold);text-decoration:none">Terms & Conditions</a><br>
+        <div style="margin-top:8px;font-size:12px;color:var(--muted);opacity:0.7">
+          Contact: <a href="mailto:jakob.countryballcards@gmail.com" style="color:var(--muted);text-decoration:none">jakob.countryballcards@gmail.com</a> • 
+          <a href="tel:+13026100190" style="color:var(--muted);text-decoration:none">+1 302 610 0190</a>
+        </div>
       </div>
     </div>
   </div>

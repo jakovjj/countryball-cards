@@ -966,8 +966,37 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function showInlineMessage(message, type) {
-    inlineFormMessage.className = `inline-form-message ${type}`;
-    inlineFormMessage.textContent = message;
+    // Show message on button instead of in message div
+    const submitText = inlineSubmitBtn.querySelector('.inline-submit-text');
+    const submitIcon = inlineSubmitBtn.querySelector('.inline-submit-icon');
+    
+    if (type === 'info') {
+      // Sending state
+      submitText.textContent = 'Sending...';
+      submitIcon.style.display = 'none';
+      inlineSubmitBtn.style.opacity = '0.7';
+    } else if (type === 'success') {
+      // Success state
+      submitText.textContent = '✓ Sent!';
+      submitIcon.style.display = 'none';
+      inlineSubmitBtn.style.background = 'linear-gradient(135deg, #7ED321, #6BCF0F)';
+      inlineSubmitBtn.disabled = true; // Make unclickable
+      inlineSubmitBtn.style.cursor = 'not-allowed';
+      
+      // Reset button after 3 seconds
+      setTimeout(() => {
+        submitText.textContent = 'Get Updates';
+        submitIcon.style.display = 'inline';
+        inlineSubmitBtn.style.opacity = '1';
+        inlineSubmitBtn.style.background = 'linear-gradient(135deg,var(--gold),#d4b866)';
+        inlineSubmitBtn.disabled = false; // Make clickable again
+        inlineSubmitBtn.style.cursor = 'pointer';
+      }, 3000);
+    } else if (type === 'error') {
+      // Error state - still show in message div for errors
+      inlineFormMessage.className = `inline-form-message ${type}`;
+      inlineFormMessage.textContent = message;
+    }
   }
   
   // Handle form submission with validation
@@ -991,6 +1020,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Instead of fetch (which causes CORS), submit form normally but prevent redirect
     inlineSubmitBtn.disabled = true;
+    inlineFormMessage.textContent = ''; // Clear any previous error messages
     showInlineMessage('Sending...', 'info');
     
     // Create hidden iframe for form submission to avoid redirect
@@ -1008,6 +1038,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show success message after short delay
     setTimeout(() => {
       showInlineMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+      inlineFormMessage.textContent = ''; // Clear message div
       inlineEmailInput.value = '';
       
       // Track successful signup
