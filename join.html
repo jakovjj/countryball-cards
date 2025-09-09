@@ -105,10 +105,10 @@
     .join-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .join-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
     .benefits-list{margin:0 auto 32px;max-width:500px;text-align:left}
-    .benefits-container{background:linear-gradient(135deg,rgba(230,168,230,0.15),rgba(255,182,193,0.12));border:2px solid rgba(230,168,230,0.3);border-radius:16px;padding:20px;box-shadow:0 4px 12px rgba(230,168,230,0.1),inset 0 1px 0 rgba(255,255,255,0.1);backdrop-filter:blur(10px)}
+    .benefits-container{background:linear-gradient(135deg,rgba(34,139,34,0.25),rgba(0,100,0,0.18));border:2px solid rgba(34,139,34,0.5);border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(34,139,34,0.2),inset 0 1px 0 rgba(255,255,255,0.15),0 0 20px rgba(34,139,34,0.1);backdrop-filter:blur(10px)}
     .benefits-list ul{margin:0;padding:0 0 0 24px;list-style-type:disc;list-style-position:outside}
     .benefits-list li{margin:6px 0;color:var(--text);font-size:14px;line-height:1.4}
-    .benefits-list li::marker{color:var(--pink)}
+    .benefits-list li::marker{color:var(--green)}
     .success-message{display:none;background:rgba(40,167,69,0.1);border:2px solid rgba(40,167,69,0.5);border-radius:12px;padding:24px;margin-bottom:20px;color:#28a745;font-size:14px;font-weight:600;text-align:center;max-width:500px;width:100%;box-sizing:border-box}
     .success-message.show{display:block !important}
     .success-message h3{color:#28a745;margin:0 0 12px 0;font-size:18px}
@@ -255,33 +255,35 @@
             </div>
           </div>
 
-          <h1 class="join-title">🚀 Join our Kickstarter Prelaunch!</h1>
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">
+              We launch on <span style="color: #b4eb83;">Kickstarter</span> October 1st!
+            </div>
+            <div id="launchCountdown" style="color: #888; font-weight: 400; font-size: 16px;">(calculating...)</div>
+          </div>
+          
+          <h1 class="join-title" style="font-size: clamp(18px, 2.5vw, 22px);">Meanwhile, join our E-Mail Newsletter! 📨</h1>
+          
           <p class="join-subtitle" style="margin-bottom: 16px;">
-            <strong>Launches October 1st! <span id="launchCountdown" style="color: #888; font-weight: 400;">(calculating...)</span></strong><br>
-            Sign up for updates, get an <span style="color: var(--gold); font-weight: 600;">early bird discount</span> and be first in line when we go live.
+            You will get notified on launch day and be able to receive an early bird discount!
           </p>
           
           <div class="email-form-container">
             
             <!-- Benefits list moved above the email form -->
+            <!-- TEMPORARILY COMMENTED OUT - Newsletter signup perks
             <div class="benefits-list" style="margin: 24px 0;">
               <div class="benefits-container">
-                <div style="text-align: center; color: var(--pink); font-weight: 600; margin-bottom: 16px; text-shadow: 0 0 8px rgba(230,168,230,0.5);">✨ SIGN-UP PERKS</div>
+                <div style="text-align: center; color: #b4eb83; font-weight: 700; margin-bottom: 16px; text-shadow: 0 0 15px rgba(34,139,34,0.8), 0 0 25px rgba(34,139,34,0.6), 0 0 35px rgba(34,139,34,0.4); font-size: 1.1em; letter-spacing: 1px;">🌟 NEWSLETTER SIGN-UP PERKS</div>
                 <ul>
-                  <li>Early bird <strong>discount</strong> when we launch</li>
-                  <li><strong>Launch day</strong> notifications & updates</li>
-                  <li>Free <strong>giveaway</strong> entry (5 Base Editions!)</li>
-                  <li><strong>Free shipping</strong> in EU/US</li>
+                  <li>🎯 Early bird <strong>discount</strong> when we launch <span style="color: #999; font-style: italic;">($5 off)</span></li>
+                  <li>🚀 <strong>Launch day</strong> notifications & updates</li>
+                  <li>🎁 Free <strong>giveaway</strong> entry (5 Base Editions!)</li>
+                  <li>📦 <strong>Free shipping</strong> in EU/US</li>
                 </ul>
               </div>
             </div>
-            
-            <!-- Animated arrows pointing to input -->
-            <div style="display: flex; justify-content: center; gap: 5px; margin-bottom: 20px; height: 40px;">
-              <div style="color: var(--gold); font-size: 40px; animation: arrowBounce 1.5s ease-in-out infinite;">↓</div>
-              <div style="color: var(--gold); font-size: 40px; animation: arrowBounce 1.5s ease-in-out infinite;">↓</div>
-              <div style="color: var(--gold); font-size: 40px; animation: arrowBounce 1.5s ease-in-out infinite;">↓</div>
-            </div>
+            END COMMENTED OUT SECTION -->
             
             <!-- Email form that submits to your backend -->
             <form class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
@@ -297,7 +299,7 @@
               <input type="hidden" name="source" value="join_page">
               <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
               <button type="submit" class="email-submit" id="joinEmailSubmitBtn">
-                <span>Get Updates</span>
+                <span>Notify me on Launch</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
                 </svg>
