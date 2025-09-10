@@ -68,32 +68,40 @@
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
   <link rel="dns-prefetch" href="https://events.reddit.com">
   
-  <!-- Google tag (GA4) - Defer to not block initial render -->
+  <!-- Preload critical below-the-fold images -->
+  <link rel="prefetch" href="gameplay.png" as="image">
+  <link rel="prefetch" href="card_showcase.png" as="image">
+  
+  <!-- Google tag (GA4) - Optimized loading -->
   <script>
-    // Defer Google Analytics loading
-    setTimeout(() => {
+    // Initialize dataLayer immediately
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} 
+    window.gtag = gtag;
+    
+    // Load GA4 after critical content
+    function loadGA4() {
       const script = document.createElement('script');
       script.async = true;
       script.src = 'https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z';
       document.head.appendChild(script);
       
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);} 
       gtag('js', new Date());
       gtag('config', 'G-M366HCYL8Z', {
         transport_type: 'beacon',
         anonymize_ip: true,
-        allow_google_signals: false
+        allow_google_signals: false,
+        page_title: 'Join Newsletter',
+        page_location: window.location.href
       });
-      window.gtag = gtag;
-      
-      // Track immediately after GA4 init for comparison
-      gtag('event', 'ga4_ready', {
-        event_category: 'technical',
-        event_label: 'ga4_initialized',
-        value: 1
-      });
-    }, 100);
+    }
+    
+    // Load after page is interactive
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(loadGA4, 200));
+    } else {
+      setTimeout(loadGA4, 200);
+    }
   </script>
   
   <!-- Critical CSS (above-the-fold) -->
@@ -151,6 +159,28 @@
     }
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
     .join-content{animation:fadeIn 0.3s ease-in-out}
+    
+    /* Lazy loading optimizations */
+    .lazy-load {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .lazy-load.loaded {
+      opacity: 1;
+    }
+    
+    /* Prevent layout shift for images */
+    img[data-src] {
+      background: rgba(255,255,255,0.1);
+      min-height: 200px;
+    }
+    
+    /* Optimize critical rendering path */
+    #gameplaySection {
+      contain: layout style paint;
+    }
+    
     @media(max-width:768px){
       .join-content{padding:20px 16px}
       .join-logo{max-width:320px;margin:20px auto 30px}
@@ -206,18 +236,17 @@
     }
   </style>
   
-  <!-- Fix CSS preload - remove invalid "media" attribute for preload -->
+  <!-- Optimized CSS loading -->
   <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="styles.css?v=2025081801"></noscript>
   
-  <!-- Performance monitoring and optimization - defer to not block -->
+  <!-- Remove performance.js loading delay -->
   <script>
-    setTimeout(() => {
-      const script = document.createElement('script');
-      script.src = 'performance.js?v=1.0.0';
-      script.defer = true;
-      document.head.appendChild(script);
-    }, 500);
+    // Load optimized performance monitoring immediately but asynchronously
+    const perfScript = document.createElement('script');
+    perfScript.src = 'performance-optimized.js';
+    perfScript.async = true;
+    document.head.appendChild(perfScript);
   </script>
   
   <!-- Service Worker Registration -->
@@ -340,12 +369,12 @@
       </div>
     </div>
     
-    <!-- Gameplay Showcase Section -->
-    <div style="max-width: 800px; margin: 60px auto 40px; padding: 0 28px;">
+    <!-- Gameplay Showcase Section - Lazy Loaded -->
+    <div id="gameplaySection" style="max-width: 800px; margin: 60px auto 40px; padding: 0 28px; opacity: 0; transition: opacity 0.5s ease;">
       <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
         <!-- Gameplay Image -->
         <div style="flex: 1; min-width: 300px;">
-          <img src="gameplay.png" alt="Countryball Cards Gameplay" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3);">
+          <img data-src="gameplay.png" alt="Countryball Cards Gameplay" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s ease;" class="lazy-load">
         </div>
         
         <!-- Game Description -->
@@ -365,7 +394,7 @@
         <div class="cards-collection-container" style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap; flex-direction: row-reverse;">
           <!-- Cards Image (on the right) -->
           <div class="cards-image" style="flex: 1; min-width: 250px; max-width: 350px; display: flex; justify-content: center; align-items: center;">
-            <img src="card_showcase.png" alt="Countryball Cards Collection" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); max-width: 320px;">
+            <img data-src="card_showcase.png" alt="Countryball Cards Collection" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); max-width: 320px; opacity: 0; transition: opacity 0.3s ease;" class="lazy-load">
           </div>
           
           <!-- Cards Description (on the left) -->
@@ -525,6 +554,73 @@
       }
     }
 
+    // Lazy loading functionality for below-the-fold content
+    function initLazyLoading() {
+      const gameplaySection = document.getElementById('gameplaySection');
+      const lazyImages = document.querySelectorAll('.lazy-load');
+      
+      // Create intersection observer for the main section
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Fade in the section
+            entry.target.style.opacity = '1';
+            sectionObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        rootMargin: '50px 0px', // Start loading 50px before it comes into view
+        threshold: 0.1
+      });
+      
+      // Create intersection observer for images
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.getAttribute('data-src');
+            if (src) {
+              img.onload = function() {
+                img.style.opacity = '1';
+              };
+              img.src = src;
+              img.removeAttribute('data-src');
+            }
+            imageObserver.unobserve(img);
+          }
+        });
+      }, {
+        rootMargin: '100px 0px', // Start loading 100px before it comes into view
+        threshold: 0.1
+      });
+      
+      // Observe the gameplay section
+      if (gameplaySection) {
+        sectionObserver.observe(gameplaySection);
+      }
+      
+      // Observe all lazy images
+      lazyImages.forEach(img => {
+        imageObserver.observe(img);
+      });
+      
+      // Fallback for browsers without IntersectionObserver
+      if (!('IntersectionObserver' in window)) {
+        console.log('IntersectionObserver not supported, loading content immediately');
+        if (gameplaySection) {
+          gameplaySection.style.opacity = '1';
+        }
+        lazyImages.forEach(img => {
+          const src = img.getAttribute('data-src');
+          if (src) {
+            img.src = src;
+            img.style.opacity = '1';
+            img.removeAttribute('data-src');
+          }
+        });
+      }
+    }
+
     // Initialize country detection when page loads
     document.addEventListener('DOMContentLoaded', function() {
       detectCountryAndShowGreeting();
@@ -554,6 +650,9 @@
       // Update countdown immediately and then every second
       updateLaunchCountdown();
       setInterval(updateLaunchCountdown, 1000); // Update every second
+      
+      // Initialize lazy loading
+      initLazyLoading();
     });
 
     // Simple success message handler for backend responses
@@ -694,10 +793,10 @@
     }
   </script>
 
-  <!-- Reddit Pixel Code - Defer to not block initial render -->
+  <!-- Reddit Pixel Code - Optimized loading -->
   <script>
-    // Defer Reddit Pixel to improve load time
-    setTimeout(() => {
+    // Load Reddit Pixel after critical content is rendered
+    function loadRedditPixel() {
       !function(w,d){
         if(!w.rdt){
           var p=w.rdt=function(){
@@ -705,7 +804,8 @@
           };
           p.callQueue=[];
           var t=d.createElement("script");
-          t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;
+          t.src="https://www.redditstatic.com/ads/pixel.js";
+          t.async=true;
           var s=d.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(t,s)
         }
@@ -716,13 +816,28 @@
         useDecimalCurrencyValues: true
       });
       rdt('track', 'PageVisit');
-    }, 200);
+    }
+    
+    // Load after page becomes interactive
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(loadRedditPixel, 500));
+    } else {
+      setTimeout(loadRedditPixel, 500);
+    }
   </script>
 
-  <!-- Load analytics tracking -->
+  <!-- Load analytics tracking optimized -->
   <script>
-    // Wait for GA4 to be ready before loading analytics
-    function waitForGtag(callback, maxAttempts = 50) {
+    // Optimized analytics loading
+    function loadAnalytics() {
+      const script = document.createElement('script');
+      script.src = 'analytics.js?v=2025090902';
+      script.async = true;
+      document.head.appendChild(script);
+    }
+    
+    // Load analytics after GA4 is ready
+    function waitForGtag(callback, maxAttempts = 20) {
       let attempts = 0;
       function check() {
         if (typeof window.gtag !== 'undefined') {
@@ -731,20 +846,19 @@
           attempts++;
           setTimeout(check, 100);
         } else {
-          console.warn('GA4 not ready after 5 seconds, loading analytics anyway');
+          // Load anyway if GA4 takes too long
           callback();
         }
       }
       check();
     }
     
-    // Load analytics script after GA4 is ready
-    waitForGtag(() => {
-      const script = document.createElement('script');
-      script.src = 'analytics.js?v=2025090902';
-      script.defer = true;
-      document.head.appendChild(script);
-    });
+    // Start analytics loading process
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => waitForGtag(loadAnalytics));
+    } else {
+      waitForGtag(loadAnalytics);
+    }
   </script>
 </body>
 </html>

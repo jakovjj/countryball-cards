@@ -683,7 +683,13 @@
 
   <script src="analytics.js" defer></script>
   <script src="main.js" defer></script>
-  <script src="performance.js" defer></script>
+  <!-- Load optimized performance monitoring -->
+  <script>
+    const perfScript = document.createElement('script');
+    perfScript.src = 'performance-optimized.js';
+    perfScript.async = true;
+    document.head.appendChild(perfScript);
+  </script>
   
   <!-- Service Worker Registration -->
   <script>
