@@ -68,7 +68,11 @@
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
   <link rel="dns-prefetch" href="https://events.reddit.com">
   
-  <!-- Preload critical below-the-fold images -->
+  <!-- Preload critical above-the-fold images -->
+  <link rel="preload" href="card.webp" as="image" type="image/webp">
+  <link rel="preload" href="card.png" as="image" type="image/png">
+  
+  <!-- Preload below-the-fold images for faster loading -->
   <link rel="prefetch" href="gameplay.png" as="image">
   <link rel="prefetch" href="card_showcase.png" as="image">
   
@@ -251,26 +255,7 @@
         <img src="card.webp" alt="Countryball Cards" class="join-logo" style="opacity:1;" onerror="this.src='card.png'; this.onerror=null;">
         
         <script>
-          // Lazy load the logo after page is interactive
-          function loadLogo() {
-            const logo = document.querySelector('.join-logo.lazy-load');
-            if (logo && logo.dataset.src) {
-              const img = new Image();
-              img.onload = function() {
-                logo.src = this.src;
-                logo.style.opacity = '1';
-                logo.classList.remove('lazy-load');
-              };
-              img.src = logo.dataset.src;
-            }
-          }
-          
-          // Load logo after a short delay to not block initial render
-          if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => setTimeout(loadLogo, 100));
-          } else {
-            setTimeout(loadLogo, 100);
-          }
+          // Logo loads immediately - no lazy loading needed for above-the-fold content
         </script>
         
         <div class="success-message" id="successMessage" style="display:none;">
@@ -400,7 +385,7 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: var(--gold);">
             <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
           </svg>
-          <span style="color: var(--text); font-weight: 600;">15-25 minutes</span>
+          <span style="color: var(--text); font-weight: 600;">30-60 minutes</span>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: var(--gold);">
