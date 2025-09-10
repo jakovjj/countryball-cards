@@ -160,22 +160,6 @@
     @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
     .join-content{animation:fadeIn 0.3s ease-in-out}
     
-    /* Lazy loading optimizations */
-    .lazy-load {
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .lazy-load.loaded {
-      opacity: 1;
-    }
-    
-    /* Prevent layout shift for images */
-    img[data-src] {
-      background: rgba(255,255,255,0.1);
-      min-height: 200px;
-    }
-    
     /* Optimize critical rendering path */
     #gameplaySection {
       contain: layout style paint;
@@ -264,7 +248,7 @@
   <div class="wrap">
     <div class="frame">
       <div class="join-container">
-        <img data-src="card.webp" alt="Countryball Cards" class="join-logo lazy-load" style="opacity:0;transition:opacity 0.3s ease" onerror="this.style.display='none';">
+        <img src="card.webp" alt="Countryball Cards" class="join-logo" style="opacity:1;" onerror="this.src='card.png'; this.onerror=null;">
         
         <script>
           // Lazy load the logo after page is interactive
@@ -369,12 +353,12 @@
       </div>
     </div>
     
-    <!-- Gameplay Showcase Section - Lazy Loaded -->
+    <!-- Gameplay Showcase Section - Fixed Image Loading -->
     <div id="gameplaySection" style="max-width: 800px; margin: 60px auto 40px; padding: 0 28px; opacity: 0; transition: opacity 0.5s ease;">
       <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
         <!-- Gameplay Image -->
         <div style="flex: 1; min-width: 300px;">
-          <img data-src="gameplay.png" alt="Countryball Cards Gameplay" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.3s ease;" class="lazy-load">
+          <img src="gameplay.png" alt="Countryball Cards Gameplay" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); opacity: 1;">
         </div>
         
         <!-- Game Description -->
@@ -394,7 +378,7 @@
         <div class="cards-collection-container" style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap; flex-direction: row-reverse;">
           <!-- Cards Image (on the right) -->
           <div class="cards-image" style="flex: 1; min-width: 250px; max-width: 350px; display: flex; justify-content: center; align-items: center;">
-            <img data-src="card_showcase.png" alt="Countryball Cards Collection" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); max-width: 320px; opacity: 0; transition: opacity 0.3s ease;" class="lazy-load">
+            <img src="card_showcase.png" alt="Countryball Cards Collection" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); max-width: 320px; opacity: 1;">
           </div>
           
           <!-- Cards Description (on the left) -->
@@ -554,70 +538,41 @@
       }
     }
 
-    // Lazy loading functionality for below-the-fold content
-    function initLazyLoading() {
+    // Simplified section loading - just fade in the section
+    function initSectionLoading() {
       const gameplaySection = document.getElementById('gameplaySection');
-      const lazyImages = document.querySelectorAll('.lazy-load');
       
-      // Create intersection observer for the main section
+      if (!gameplaySection) return;
+      
+      // Create intersection observer for the main section only
       const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Fade in the section
+            console.log('Section coming into view - showing content');
             entry.target.style.opacity = '1';
             sectionObserver.unobserve(entry.target);
           }
         });
       }, {
-        rootMargin: '50px 0px', // Start loading 50px before it comes into view
-        threshold: 0.1
-      });
-      
-      // Create intersection observer for images
-      const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            const src = img.getAttribute('data-src');
-            if (src) {
-              img.onload = function() {
-                img.style.opacity = '1';
-              };
-              img.src = src;
-              img.removeAttribute('data-src');
-            }
-            imageObserver.unobserve(img);
-          }
-        });
-      }, {
-        rootMargin: '100px 0px', // Start loading 100px before it comes into view
+        rootMargin: '50px 0px',
         threshold: 0.1
       });
       
       // Observe the gameplay section
-      if (gameplaySection) {
-        sectionObserver.observe(gameplaySection);
-      }
+      sectionObserver.observe(gameplaySection);
       
-      // Observe all lazy images
-      lazyImages.forEach(img => {
-        imageObserver.observe(img);
-      });
+      // Fallback: show section after 2 seconds regardless
+      setTimeout(() => {
+        if (gameplaySection.style.opacity !== '1') {
+          console.log('Fallback: showing section after 2 seconds');
+          gameplaySection.style.opacity = '1';
+        }
+      }, 2000);
       
       // Fallback for browsers without IntersectionObserver
       if (!('IntersectionObserver' in window)) {
-        console.log('IntersectionObserver not supported, loading content immediately');
-        if (gameplaySection) {
-          gameplaySection.style.opacity = '1';
-        }
-        lazyImages.forEach(img => {
-          const src = img.getAttribute('data-src');
-          if (src) {
-            img.src = src;
-            img.style.opacity = '1';
-            img.removeAttribute('data-src');
-          }
-        });
+        console.log('IntersectionObserver not supported, showing content immediately');
+        gameplaySection.style.opacity = '1';
       }
     }
 
@@ -651,8 +606,17 @@
       updateLaunchCountdown();
       setInterval(updateLaunchCountdown, 1000); // Update every second
       
-      // Initialize lazy loading
-      initLazyLoading();
+      // Initialize section loading (simplified)
+      initSectionLoading();
+      
+      // Simple fallback: show section after 1 second regardless
+      setTimeout(() => {
+        const gameplaySection = document.getElementById('gameplaySection');
+        if (gameplaySection && gameplaySection.style.opacity !== '1') {
+          console.log('Final fallback: showing section after 1 second');
+          gameplaySection.style.opacity = '1';
+        }
+      }, 1000);
     });
 
     // Simple success message handler for backend responses
