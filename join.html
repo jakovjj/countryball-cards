@@ -638,9 +638,21 @@
             successMessage.style.display = 'block';
             successMessage.classList.add('show');
             
-            // Track Meta Pixel CompleteRegistration event
+            // Track Meta Pixel CompleteRegistration event with source differentiation
             if (typeof fbq !== 'undefined') {
-              fbq('track', 'CompleteRegistration');
+              fbq('track', 'CompleteRegistration', {
+                content_name: 'Newsletter Signup',
+                content_category: 'Email Marketing',
+                custom_data: {
+                  signup_source: 'join_page_redirect'
+                }
+              });
+              
+              // Also track a custom event for the top signup
+              fbq('trackCustom', 'TopSignupComplete', {
+                source: 'main_form',
+                page: 'join_page'
+              });
             }
           }
         } else if (status === 'error') {
@@ -722,6 +734,16 @@
           showInvalidEmail();
           return false;
         }
+        
+        // Track top form signup attempt
+        if (typeof fbq !== 'undefined') {
+          fbq('trackCustom', 'TopSignupAttempt', {
+            source: 'main_form',
+            page: 'join_page',
+            email_domain: email.split('@')[1]
+          });
+        }
+        
         // If email is valid, allow normal form submission
         return true;
       });
@@ -761,8 +783,160 @@
           }, 1000);
           return false;
         }
+        
+        // Track bottom form signup attempt
+        if (typeof fbq !== 'undefined') {
+          fbq('trackCustom', 'BottomSignupAttempt', {
+            source: 'bottom_form',
+            page: 'join_page',
+            email_domain: email.split('@')[1]
+          });
+        }
+        
+        return true;
       });
     }
+
+    // Meta Pixel: Advanced tracking for scroll depth and engagement
+    (function() {
+      // Track JavaScript support and page load
+      if (typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'JavaScriptSupported', {
+          user_agent: navigator.userAgent,
+          screen_resolution: screen.width + 'x' + screen.height,
+          viewport_size: window.innerWidth + 'x' + window.innerHeight
+        });
+        
+        // Track page fully loaded
+        window.addEventListener('load', function() {
+          fbq('trackCustom', 'PageFullyLoaded', {
+            load_time: performance.now(),
+            page: 'join_page'
+          });
+        });
+      }
+      
+      // Scroll tracking
+      let scrollTracking = {
+        25: false,
+        50: false,
+        75: false,
+        100: false
+      };
+      
+      function trackScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.round((scrollTop / documentHeight) * 100);
+        
+        // Track scroll milestones
+        Object.keys(scrollTracking).forEach(milestone => {
+          if (!scrollTracking[milestone] && scrollPercent >= parseInt(milestone)) {
+            scrollTracking[milestone] = true;
+            
+            if (typeof fbq !== 'undefined') {
+              fbq('trackCustom', 'ScrollDepth', {
+                scroll_depth: milestone + '%',
+                page: 'join_page',
+                timestamp: Date.now()
+              });
+            }
+          }
+        });
+        
+        // Track if user scrolled to bottom signup form
+        const bottomForm = document.getElementById('bottomEmailForm');
+        if (bottomForm && !scrollTracking.bottomFormVisible) {
+          const rect = bottomForm.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            scrollTracking.bottomFormVisible = true;
+            if (typeof fbq !== 'undefined') {
+              fbq('trackCustom', 'BottomFormViewed', {
+                page: 'join_page',
+                scroll_to_view: true
+              });
+            }
+          }
+        }
+      }
+      
+      // Throttled scroll event listener
+      let scrollTimeout;
+      window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(trackScroll, 100);
+      });
+      
+      // Track time spent on page
+      let startTime = Date.now();
+      let timeTracked = {
+        30: false,  // 30 seconds
+        60: false,  // 1 minute
+        120: false, // 2 minutes
+        300: false  // 5 minutes
+      };
+      
+      function trackTimeOnPage() {
+        const timeSpent = Math.round((Date.now() - startTime) / 1000);
+        
+        Object.keys(timeTracked).forEach(threshold => {
+          if (!timeTracked[threshold] && timeSpent >= parseInt(threshold)) {
+            timeTracked[threshold] = true;
+            
+            if (typeof fbq !== 'undefined') {
+              fbq('trackCustom', 'TimeOnPage', {
+                duration_seconds: threshold,
+                page: 'join_page',
+                engagement_level: timeSpent > 120 ? 'high' : timeSpent > 60 ? 'medium' : 'low'
+              });
+            }
+          }
+        });
+      }
+      
+      // Check time on page every 10 seconds
+      setInterval(trackTimeOnPage, 10000);
+      
+      // Track page exit/unload
+      window.addEventListener('beforeunload', function() {
+        const timeSpent = Math.round((Date.now() - startTime) / 1000);
+        if (typeof fbq !== 'undefined') {
+          fbq('trackCustom', 'PageExit', {
+            total_time_seconds: timeSpent,
+            page: 'join_page',
+            bounce: timeSpent < 30
+          });
+        }
+      });
+      
+      // Track form focus events
+      const topEmailInput = document.getElementById('joinEmailInput');
+      const bottomEmailInput = document.getElementById('bottomEmailInput');
+      
+      if (topEmailInput) {
+        topEmailInput.addEventListener('focus', function() {
+          if (typeof fbq !== 'undefined') {
+            fbq('trackCustom', 'TopFormFocus', {
+              source: 'main_form',
+              page: 'join_page'
+            });
+          }
+        });
+      }
+      
+      if (bottomEmailInput) {
+        bottomEmailInput.addEventListener('focus', function() {
+          if (typeof fbq !== 'undefined') {
+            fbq('trackCustom', 'BottomFormFocus', {
+              source: 'bottom_form',
+              page: 'join_page'
+            });
+          }
+        });
+      }
+    })();
   </script>
 
   <!-- Reddit Pixel Code - Optimized loading -->
