@@ -64,26 +64,26 @@ function initCountdown() {
 
 // ===== COUNTRY DETECTION & BACKGROUND =====
 const countryBackgrounds = {
-  'US': 'us-bg.png',
-  'DE': 'germany-bg.png',
-  'CA': 'canada-bg.png',
-  'NL': 'netherlands-bg.png',
-  'SE': 'sweden-bg.png',
-  'FR': 'france-bg.png',
-  'GB': 'uk-bg.png',
-  'CH': 'switzerland-bg.png',
-  'PL': 'poland-bg.png',
-  'NO': 'norway-bg.png',
-  'RU': 'russia-bg.png',
-  'RO': 'romania-bg.png',
-  'MX': 'mexico-bg.png',
-  'IT': 'italy-bg.png',
-  'AU': 'australia-bg.png',
-  'CA': 'canada-bg.png',
-  'UA': 'ukraine-bg.png',
-  'TR': 'turkey-bg.png',
-  'CN': 'china-bg.png',
-  'JP': 'japan-bg.png'
+  'US': 'bg/us.png',
+  'DE': 'bg/germany.png',
+  'CA': 'bg/canada.png',
+  'NL': 'bg/netherlands.png',
+  'SE': 'bg/sweden.png',
+  'FR': 'bg/france.png',
+  'GB': 'bg/uk.png',
+  'CH': 'bg/switzerland.png',
+  'PL': 'bg/poland.png',
+  'NO': 'bg/norway.png',
+  'RU': 'bg/russia.png',
+  'RO': 'bg/romania.png',
+  'MX': 'bg/mexico.png',
+  'IT': 'bg/italy.png',
+  'AU': 'bg/australia.png',
+  'CA': 'bg/canada.png',
+  'UA': 'bg/ukraine.png',
+  'TR': 'bg/turkey.png',
+  'CN': 'bg/china.png',
+  'JP': 'bg/japan.png'
 };
 
 async function detectCountryAndSetBackground(){
