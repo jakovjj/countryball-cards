@@ -4,6 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
+  
+  <!-- Prevent caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  
   <title>Join Newsletter & Get Updates - Countryball Cards</title>
   <meta name="description" content="Join the Countryball Cards newsletter for Kickstarter updates. Get notified when we launch October 1st, 2025 and receive exclusive updates." />
   <link rel="canonical" href="https://countryballcards.com/join.html" />
@@ -273,14 +279,14 @@
   </style>
   
   <!-- Optimized CSS loading -->
-  <link rel="preload" href="styles.css?v=2025081801" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css?v=2025081801"></noscript>
+  <link rel="preload" href="styles.css?v=2025092001" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css?v=2025092001"></noscript>
   
   <!-- Remove performance.js loading delay -->
   <script>
     // Load optimized performance monitoring immediately but asynchronously
     const perfScript = document.createElement('script');
-    perfScript.src = 'performance-optimized.js';
+    perfScript.src = 'performance-optimized.js?v=2025092001';
     perfScript.async = true;
     document.head.appendChild(perfScript);
   </script>
@@ -971,7 +977,7 @@
     // Optimized analytics loading
     function loadAnalytics() {
       const script = document.createElement('script');
-      script.src = 'analytics.js?v=2025090902';
+      script.src = 'analytics.js?v=2025092001';
       script.async = true;
       document.head.appendChild(script);
     }
