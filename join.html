@@ -8,7 +8,7 @@
   <meta name="description" content="Join the Countryball Cards newsletter for Kickstarter updates. Get notified when we launch October 1st, 2025 and receive exclusive updates." />
   <link rel="canonical" href="https://countryballcards.com/join.html" />
   <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#151515" />
+  <meta name="theme-color" content="#ffffff" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -69,8 +69,8 @@
   <link rel="dns-prefetch" href="https://events.reddit.com">
   
   <!-- Preload critical above-the-fold images -->
-  <link rel="preload" href="card.webp" as="image" type="image/webp">
-  <link rel="preload" href="card.png" as="image" type="image/png">
+  <link rel="preload" href="logo.png" as="image" type="image/png">
+  <link rel="preload" href="logo.png" as="image" type="image/png">
   
   <!-- Preload below-the-fold images for faster loading -->
   <link rel="prefetch" href="gameplay.png" as="image">
@@ -110,13 +110,13 @@
   
   <!-- Critical CSS (above-the-fold) -->
   <style>
-    :root{--bg:#151515;--card:#1d1d1d;--gold:#c7a455;--text:#eee;--muted:#b7b7b7;--pink:#e6a8e6}
+    :root{--bg:#ffffff;--card:#f8f9fa;--gold:#c7a455;--text:#333333;--muted:#666666;--pink:#e6a8e6}
     *{box-sizing:border-box;max-width:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;max-width:100vw}
     .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
     .frame{border:none;border-radius:18px;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
-    .join-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center}
-    .join-logo{max-width:400px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 8px rgba(199,164,85,0.3));transition:all 0.5s ease;position:relative;animation:float 3s ease-in-out infinite}
+    .join-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center;width:100%}
+    .join-logo{max-width:500px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 8px rgba(199,164,85,0.3));transition:all 0.5s ease;position:relative;animation:float 3s ease-in-out infinite;width:100%}
     .join-logo:hover{filter:drop-shadow(0 0 12px rgba(199,164,85,0.5));transform:scale(1.02) translateY(var(--float-offset, 0px))}
     .join-logo::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;background:radial-gradient(circle at 20% 30%, rgba(255,255,255,0.2) 1px, transparent 2px),radial-gradient(circle at 80% 70%, rgba(199,164,85,0.3) 1px, transparent 2px),radial-gradient(circle at 60% 15%, rgba(255,255,255,0.1) 1px, transparent 2px);pointer-events:none;opacity:0.6;animation:sparkle 3s ease-in-out infinite}
     @keyframes float{0%,100%{transform:translateY(0px);--float-offset:0px}50%{transform:translateY(-8px);--float-offset:-8px}}
@@ -124,7 +124,7 @@
     .join-title{font-size:clamp(28px,5vw,36px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .join-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
     .benefits-list{margin:0 auto 32px;max-width:500px;text-align:left}
-    .benefits-container{background:linear-gradient(135deg,rgba(34,139,34,0.25),rgba(0,100,0,0.18));border:2px solid rgba(34,139,34,0.5);border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(34,139,34,0.2),inset 0 1px 0 rgba(255,255,255,0.15),0 0 20px rgba(34,139,34,0.1);backdrop-filter:blur(10px)}
+    .benefits-container{background:linear-gradient(135deg,rgba(34,139,34,0.15),rgba(0,100,0,0.08));border:2px solid rgba(34,139,34,0.3);border-radius:16px;padding:20px;box-shadow:0 8px 24px rgba(34,139,34,0.15),inset 0 1px 0 rgba(0,0,0,0.05),0 0 20px rgba(34,139,34,0.08);backdrop-filter:blur(10px)}
     .benefits-list ul{margin:0;padding:0 0 0 24px;list-style-type:disc;list-style-position:outside}
     .benefits-list li{margin:6px 0;color:var(--text);font-size:14px;line-height:1.4}
     .benefits-list li::marker{color:var(--green)}
@@ -138,9 +138,9 @@
     .join-footer a{color:var(--gold);text-decoration:none}
     .join-footer a:hover{text-decoration:underline}
     .email-form-container{max-width:400px;width:100%;text-align:center;margin:0 auto}
-    .email-input{padding:16px 20px;border:2px solid rgba(255,255,255,0.2);border-radius:12px !important;background:rgba(255,255,255,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(255,255,255,0.1);text-align:center;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;-webkit-border-radius:12px !important;-moz-border-radius:12px !important;animation:emailGlow 2s ease-in-out infinite}
-    .email-input:focus{outline:none;border-color:rgba(255,255,255,0.4);box-shadow:0 0 0 4px rgba(255,255,255,0.2);background:rgba(255,255,255,0.08)}
-    .email-input::placeholder{color:rgba(238,238,238,0.6);text-align:center;font-weight:700}
+    .email-input{padding:16px 20px;border:2px solid rgba(0,0,0,0.2);border-radius:12px !important;background:rgba(0,0,0,0.05);color:var(--text);font-size:16px;width:100%;margin:0 auto 16px;box-sizing:border-box;transition:all 0.3s ease;box-shadow:0 0 0 2px rgba(0,0,0,0.1);text-align:center;-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;-webkit-border-radius:12px !important;-moz-border-radius:12px !important;animation:emailGlow 2s ease-in-out infinite}
+    .email-input:focus{outline:none;border-color:rgba(0,0,0,0.4);box-shadow:0 0 0 4px rgba(0,0,0,0.2);background:rgba(0,0,0,0.08)}
+    .email-input::placeholder{color:rgba(51,51,51,0.6);text-align:center;font-weight:700}
     .email-submit{padding:16px 24px;background:linear-gradient(135deg,var(--gold),#d4b866);border:none;border-radius:12px;color:var(--bg);font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;margin:0 auto}
     .email-submit:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px)}
     .form-message{margin:16px auto 0;padding:0;font-size:14px;font-weight:600;text-align:center;max-width:400px}
@@ -153,7 +153,8 @@
     svg{flex-shrink:0}
     input,button{font-family:inherit}
     @keyframes arrowBounce{0%,100%{transform:translateY(0px);opacity:0.7}50%{transform:translateY(5px);opacity:1}}
-    @keyframes emailGlow{0%,100%{box-shadow:0 0 0 2px rgba(255,255,255,0.1)}50%{box-shadow:0 0 0 4px rgba(255,255,255,0.2), 0 0 20px rgba(255,255,255,0.1)}}
+    @keyframes scrollPulse{0%,100%{opacity:0.6;transform:translateY(0px)}50%{opacity:1;transform:translateY(3px)}}
+    @keyframes emailGlow{0%,100%{box-shadow:0 0 0 2px rgba(0,0,0,0.1)}50%{box-shadow:0 0 0 4px rgba(0,0,0,0.2), 0 0 20px rgba(0,0,0,0.1)}}
     @keyframes bounce{0%,20%,53%,80%,100%{transform:translateY(0)}40%,43%{transform:translateY(-8px)}70%{transform:translateY(-4px)}}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes shake{
@@ -171,7 +172,7 @@
     
     @media(max-width:768px){
       .join-content{padding:20px 16px}
-      .join-logo{max-width:320px;margin:20px auto 30px}
+      .join-logo{max-width:320px;margin:20px auto 30px;display:block !important;text-align:center}
       .wrap{padding:20px}
       .frame{padding:20px}
       .benefits-list li{font-size:13px;margin:4px 0}
@@ -186,7 +187,7 @@
       }
     }
     @media(max-width:480px){
-      .join-logo{max-width:280px;margin:25px auto 35px}
+      .join-logo{max-width:280px;margin:25px auto 35px;display:block !important}
       .wrap{padding:16px}
       .frame{padding:16px}
       .benefits-list li{font-size:12px;margin:3px 0}
@@ -201,18 +202,14 @@
         appearance:none !important;
         border-style:solid !important;
         border-width:3px !important;
-        border-color:rgba(255,255,255,0.2) !important;
+        border-color:rgba(0,0,0,0.2) !important;
       }
     }
-    /* Bottom email form styles */
-    #bottomEmailForm input[type="email"]:focus{outline:none;border-color:rgba(255,255,255,0.4);box-shadow:0 0 0 3px rgba(255,255,255,0.2)}
-    #bottomEmailForm button:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-1px)}
     @media(max-width:768px){
-      #bottomEmailForm{flex-direction:column}
-      #bottomEmailForm input[type="email"]{min-width:100%}
       /* Center card showcase section on mobile */
       .cards-collection-container{flex-direction:column !important;align-items:center !important;justify-content:center !important;padding:0 16px !important}
-      .cards-collection-container .cards-image{order:1;margin-bottom:24px;text-align:center;width:100%}
+      .cards-collection-container .cards-image{order:1;margin-bottom:24px;text-align:center;width:100%;display:flex !important;justify-content:center !important;align-items:center !important}
+      .cards-collection-container .cards-image img{margin:0 auto !important;display:block !important}
       .cards-collection-container .cards-text{order:2;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 !important;box-sizing:border-box}
       .cards-collection-container .cards-text > *{max-width:400px;text-align:left;width:100%}
     }
@@ -270,7 +267,7 @@
   <div class="wrap">
     <div class="frame">
       <div class="join-container">
-        <img src="card.webp" alt="Countryball Cards" class="join-logo" style="opacity:1;" onerror="this.src='card.png'; this.onerror=null;">
+        <img src="logo.png" alt="Countryball Cards" class="join-logo" style="opacity:1;" onerror="this.src='logo.png'; this.onerror=null;">
         
         <script>
           // Logo loads immediately - no lazy loading needed for above-the-fold content
@@ -291,67 +288,24 @@
           <!-- Country Detection and Greeting -->
           <div id="countryGreeting" style="margin-bottom: 20px; text-align: center; opacity: 0; transition: opacity 0.5s ease-in-out;">
             <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
-              <img id="countryFlag" src="" alt="" style="width: 48px; height: 48px; border-radius: 50%; display: none; transition: all 0.3s ease; animation: bounce 2s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));">
-              <span id="countryText" style="color: #ffffff; font-weight: 700; font-size: 22px; text-shadow: 0 0 12px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.3);"></span>
+              <img id="countryFlag" src="" alt="" style="width: 48px; height: 48px; display: none; transition: all 0.3s ease; animation: bounce 2s ease-in-out infinite; filter: drop-shadow(0 0 8px rgba(0,0,0,0.3));">
+              <span id="countryText" style="color: #000000; font-weight: 700; font-size: 22px; text-shadow: 0 0 12px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1);"></span>
             </div>
           </div>
 
-          <div style="text-align: center; margin-bottom: 20px;">
-            <div style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">
-              We launch on <span style="color: #b4eb83;">Kickstarter</span> October 1st!
-            </div>
-            <div id="launchCountdown" style="color: #888; font-weight: 400; font-size: 16px;">(calculating...)</div>
-          </div>
-          
-          <h1 class="join-title" style="font-size: clamp(18px, 2.5vw, 22px);">Meanwhile, join our E-Mail Newsletter! 📨</h1>
-          
-          <p class="join-subtitle" style="margin-bottom: 16px;">
-            You will get notified on launch day and be able to receive an early bird discount!
-          </p>
-          
-          <div class="email-form-container">
-            
-            <!-- Benefits list moved above the email form -->
-            <!-- TEMPORARILY COMMENTED OUT - Newsletter signup perks
-            <div class="benefits-list" style="margin: 24px 0;">
-              <div class="benefits-container">
-                <div style="text-align: center; color: #b4eb83; font-weight: 700; margin-bottom: 16px; text-shadow: 0 0 15px rgba(34,139,34,0.8), 0 0 25px rgba(34,139,34,0.6), 0 0 35px rgba(34,139,34,0.4); font-size: 1.1em; letter-spacing: 1px;">🌟 NEWSLETTER SIGN-UP PERKS</div>
-                <ul>
-                  <li>🎯 Early bird <strong>discount</strong> when we launch <span style="color: #999; font-style: italic;">($5 off)</span></li>
-                  <li>🚀 <strong>Launch day</strong> notifications & updates</li>
-                  <li>🎁 Free <strong>giveaway</strong> entry (5 Base Editions!)</li>
-                  <li>📦 <strong>Free shipping</strong> in EU/US</li>
-                </ul>
+          <!-- Scroll Down Indicator -->
+          <div id="scrollIndicator" style="text-align: center; margin: 20px 0; opacity: 0; transition: opacity 0.5s ease-in-out 1s;">
+            <div style="color: var(--muted); font-size: 14px; font-weight: 500; animation: scrollPulse 2s ease-in-out infinite; cursor: pointer;" onclick="document.getElementById('gameplaySection').scrollIntoView({behavior: 'smooth'});">
+              Scroll down to see more
+              <div style="margin-top: 4px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="animation: arrowBounce 2s ease-in-out infinite;">
+                  <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
+                </svg>
               </div>
             </div>
-            END COMMENTED OUT SECTION -->
-            
-            <!-- Email form that submits to your backend -->
-            <form class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
-              <input 
-                type="email" 
-                id="joinEmailInput" 
-                name="email"
-                placeholder="📧 Enter your email address" 
-                required 
-                autocomplete="email"
-                class="email-input"
-              >
-              <input type="hidden" name="source" value="join_page">
-              <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
-              <button type="submit" class="email-submit" id="joinEmailSubmitBtn">
-                <span>Notify me on Launch</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-                </svg>
-              </button>
-              <div class="form-message" id="joinFormMessage"></div>
-            </form>
           </div>
-        </div>
-        
-        <div class="privacy-notice" style="font-size:10px;color:var(--muted);margin:12px auto 0;text-align:center;max-width:400px">
-          By subscribing, you agree to our <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a>
+
+          </div>
         </div>
       </div>
     </div>
@@ -398,7 +352,7 @@
       </div>
       
       <!-- Game Info with Clock Icon -->
-      <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin: 32px auto; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; flex-wrap: wrap; max-width: 800px;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin: 32px auto; padding: 20px; background: rgba(0,0,0,0.05); border-radius: 12px; flex-wrap: wrap; max-width: 800px;">
         <div style="display: flex; align-items: center; gap: 8px;">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="color: var(--gold);">
             <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
@@ -412,26 +366,49 @@
           <span style="color: var(--text); font-weight: 600;">2 or 4 players</span>
         </div>
       </div>
+    </div>
+    
+    <!-- Newsletter Signup Section (moved from top) -->
+    <div style="max-width: 600px; margin: 60px auto 40px; padding: 0 28px; text-align: center;">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div style="font-size: 22px; font-weight: 700; margin-bottom: 8px;">
+          We launch on <span style="color: #52c255;">Kickstarter</span> October 1st!
+        </div>
+        <div id="launchCountdown" style="color: #888; font-weight: 400; font-size: 16px;">(calculating...)</div>
+      </div>
       
-      <!-- Compact Email Signup -->
-      <div style="text-align: center; margin-top: 40px;">
-        <h3 style="color: var(--text); font-size: 18px; margin: 0 0 20px 0; font-weight: 600;">Don't miss the launch! We need your support! 🫡</h3>
-        <form class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST" id="bottomEmailForm" style="display: flex; gap: 12px; max-width: 400px; margin: 0 auto; flex-wrap: wrap;">
+      <h1 class="join-title" style="font-size: clamp(18px, 2.5vw, 22px);">Meanwhile, join our E-Mail Newsletter! 📨</h1>
+      
+      <p class="join-subtitle" style="margin-bottom: 16px;">
+        You will get notified on launch day and be able to receive an early bird discount!
+      </p>
+      
+      <div class="email-form-container">
+        <!-- Email form that submits to your backend -->
+        <form class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST" id="joinEmailForm">
           <input 
             type="email" 
-            id="bottomEmailInput" 
+            id="joinEmailInput" 
             name="email"
-            placeholder="📧 Your email" 
+            placeholder="📧 Enter your email address" 
             required 
             autocomplete="email"
-            style="flex: 1; min-width: 200px; padding: 12px 16px; border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; background: rgba(255,255,255,0.05); color: var(--text); font-size: 14px; transition: all 0.3s ease;"
+            class="email-input"
           >
-          <input type="hidden" name="source" value="bottom_signup">
+          <input type="hidden" name="source" value="join_page">
           <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
-          <button type="submit" style="padding: 12px 20px; background: linear-gradient(135deg,var(--gold),#d4b866); border: none; border-radius: 8px; color: var(--bg); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; white-space: nowrap;">
-            Get Updates
+          <button type="submit" class="email-submit" id="joinEmailSubmitBtn">
+            <span>Notify me on Launch</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+            </svg>
           </button>
+          <div class="form-message" id="joinFormMessage"></div>
         </form>
+      </div>
+      
+      <div class="privacy-notice" style="font-size:10px;color:var(--muted);margin:12px auto 0;text-align:center;max-width:400px">
+        By subscribing, you agree to our <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a>
       </div>
     </div>
     
@@ -517,6 +494,7 @@
           const greetingContainer = document.getElementById('countryGreeting');
           const flagImg = document.getElementById('countryFlag');
           const countryText = document.getElementById('countryText');
+          const scrollIndicator = document.getElementById('scrollIndicator');
           
           if (greetingContainer && flagImg && countryText) {
             // Set the flag image
@@ -530,6 +508,13 @@
             // Show the greeting container with fade-in effect
             greetingContainer.style.opacity = '1';
             
+            // Show scroll indicator after greeting is visible
+            if (scrollIndicator) {
+              setTimeout(() => {
+                scrollIndicator.style.opacity = '1';
+              }, 800);
+            }
+            
             console.log(`Showing greeting for ${country.name}: ${country.greeting}`);
           }
         } else if (debugCountry) {
@@ -537,7 +522,13 @@
         }
       } catch (error) {
         console.log('Country detection failed, using default greeting');
-        // Fallback - don't show any greeting if detection fails
+        // Fallback - show scroll indicator even if detection fails
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        if (scrollIndicator) {
+          setTimeout(() => {
+            scrollIndicator.style.opacity = '1';
+          }, 1000);
+        }
       }
     }
 
@@ -761,42 +752,6 @@
       });
     });
 
-    // Bottom email form functionality
-    const bottomEmailForm = document.getElementById('bottomEmailForm');
-    const bottomEmailInput = document.getElementById('bottomEmailInput');
-    
-    if (bottomEmailForm && bottomEmailInput) {
-      function validateBottomEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      }
-      
-      bottomEmailForm.addEventListener('submit', function(e) {
-        const email = bottomEmailInput.value.trim();
-        if (!email || !validateBottomEmail(email)) {
-          e.preventDefault();
-          bottomEmailInput.style.borderColor = '#d4654d';
-          bottomEmailInput.style.boxShadow = '0 0 0 3px rgba(212,101,77,0.3)';
-          setTimeout(() => {
-            bottomEmailInput.style.borderColor = 'rgba(255,255,255,0.2)';
-            bottomEmailInput.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.1)';
-          }, 1000);
-          return false;
-        }
-        
-        // Track bottom form signup attempt
-        if (typeof fbq !== 'undefined') {
-          fbq('trackCustom', 'BottomSignupAttempt', {
-            source: 'bottom_form',
-            page: 'join_page',
-            email_domain: email.split('@')[1]
-          });
-        }
-        
-        return true;
-      });
-    }
-
     // Meta Pixel: Advanced tracking for scroll depth and engagement
     (function() {
       // Track JavaScript support and page load
@@ -844,14 +799,14 @@
           }
         });
         
-        // Track if user scrolled to bottom signup form
-        const bottomForm = document.getElementById('bottomEmailForm');
-        if (bottomForm && !scrollTracking.bottomFormVisible) {
-          const rect = bottomForm.getBoundingClientRect();
+        // Track if user scrolled to gameplay section
+        const gameplaySection = document.getElementById('gameplaySection');
+        if (gameplaySection && !scrollTracking.gameplaySectionVisible) {
+          const rect = gameplaySection.getBoundingClientRect();
           if (rect.top < window.innerHeight && rect.bottom > 0) {
-            scrollTracking.bottomFormVisible = true;
+            scrollTracking.gameplaySectionVisible = true;
             if (typeof fbq !== 'undefined') {
-              fbq('trackCustom', 'BottomFormViewed', {
+              fbq('trackCustom', 'GameplaySectionViewed', {
                 page: 'join_page',
                 scroll_to_view: true
               });
@@ -913,24 +868,12 @@
       
       // Track form focus events
       const topEmailInput = document.getElementById('joinEmailInput');
-      const bottomEmailInput = document.getElementById('bottomEmailInput');
       
       if (topEmailInput) {
         topEmailInput.addEventListener('focus', function() {
           if (typeof fbq !== 'undefined') {
             fbq('trackCustom', 'TopFormFocus', {
               source: 'main_form',
-              page: 'join_page'
-            });
-          }
-        });
-      }
-      
-      if (bottomEmailInput) {
-        bottomEmailInput.addEventListener('focus', function() {
-          if (typeof fbq !== 'undefined') {
-            fbq('trackCustom', 'BottomFormFocus', {
-              source: 'bottom_form',
               page: 'join_page'
             });
           }
