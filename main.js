@@ -87,6 +87,7 @@ const countryBackgrounds = {
 };
 
 async function detectCountryAndSetBackground(){
+  // Background functionality disabled for white theme
   // Track that country detection started
   if (typeof gtag !== 'undefined') {
     gtag('event', 'country_detection_started', {
@@ -123,6 +124,8 @@ async function detectCountryAndSetBackground(){
       });
     }
     
+    // Background image and overlay functionality disabled for white theme
+    /*
     let backgroundImage = countryBackgrounds[countryCode] || countryBackgrounds['PL'];
     const img = new Image();
     img.onload = () => {
@@ -136,6 +139,7 @@ async function detectCountryAndSetBackground(){
       document.body.appendChild(overlay);
     };
     img.src = backgroundImage;
+    */
   } catch (e) {
     // Track country detection failure
     if (typeof gtag !== 'undefined') {
@@ -146,9 +150,10 @@ async function detectCountryAndSetBackground(){
       });
     }
 
-    // Fallback to Poland background
+    // Fallback to Poland background - disabled for white theme
     trackCountryDetection('PL_FALLBACK');
     
+    /*
     const backgroundImage = countryBackgrounds['PL'];
     const img = new Image();
     img.onload = () => {
@@ -162,6 +167,7 @@ async function detectCountryAndSetBackground(){
       document.body.appendChild(overlay);
     };
     img.src = backgroundImage;
+    */
   }
 }
 
