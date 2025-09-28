@@ -685,8 +685,8 @@ font-size:16px}
 }
 
 .bottom-cta-btn {
-  background: var(--gold);
-  color: var(--bg);
+  background: var(--kickstarter);
+  color: white;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
@@ -695,12 +695,15 @@ font-size:16px}
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .bottom-cta-btn:hover {
-  background: #d4b866;
+  background: #04b86a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(199, 164, 85, 0.3);
+  box-shadow: 0 4px 15px rgba(5, 206, 120, 0.3);
+  color: white;
 }
 
 /* Flash animation for bottom CTA */
@@ -710,7 +713,7 @@ font-size:16px}
 
 @keyframes ctaFlash {
   0%, 100% { 
-    background: var(--gold);
+    background: var(--kickstarter);
     transform: scale(1);
   }
   50% { 
@@ -1673,16 +1676,16 @@ a:focus-visible {
 }
 
 .bottom-popup-btn.primary {
-  background: var(--gold);
-  color: var(--bg);
+  background: var(--kickstarter);
+  color: white;
   padding: 12px 20px;
   font-size: 14px;
 }
 
 .bottom-popup-btn.primary:hover {
-  background: #d4b866;
+  background: #04b86a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(199, 164, 85, 0.3);
+  box-shadow: 0 4px 12px rgba(5, 206, 120, 0.3);
 }
 
 .bottom-popup-close {

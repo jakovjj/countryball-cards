@@ -1,7 +1,7 @@
 // ===== KICKSTARTER COUNTDOWN =====
 function initCountdown() {
-  // Kickstarter launch date: October 1st, 2025 at 22:15 CEST
-  const launchDate = new Date('2025-10-01T20:15:00.000Z'); // 22:15 CEST = 20:15 UTC
+  // Kickstarter launch date: October 1st, 2025 at 12:00 PM EST
+  const launchDate = new Date('2025-10-01T16:00:00.000Z'); // 12 PM EST = 4 PM UTC
   
   function updateCountdown() {
     const now = new Date().getTime();
