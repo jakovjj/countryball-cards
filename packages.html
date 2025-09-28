@@ -679,6 +679,7 @@
       border-color: #8b5cf6;
       background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
       position: relative;
+      height: 520px;
     }
     
     /* Extended Edition card needs relative positioning for sticker */
@@ -693,7 +694,25 @@
       right: -22px;
       width: 110px;
       height: 110px;
-      background-image: url('extended.png');
+      background-image: url('extended_badge.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 50%;
+      z-index: 1000;
+      opacity: 1;
+      transform: rotate(-10deg);
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .founders-sticker {
+      position: absolute;
+      top: -22px;
+      right: -22px;
+      width: 110px;
+      height: 110px;
+      background-image: url('founders_badge.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -752,6 +771,7 @@
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.03));
       position: relative;
       overflow: hidden;
+      height: 520px;
     }
     
     .package-card.founders-edition::before {
@@ -951,7 +971,7 @@
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
             <li><span class="feature-check">✓</span> Perfect for 2-4 players</li>
           </ul>
-          <a href="join.html" class="select-package-btn">Sign Up</a>
+          <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" class="select-package-btn">Order Now</a>
         </div>
 
         <!-- 2-Pack -->
@@ -968,7 +988,7 @@
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
             <li><span class="feature-check">✓</span> Perfect for tournaments</li>
           </ul>
-          <a href="join.html" class="select-package-btn">Sign Up</a>
+          <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" class="select-package-btn">Order Now</a>
         </div>
 
         <!-- Extended Edition -->
@@ -987,40 +1007,42 @@
               <li><span class="feature-check">✓</span> Enhanced gameplay components</li>
               <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
             </ul>
-            <a href="join.html" class="select-package-btn">Sign Up</a>
+            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" class="select-package-btn">Order Now</a>
           </div>
           <div class="extended-sticker"></div>
         </div>
 
         <!-- Founder's Edition -->
-        <div class="package-card founders-edition">
-          <div class="package-header">
-            <div class="package-name">Founder's Edition</div>
-            <div class="package-price">$70</div>
-            <div class="package-subtitle">The ultimate collector's package</div>
+        <div style="position: relative;">
+          <div class="package-card founders-edition">
+            <div class="package-header">
+              <div class="package-name">Founder's Edition</div>
+              <div class="package-price">$70</div>
+              <div class="package-subtitle">The ultimate collector's package</div>
+            </div>
+            <ul class="package-features">
+              <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
+              <li><span class="feature-check">✓</span> Numbered Founder's certificate card</li>
+              <li><span class="feature-check">✓</span> 5 holographic Countryball Cards</li>
+              <li><span class="feature-check">✓</span> 8 blank templates for custom cards</li>
+              <li><span class="feature-check">✓</span> Limited collector's edition</li>
+              <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
+            </ul>
+            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" class="select-package-btn">Order Now</a>
           </div>
-          <ul class="package-features">
-            <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
-            <li><span class="feature-check">✓</span> Numbered Founder's certificate card</li>
-            <li><span class="feature-check">✓</span> 5 holographic Countryball Cards</li>
-            <li><span class="feature-check">✓</span> 8 blank templates for custom cards</li>
-            <li><span class="feature-check">✓</span> Limited collector's edition</li>
-            <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
-          </ul>
-          <a href="join.html" class="select-package-btn">Sign Up</a>
+          <div class="founders-sticker"></div>
         </div>
       </div>
 
       <div class="base-content">
         <h3>Included in All Versions</h3>
         <ul>
-          <li><span class="feature-check">✓</span> 20 Countryball Cards (+ 1 Evolution Card)</li>
+          <li><span class="feature-check">✓</span> 20x Countryball Cards</li>
           <li><span class="feature-check">✓</span> 20-Sided Dice</li>
-          <li><span class="feature-check">✓</span> 60 Resource Cards (15 per resource)</li>
-          <li><span class="feature-check">✓</span> 15 Skull Markers (Hit Tags)</li>
-          <li><span class="feature-check">✓</span> 60 Coin Tokens</li>
-          <li><span class="feature-check">✓</span> 8 Special Cards</li>
-          <li><span class="feature-check">✓</span> 4 Dice for the Resource Market</li>
+          <li><span class="feature-check">✓</span> 60x Resource Cards (15 per resource)</li>
+          <li><span class="feature-check">✓</span> 50x Coin Tokens & 20x Damage Tokens</li>
+          <li><span class="feature-check">✓</span> 8x Special Cards</li>
+          <li><span class="feature-check">✓</span> 4x 6-Sided Dice for the Resource Market</li>
           <li><span class="feature-check">✓</span> Complete Rules & Strategy Guide</li>
         </ul>
       </div>
