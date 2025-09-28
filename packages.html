@@ -942,7 +942,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">Base Game</div>
-            <div class="package-price" data-eur="34">34€ / $39</div>
+            <div class="package-price">$35</div>
             <div class="package-subtitle">Perfect for getting started</div>
           </div>
           <ul class="package-features">
@@ -958,7 +958,7 @@
         <div class="package-card">
           <div class="package-header">
             <div class="package-name">2-Pack</div>
-            <div class="package-price" data-eur="59">59€ / $69</div>
+            <div class="package-price">$60</div>
             <div class="package-subtitle">Great value for friends</div>
           </div>
           <ul class="package-features">
@@ -976,7 +976,7 @@
           <div class="package-card extended-edition">
             <div class="package-header">
               <div class="package-name">Extended Edition</div>
-              <div class="package-price" data-eur="49">49€ / $59</div>
+              <div class="package-price">$50</div>
               <div class="package-subtitle">Enhanced gameplay experience</div>
             </div>
             <ul class="package-features">
@@ -996,13 +996,13 @@
         <div class="package-card founders-edition">
           <div class="package-header">
             <div class="package-name">Founder's Edition</div>
-            <div class="package-price" data-eur="69">69€ / $81</div>
+            <div class="package-price">$70</div>
             <div class="package-subtitle">The ultimate collector's package</div>
           </div>
           <ul class="package-features">
             <li><span class="feature-check">✓</span> Everything from Extended Edition</li>
             <li><span class="feature-check">✓</span> Numbered Founder's certificate card</li>
-            <li><span class="feature-check">✓</span> 5 holographic Megaball evolution cards</li>
+            <li><span class="feature-check">✓</span> 5 holographic Countryball Cards</li>
             <li><span class="feature-check">✓</span> 8 blank templates for custom cards</li>
             <li><span class="feature-check">✓</span> Limited collector's edition</li>
             <li><span class="feature-check">✓</span> Free shipping (see zones below)</li>
@@ -1116,11 +1116,11 @@
             <p>All EU countries and the US.</p>
           </div>
           <div class="shipping-zone">
-            <h4 class="shipping-price" data-eur="4" data-usd="5">4€/$5 SHIPPING</h4>
+            <h4 class="shipping-price" data-eur="4" data-usd="5">$5 SHIPPING</h4>
             <p>AL, BA, CH, ME, MK, NO, RS, UA, UK</p>
           </div>
           <div class="shipping-zone">
-            <h4 class="shipping-price" data-eur="12" data-usd="14">12€/$14 SHIPPING</h4>
+            <h4 class="shipping-price" data-eur="12" data-usd="14">$15 SHIPPING</h4>
             <p>Rest of the world (e.g., Australia, Canada, Japan, NZ...)</p>
           </div>
         </div>
@@ -1697,76 +1697,14 @@
     }
     
     function showPricesForRegion(countryCode) {
-      const isEurozone = eurozoneCountries.includes(countryCode);
-      
-      // Update package prices
-      document.querySelectorAll('.package-price').forEach(el => {
-        if (isEurozone) {
-          // Show only EUR: "25€ / $29" → "25€"
-          const originalText = el.textContent;
-          if (originalText.includes(' / ')) {
-            el.textContent = originalText.split(' / ')[0];
-          }
-        } else {
-          // Show only USD: "25€ / $29" → "$29"
-          const originalText = el.textContent;
-          if (originalText.includes(' / ')) {
-            el.textContent = originalText.split(' / ')[1];
-          } else if (originalText.includes('€')) {
-            // Convert from EUR display to USD
-            const eurValue = parseInt(originalText.replace('€', ''));
-            let usdValue;
-            switch(eurValue) {
-              case 25: usdValue = 29; break;
-              case 40: usdValue = 47; break;
-              case 35: usdValue = 41; break;
-              case 50: usdValue = 59; break;
-              default: usdValue = Math.round(eurValue * 1.17);
-            }
-            el.textContent = `$${usdValue}`;
-          }
-        }
-      });
-      
-      // Update shipping prices
-      document.querySelectorAll('.shipping-price').forEach(el => {
-        if (isEurozone) {
-          // Show only EUR: "4€ / $5 SHIPPING" → "4€ SHIPPING"
-          const originalText = el.textContent;
-          if (originalText.includes(' / ')) {
-            el.textContent = originalText.replace(/ \/ \$\d+ SHIPPING/, ' SHIPPING');
-          }
-        } else {
-          // Show only USD: "4€ / $5 SHIPPING" → "$5 SHIPPING"
-          const originalText = el.textContent;
-          if (originalText.includes(' / ')) {
-            const usdPart = originalText.match(/\$(\d+) SHIPPING/);
-            if (usdPart) {
-              el.textContent = `$${usdPart[1]} SHIPPING`;
-            }
-          } else if (originalText.match(/€[\d.]+/)) {
-            // Convert from EUR display to USD
-            const eurMatch = originalText.match(/€([\d.]+)/);
-            if (eurMatch) {
-              const eurValue = parseFloat(eurMatch[1]);
-              let usdValue;
-              if (eurValue === 4) usdValue = 5;
-              else if (eurValue === 5.5) usdValue = 6;
-              else if (eurValue === 12) usdValue = 14;
-              else usdValue = Math.round(eurValue * 1.17);
-              el.textContent = `$${usdValue} SHIPPING`;
-            }
-          }
-        }
-      });
-      
-      console.log(`Showing ${isEurozone ? 'EUR only' : 'USD only'} prices for ${countryCode}`);
+      // Prices are now fixed in USD - no conversion needed
+      console.log(`Showing USD prices for ${countryCode}`);
       
       // Track currency display
       if (typeof gtag !== 'undefined') {
         gtag('event', 'currency_displayed', {
           event_category: 'user_data',
-          event_label: isEurozone ? 'EUR' : 'USD',
+          event_label: 'USD',
           custom_parameter: countryCode,
           value: 1
         });
