@@ -47,7 +47,7 @@
       {
         "@type": "HowToStep",
         "name": "Game Setup",
-        "text": "Both players draw 2 cards, choose 1 to keep and reveal, discard 1. Repeat 3 times for 3 cards each. Roll 4 resource dice for market prices and D20 to determine first player."
+        "text": "Both players draw 2 cards, choose 1 to keep and reveal, discard 1. Repeat 3 times for 3 cards each. Roll 4 resource dice for market prices and 20-sided die to determine first player."
       },
       {
         "@type": "HowToStep", 
@@ -67,7 +67,7 @@
       },
       {
         "@type": "HowToSupply", 
-        "name": "D20 Combat Die"
+        "name": "20-Sided Combat Die"
       },
       {
         "@type": "HowToSupply",
@@ -97,7 +97,7 @@
     
     .crash-course {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
       margin: 20px 0;
     }
@@ -166,7 +166,7 @@
     }
     
     .crash-step h4 {
-      color: var(--gold);
+      color: #000;
       margin: 0 0 8px 0;
       font-size: 18px;
     }
@@ -205,7 +205,7 @@
     }
     
     .rules-nav h3 {
-      color: var(--gold);
+      color: #000;
       margin: 0 0 12px 0;
       font-size: 18px;
     }
@@ -235,7 +235,7 @@
     
     .rules-nav a:hover {
       background: rgba(199, 164, 85, 0.15);
-      color: var(--gold);
+      color: #000;
       border-color: rgba(199, 164, 85, 0.5);
     }
     
@@ -250,7 +250,7 @@
     }
     
     .rules-section h2 {
-      color: var(--gold);
+      color: #000;
       font-size: 28px;
       margin: 0 0 20px 0;
       display: flex;
@@ -267,7 +267,7 @@
     }
     
     .rules-section h4 {
-      color: var(--gold);
+      color: #000;
       font-size: 18px;
       margin: 16px 0 8px 0;
     }
@@ -326,7 +326,7 @@
       box-shadow: 0 4px 16px rgba(34, 197, 94, 0.1);
     }    .component h4 {
       margin: 0 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
     }
     
@@ -448,7 +448,7 @@
     
     .phase h4 {
       margin: 0 0 12px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 18px;
     }
     
@@ -492,7 +492,7 @@
     }
     
     .victory-condition h4 {
-      color: var(--gold);
+      color: #000;
       margin: 0 0 12px 0;
       font-size: 18px;
     }
@@ -515,7 +515,7 @@
       margin: 0 0 16px 0;
       border: none;
       padding: 0;
-      color: var(--gold);
+      color: #000;
     }
     
     .ability-structure {
@@ -534,7 +534,7 @@
     
     .ability-part h4 {
       margin: 0 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
     }
     
@@ -554,7 +554,7 @@
     
     .card-example h4 {
       margin: 0 0 12px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 18px;
     }
     
@@ -564,7 +564,7 @@
     
     .special-cards-info h4 {
       margin: 20px 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
     }
     
@@ -585,7 +585,7 @@
     
     .resource h4 {
       margin: 0 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
     }
     
@@ -605,7 +605,7 @@
     
     .market-info h4 {
       margin: 0 0 12px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 18px;
     }
     
@@ -633,7 +633,7 @@
     
     .combat-rules h4 {
       margin: 16px 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
       padding: 8px 12px;
       background: rgba(199, 164, 85, 0.1);
@@ -760,7 +760,7 @@
     
     .tip-card h4 {
       margin: 0 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
     }
     
@@ -776,7 +776,7 @@
     
     .mindset-tips h4 {
       margin: 20px 0 8px 0;
-      color: var(--gold);
+      color: #000;
       font-size: 16px;
     }
     
@@ -790,7 +790,7 @@
     }
     
     .rules-footer h3 {
-      color: var(--gold);
+      color: #000;
       margin: 0 0 16px 0;
       font-size: 20px;
       border: none;
@@ -833,6 +833,10 @@
         grid-template-columns: repeat(2, 1fr);
       }
       
+      .crash-course {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
       .ability-structure {
         grid-template-columns: 1fr;
       }
@@ -867,6 +871,153 @@
         min-height: auto;
       }
     }
+
+    @media (max-width: 480px) {
+      .crash-course {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Countryball Types Section */
+    .countryball-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    .type-category {
+      background: rgba(199, 164, 85, 0.05);
+      border: 1px solid rgba(199, 164, 85, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .type-category:hover {
+      background: rgba(199, 164, 85, 0.1);
+      border-color: rgba(199, 164, 85, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .type-category h4 {
+      margin: 0 0 12px 0;
+      color: #000;
+      font-size: 18px;
+    }
+
+    .type-category p {
+      margin: 0 0 16px 0;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .type-examples {
+      margin-top: 12px;
+    }
+
+    .example-tag {
+      background: rgba(199, 164, 85, 0.15);
+      color: #000;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .strategy-tips {
+      background: rgba(82, 194, 85, 0.05);
+      border: 1px solid rgba(82, 194, 85, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+
+    .strategy-tips h4 {
+      margin: 0 0 12px 0;
+      color: #52c255;
+      font-size: 18px;
+    }
+
+    .strategy-tips ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .strategy-tips li {
+      margin: 8px 0;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* Turn Order Section */
+    .turn-order-explanation {
+      background: rgba(199, 164, 85, 0.05);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .turn-round h5 {
+      margin: 0 0 8px 0;
+      color: #000;
+      font-size: 16px;
+    }
+
+    .turn-round ol {
+      margin: 0 0 16px 0;
+      padding-left: 20px;
+    }
+
+    .turn-round li {
+      margin: 4px 0;
+      color: var(--text);
+    }
+
+    .turn-example {
+      background: rgba(82, 194, 85, 0.1);
+      border-radius: 6px;
+      padding: 12px;
+      margin: 12px 0;
+    }
+
+    .turn-example p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .turn-tip {
+      background: rgba(52, 152, 219, 0.1);
+      border-left: 3px solid #3498db;
+      padding: 12px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 12px;
+    }
+
+    .turn-tip p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    @media (max-width: 900px) and (min-width: 720px) {
+      .crash-course {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .countryball-types-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .type-category {
+        padding: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -874,7 +1025,7 @@
     <div class="frame">
       <header class="rules-header" aria-label="Rules header">
         <h1 class="rules-title">
-          <img src="logo.png" alt="Countryball Cards" class="logo" style="max-height:80px;margin:0 0 6px 0;" onerror="this.style.display='none'">
+          <img src="logo.png" alt="Countryball Cards" class="logo" style="max-height:180px;margin:0 0 6px 0;" onerror="this.style.display='none'">
           <span class="visually-hidden">Countryball Cards</span>
           Game Rules
         </h1>
@@ -898,7 +1049,7 @@
         </div>
       </header>
 
-      <p class="rules-sub">Learn how to play Countryball Cards - the strategic countryball-themed card game. Master the art of building alliances, managing resources, and conquering your opponents!</p>
+      <p class="rules-sub">Learn how to play Countryball Cards, the strategic countryball-themed card game! Master the art of building teams, managing resources, and conquering your opponents!</p>
 
       <div class="rules-content">
         <nav class="rules-nav">
@@ -907,11 +1058,12 @@
             <li><a href="#crash-course">Crash Course</a></li>
             <li><a href="#overview">Game Overview</a></li>
             <li><a href="#components">Game Components</a></li>
+            <li><a href="#countryball-types">Countryball Types</a></li>
             <li><a href="#setup">Game Setup</a></li>
             <li><a href="#gameplay">How to Play</a></li>
-            <li><a href="#special-rules">Combat & Abilities</a></li>
             <li><a href="#project-cards">Project Cards</a></li>
             <li><a href="#team-mode">2v2 Team Mode</a></li>
+            <li><a href="#banners-united">Banners United</a></li>
           </ul>
         </nav>
 
@@ -920,19 +1072,19 @@
           <div class="crash-course">
             <div class="crash-step">
               <h4>1. Setup</h4>
-              <p>Both players draw 2 <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;">, choose 1 to keep and reveal, discard 1. Repeat 3 times for 3 cards each. Roll 4 resource dice to set market prices. Roll <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;"> to determine first player (highest starts).</p>
+              <p>Both players draw 2 <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;">, choose 1 to keep and reveal, discard 1. Repeat 3 times for 3 cards each. Roll 4 resource dice to set market prices at the start of each round. Roll <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;"> to determine first player (highest starts).</p>
             </div>
             <div class="crash-step">
               <h4>2. Your Turn</h4>
-              <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> (10 on start). Buy/sell resources at market prices (selling is done at 1 coin below market price). Use <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities (pay costs). Attack enemies</p>
+              <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> (10 on first round). Buy/sell resources at market prices (selling is done at 1 coin below market price). Use <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities (pay costs). Attack enemies.</p>
             </div>
             <div class="crash-step">
               <h4>3. Abilities</h4>
-              <p>Roll <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;"> when using certain abilities. If you roll a number greater or equal to the one shown, you successfully execute the ability. Attacks give 1 damage token <img src="icons/skull.png" alt="damage token" style="height:16px;vertical-align:middle;margin:0 2px;"> and stun the target by default.</p>
+              <p>Roll <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;"> when using certain abilities. If you roll a number greater or equal to the one shown, you successfully execute the ability. By default, attacks give 1 damage token <img src="icons/damage_token.png" alt="damage token" style="height:16px;vertical-align:middle;margin:0 2px;"> and stun the target when successful.</p>
             </div>
             <div class="crash-step">
               <h4>4. Win</h4>
-              <p>Give each enemy countryball 3 damage tokens <img src="icons/skull.png" alt="damage tokens" style="height:16px;vertical-align:middle;margin:0 2px;"> to eliminate them. Last player standing wins! <img src="icons/crown.png" alt="victory" style="height:16px;vertical-align:middle;margin:0 2px;"></p>
+              <p>Give each enemy countryball 3 damage tokens <img src="icons/damage_token.png" alt="damage tokens" style="height:16px;vertical-align:middle;margin:0 2px;"> to eliminate them. Last player standing wins! <img src="icons/crown.png" alt="victory" style="height:16px;vertical-align:middle;margin:0 2px;"></p>
             </div>
           </div>
         </section>
@@ -955,25 +1107,64 @@
         </section>
 
         <section id="components" class="rules-section">
-          <h2><img src="icons/coin_resource.png" alt="Components" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Game Components</h2>
+          <h2>Game Components</h2>
           
-          <div class="components-grid">
-            <div class="component">
-              <h4>Countryball Cards</h4>
-              <p>Both players draw 2 cards, choose 1 to keep and reveal, discard 1. Repeat 3 times for 3 cards each.</p>
+          <ul style="margin-left: 20px; line-height: 1.6;">
+            <li><strong>Countryball Cards</strong> (20-30) - Main playing cards with unique abilities</li>
+            <li><strong>Resource Cards</strong> (60) - Track owned resources</li>
+            <li><strong>Project Cards</strong> - Provide ongoing strategic benefits</li>
+            <li><strong>Damage Tokens</strong> (20) - Track combat damage</li>
+            <li><strong>Coin Tokens</strong> (50) - Game currency for purchases</li>
+            <li><strong>Resource Dice</strong> (4) - Generate resources: Grains, Horse, Oil, Iron</li>
+            <li><strong>Combat Die</strong> (1) - Resolve abilities and combat</li>
+          </ul>
+        </section>
+
+        <section id="countryball-types" class="rules-section">
+          <h2>Countryball Types</h2>
+          <p>Understanding countryball specializations helps you build effective strategies and counter your opponents.</p>
+          
+          <div class="countryball-types-grid">
+            <div class="type-category">
+              <h4><img src="icons/offensive.png" alt="Combat" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Combat</h4>
+              <p>Attack-focused countryballs that deal damage and eliminate enemies. Good at aggressive strategies and direct confrontation.</p>
+              <div class="type-examples">
+                <span class="example-tag">Examples: Germany, Sweden, Australia</span>
+              </div>
             </div>
-            <div class="component">
-              <h4>Coin Tokens</h4>
-              <p>Gain 5 coins each turn (10 if it's the first turn). Spend coins on resources and abilities.</p>
+            
+            <div class="type-category">
+              <h4><img src="icons/defensive.png" alt="Defense" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Defense</h4>
+              <p>Protection-focused countryballs that shield allies and absorb damage. Good at surviving attacks and supporting teammates.</p>
+              <div class="type-examples">
+                <span class="example-tag">Examples: Belgium, Canada, United Kingdom</span>
+              </div>
             </div>
-            <div class="component">
-              <h4>Resource Dice (4)</h4>
-              <p>Yellow (Grains), Brown (Horse), Black (Oil), Gray (Iron). 6-sided dice with faces: 2, 3, 3, 4, 4, 5.</p>
+            
+            <div class="type-category">
+              <h4><img src="icons/economic.png" alt="Economy" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Economy</h4>
+              <p>Resource-focused countryballs that generate wealth and manage markets. Good at earning coins and controlling resource prices.</p>
+              <div class="type-examples">
+                <span class="example-tag">Examples: Netherlands, China, Switzerland</span>
+              </div>
             </div>
-            <div class="component">
-              <h4>D20 Combat Die</h4>
-              <p>Used for ability rolls and combat resolution. Roll to meet or exceed ability requirements.</p>
+            
+            <div class="type-category">
+              <h4><img src="icons/misc.png" alt="Uncategorized" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Uncategorized</h4>
+              <p>Flexible countryballs with unique abilities that don't fit other categories. Good at providing special effects and utility.</p>
+              <div class="type-examples">
+                <span class="example-tag">Examples: France, India, Turkey</span>
+              </div>
             </div>
+          </div>
+          
+          <div class="strategy-tips">
+            <h4><img src="icons/crown.png" alt="Strategy" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Strategic Considerations</h4>
+            <ul>
+              <li><strong>Balanced Teams:</strong> Mix different types for well-rounded strategies</li>
+              <li><strong>Type Synergies:</strong> Some countryballs work better together than others</li>
+              <li><strong>Counter-Play:</strong> Identify opponent types and adapt your strategy accordingly</li>
+            </ul>
           </div>
         </section>
 
@@ -983,9 +1174,9 @@
           
           <div class="market-info">
             <h4><img src="icons/dice.png" alt="Market Dice" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Resource Market Dice</h4>
-            <p>Each resource has a colored 6-sided die that determines its price. Dice faces show: <strong>2, 3, 3, 4, 4, 5</strong> coins. Roll all 4 dice at game start to set initial prices. Prices change during gameplay based on market events. <strong>Sell price is always 1 coin lower than buy price.</strong></p>
+            <p>Each resource has a colored 6-sided die that determines its price. Dice faces show: <strong>2, 3, 3, 4, 4, 5</strong> coins. Roll all 4 dice at the start of each round to set prices. <strong>Sell price is always 1 coin lower than buy price.</strong></p>
             <ul>
-              <li><strong>Yellow Die:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grains price</li>
+              <li><strong>Yellow Die:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grain price</li>
               <li><strong>Brown Die:</strong> <img src="icons/horse_resource.png" alt="Horse" style="height:16px;vertical-align:middle;margin:0 2px;"> Horse price</li>
               <li><strong>Black Die:</strong> <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> Oil price</li>
               <li><strong>Gray Die:</strong> <img src="icons/iron_resource.png" alt="Iron" style="height:16px;vertical-align:middle;margin:0 2px;"> Iron price</li>
@@ -999,52 +1190,41 @@
 
           <div class="phase">
             <h4><img src="icons/coin_resource.png" alt="Coins" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Gain Coins & Trade</h4>
-            <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;">, then buy/sell resources at current dice prices (shown on the 4 colored dice). <strong>Sell price is always 1 coin lower than buy price.</strong> <strong>Resources:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grains (Yellow), <img src="icons/horse_resource.png" alt="Horse" style="height:16px;vertical-align:middle;margin:0 2px;"> Horse (Brown), <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> Oil (Black), <img src="icons/iron_resource.png" alt="Iron" style="height:16px;vertical-align:middle;margin:0 2px;"> Iron (Gray)</p>
+            <p>Get 5 <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"> (10 if it's the first round), then buy/sell resources at current dice prices (shown on the 4 colored dice). <strong>Sell price is always 1 coin lower than buy price.</strong> <strong>Resources:</strong> <img src="icons/grains_resource.png" alt="Grains" style="height:16px;vertical-align:middle;margin:0 2px;"> Grains (Yellow), <img src="icons/horse_resource.png" alt="Horse" style="height:16px;vertical-align:middle;margin:0 2px;"> Horse (Brown), <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> Oil (Black), <img src="icons/iron_resource.png" alt="Iron" style="height:16px;vertical-align:middle;margin:0 2px;"> Iron (Gray)</p>
           </div>
 
           <div class="phase">
             <h4><img src="icons/card.png" alt="Abilities" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Use Abilities</h4>
-            <p>Pay resource costs to activate <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities multiple times. Each ability shows its cost and effect.</p>
-          </div>
-
-          <div class="phase">
-            <h4><img src="icons/sword.png" alt="Combat" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Battle</h4>
-            <p>Attack enemies: Pay resource cost → Roll <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;"> (if required) → Need number shown on <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> or higher to hit → Hit = stun + 1 <img src="icons/skull.png" alt="damage token" style="height:16px;vertical-align:middle;margin:0 2px;">. Give each enemy countryball 3 damage tokens <img src="icons/skull.png" alt="damage tokens" style="height:16px;vertical-align:middle;margin:0 2px;"> to eliminate them.</p>
-            <div class="combat-note">
-              <strong>Note:</strong> Failed attacks still cost resources. Stunned cards can't act next turn.
+            <p>Pay resource costs to activate <img src="icons/card.png" alt="card" style="height:16px;vertical-align:middle;margin:0 2px;"> abilities. Each ability shows its cost and effect. Unless said otherwise, an ability can be activated multiple times if you can pay the costs.</p>
+            
+            <div class="combat-rules" style="margin-top: 16px;">
+              <h4><img src="icons/card.png" alt="Abilities" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Understanding Abilities</h4>
+              <p><strong>Format:</strong> Ability Name + Resource Cost (e.g. <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"><img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> means 2 Oil) + Effect Description + Dice Roll Requirement (e.g. <img src="icons/dice.png" alt="dice" style="height:16px;vertical-align:middle;margin:0 2px;">≥12 means you need a roll of 12 or higher on the 20-sided die)</p>
+              
+              <h4><img src="icons/sword.png" alt="Attack" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Attack Abilities</h4>
+              <p>Some abilities are attacks that deal damage. Pay resources and, if required, roll the D20 dice <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;">. If you roll the number shown or higher you made a successful hit! By default, a successful hit stuns the target and gives it 1 damage token <img src="icons/damage_token.png" alt="damage token" style="height:16px;vertical-align:middle;margin:0 2px;">.</p>
+              
+              <h4><img src="icons/crown.png" alt="Non-Attack" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Non-Attack Abilities</h4>
+              <p>Some abilities provide other effects (resource generation, healing, etc.) but may still require dice rolls for success.</p>
+              
+              <h4><img src="icons/shield.png" alt="Stun" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Stun Mechanic</h4>
+              <p>Stunned <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;"> can't use abilities next turn, then automatically reactivate. To mark the card as stunned, rotate it sideways.</p>
+              
+              <h4><img src="icons/card.png" alt="Multiple Targets" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Multiple Targets</h4>
+              <p>When an ability affects multiple targets and there is the word "each" written next to the dice icon, roll separately for each attack.</p>
+              
+              <h4><img src="icons/damage_token.png" alt="Failed" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Failed Attempts</h4>
+              <p>Resources are still consumed even if the dice roll fails - risk vs reward!</p>
             </div>
           </div>
 
           <div class="phase">
             <h4><img src="icons/crown.png" alt="Victory" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Win</h4>
-            <p>Eliminate all enemy countryballs (3 damage tokens <img src="icons/skull.png" alt="damage tokens" style="height:16px;vertical-align:middle;margin:0 2px;"> each) to win! <img src="icons/crown.png" alt="victory" style="height:16px;vertical-align:middle;margin:0 2px;"></p>
+            <p>Eliminate all enemy countryballs (3 damage tokens <img src="icons/damage_token.png" alt="damage tokens" style="height:16px;vertical-align:middle;margin:0 2px;"> each) to win! <img src="icons/crown.png" alt="victory" style="height:16px;vertical-align:middle;margin:0 2px;"></p>
           </div>
         </section>
 
-        <section id="special-rules" class="rules-section">
-          <h2><img src="icons/sword.png" alt="Combat" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Combat & Abilities</h2>
-          
-          <div class="combat-rules">
-            <h4><img src="icons/card.png" alt="Abilities" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Understanding Abilities</h4>
-            <p><strong>Format:</strong> Ability Name + Resource Cost (e.g. <img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"><img src="icons/oil_resource.png" alt="Oil" style="height:16px;vertical-align:middle;margin:0 2px;"> = 2 Oil) + Effect Description + Dice Roll Requirement (e.g. <img src="icons/dice.png" alt="dice" style="height:16px;vertical-align:middle;margin:0 2px;">>=12 = need 12+ on D20)</p>
-            
-            <h4><img src="icons/sword.png" alt="Attack" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Attack Abilities</h4>
-            <p>Some abilities are attacks that deal damage. Pay resources and, if required, roll the D20 dice <img src="icons/dice.png" alt="D20" style="height:16px;vertical-align:middle;margin:0 2px;">. If you roll the number shown or higher you made a successful hit! By default, a successful hit stuns the target and gives it 1 damage token <img src="icons/skull.png" alt="damage token" style="height:16px;vertical-align:middle;margin:0 2px;">.</p>
-            
-            <h4><img src="icons/crown.png" alt="Non-Attack" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Non-Attack Abilities</h4>
-            <p>Some abilities provide other effects (resource generation, healing, etc.) but may still require dice rolls for success.</p>
-            
-            <h4><img src="icons/shield.png" alt="Stun" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Stun Mechanic</h4>
-            <p>Stunned <img src="icons/card.png" alt="cards" style="height:16px;vertical-align:middle;margin:0 2px;"> can't use abilities next turn, then automatically reactivate.</p>
-            
-            <h4><img src="icons/card.png" alt="Multiple Targets" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Multiple Targets</h4>
-            <p>When an ability affects multiple targets and there is the word "each" written next to the dice icon, roll separately for each target.</p>
-            
-            <h4><img src="icons/skull.png" alt="Failed" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Failed Attempts</h4>
-            <p>Resources are still consumed even if the dice roll fails - risk vs reward!</p>
-          </div>
-          
-        </section>
+
 
         <section id="project-cards" class="rules-section">
           <h2><img src="icons/card.png" alt="Project Cards" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Project Cards</h2>
@@ -1057,7 +1237,7 @@
             <h4><img src="icons/shield.png" alt="Passive Effects" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Passive Benefits</h4>
             <p>Project Cards provide ongoing effects without needing to be activated. These benefits apply automatically as long as the Project Card remains in play (even when it is stunned, unless mentioned otherwise).</p>
             
-            <h4><img src="icons/skull.png" alt="Elimination" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Project Elimination</h4>
+            <h4><img src="icons/damage_token.png" alt="Elimination" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Project Elimination</h4>
             <p>Project Cards are tied to their creating country's survival. If the originating countryball is eliminated, all of its Project Cards are immediately discarded.</p>
           </div>
 
@@ -1086,8 +1266,45 @@
               
               <div class="team-step">
                 <h4><img src="icons/dice.png" alt="Turn Order" style="height:20px;vertical-align:middle;margin:0 6px 0 0;"> Turn Order</h4>
-                <p><strong>Player 1 (Team A)</strong> → <strong>Player 1 (Team B)</strong> → <strong>Player 2 (Team A)</strong> → <strong>Player 2 (Team B)</strong> → Repeat</p>
+                <p>Partners sit opposite, so turns naturally alternate between the two teams. Start with a player that had the highest roll and proceed counter-clockwise.</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="rules-section" id="banners-united">
+          <h2><img src="icons/flags.png" alt="Banners United" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Banners United Expansion</h2>
+          <p>The following rules only apply when playing with the Banners United expansion (included in Extended and Founder's Edition).</p>
+          
+          <div class="expansion-content" style="background: rgba(199, 164, 85, 0.05); border: 1px solid rgba(199, 164, 85, 0.2); border-radius: 12px; padding: 24px; margin: 20px 0;">
+            <h3><img src="icons/flags.png" alt="Hireable Allies" style="height:24px;vertical-align:middle;margin:0 8px 0 0;"> Hireable Allies</h3>
+            <p>Banners United expansion introduces hireable allies to the game. <img src="icons/flags.png" alt="banners" style="height:16px;vertical-align:middle;margin:0 2px;"></p>
+            
+            <div class="expansion-details" style="margin: 16px 0;">
+              <h4>New Content</h4>
+              <ul style="margin: 8px 0; padding-left: 20px;">
+                <li><strong>10 new countryball cards:</strong> Norway, Croatia, Austria, Czechia, Finland, Spain, Portugal, Belgium, Hungary, Switzerland</li>
+                <li><strong>3 custom ally cards</strong> that signal a specific countryball is hired/hireable</li>
+              </ul>
+            </div>
+
+            <div class="hiring-rules" style="background: rgba(82, 194, 85, 0.1); border-radius: 8px; padding: 16px; margin: 16px 0;">
+              <h4><img src="icons/coin_resource.png" alt="Hiring" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Hiring Process</h4>
+              <ul style="margin: 8px 0; padding-left: 20px;">
+                <li>At game start, place <strong>three</strong> countryball cards face-up in the middle of the table (five in 2v2)</li>
+                <li>Each player can hire <strong>one</strong> ally for <strong>10 coins</strong> <img src="icons/coin_resource.png" alt="coins" style="height:16px;vertical-align:middle;margin:0 2px;"></li>
+                <li>Hired allies are added to your team like any other card</li>
+                <li>You can use their abilities anytime</li>
+              </ul>
+            </div>
+
+            <div class="ally-rules" style="background: rgba(52, 152, 219, 0.1); border-radius: 8px; padding: 16px; margin: 16px 0;">
+              <h4><img src="icons/shield.png" alt="Ally Properties" style="height:18px;vertical-align:middle;margin:0 6px 0 0;"> Special Ally Properties</h4>
+              <ul style="margin: 8px 0; padding-left: 20px;">
+                <li><strong>Cannot be stunned or attacked</strong> - they can't receive damage tokens <img src="icons/damage_token.png" alt="damage tokens" style="height:16px;vertical-align:middle;margin:0 2px;"></li>
+                <li><strong>Don't need to be eliminated</strong> for their owner to lose the game</li>
+                <li><strong>Limit:</strong> Each player can have only one hired ally</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -1101,29 +1318,6 @@
           </div>
         </div>
 
-        <section class="rules-section">
-          <h2><img src="icons/crown.png" alt="Expansion Rules" style="height:28px;vertical-align:middle;margin:0 8px 0 0;"> Expansion Rules</h2>
-          <p>Explore additional game modes and advanced mechanics with these expansion rule sets:</p>
-          <div style="display:flex;gap:16px;justify-content:center;margin:24px 0;flex-wrap:wrap;">
-            <button class="btn disabled" style="cursor:not-allowed;opacity:0.6;min-width:180px;" disabled>
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M14.5 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14.5 2M18 20H6V4H13V9H18V20Z"/>
-                </svg>
-                <span class="btn-label">Banners United</span>
-              </span>
-            </button>
-            <button class="btn disabled" style="cursor:not-allowed;opacity:0.6;min-width:180px;" disabled>
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M14.5 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14.5 2M18 20H6V4H13V9H18V20Z"/>
-                </svg>
-                <span class="btn-label">TBA</span>
-              </span>
-            </button>
-          </div>
-          <p style="text-align:center;color:var(--muted);font-style:italic;">Expansion rules coming soon! Check back for updates.</p>
-        </section>
       </div>
 
       <div class="footer" style="margin-top:18px">
