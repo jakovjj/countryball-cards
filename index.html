@@ -265,11 +265,16 @@
     .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
     .frame{border:3px solid var(--gold);border-radius:18px;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
     h1{font-size:clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
-    .countdown-banner{background:rgba(199,164,85,0.1);color:var(--text);padding:12px 16px;border-radius:12px;margin:12px 0 16px 0;text-align:center;font-weight:700;position:relative;overflow:hidden;box-sizing:border-box;max-width:100%}
+    .countdown-banner{background:rgba(199,164,85,0.1);color:var(--text);padding:12px 16px;border-radius:12px;margin:12px 0 16px 0;text-align:center;font-weight:700;position:relative;overflow:hidden;box-sizing:border-box;max-width:100%;transition:all 0.3s ease}
+    .countdown-banner.live-button{background:linear-gradient(135deg,var(--kickstarter),#04b86a);border:3px solid var(--kickstarter);padding:24px 32px;margin:24px 0;cursor:pointer;text-decoration:none;display:block;transform:scale(1);box-shadow:0 8px 25px rgba(5,206,120,0.3)}
+    .countdown-banner.live-button:hover{background:linear-gradient(135deg,#04b86a,#039c5a);transform:translateY(-3px) scale(1.02);box-shadow:0 12px 35px rgba(5,206,120,0.4)}
     .countdown-content{display:flex;flex-direction:column;align-items:center;gap:8px}
-    .countdown-label{font-size:16px;font-weight:700;letter-spacing:0.5px;color:var(--text)}
+    .countdown-label{font-size:16px;font-weight:700;letter-spacing:0.5px;color:var(--text);transition:all 0.3s ease}
+    .countdown-label.live-text{color:white;font-size:20px;margin-bottom:8px}
     .countdown-label .kickstarter-text{color:var(--kickstarter);font-weight:800}
-    .countdown-timer{display:flex;gap:8px;justify-content:center;align-items:center}
+    .countdown-label.live-text .kickstarter-text{color:white}
+    .countdown-timer{display:flex;gap:8px;justify-content:center;align-items:center;transition:all 0.3s ease}
+    .countdown-timer.live-cta{font-size:18px;color:white;font-weight:700;display:flex;align-items:center;gap:12px}
     .countdown-number{font-size:28px;font-weight:800;color:var(--text);min-width:40px;display:inline-block}
     .countdown-separator{font-size:24px;font-weight:700;color:var(--text);opacity:0.7}
     .logo-section{text-align:center;margin-bottom:24px}
@@ -291,11 +296,11 @@
     .btn-row{display:flex;align-items:center;gap:8px}
     .btn-icon{width:20px;height:20px;fill:currentColor}
     .btn-label{white-space:nowrap}
-    .main-kickstarter-cta{background:linear-gradient(135deg,rgba(5,206,120,0.12),rgba(199,164,85,0.08));border:3px solid var(--kickstarter);border-radius:20px;padding:32px;margin:32px 0;text-align:center;position:relative;overflow:hidden}
+    .main-kickstarter-cta{background:linear-gradient(135deg,rgba(5,206,120,0.12),rgba(199,164,85,0.08));border:3px solid var(--kickstarter);border-radius:20px;padding:48px 32px;margin:40px 0;text-align:center;position:relative;overflow:hidden}
     .main-kickstarter-cta::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent 30%,rgba(5,206,120,0.05) 50%,transparent 70%);pointer-events:none}
-    .kickstarter-cta-title{color:var(--text);font-size:24px;font-weight:800;margin:0 0 8px 0;text-shadow:0 1px 2px rgba(0,0,0,0.1)}
-    .kickstarter-cta-subtitle{color:var(--text);font-size:18px;margin:0 0 24px 0;opacity:0.9}
-    .kickstarter-main-btn{display:inline-flex;align-items:center;justify-content:center;padding:18px 28px;background:linear-gradient(135deg,var(--kickstarter),#04b86a);border:none;border-radius:16px;color:white;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 8px 25px rgba(5,206,120,0.3);position:relative;z-index:1;min-width:280px;max-width:100%;box-sizing:border-box}
+    .kickstarter-cta-title{color:var(--text);font-size:32px;font-weight:800;margin:0 0 12px 0;text-shadow:0 1px 2px rgba(0,0,0,0.1)}
+    .kickstarter-cta-subtitle{color:var(--text);font-size:20px;margin:0 0 32px 0;opacity:0.9}
+    .kickstarter-main-btn{display:inline-flex;align-items:center;justify-content:center;padding:24px 36px;background:linear-gradient(135deg,var(--kickstarter),#04b86a);border:none;border-radius:16px;color:white;font-size:18px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 8px 25px rgba(5,206,120,0.3);position:relative;z-index:1;min-width:320px;max-width:100%;box-sizing:border-box}
     .kickstarter-main-btn:hover{background:linear-gradient(135deg,#04b86a,#039c5a);transform:translateY(-3px);box-shadow:0 12px 35px rgba(5,206,120,0.4);color:white}
     .kickstarter-btn-content{display:flex;align-items:center;justify-content:center;gap:10px;width:100%}
     .kickstarter-btn-icon{width:22px;height:22px;flex-shrink:0;object-fit:contain}
@@ -313,22 +318,22 @@
       .btn{width:100%;max-width:280px;justify-content:center}
       .countdown-number{font-size:22px;min-width:32px}
       .countdown-banner{padding:12px 16px}
-      .main-kickstarter-cta{padding:20px 12px;margin:20px 0}
-      .kickstarter-cta-title{font-size:18px}
-      .kickstarter-cta-subtitle{font-size:15px}
-      .kickstarter-main-btn{padding:14px 16px;font-size:14px;width:calc(100% - 24px);max-width:280px;min-width:auto}
-      .kickstarter-btn-text{font-size:14px}
-      .kickstarter-btn-icon{width:18px;height:18px}
-      .kickstarter-btn-arrow{width:16px;height:16px}
-      .kickstarter-btn-content{gap:6px}
+      .main-kickstarter-cta{padding:32px 16px;margin:24px 0}
+      .kickstarter-cta-title{font-size:24px}
+      .kickstarter-cta-subtitle{font-size:16px}
+      .kickstarter-main-btn{padding:18px 20px;font-size:16px;width:calc(100% - 24px);max-width:300px;min-width:auto}
+      .kickstarter-btn-text{font-size:16px}
+      .kickstarter-btn-icon{width:20px;height:20px}
+      .kickstarter-btn-arrow{width:18px;height:18px}
+      .kickstarter-btn-content{gap:8px}
     }
     @media(max-width:320px){
-      .main-kickstarter-cta{padding:16px 8px;margin:16px 0}
-      .kickstarter-cta-title{font-size:16px}
-      .kickstarter-cta-subtitle{font-size:14px}
-      .kickstarter-main-btn{padding:12px 14px;font-size:13px;width:calc(100% - 16px);max-width:260px}
-      .kickstarter-btn-text{font-size:13px}
-      .kickstarter-btn-icon{width:16px;height:16px}
+      .main-kickstarter-cta{padding:24px 12px;margin:20px 0}
+      .kickstarter-cta-title{font-size:20px}
+      .kickstarter-cta-subtitle{font-size:15px}
+      .kickstarter-main-btn{padding:16px 16px;font-size:14px;width:calc(100% - 16px);max-width:280px}
+      .kickstarter-btn-text{font-size:14px}
+      .kickstarter-btn-icon{width:18px;height:18px}
       .kickstarter-btn-arrow{width:14px;height:14px}
       .kickstarter-btn-content{gap:5px}
     }
@@ -352,9 +357,9 @@
           <!-- Logo -->
           <img src="logo.png" alt="Countryball Cards" class="main-logo" width="600" height="240" loading="eager" fetchpriority="high">
           
-          <div class="countdown-banner">
-            <div class="countdown-content">
-              <span class="countdown-label"><span class="kickstarter-text">Kickstarter</span> Launches In:</span>
+          <div class="countdown-banner" id="countdownBanner">
+            <div class="countdown-content" id="countdownContent">
+              <span class="countdown-label" id="countdownLabel"><span class="kickstarter-text">Kickstarter</span> Launches In:</span>
               <div class="countdown-timer" id="countdownTimer">
                 <span class="countdown-number" id="days">--</span>
                 <span class="countdown-separator">:</span>
@@ -365,26 +370,6 @@
                 <span class="countdown-number" id="seconds">--</span>
               </div>
             </div>
-          </div>
-          
-          <!-- Main Kickstarter CTA -->
-          <div class="main-kickstarter-cta">
-            <h3 class="kickstarter-cta-title">🚀 Available Soon!</h3>
-            <p class="kickstarter-cta-subtitle">Back our project and secure your copy!</p>
-            
-            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" 
-               target="_blank" 
-               rel="noopener" 
-               class="kickstarter-main-btn"
-               onclick="trackKickstarterClick('main-hero')">
-              <span class="kickstarter-btn-content">
-                <img src="assets/ks.png" alt="Kickstarter" class="kickstarter-btn-icon" />
-                <span class="kickstarter-btn-text">Order on Kickstarter</span>
-                <svg class="kickstarter-btn-arrow" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
-                </svg>
-              </span>
-            </a>
           </div>
           
           <div class="cta">

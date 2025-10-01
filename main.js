@@ -42,17 +42,36 @@ function initCountdown() {
       updateWithAnimation(minutesEl, minutes);
       updateWithAnimation(secondsEl, seconds);
     } else {
-      // Launch day reached
-      const countdownBanner = document.querySelector('.countdown-banner');
-      if (countdownBanner) {
-        countdownBanner.innerHTML = `
-          <div class="countdown-content">
-            <span class="countdown-label">🎉 Kickstarter is LIVE! 🎉</span>
-            <a href="#" class="btn" style="background: var(--bg); color: var(--gold); margin-top: 8px; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 700;">
-              Back on Kickstarter Now!
-            </a>
-          </div>
+      // Launch day reached - transform countdown into button
+      const countdownBanner = document.getElementById('countdownBanner');
+      const countdownLabel = document.getElementById('countdownLabel');
+      const countdownTimer = document.getElementById('countdownTimer');
+      
+      if (countdownBanner && countdownLabel && countdownTimer) {
+        // Add button classes and make it clickable
+        countdownBanner.classList.add('live-button');
+        countdownLabel.classList.add('live-text');
+        countdownTimer.classList.add('live-cta');
+        
+        // Update content
+        countdownLabel.innerHTML = '🚀 <span class="kickstarter-text">Kickstarter</span> is Live!';
+        countdownTimer.innerHTML = `
+          <img src="assets/ks.png" alt="Kickstarter" style="width:20px;height:20px;margin-right:8px;" />
+          <span>Order on Kickstarter</span>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;margin-left:8px;">
+            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
+          </svg>
         `;
+        
+        // Make it a clickable link
+        countdownBanner.onclick = function(e) {
+          e.preventDefault();
+          trackKickstarterClick('countdown_button');
+          window.open('https://www.kickstarter.com/projects/glarestudios/countryball-cards', '_blank');
+        };
+        
+        // Add cursor pointer
+        countdownBanner.style.cursor = 'pointer';
       }
     }
   }
@@ -888,6 +907,28 @@ function trackCountryDetection(country) {
       event_category: 'user_data',
       event_label: country,
       value: 1
+    });
+  }
+}
+
+function trackKickstarterClick(source) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'kickstarter_clicked', {
+      event_category: 'conversion',
+      event_label: source,
+      value: 1
+    });
+  }
+  
+  // Track with Reddit Pixel if available
+  if (typeof rdt !== 'undefined') {
+    rdt('track', 'Lead', {
+      event_name: 'KickstarterClick',
+      content_name: 'Kickstarter Campaign',
+      content_category: 'Campaign',
+      content_ids: ['kickstarter_campaign'],
+      content_type: 'campaign',
+      source: source
     });
   }
 }
