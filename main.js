@@ -56,9 +56,9 @@ function initCountdown() {
         // Update content
         countdownLabel.innerHTML = '🚀 <span class="kickstarter-text">Kickstarter</span> is Live!';
         countdownTimer.innerHTML = `
-          <img src="assets/ks.png" alt="Kickstarter" style="width:20px;height:20px;margin-right:8px;" />
+          <img src="assets/ks.png" alt="Kickstarter" style="width:28px;height:28px;" />
           <span>Order on Kickstarter</span>
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;margin-left:8px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;">
             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
           </svg>
         `;
