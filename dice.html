@@ -107,7 +107,7 @@
     }
 
     .dice-section h2 {
-      color: #000;
+      color: #1f2937;
       margin: 0 0 16px 0;
       font-size: 28px;
       display: flex;
@@ -131,16 +131,16 @@
     }
 
     .dice-button {
-      background: linear-gradient(135deg, var(--gold), #d4b866);
+      background: #6b7280;
       border: none;
-      color: var(--bg);
+      color: white;
       padding: 20px 40px;
       border-radius: 16px;
       font-size: 20px;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 6px 24px rgba(199, 164, 85, 0.4);
+      box-shadow: 0 6px 24px rgba(107, 114, 128, 0.4);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -150,14 +150,14 @@
     }
 
     .dice-button:hover {
-      background: linear-gradient(135deg, #d4b866, #e6c875);
+      background: #4b5563;
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(199, 164, 85, 0.6);
+      box-shadow: 0 8px 32px rgba(107, 114, 128, 0.6);
     }
 
     .dice-button:active {
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(199, 164, 85, 0.4);
+      box-shadow: 0 4px 16px rgba(107, 114, 128, 0.4);
     }
 
     .dice-button.rolling {
@@ -201,9 +201,17 @@
     }
 
     .dice-result h3 {
-      color: #000;
+      color: #374151;
       margin: 0 0 12px 0;
       font-size: 20px;
+    }
+
+    .dice-result p {
+      color: #374151;
+      margin: 8px 0 0 0;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
     }
 
     .dice-value {
@@ -211,7 +219,6 @@
       font-weight: 900;
       color: var(--text);
       margin: 8px 0;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .dice-value.critical {
@@ -225,8 +232,8 @@
     }
 
     @keyframes critical-glow {
-      0%, 100% { text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
-      50% { text-shadow: 0 0 20px #22c55e, 0 2px 4px rgba(0, 0, 0, 0.3); }
+      0%, 100% { text-shadow: none; }
+      50% { text-shadow: 0 0 20px #22c55e; }
     }
 
     @keyframes fumble-shake {
@@ -278,7 +285,7 @@
     }
 
     .resource-die h4 {
-      color: #000;
+      color: #374151;
       margin: 0 0 8px 0;
       font-size: 14px;
       text-transform: uppercase;
@@ -288,7 +295,6 @@
     .resource-die .dice-value {
       font-size: 24px;
       margin: 0;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
       line-height: 1;
     }
 
@@ -344,7 +350,7 @@
     }
 
     .dice-history h3 {
-      color: #000;
+      color: #374151;
       margin: 0 0 16px 0;
       font-size: 18px;
       text-align: center;
@@ -363,7 +369,7 @@
     }
 
     .history-type {
-      color: #000;
+      color: #374151;
       font-weight: 600;
     }
 
@@ -588,7 +594,7 @@
           comment.style.color = "#3b82f6";
         } else if (roll >= 5) {
           comment.textContent = "Low roll.";
-          comment.style.color = "#f59e0b";
+          comment.style.color = "#d97706";
         } else {
           comment.textContent = "Very low roll.";
           comment.style.color = "#ef4444";
