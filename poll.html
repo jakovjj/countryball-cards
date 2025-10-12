@@ -616,9 +616,15 @@
     }
     
     function submitPoll() {
+      // Debug the poll data
+      console.log('Poll data before validation:', pollData);
+      
       // Validate that we have all required data
       if (!pollData.purchaseIntent || !pollData.country) {
-        console.error('Missing required poll data');
+        console.error('Missing required poll data:', {
+          purchaseIntent: pollData.purchaseIntent,
+          country: pollData.country
+        });
         return;
       }
       
@@ -634,20 +640,52 @@
         });
       }
       
-      // Log poll completion for debugging
-      console.log('Poll completed successfully:', {
-        session_id: pollData.sessionId,
-        purchase_intent: pollData.purchaseIntent,
-        backing_timeline: pollData.backingTimeline,
-        country: pollData.country,
-        barriers: pollData.barriers,
-        future_features: pollData.futureFeatures
+      // Submit poll data to backend
+      const formData = new FormData();
+      formData.append('purchaseIntent', pollData.purchaseIntent);
+      formData.append('backingTimeline', pollData.backingTimeline || '');
+      formData.append('barriers', pollData.barriers || '');
+      formData.append('barriersCustom', pollData.barriersCustom || '');
+      formData.append('futureFeatures', pollData.futureFeatures || '');
+      formData.append('country', pollData.country);
+      formData.append('timestamp', pollData.timestamp);
+      formData.append('sessionId', pollData.sessionId);
+      
+      // Send to backend
+      fetch('https://admin.countryballcards.com/countryball_cards/backend/poll.php', {
+        method: 'POST',
+        body: formData
+      }).then(response => {
+        console.log('Poll submitted successfully to backend:', response.status);
+        return response.text();
+      }).then(data => {
+        console.log('Backend response:', data);
+      }).catch(error => {
+        console.error('Error submitting poll to backend:', error);
+        // Show completion screen anyway - don't let backend errors block user experience
       });
       
       // Show completion screen immediately
-      document.getElementById('pollQuestions').style.display = 'none';
-      document.getElementById('completionScreen').classList.add('active');
-      document.querySelector('.progress-bar').style.display = 'none';
+      try {
+        const pollQuestions = document.getElementById('pollQuestions');
+        const completionScreen = document.getElementById('completionScreen');
+        const progressBar = document.querySelector('.progress-bar');
+        
+        console.log('Attempting to show completion screen...');
+        console.log('Elements found:', {
+          pollQuestions: !!pollQuestions,
+          completionScreen: !!completionScreen,
+          progressBar: !!progressBar
+        });
+        
+        if (pollQuestions) pollQuestions.style.display = 'none';
+        if (completionScreen) completionScreen.classList.add('active');
+        if (progressBar) progressBar.style.display = 'none';
+        
+        console.log('Completion screen should now be visible');
+      } catch (error) {
+        console.error('Error showing completion screen:', error);
+      }
     }
     
     // Initialize poll
