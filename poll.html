@@ -362,12 +362,16 @@
     ];
     
     function answerQuestion(questionNum, value, displayText) {
+      // Debug logging
+      console.log('Answer received:', { questionNum, value, displayText });
+      
       // Store the answer
       switch(questionNum) {
         case 1:
           pollData.purchaseIntent = value;
           break;
         case '2_5':
+          console.log('Setting backing timeline:', value);
           pollData.backingTimeline = value;
           break;
         case 2:
@@ -377,6 +381,9 @@
           pollData.futureFeatures = value;
           break;
       }
+      
+      // Debug current poll data state
+      console.log('Poll data after answer:', pollData);
       
       // Track answer in analytics
       if (typeof fbq !== 'undefined') {
@@ -644,12 +651,25 @@
       const formData = new FormData();
       formData.append('purchaseIntent', pollData.purchaseIntent);
       formData.append('backingTimeline', pollData.backingTimeline || '');
+      formData.append('backing_timeline', pollData.backingTimeline || ''); // Alternative naming convention
       formData.append('barriers', pollData.barriers || '');
       formData.append('barriersCustom', pollData.barriersCustom || '');
       formData.append('futureFeatures', pollData.futureFeatures || '');
       formData.append('country', pollData.country);
       formData.append('timestamp', pollData.timestamp);
       formData.append('sessionId', pollData.sessionId);
+      
+      // Debug what we're sending to backend
+      console.log('Sending to backend:', {
+        purchaseIntent: pollData.purchaseIntent,
+        backingTimeline: pollData.backingTimeline,
+        barriers: pollData.barriers,
+        barriersCustom: pollData.barriersCustom,
+        futureFeatures: pollData.futureFeatures,
+        country: pollData.country,
+        timestamp: pollData.timestamp,
+        sessionId: pollData.sessionId
+      });
       
       // Send to backend
       fetch('https://admin.countryballcards.com/countryball_cards/backend/poll.php', {
