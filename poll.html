@@ -561,51 +561,55 @@
       }, 200);
     }
     
-    async function submitPoll() {
+    function submitPoll() {
       // Validate that we have all required data
       if (!pollData.purchaseIntent || !pollData.country) {
         console.error('Missing required poll data');
         return;
       }
       
-      try {
-        // Track poll completion
-        if (typeof fbq !== 'undefined') {
-          fbq('trackCustom', 'PollCompleted', {
-            session_id: pollData.sessionId,
-            purchase_intent: pollData.purchaseIntent,
-            country: pollData.country,
-            barriers: pollData.barriers,
-            future_features: pollData.futureFeatures
-          });
-        }
-        
-        // Send to backend (same format as email backend)
-        const formData = new FormData();
-        formData.append('purchaseIntent', pollData.purchaseIntent);
-        formData.append('barriers', pollData.barriers || '');
-        formData.append('barriersCustom', pollData.barriersCustom || '');
-        formData.append('futureFeatures', pollData.futureFeatures || '');
-        formData.append('country', pollData.country);
-        formData.append('timestamp', pollData.timestamp);
-        formData.append('sessionId', pollData.sessionId);
-        
-        const response = await fetch('https://admin.countryballcards.com/countryball_cards/backend/poll.php', {
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'omit',
-          body: formData
+      // Track poll completion
+      if (typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'PollCompleted', {
+          session_id: pollData.sessionId,
+          purchase_intent: pollData.purchaseIntent,
+          country: pollData.country,
+          barriers: pollData.barriers,
+          future_features: pollData.futureFeatures
         });
-        
-        if (response.ok) {
-          console.log('Poll submitted successfully');
-        } else {
-          console.warn('Poll submission failed, but continuing...', response.status, response.statusText);
-        }
-      } catch (error) {
-        console.warn('Error submitting poll:', error);
-        // Continue to show completion screen even if submission fails
       }
+      
+      // Create and submit form (same approach as email system)
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://admin.countryballcards.com/countryball_cards/backend/poll.php';
+      form.style.display = 'none';
+      
+      // Add form fields
+      const fields = {
+        'purchaseIntent': pollData.purchaseIntent,
+        'barriers': pollData.barriers || '',
+        'barriersCustom': pollData.barriersCustom || '',
+        'futureFeatures': pollData.futureFeatures || '',
+        'country': pollData.country,
+        'timestamp': pollData.timestamp,
+        'sessionId': pollData.sessionId,
+        'redirect_url': window.location.href + '?poll_submitted=1'
+      };
+      
+      Object.keys(fields).forEach(key => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        form.appendChild(input);
+      });
+      
+      document.body.appendChild(form);
+      
+      // Submit form and show completion screen immediately
+      // (Don't wait for response like the email system)
+      form.submit();
       
       // Show completion screen
       document.getElementById('pollQuestions').style.display = 'none';
@@ -615,6 +619,20 @@
     
     // Initialize poll
     document.addEventListener('DOMContentLoaded', function() {
+      // Check if user returned from poll submission
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('poll_submitted') === '1') {
+        // Show completion screen directly
+        document.getElementById('pollQuestions').style.display = 'none';
+        document.getElementById('completionScreen').classList.add('active');
+        document.querySelector('.progress-bar').style.display = 'none';
+        
+        // Clean URL
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+        return;
+      }
+      
       showQuestion(1);
       
       // Preload countries dropdown for better UX
