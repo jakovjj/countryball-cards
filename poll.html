@@ -145,6 +145,13 @@
     .nav-button{background:rgba(0,0,0,0.1);color:var(--text);border:none;border-radius:8px;padding:10px 20px;margin:0 5px;cursor:pointer;transition:all 0.3s ease}
     .nav-button:hover{background:rgba(0,0,0,0.2)}
     .nav-button:disabled{opacity:0.5;cursor:not-allowed}
+    .custom-text-container{margin:20px 0;display:none}
+    .custom-text-container.active{display:block}
+    .custom-text-input{width:100%;padding:16px 20px;border:2px solid rgba(102,102,102,0.3);border-radius:12px;font-size:16px;background:rgba(255,255,255,0.8);transition:all 0.3s ease;min-height:80px;resize:vertical;font-family:inherit}
+    .custom-text-input:focus{outline:none;border-color:#666666;box-shadow:0 0 0 4px rgba(102,102,102,0.2)}
+    .custom-text-input::placeholder{color:rgba(102,102,102,0.6)}
+    .submit-custom-btn{background:#666666;color:white;border:none;border-radius:8px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;transition:all 0.3s ease}
+    .submit-custom-btn:hover{background:#777777}
     .poll-footer{margin-top:auto;padding-top:24px;color:var(--muted);font-size:12px;text-align:center}
     .poll-footer a{color:var(--gold);text-decoration:none}
     .poll-footer a:hover{text-decoration:underline}
@@ -230,6 +237,11 @@
               <button class="answer-button" onclick="answerQuestion(2, 'kickstarter_trust', 'Don\'t understand/trust Kickstarter')">Don't understand/trust Kickstarter</button>
               <button class="answer-button" onclick="answerQuestion(2, 'wait_time', 'Long wait time to receive it')">Long wait time to receive it</button>
               <button class="answer-button" onclick="answerQuestion(2, 'shipping_cost', 'Expensive shipping')">Expensive shipping</button>
+              <button class="answer-button" onclick="showCustomTextInput(2)">Other</button>
+            </div>
+            <div class="custom-text-container" id="customText2">
+              <textarea class="custom-text-input" id="customTextInput2" placeholder="Please tell us what's holding you back from purchasing..." maxlength="500"></textarea>
+              <button class="submit-custom-btn" onclick="submitCustomText(2)">Submit</button>
             </div>
           </div>
           
@@ -289,6 +301,7 @@
     let pollData = {
       purchaseIntent: null,
       barriers: null,
+      barriersCustom: null,
       futureFeatures: null,
       country: null,
       timestamp: new Date().toISOString(),
@@ -346,6 +359,57 @@
           question_number: questionNum,
           answer: value,
           display_text: displayText,
+          session_id: pollData.sessionId
+        });
+      }
+      
+      // Move to next question
+      nextQuestion();
+    }
+    
+    function showCustomTextInput(questionNum) {
+      // Hide answer buttons
+      const answersDiv = document.querySelector(`#question${questionNum} .answers`);
+      if (answersDiv) {
+        answersDiv.style.display = 'none';
+      }
+      
+      // Show custom text input
+      const customTextContainer = document.getElementById(`customText${questionNum}`);
+      if (customTextContainer) {
+        customTextContainer.classList.add('active');
+        // Focus on the textarea
+        const textInput = document.getElementById(`customTextInput${questionNum}`);
+        if (textInput) {
+          setTimeout(() => textInput.focus(), 100);
+        }
+      }
+    }
+    
+    function submitCustomText(questionNum) {
+      const textInput = document.getElementById(`customTextInput${questionNum}`);
+      const customText = textInput.value.trim();
+      
+      if (customText.length < 5) {
+        alert('Please provide more details (at least 5 characters).');
+        return;
+      }
+      
+      // Store the custom answer
+      switch(questionNum) {
+        case 2:
+          pollData.barriers = 'other';
+          pollData.barriersCustom = customText;
+          break;
+      }
+      
+      // Track custom answer in analytics
+      if (typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'PollAnswered', {
+          question_number: questionNum,
+          answer: 'other',
+          display_text: 'Other (custom text)',
+          custom_text: customText,
           session_id: pollData.sessionId
         });
       }
