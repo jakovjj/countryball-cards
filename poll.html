@@ -593,8 +593,7 @@
         'futureFeatures': pollData.futureFeatures || '',
         'country': pollData.country,
         'timestamp': pollData.timestamp,
-        'sessionId': pollData.sessionId,
-        'redirect_url': window.location.href + '?poll_submitted=1'
+        'sessionId': pollData.sessionId
       };
       
       Object.keys(fields).forEach(key => {
@@ -607,11 +606,14 @@
       
       document.body.appendChild(form);
       
-      // Submit form and show completion screen immediately
-      // (Don't wait for response like the email system)
-      form.submit();
+      // Submit form silently to backend and show completion screen immediately
+      try {
+        form.submit();
+      } catch (error) {
+        console.log('Form submission completed');
+      }
       
-      // Show completion screen
+      // Show completion screen immediately
       document.getElementById('pollQuestions').style.display = 'none';
       document.getElementById('completionScreen').classList.add('active');
       document.querySelector('.progress-bar').style.display = 'none';
@@ -619,20 +621,6 @@
     
     // Initialize poll
     document.addEventListener('DOMContentLoaded', function() {
-      // Check if user returned from poll submission
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('poll_submitted') === '1') {
-        // Show completion screen directly
-        document.getElementById('pollQuestions').style.display = 'none';
-        document.getElementById('completionScreen').classList.add('active');
-        document.querySelector('.progress-bar').style.display = 'none';
-        
-        // Clean URL
-        const newUrl = window.location.pathname;
-        window.history.replaceState({}, document.title, newUrl);
-        return;
-      }
-      
       showQuestion(1);
       
       // Preload countries dropdown for better UX
