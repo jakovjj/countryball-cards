@@ -579,10 +579,17 @@
         });
       }
       
-      // Create and submit form (same approach as email system)
+      // Create hidden iframe for form submission (prevents navigation)
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.name = 'pollSubmitFrame';
+      document.body.appendChild(iframe);
+      
+      // Create and submit form to hidden iframe
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = 'https://admin.countryballcards.com/countryball_cards/backend/poll.php';
+      form.target = 'pollSubmitFrame'; // Submit to hidden iframe
       form.style.display = 'none';
       
       // Add form fields
@@ -606,12 +613,8 @@
       
       document.body.appendChild(form);
       
-      // Submit form silently to backend and show completion screen immediately
-      try {
-        form.submit();
-      } catch (error) {
-        console.log('Form submission completed');
-      }
+      // Submit form to hidden iframe (no navigation)
+      form.submit();
       
       // Show completion screen immediately
       document.getElementById('pollQuestions').style.display = 'none';
