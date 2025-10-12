@@ -299,10 +299,8 @@
           </a>
           
           <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" class="kickstarter-invite" target="_blank" rel="noopener noreferrer">
-            <svg class="kickstarter-logo" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7.168 23.995c-2.573 0-4.807-.88-6.7-2.642C.477 21.354 0 20.67 0 19.988V4.006c0-.682.477-1.366 1.467-2.366C3.36.878 5.595-.002 7.168-.002h9.665c2.572 0 4.807.88 6.7 2.642C24.522 2.64 25 3.324 25 4.006v15.982c0 .682-.478 1.366-1.467 2.366-1.893 1.762-4.128 2.642-6.7 2.642H7.168zm5.83-6.468L19.473 12l-6.475-5.527v11.054z"/>
-            </svg>
-            Back Countryball Cards on Kickstarter
+            <img src="assets/ks.png" alt="Kickstarter" class="kickstarter-logo">
+            Kickstarter
           </a>
           
           <div style="margin-top: 24px;">
@@ -333,7 +331,7 @@
     };
     
     let currentQuestion = 1;
-    const totalQuestions = 4; // May vary based on conditional logic
+    const totalQuestions = 4; // Base questions (may vary based on conditional logic)
     
     function generateSessionId() {
       return 'poll_' + Date.now() + '_' + Math.random().toString(36).substring(2, 15);
@@ -475,7 +473,7 @@
           nextQ = 4; // Go to country question
         }
         
-        if (nextQ <= totalQuestions && document.getElementById(`question${nextQ}`)) {
+        if (document.getElementById(`question${nextQ}`)) {
           currentQuestion = nextQ;
           showQuestion(currentQuestion);
         } else {
