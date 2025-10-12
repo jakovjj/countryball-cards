@@ -113,8 +113,8 @@
     .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
     .frame{border:none;border-radius:18px;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
     .poll-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center;width:100%}
-    .poll-logo{max-width:300px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 8px rgba(199,164,85,0.3));transition:all 0.5s ease;position:relative;animation:float 3s ease-in-out infinite;width:100%;text-align:center;margin-left:30%;transform:translateX(-50%)}
-    .poll-logo:hover{filter:drop-shadow(0 0 12px rgba(199,164,85,0.5));transform:scale(1.02) translateY(var(--float-offset, 0px))}
+    .poll-logo{max-width:300px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 8px rgba(199,164,85,0.3));transition:all 0.5s ease;position:relative;animation:float 3s ease-in-out infinite;width:100%;text-align:center;margin-left:calc(36%);transform:translateX(-50%)}
+    .poll-logo:hover{filter:drop-shadow(0 0 12px rgba(199,164,85,0.5));transform:scale(1.02) translateY(var(--float-offset, 0px)) translateX(-50%)}
     @keyframes float{0%,100%{transform:translateY(0px);--float-offset:0px}50%{transform:translateY(-8px);--float-offset:-8px}}
     .poll-title{font-size:clamp(24px,4vw,32px);color:var(--text);margin:0 auto 16px;font-weight:700;text-align:center}
     .poll-subtitle{color:var(--muted);margin:0 auto 32px;font-size:16px;line-height:1.4;max-width:500px;text-align:center}
@@ -122,8 +122,8 @@
     .question-container.active{opacity:1;transform:translateY(0)}
     .question-container.fade-out{opacity:0;transform:translateY(-20px)}
     .question-text{font-size:20px;font-weight:600;margin-bottom:24px;color:var(--text);line-height:1.4}
-    .answer-button{background:linear-gradient(135deg,var(--gold),#d4b866);color:var(--bg);border:none;border-radius:12px;padding:16px 24px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s ease;margin:8px;min-width:200px;box-shadow:0 4px 12px rgba(199,164,85,0.3)}
-    .answer-button:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-2px);box-shadow:0 6px 20px rgba(199,164,85,0.4)}
+    .answer-button{background:#666666;color:white;border:none;border-radius:12px;padding:16px 24px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s ease;margin:8px;min-width:200px;box-shadow:0 4px 12px rgba(102,102,102,0.3)}
+    .answer-button:hover{background:#777777;transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,102,102,0.4)}
     .answer-button:active{transform:translateY(0)}
     .country-search-container{position:relative;margin:16px 0}
     .country-search{width:100%;padding:16px 20px;border:2px solid rgba(199,164,85,0.3);border-radius:12px;font-size:16px;background:rgba(255,255,255,0.8);transition:all 0.3s ease}
@@ -157,7 +157,7 @@
     @media(max-width:768px){
       .wrap{padding:15px}
       .frame{padding:15px}
-      .poll-logo{max-width:240px;margin:15px auto 25px auto;display:block!important;text-align:center}
+      .poll-logo{max-width:240px;margin:15px auto 25px auto;display:block!important;text-align:center;margin-left:calc(50% + 8px)!important}
       .question-container{padding:24px;margin:15px 0}
       .answer-button{min-width:150px;font-size:15px}
       .question-text{font-size:18px}
@@ -165,7 +165,7 @@
     @media(max-width:480px){
       .wrap{padding:12px}
       .frame{padding:12px}
-      .poll-logo{max-width:200px}
+      .poll-logo{max-width:200px;margin-left:calc(50% + 6px)!important}
       .question-container{padding:20px;margin:10px 0}
       .answer-button{min-width:120px;font-size:14px;padding:12px 18px}
       .question-text{font-size:16px}
