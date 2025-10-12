@@ -139,6 +139,9 @@
     .discord-invite{background:linear-gradient(135deg,#5865f2,#4752c4);color:white;padding:20px;border-radius:16px;margin:24px 0;text-decoration:none;display:inline-block;transition:all 0.3s ease;box-shadow:0 6px 20px rgba(88,101,242,0.3)}
     .discord-invite:hover{background:linear-gradient(135deg,#4752c4,#3c46a8);transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,101,242,0.4)}
     .discord-logo{width:32px;height:32px;margin-right:12px;vertical-align:middle}
+    .kickstarter-invite{background:linear-gradient(135deg,#05ce78,#04b86a);color:white;padding:20px;border-radius:16px;margin:24px 0;text-decoration:none;display:inline-block;transition:all 0.3s ease;box-shadow:0 6px 20px rgba(5,206,120,0.3)}
+    .kickstarter-invite:hover{background:linear-gradient(135deg,#04b86a,#039856);transform:translateY(-2px);box-shadow:0 8px 25px rgba(5,206,120,0.4)}
+    .kickstarter-logo{width:32px;height:32px;margin-right:12px;vertical-align:middle}
     .thank-you-title{font-size:28px;font-weight:700;color:var(--green);margin-bottom:16px}
     .thank-you-text{font-size:18px;color:var(--text);margin-bottom:24px;line-height:1.5}
     .navigation-buttons{margin-top:20px}
@@ -245,6 +248,19 @@
             </div>
           </div>
           
+          <!-- Question 2.5: Backing Timeline (conditional for 'yes' only) -->
+          <div class="question-container hidden" id="question2_5">
+            <div class="question-text">When do you plan on backing Countryball Cards?</div>
+            <div class="answers">
+              <button class="answer-button" onclick="answerQuestion('2_5', 'now', 'Now!!!')">Now!!!</button>
+              <button class="answer-button" onclick="answerQuestion('2_5', 'today', 'Today')">Today</button>
+              <button class="answer-button" onclick="answerQuestion('2_5', 'in_a_week', 'In a week')">In a week</button>
+              <button class="answer-button" onclick="answerQuestion('2_5', 'not_sure', 'Not sure')">Not sure</button>
+              <button class="answer-button" onclick="answerQuestion('2_5', 'when_fully_backed', 'When project is fully backed')">When project is fully backed</button>
+              <button class="answer-button" onclick="answerQuestion('2_5', 'when_on_distributor', 'When available on big distributor (e.g. Amazon)')">When available on big distributor (e.g. Amazon)</button>
+            </div>
+          </div>
+          
           <!-- Question 3: Future Features (conditional for 'yes' and 'already_did') -->
           <div class="question-container hidden" id="question3">
             <div class="question-text">What would you like to see in the future of Countryball Cards?</div>
@@ -282,6 +298,13 @@
             Join our Discord Community
           </a>
           
+          <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" class="kickstarter-invite" target="_blank" rel="noopener noreferrer">
+            <svg class="kickstarter-logo" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.168 23.995c-2.573 0-4.807-.88-6.7-2.642C.477 21.354 0 20.67 0 19.988V4.006c0-.682.477-1.366 1.467-2.366C3.36.878 5.595-.002 7.168-.002h9.665c2.572 0 4.807.88 6.7 2.642C24.522 2.64 25 3.324 25 4.006v15.982c0 .682-.478 1.366-1.467 2.366-1.893 1.762-4.128 2.642-6.7 2.642H7.168zm5.83-6.468L19.473 12l-6.475-5.527v11.054z"/>
+            </svg>
+            Back Countryball Cards on Kickstarter
+          </a>
+          
           <div style="margin-top: 24px;">
             <a href="index.html" class="answer-button" style="text-decoration:none;display:inline-block;">← Back to Homepage</a>
           </div>
@@ -300,6 +323,7 @@
     // Poll state management
     let pollData = {
       purchaseIntent: null,
+      backingTimeline: null,
       barriers: null,
       barriersCustom: null,
       futureFeatures: null,
@@ -344,6 +368,9 @@
       switch(questionNum) {
         case 1:
           pollData.purchaseIntent = value;
+          break;
+        case '2_5':
+          pollData.backingTimeline = value;
           break;
         case 2:
           pollData.barriers = value;
@@ -429,13 +456,19 @@
         // Determine next question based on conditional logic
         let nextQ = currentQuestion + 1;
         
-        // Skip question 2 if answered 'yes' or 'already_did' to question 1
-        if (currentQuestion === 1 && (pollData.purchaseIntent === 'yes' || pollData.purchaseIntent === 'already_did')) {
-          nextQ = 3; // Go to future features question
+        // After question 1, determine the path based on purchase intent
+        if (currentQuestion === 1) {
+          if (pollData.purchaseIntent === 'yes') {
+            nextQ = '2_5'; // Go to backing timeline question
+          } else if (pollData.purchaseIntent === 'already_did') {
+            nextQ = 3; // Go to future features question
+          } else if (pollData.purchaseIntent === 'no' || pollData.purchaseIntent === 'maybe') {
+            nextQ = 2; // Go to barriers question
+          }
         }
-        // Skip question 3 if answered 'no' or 'maybe' to question 1
-        else if (currentQuestion === 1 && (pollData.purchaseIntent === 'no' || pollData.purchaseIntent === 'maybe')) {
-          nextQ = 2; // Go to barriers question
+        // After backing timeline question (2_5), go to future features
+        else if (currentQuestion === '2_5') {
+          nextQ = 3; // Go to future features question
         }
         // After barriers (question 2) or future features (question 3), go to country question
         else if (currentQuestion === 2 || currentQuestion === 3) {
@@ -471,7 +504,14 @@
             prevQ = 3; // Go back to future features
           }
         } else if (currentQuestion === 3) {
-          prevQ = 1; // From future features, go back to purchase intent
+          // From future features, go back based on purchase intent
+          if (pollData.purchaseIntent === 'yes') {
+            prevQ = '2_5'; // Go back to backing timeline
+          } else {
+            prevQ = 1; // Go back to purchase intent
+          }
+        } else if (currentQuestion === '2_5') {
+          prevQ = 1; // From backing timeline, go back to purchase intent
         } else if (currentQuestion === 2) {
           prevQ = 1; // From barriers, go back to purchase intent
         }
@@ -497,7 +537,23 @@
     }
     
     function updateProgressBar() {
-      const progress = (currentQuestion / totalQuestions) * 100;
+      // Calculate progress based on current path
+      let totalSteps = 4; // Base: purchase intent + country + 2 conditional questions
+      let currentStep = 1;
+      
+      if (currentQuestion === 1) {
+        currentStep = 1;
+      } else if (currentQuestion === '2_5') {
+        currentStep = 2;
+      } else if (currentQuestion === 2) {
+        currentStep = 2;
+      } else if (currentQuestion === 3) {
+        currentStep = 3;
+      } else if (currentQuestion === 4) {
+        currentStep = 4;
+      }
+      
+      const progress = (currentStep / totalSteps) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
     }
     
@@ -573,6 +629,7 @@
         fbq('trackCustom', 'PollCompleted', {
           session_id: pollData.sessionId,
           purchase_intent: pollData.purchaseIntent,
+          backing_timeline: pollData.backingTimeline,
           country: pollData.country,
           barriers: pollData.barriers,
           future_features: pollData.futureFeatures
@@ -582,6 +639,7 @@
       // Send data silently without navigation using fetch with no-cors
       const formData = new FormData();
       formData.append('purchaseIntent', pollData.purchaseIntent);
+      formData.append('backingTimeline', pollData.backingTimeline || '');
       formData.append('barriers', pollData.barriers || '');
       formData.append('barriersCustom', pollData.barriersCustom || '');
       formData.append('futureFeatures', pollData.futureFeatures || '');
