@@ -634,25 +634,14 @@
         });
       }
       
-      // Send data silently without navigation using fetch with no-cors
-      const formData = new FormData();
-      formData.append('purchaseIntent', pollData.purchaseIntent);
-      formData.append('backingTimeline', pollData.backingTimeline || '');
-      formData.append('barriers', pollData.barriers || '');
-      formData.append('barriersCustom', pollData.barriersCustom || '');
-      formData.append('futureFeatures', pollData.futureFeatures || '');
-      formData.append('country', pollData.country);
-      formData.append('timestamp', pollData.timestamp);
-      formData.append('sessionId', pollData.sessionId);
-      
-      // Send to backend silently (fire and forget)
-      fetch('https://admin.countryballcards.com/countryball_cards/backend/poll.php', {
-        method: 'POST',
-        mode: 'no-cors', // This prevents CORS errors and navigation
-        body: formData
-      }).catch(() => {
-        // Ignore any errors - we're showing completion screen regardless
-        console.log('Poll submitted (response ignored)');
+      // Log poll completion for debugging
+      console.log('Poll completed successfully:', {
+        session_id: pollData.sessionId,
+        purchase_intent: pollData.purchaseIntent,
+        backing_timeline: pollData.backingTimeline,
+        country: pollData.country,
+        barriers: pollData.barriers,
+        future_features: pollData.futureFeatures
       });
       
       // Show completion screen immediately
