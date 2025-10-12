@@ -579,42 +579,25 @@
         });
       }
       
-      // Create hidden iframe for form submission (prevents navigation)
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.name = 'pollSubmitFrame';
-      document.body.appendChild(iframe);
+      // Send data silently without navigation using fetch with no-cors
+      const formData = new FormData();
+      formData.append('purchaseIntent', pollData.purchaseIntent);
+      formData.append('barriers', pollData.barriers || '');
+      formData.append('barriersCustom', pollData.barriersCustom || '');
+      formData.append('futureFeatures', pollData.futureFeatures || '');
+      formData.append('country', pollData.country);
+      formData.append('timestamp', pollData.timestamp);
+      formData.append('sessionId', pollData.sessionId);
       
-      // Create and submit form to hidden iframe
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://admin.countryballcards.com/countryball_cards/backend/poll.php';
-      form.target = 'pollSubmitFrame'; // Submit to hidden iframe
-      form.style.display = 'none';
-      
-      // Add form fields
-      const fields = {
-        'purchaseIntent': pollData.purchaseIntent,
-        'barriers': pollData.barriers || '',
-        'barriersCustom': pollData.barriersCustom || '',
-        'futureFeatures': pollData.futureFeatures || '',
-        'country': pollData.country,
-        'timestamp': pollData.timestamp,
-        'sessionId': pollData.sessionId
-      };
-      
-      Object.keys(fields).forEach(key => {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = fields[key];
-        form.appendChild(input);
+      // Send to backend silently (fire and forget)
+      fetch('https://admin.countryballcards.com/countryball_cards/backend/poll.php', {
+        method: 'POST',
+        mode: 'no-cors', // This prevents CORS errors and navigation
+        body: formData
+      }).catch(() => {
+        // Ignore any errors - we're showing completion screen regardless
+        console.log('Poll submitted (response ignored)');
       });
-      
-      document.body.appendChild(form);
-      
-      // Submit form to hidden iframe (no navigation)
-      form.submit();
       
       // Show completion screen immediately
       document.getElementById('pollQuestions').style.display = 'none';
