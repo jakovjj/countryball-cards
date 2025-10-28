@@ -266,17 +266,17 @@
     .frame{border:3px solid var(--gold);border-radius:18px;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
     h1{font-size:clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
     .countdown-banner{background:rgba(199,164,85,0.1);color:var(--text);padding:12px 16px;border-radius:12px;margin:12px 0 16px 0;text-align:center;font-weight:700;position:relative;overflow:hidden;box-sizing:border-box;max-width:100%;transition:all 0.3s ease}
-    .countdown-banner.live-button{background:rgba(0,0,0,0.05);color:var(--text);border:2px solid rgba(0,0,0,0.2);padding:24px 32px;margin:24px 0;cursor:pointer;text-decoration:none;display:block;transform:scale(1);border-radius:12px}
-    .countdown-banner.live-button:hover{background:rgba(0,0,0,0.1);border-color:rgba(0,0,0,0.3);transform:translateY(-2px)}
+    .countdown-banner.live-button{background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:#fff;border:none;padding:24px 32px;margin:24px 0;cursor:pointer;text-decoration:none;display:block;transform:scale(1);border-radius:16px;box-shadow:0 8px 25px rgba(102, 126, 234, 0.3);transition:all 0.3s ease}
+    .countdown-banner.live-button:hover{background:linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);transform:translateY(-3px);box-shadow:0 12px 35px rgba(102, 126, 234, 0.4)}
     .countdown-content{display:flex;flex-direction:column;align-items:center;gap:8px}
     .countdown-label{font-size:16px;font-weight:700;letter-spacing:0.5px;color:var(--text);transition:all 0.3s ease}
-    .countdown-label.live-text{color:var(--text);font-size:20px;margin-bottom:8px}
+    .countdown-label.live-text{color:#fff;font-size:22px;margin-bottom:8px;font-weight:800;text-shadow:0 2px 4px rgba(0,0,0,0.2)}
     .countdown-label .kickstarter-text{color:var(--kickstarter);font-weight:800}
     .countdown-label.live-text .kickstarter-text{color:var(--kickstarter)}
-    .countdown-label .store-text{color:var(--gold);font-weight:800}
-    .countdown-label.live-text .store-text{color:var(--gold)}
+    .countdown-label .store-text{font-weight:800}
+    .countdown-label.live-text .store-text{color:inherit}
     .countdown-timer{display:flex;gap:8px;justify-content:center;align-items:center;transition:all 0.3s ease}
-    .countdown-timer.live-cta{font-size:18px;color:var(--text);font-weight:700;display:flex;align-items:center;gap:16px}
+    .countdown-timer.live-cta{font-size:16px;color:rgba(255,255,255,0.9);font-weight:600;display:flex;align-items:center;gap:12px}
     .countdown-number{font-size:28px;font-weight:800;color:var(--text);min-width:40px;display:inline-block}
     .countdown-separator{font-size:24px;font-weight:700;color:var(--text);opacity:0.7}
     .logo-section{text-align:center;margin-bottom:24px}
@@ -361,7 +361,7 @@
           
           <a href="store.html" class="countdown-banner live-button" id="storeBanner">
             <div class="countdown-content" id="storeContent">
-              <span class="countdown-label live-text" id="storeLabel">🏪 <span class="store-text">Store</span></span>
+              <span class="countdown-label live-text" id="storeLabel"><span class="store-text">View Store</span></span>
               <div class="countdown-timer live-cta" id="storeTimer">
                 <span>Pre-Order Now</span>
                 <svg class="kickstarter-btn-arrow" viewBox="0 0 24 24" fill="currentColor">
