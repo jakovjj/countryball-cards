@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <title>Countryball Cards - Strategic Card Game | Kickstarter October 2025</title>
-  <meta name="description" content="Countryball Cards is a strategic card game featuring countryball memes. Get the free print-and-play, join our Discord community, and back our Kickstarter launching October 1st, 2025." />
+  <title>Countryball Cards - Strategic Card Game | Now Available for Pre-Order</title>
+  <meta name="description" content="Countryball Cards is a strategic card game featuring countryball memes. Pre-order now - ships March 2026! Get the free print-and-play and join our Discord community." />
   <link rel="canonical" href="https://countryballcards.com/" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="googlebot" content="index, follow">
@@ -35,8 +35,8 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://countryballcards.com/">
-  <meta property="og:title" content="Countryball Cards - Strategic Card Game | Kickstarter October 2025">
-  <meta property="og:description" content="Strategic countryball-themed card game launching on Kickstarter October 1st, 2025. Get the free print-and-play and join our community!">
+  <meta property="og:title" content="Countryball Cards - Strategic Card Game | Now Available for Pre-Order">
+  <meta property="og:description" content="Strategic countryball-themed card game now available for pre-order! Ships March 2026. Get the free print-and-play and join our community!"
   <meta property="og:image" content="https://countryballcards.com/logo.png">
   <meta property="og:image:alt" content="Countryball Cards logo featuring strategic card game artwork" />
   <meta property="og:locale" content="en_US" />
@@ -45,8 +45,8 @@
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://countryballcards.com/">
-  <meta property="twitter:title" content="Countryball Cards - Strategic Card Game | Kickstarter October 2025">
-  <meta property="twitter:description" content="Strategic countryball-themed card game launching on Kickstarter October 1st, 2025. Get the free print-and-play and join our community!">
+  <meta property="twitter:title" content="Countryball Cards - Strategic Card Game | Now Available for Pre-Order">
+  <meta property="twitter:description" content="Strategic countryball-themed card game now available for pre-order! Ships March 2026. Get the free print-and-play and join our community!"
   <meta property="twitter:image" content="https://countryballcards.com/logo.png">
   <meta property="twitter:image:alt" content="Countryball Cards logo featuring strategic card game artwork" />
   
@@ -273,6 +273,8 @@
     .countdown-label.live-text{color:var(--text);font-size:20px;margin-bottom:8px}
     .countdown-label .kickstarter-text{color:var(--kickstarter);font-weight:800}
     .countdown-label.live-text .kickstarter-text{color:var(--kickstarter)}
+    .countdown-label .store-text{color:var(--gold);font-weight:800}
+    .countdown-label.live-text .store-text{color:var(--gold)}
     .countdown-timer{display:flex;gap:8px;justify-content:center;align-items:center;transition:all 0.3s ease}
     .countdown-timer.live-cta{font-size:18px;color:var(--text);font-weight:700;display:flex;align-items:center;gap:16px}
     .countdown-number{font-size:28px;font-weight:800;color:var(--text);min-width:40px;display:inline-block}
@@ -357,20 +359,17 @@
           <!-- Logo -->
           <img src="logo.png" alt="Countryball Cards" class="main-logo" width="600" height="240" loading="eager" fetchpriority="high">
           
-          <div class="countdown-banner" id="countdownBanner">
-            <div class="countdown-content" id="countdownContent">
-              <span class="countdown-label" id="countdownLabel"><span class="kickstarter-text">Kickstarter</span> Launches In:</span>
-              <div class="countdown-timer" id="countdownTimer">
-                <span class="countdown-number" id="days">--</span>
-                <span class="countdown-separator">:</span>
-                <span class="countdown-number" id="hours">--</span>
-                <span class="countdown-separator">:</span>
-                <span class="countdown-number" id="minutes">--</span>
-                <span class="countdown-separator">:</span>
-                <span class="countdown-number" id="seconds">--</span>
+          <a href="store.html" class="countdown-banner live-button" id="storeBanner">
+            <div class="countdown-content" id="storeContent">
+              <span class="countdown-label live-text" id="storeLabel">🏪 <span class="store-text">Visit Our Store</span></span>
+              <div class="countdown-timer live-cta" id="storeTimer">
+                <span>Pre-Order Now - Ships March 2026</span>
+                <svg class="kickstarter-btn-arrow" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                </svg>
               </div>
             </div>
-          </div>
+          </a>
           
           <div class="cta">
             
@@ -419,16 +418,16 @@
       <!-- Golden separator before packages CTA -->
       <div class="golden-separator"></div>
 
-      <!-- Game Packages CTA -->
+      <!-- Game Store CTA -->
       <div class="packages-cta-section">
-        <a href="packages.html" class="packages-cta-button" onclick="trackPackagesClick()">
+        <a href="store.html" class="packages-cta-button" onclick="trackStoreClick()">
           <span class="packages-cta-content">
             <svg class="packages-cta-icon" viewBox="0 0 24 24" fill="currentColor">
               <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
             </svg>
             <span class="packages-cta-text">
-              <span class="packages-cta-title">View Game Packages</span>
-              <span class="packages-cta-subtitle">Crowdfunding starts October 1st!</span>
+              <span class="packages-cta-title">Visit Our Store</span>
+              <span class="packages-cta-subtitle">Pre-order now - Shipping March 2026!</span>
             </span>
           </span>
         </a>
@@ -443,7 +442,7 @@
         <div class="faq-grid">
           <div class="faq-item">
             <h3>🎮 How do I play?</h3>
-            <p>The board game is still in production! You can help make it a reality and get your own copy by backing us on Kickstarter on October 1st! Meanwhile, you can try out our limited print-and-play and read the rules online.</p>
+            <p>The board game is now available for pre-order! Production is underway and will ship in March 2026. You can try out our limited print-and-play and read the rules online while you wait.</p>
           </div>
           <div class="faq-item">
             <h3>📦 What's in the box?</h3>
@@ -455,7 +454,7 @@
           </div>
           <div class="faq-item">
             <h3>⏰ When will it ship?</h3>
-            <p>Kickstarter launches October 1st 2025. Our goal is to deliver the game to all Kickstarter backers in 2026.</p>
+            <p>Pre-orders are now available! All orders will ship in March 2026 when production is complete. Full refunds available until February 1st, 2026.</p>
           </div>
         </div>
       </section>
@@ -738,6 +737,17 @@
         window.history.replaceState({}, document.title, newUrl);
       }
     });
+    
+    // Tracking functions
+    function trackStoreClick() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'store_clicked', {
+          event_category: 'navigation',
+          event_label: 'home_to_store',
+          value: 1
+        });
+      }
+    }
   </script>
 </body>
 </html>
