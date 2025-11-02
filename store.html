@@ -87,6 +87,93 @@
   <link rel="stylesheet" href="styles.css">
   
   <style>
+    /* Updated Theme Variables */
+    :root {
+      --bg: #0f1419;
+      --card: #1a1f2e;
+      --gold: #fbbf24;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #3b82f6;
+    }
+    
+    /* Enhanced Background */
+    body {
+      background: linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Ensure dark background on mobile */
+    @media (max-width: 768px) {
+      body {
+        background: linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%) !important;
+        background-attachment: scroll;
+      }
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), 
+                  radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Enhanced Frame */
+    .frame {
+      border: 2px solid rgba(251, 191, 36, 0.3);
+      border-radius: 24px;
+      background: rgba(26, 31, 46, 0.6);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .frame::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 0%, rgba(251, 191, 36, 0.05) 50%, transparent 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     .packages-hero {
       text-align: center;
       margin-bottom: 40px;
@@ -95,7 +182,86 @@
     .packages-hero h1 {
       font-size: clamp(28px, 5vw, 48px);
       margin-bottom: 16px;
-      color: #000000;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Video Showcase Styles */
+    .video-showcase {
+      text-align: center;
+      margin: 48px 0;
+      padding: 32px 0;
+    }
+    
+    .video-showcase h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 32px;
+      position: relative;
+    }
+    
+    .video-showcase h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(135deg, var(--gold), #c7a455);
+      border-radius: 2px;
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .video-container:hover {
+      transform: scale(1.02);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .video-showcase {
+        margin: 32px 0;
+        padding: 24px 0;
+      }
+      
+      .video-showcase h2 {
+        font-size: 28px;
+        margin-bottom: 24px;
+      }
+      
+      .video-container {
+        max-width: 95%;
+        border-radius: 12px;
+      }
+      
+      .video-container iframe {
+        border-radius: 12px;
+      }
     }
     
     /* Country Shipping Card Styles */
@@ -325,93 +491,85 @@
     }
     
     .package-bar {
-      background: var(--card);
-      border: 2px solid rgba(199, 164, 85, 0.3);
-      border-radius: 16px;
+      background: rgba(26, 31, 46, 0.8);
+      border: 2px solid rgba(251, 191, 36, 0.3);
+      border-radius: 20px;
       padding: 0;
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
       overflow: hidden;
+      backdrop-filter: blur(15px);
+      cursor: pointer;
+      animation: slideInUp 0.6s ease-out;
+    }
+    
+    .package-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+      transition: left 0.6s ease;
+      z-index: 1;
     }
     
     .package-bar:hover {
-      border-color: rgba(199, 164, 85, 0.6);
-      box-shadow: 0 8px 24px rgba(199, 164, 85, 0.2);
-      transform: translateY(-2px);
+      border-color: rgba(251, 191, 36, 0.8);
+      box-shadow: 0 12px 40px rgba(251, 191, 36, 0.3);
+      transform: translateY(-8px) scale(1.02);
+    }
+    
+    .package-bar:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     .featured-bar {
-      border-color: var(--gold);
-      box-shadow: 0 4px 20px rgba(199, 164, 85, 0.3);
+      border-color: rgba(251, 191, 36, 0.5);
     }
     
     .featured-bar:hover {
-      border-color: var(--gold);
-      box-shadow: 0 8px 32px rgba(199, 164, 85, 0.4);
+      border-color: rgba(251, 191, 36, 0.8);
     }
     
     .premium-bar {
-      border-color: #10b981;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.03));
+      border-color: rgba(251, 191, 36, 0.5);
     }
     
     .premium-bar:hover {
-      border-color: #059669;
-      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+      border-color: rgba(251, 191, 36, 0.8);
     }
     
-    /* Extended Edition - Purple Theme */
+    /* Extended Edition - Same as others */
     .extended-bar {
-      border-color: #8b5cf6;
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(139, 92, 246, 0.03));
+      border-color: rgba(251, 191, 36, 0.5);
     }
     
     .extended-bar:hover {
-      border-color: #7c3aed;
-      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+      border-color: rgba(251, 191, 36, 0.8);
     }
     
-    /* Extended Edition Purple Text and Button */
-    .extended-bar .package-name {
-      color: #8b5cf6 !important;
-    }
+    /* Extended Edition - Using standard styling */
     
-    .extended-bar .extended-btn {
-      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-      border-color: #8b5cf6;
-    }
-    
-    .extended-bar .extended-btn:hover {
-      background: linear-gradient(135deg, #7c3aed, #6d28d9);
-      border-color: #7c3aed;
-      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-    }
-    
-    /* Founder's Edition - Subtle Holo Effect */
+    /* Founder's Edition - Standard styling */
     .founders-bar {
-      position: relative;
-      border-radius: 16px;
-      border: 2px solid #10b981;
-      background: linear-gradient(135deg, 
-        rgba(16, 185, 129, 0.08), 
-        rgba(139, 92, 246, 0.04),
-        rgba(199, 164, 85, 0.04),
-        rgba(16, 185, 129, 0.08));
-      background-size: 200% 200%;
-      animation: subtleHologramShift 8s ease-in-out infinite;
-      overflow: hidden;
+      border-color: rgba(251, 191, 36, 0.5);
     }
     
     .founders-bar:hover {
-      border-color: #059669;
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
-      animation-duration: 6s;
-    }
-    
-    @keyframes subtleHologramShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      border-color: rgba(251, 191, 36, 0.8);
     }
     
     /* Kickstarter Success Note */
@@ -644,14 +802,6 @@
       margin: 0;
     }
     
-    .featured-bar .package-name {
-      color: var(--gold);
-    }
-    
-    .premium-bar .package-name {
-      color: #10b981;
-    }
-    
     .package-price {
       font-size: 32px;
       font-weight: 800;
@@ -696,40 +846,17 @@
       min-width: 180px;
     }
     
-    .base-btn {
-      background: linear-gradient(135deg, var(--gold), #d4b866);
-      color: var(--bg);
-      box-shadow: 0 4px 16px rgba(199, 164, 85, 0.3);
+    .base-btn, .extended-btn, .founders-btn {
+      background: linear-gradient(135deg, var(--gold), #e6c875);
+      color: #000;
+      box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+      font-weight: 700;
     }
     
-    .base-btn:hover {
-      background: linear-gradient(135deg, #d4b866, #e6c875);
+    .base-btn:hover, .extended-btn:hover, .founders-btn:hover {
+      background: linear-gradient(135deg, #e6c875, #fbbf24);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(199, 164, 85, 0.4);
-    }
-    
-    .extended-btn {
-      background: linear-gradient(135deg, var(--gold), #d4b866);
-      color: var(--bg);
-      box-shadow: 0 4px 16px rgba(199, 164, 85, 0.3);
-    }
-    
-    .extended-btn:hover {
-      background: linear-gradient(135deg, #d4b866, #e6c875);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(199, 164, 85, 0.4);
-    }
-    
-    .founders-btn {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
-    }
-    
-    .founders-btn:hover {
-      background: linear-gradient(135deg, #059669, #047857);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
     }
     
 
@@ -1130,6 +1257,71 @@
         padding: 10px 14px;
       }
     }
+    
+    /* Enhanced Animations */
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    /* Package Enhancement Effects */
+    .package-bar-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .package-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .package-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+      z-index: 1;
+    }
+    
+    .package-btn:hover::before {
+      left: 100%;
+    }
+    
+    /* Interactive Elements */
+    .interactive-element {
+      transition: all 0.3s ease;
+    }
+    
+    .interactive-element:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+    
+    /* Removed weird glow animation */
   </style>
 </head>
 <body>
@@ -1158,6 +1350,22 @@
             <p>Our <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" class="kickstarter-link">Kickstarter campaign</a> successfully ended with <strong>$5,318 raised</strong>! We have successfully started production and are excited to bring Countryball Cards to life.</p>
             <p>If you want to pre-order your copy now, you can do it here! Full refunds available up to Feb 1st 2026. 👇</p>
           </div>
+        </div>
+      </div>
+
+      <!-- YouTube Video Section -->
+      <div class="video-showcase">
+        <h2>Watch Countryball Cards in Action</h2>
+        <div class="video-container">
+          <iframe 
+            id="gameplayVideo"
+            src="https://www.youtube.com/embed/hOVPsuWcZUM?enablejsapi=1&rel=0&modestbranding=1" 
+            title="Countryball Cards Gameplay Video" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
 
@@ -1946,7 +2154,9 @@
         }
       }
     }
-    // Track store page view
+    // Enhanced Store Tracking System
+    
+    // Track store page view with detailed context
     if (typeof gtag !== 'undefined') {
       gtag('event', 'page_view', {
         page_title: 'Store',
@@ -1954,12 +2164,219 @@
         custom_parameter: 'store_visited'
       });
       
-      // Track store interest
+      // Track store interest with referrer info
       gtag('event', 'store_page_viewed', {
         event_category: 'engagement',
         event_label: 'preorder_comparison',
+        referrer: document.referrer || 'direct',
         value: 1
       });
+    }
+    
+    // Video Tracking Functions
+    function trackVideoEvent(action, progress = null) {
+      const eventData = {
+        event_category: 'video_interaction',
+        event_label: 'gameplay_video',
+        video_url: 'https://www.youtube.com/watch?v=hOVPsuWcZUM',
+        value: 1
+      };
+      
+      if (progress !== null) {
+        eventData.video_progress = progress;
+      }
+      
+      // Google Analytics
+      if (typeof gtag !== 'undefined') {
+        gtag('event', `video_${action}`, eventData);
+      }
+      
+      // Reddit Pixel
+      if (typeof rdt !== 'undefined') {
+        rdt('track', 'ViewContent', {
+          content_type: 'video',
+          content_name: `video_${action}`,
+          value: progress || 1
+        });
+      }
+      
+      console.log(`Video ${action} tracked`, eventData);
+    }
+    
+    // YouTube API integration for detailed video tracking
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('gameplayVideo', {
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+    
+    function onPlayerReady(event) {
+      trackVideoEvent('ready');
+      
+      // Track video interaction on first click/play
+      player.addEventListener('onStateChange', function(e) {
+        if (e.data === YT.PlayerState.PLAYING) {
+          trackVideoEvent('first_interaction');
+        }
+      });
+    }
+    
+    function onPlayerStateChange(event) {
+      switch(event.data) {
+        case YT.PlayerState.PLAYING:
+          trackVideoEvent('play');
+          startProgressTracking();
+          break;
+        case YT.PlayerState.PAUSED:
+          trackVideoEvent('pause', getCurrentProgress());
+          stopProgressTracking();
+          break;
+        case YT.PlayerState.ENDED:
+          trackVideoEvent('complete', 100);
+          stopProgressTracking();
+          break;
+      }
+    }
+    
+    let progressInterval;
+    let trackedMilestones = [];
+    
+    function startProgressTracking() {
+      stopProgressTracking(); // Clear any existing interval
+      
+      progressInterval = setInterval(() => {
+        const progress = getCurrentProgress();
+        
+        // Track quarter milestones
+        [25, 50, 75].forEach(milestone => {
+          if (progress >= milestone && !trackedMilestones.includes(milestone)) {
+            trackedMilestones.push(milestone);
+            trackVideoEvent('progress', milestone);
+          }
+        });
+      }, 1000);
+    }
+    
+    function stopProgressTracking() {
+      if (progressInterval) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+      }
+    }
+    
+    function getCurrentProgress() {
+      if (player && player.getCurrentTime && player.getDuration) {
+        const current = player.getCurrentTime();
+        const duration = player.getDuration();
+        return Math.round((current / duration) * 100);
+      }
+      return 0;
+    }
+    
+    // Load YouTube API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    // Country Selector Tracking
+    function trackCountrySelection(country) {
+      const eventData = {
+        event_category: 'user_interaction',
+        event_label: 'country_selected',
+        selected_country: country,
+        value: 1
+      };
+      
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'country_selected', eventData);
+      }
+      
+      if (typeof rdt !== 'undefined') {
+        rdt('track', 'Lead', {
+          content_type: 'country_selection',
+          content_name: country
+        });
+      }
+    }
+    
+    // Scroll Depth Tracking
+    let maxScrollDepth = 0;
+    let scrollMilestones = [25, 50, 75, 90, 100];
+    let trackedScrollMilestones = [];
+    
+    function trackScrollDepth() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollPercent = Math.round((scrollTop / (documentHeight - windowHeight)) * 100);
+      
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent;
+        
+        scrollMilestones.forEach(milestone => {
+          if (scrollPercent >= milestone && !trackedScrollMilestones.includes(milestone)) {
+            trackedScrollMilestones.push(milestone);
+            
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'scroll_depth', {
+                event_category: 'engagement',
+                event_label: `${milestone}%`,
+                value: milestone
+              });
+            }
+          }
+        });
+      }
+    }
+    
+    // Time on Page Tracking
+    let pageStartTime = Date.now();
+    let timeOnPageTracked = [];
+    
+    function trackTimeOnPage() {
+      const timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
+      
+      [30, 60, 120, 300].forEach(milestone => {
+        if (timeOnPage >= milestone && !timeOnPageTracked.includes(milestone)) {
+          timeOnPageTracked.push(milestone);
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'time_on_page', {
+              event_category: 'engagement',
+              event_label: `${milestone}s`,
+              value: milestone
+            });
+          }
+        }
+      });
+    }
+    
+    // Package Interaction Tracking
+    function trackPackageInteraction(packageName, action) {
+      const eventData = {
+        event_category: 'package_interaction',
+        event_label: `${packageName.toLowerCase()}_${action}`,
+        package_name: packageName,
+        action: action,
+        value: 1
+      };
+      
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'package_interaction', eventData);
+      }
+      
+      if (typeof rdt !== 'undefined') {
+        rdt('track', 'ViewContent', {
+          content_type: 'product',
+          content_name: packageName,
+          content_category: 'game_package'
+        });
+      }
     }
     
     function trackBackToHome() {
@@ -1983,14 +2400,271 @@
     }
     
     function trackPreOrderClick(packageName, price) {
+      // Enhanced pre-order tracking
+      const eventData = {
+        event_category: 'conversion',
+        event_label: packageName,
+        package_name: packageName,
+        price: price,
+        currency: 'USD',
+        value: price
+      };
+      
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'preorder_button_clicked', {
-          event_category: 'conversion',
-          event_label: packageName,
-          value: price
+        gtag('event', 'preorder_button_clicked', eventData);
+        
+        // Enhanced conversion tracking
+        gtag('event', 'begin_checkout', {
+          currency: 'USD',
+          value: price,
+          items: [{
+            item_id: packageName.toLowerCase().replace(' ', '_'),
+            item_name: packageName,
+            category: 'game_package',
+            price: price,
+            quantity: 1
+          }]
         });
       }
+      
+      if (typeof rdt !== 'undefined') {
+        rdt('track', 'Purchase', {
+          value: price,
+          currency: 'USD',
+          content_type: 'product',
+          content_name: packageName
+        });
+      }
+      
+      console.log(`Pre-order tracked: ${packageName} - $${price}`);
     }
+    
+    // Initialize all tracking when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize scroll tracking
+      window.addEventListener('scroll', trackScrollDepth, { passive: true });
+      
+      // Initialize time tracking
+      setInterval(trackTimeOnPage, 1000);
+      
+      // Track package hover interactions
+      document.querySelectorAll('.package-bar').forEach((packageEl, index) => {
+        const packageName = packageEl.querySelector('.package-name')?.textContent || `Package ${index + 1}`;
+        
+        packageEl.addEventListener('mouseenter', () => {
+          trackPackageInteraction(packageName, 'hover');
+        });
+        
+        packageEl.addEventListener('click', (e) => {
+          if (!e.target.closest('.package-btn')) {
+            trackPackageInteraction(packageName, 'click');
+          }
+        });
+      });
+      
+      // Track country selection changes
+      const countrySelector = document.getElementById('countryAvailabilitySelector');
+      if (countrySelector) {
+        countrySelector.addEventListener('change', (e) => {
+          if (e.target.value) {
+            trackCountrySelection(e.target.value);
+          }
+        });
+      }
+      
+      // Track external link clicks
+      document.querySelectorAll('a[target="_blank"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.href;
+          const linkText = link.textContent.trim();
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'external_link_click', {
+              event_category: 'navigation',
+              event_label: linkText,
+              external_url: href,
+              value: 1
+            });
+          }
+        });
+      });
+      
+      // Track email and contact interactions
+      document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.addEventListener('click', () => {
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'email_contact_click', {
+              event_category: 'contact',
+              event_label: 'support_email',
+              value: 1
+            });
+          }
+        });
+      });
+      
+      // Track form interactions
+      document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+          const formType = form.id || 'unknown_form';
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', {
+              event_category: 'conversion',
+              event_label: formType,
+              value: 1
+            });
+          }
+        });
+      });
+      
+      // Track page exit intent (when user moves mouse to top of page)
+      let exitIntentTracked = false;
+      document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 0 && !exitIntentTracked) {
+          exitIntentTracked = true;
+          
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'exit_intent', {
+              event_category: 'engagement',
+              event_label: 'page_exit_intent',
+              time_on_page: Math.round((Date.now() - pageStartTime) / 1000),
+              value: 1
+            });
+          }
+        }
+      });
+      
+      // Track visibility changes (tab switching)
+      document.addEventListener('visibilitychange', () => {
+        const eventType = document.hidden ? 'tab_hidden' : 'tab_visible';
+        
+        if (typeof gtag !== 'undefined') {
+          gtag('event', eventType, {
+            event_category: 'engagement',
+            event_label: 'tab_interaction',
+            value: 1
+          });
+        }
+      });
+      
+      console.log('Enhanced store tracking initialized');
+      
+      // Enhanced Interactivity for Store Page
+      
+      // Create floating particles
+      function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'store-particle';
+        particle.style.cssText = `
+          position: fixed;
+          background: rgba(251, 191, 36, 0.3);
+          border-radius: 50%;
+          pointer-events: none;
+          left: ${Math.random() * 100}vw;
+          width: ${Math.random() * 4 + 2}px;
+          height: ${Math.random() * 4 + 2}px;
+          animation: particleFloat ${Math.random() * 3 + 7}s linear infinite;
+          animation-delay: ${Math.random() * 2}s;
+          z-index: -1;
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+          particle.remove();
+        }, 10000);
+      }
+      
+      // Create particles less frequently
+      setInterval(createParticle, 8000);
+      
+      // Package interaction enhancements
+      document.querySelectorAll('.package-bar').forEach((pkg, index) => {
+        // Stagger animation delays
+        pkg.style.animationDelay = `${index * 0.2}s`;
+        
+        // Add click effect
+        pkg.addEventListener('click', function(e) {
+          if (!e.target.closest('.package-btn')) {
+            this.style.transform = 'translateY(-8px) scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = '';
+            }, 200);
+          }
+        });
+        
+        // Simple hover effect
+        pkg.addEventListener('mouseenter', () => {
+          pkg.style.transform = 'translateY(-5px)';
+        });
+        
+        pkg.addEventListener('mouseleave', () => {
+          pkg.style.transform = '';
+        });
+      });
+      
+      // Button ripple effects
+      document.querySelectorAll('.package-btn, .btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+            z-index: 10;
+          `;
+          
+          this.style.position = 'relative';
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+      
+      // Video container interactions
+      const videoContainer = document.querySelector('.video-container');
+      if (videoContainer) {
+        videoContainer.addEventListener('mouseenter', () => {
+          videoContainer.style.transform = 'scale(1.02) rotateY(2deg)';
+        });
+        
+        videoContainer.addEventListener('mouseleave', () => {
+          videoContainer.style.transform = '';
+        });
+      }
+      
+      // Scroll reveal for elements
+      function revealOnScroll() {
+        const elements = document.querySelectorAll('.package-bar, .video-showcase, .availability-checker');
+        elements.forEach((el, index) => {
+          const elementTop = el.getBoundingClientRect().top;
+          const elementVisible = 150;
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.style.animationDelay = `${index * 0.1}s`;
+          }
+        });
+      }
+      
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll();
+    });
     
     function trackEmailSignup() {
       if (typeof gtag !== 'undefined') {
