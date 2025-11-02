@@ -552,24 +552,72 @@
       border-color: rgba(251, 191, 36, 0.8);
     }
     
-    /* Extended Edition - Same as others */
+    /* Extended Edition - Purplish styling */
     .extended-bar {
-      border-color: rgba(251, 191, 36, 0.5);
+      border-color: rgba(147, 51, 234, 0.5);
+      background: rgba(147, 51, 234, 0.08);
     }
     
     .extended-bar:hover {
-      border-color: rgba(251, 191, 36, 0.8);
+      border-color: rgba(147, 51, 234, 0.8);
+      box-shadow: 0 12px 40px rgba(147, 51, 234, 0.3);
     }
     
-    /* Extended Edition - Using standard styling */
+    .extended-bar::before {
+      background: linear-gradient(90deg, transparent, rgba(147, 51, 234, 0.1), transparent);
+    }
     
-    /* Founder's Edition - Standard styling */
+    /* Extended Edition Package Name Color */
+    .extended-bar .package-name {
+      color: rgba(147, 51, 234, 0.9);
+    }
+    
+    /* Extended Edition Button Styling */
+    .extended-btn {
+      background: linear-gradient(135deg, #9333ea, #a855f7) !important;
+      color: white !important;
+      box-shadow: 0 4px 16px rgba(147, 51, 234, 0.3) !important;
+      font-weight: 700 !important;
+    }
+    
+    .extended-btn:hover {
+      background: linear-gradient(135deg, #a855f7, #c084fc) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4) !important;
+    }
+    
+    /* Founder's Edition - Green styling */
     .founders-bar {
-      border-color: rgba(251, 191, 36, 0.5);
+      border-color: rgba(34, 197, 94, 0.5);
+      background: rgba(34, 197, 94, 0.08);
     }
     
     .founders-bar:hover {
-      border-color: rgba(251, 191, 36, 0.8);
+      border-color: rgba(34, 197, 94, 0.8);
+      box-shadow: 0 12px 40px rgba(34, 197, 94, 0.3);
+    }
+    
+    .founders-bar::before {
+      background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+    }
+    
+    /* Founder's Edition Package Name Color */
+    .founders-bar .package-name {
+      color: rgba(34, 197, 94, 0.9);
+    }
+    
+    /* Founder's Edition Button Styling */
+    .founders-btn {
+      background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+      color: white !important;
+      box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3) !important;
+      font-weight: 700 !important;
+    }
+    
+    .founders-btn:hover {
+      background: linear-gradient(135deg, #16a34a, #15803d) !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4) !important;
     }
     
     /* Kickstarter Success Note */
@@ -846,14 +894,14 @@
       min-width: 180px;
     }
     
-    .base-btn, .extended-btn, .founders-btn {
+    .base-btn {
       background: linear-gradient(135deg, var(--gold), #e6c875);
       color: #000;
       box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
       font-weight: 700;
     }
     
-    .base-btn:hover, .extended-btn:hover, .founders-btn:hover {
+    .base-btn:hover {
       background: linear-gradient(135deg, #e6c875, #fbbf24);
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
@@ -2171,6 +2219,31 @@
         referrer: document.referrer || 'direct',
         value: 1
       });
+      
+      // Track package availability view
+      gtag('event', 'packages_displayed', {
+        event_category: 'content_view',
+        event_label: 'all_packages_visible',
+        packages_count: 3,
+        value: 1
+      });
+    }
+    
+    // Reddit Pixel store tracking
+    if (typeof rdt !== 'undefined') {
+      // Track store page view
+      rdt('track', 'ViewContent', {
+        content_type: 'product_category',
+        content_name: 'Countryball Cards Store',
+        content_category: 'game_store'
+      });
+      
+      // Track each package as a product view
+      rdt('track', 'ViewContent', {
+        content_ids: ['base_game', 'extended_edition', 'founders_edition'],
+        content_type: 'product',
+        content_name: 'Game Package Comparison'
+      });
     }
     
     // Video Tracking Functions
@@ -2400,43 +2473,108 @@
     }
     
     function trackPreOrderClick(packageName, price) {
-      // Enhanced pre-order tracking
+      // Enhanced pre-order tracking with multiple event types
       const eventData = {
         event_category: 'conversion',
         event_label: packageName,
         package_name: packageName,
         price: price,
         currency: 'USD',
-        value: price
+        value: price,
+        page_location: window.location.href,
+        timestamp: new Date().toISOString()
       };
       
+      // Google Analytics tracking
       if (typeof gtag !== 'undefined') {
+        // Primary conversion event
         gtag('event', 'preorder_button_clicked', eventData);
         
-        // Enhanced conversion tracking
+        // Enhanced ecommerce tracking
         gtag('event', 'begin_checkout', {
           currency: 'USD',
           value: price,
           items: [{
-            item_id: packageName.toLowerCase().replace(' ', '_'),
+            item_id: packageName.toLowerCase().replace(/ /g, '_'),
             item_name: packageName,
             category: 'game_package',
             price: price,
             quantity: 1
           }]
         });
+        
+        // Additional purchase intent tracking
+        gtag('event', 'purchase_intent', {
+          event_category: 'conversion_funnel',
+          event_label: `${packageName}_purchase_attempt`,
+          value: price,
+          currency: 'USD'
+        });
+        
+        // Custom event for detailed tracking
+        gtag('event', 'custom_conversion', {
+          event_category: 'store_conversion',
+          action: 'purchase_button_click',
+          label: packageName,
+          value: price,
+          custom_parameter: 'store_purchase_attempt'
+        });
       }
       
+      // Reddit Pixel tracking with multiple event types
       if (typeof rdt !== 'undefined') {
+        // Primary purchase tracking
         rdt('track', 'Purchase', {
           value: price,
           currency: 'USD',
+          content_type: 'product',
+          content_name: packageName,
+          content_category: 'countryball_cards'
+        });
+        
+        // Lead conversion tracking
+        rdt('track', 'Lead', {
+          value: price,
+          currency: 'USD',
+          content_type: 'game_preorder',
+          content_name: packageName
+        });
+        
+        // Custom conversion event
+        rdt('track', 'Custom', {
+          customEventName: 'GamePreOrder',
+          value: price,
+          currency: 'USD',
+          content_name: packageName,
+          content_type: 'preorder'
+        });
+        
+        // Add to cart equivalent
+        rdt('track', 'AddToCart', {
+          value: price,
+          currency: 'USD',
+          content_ids: [packageName.toLowerCase().replace(/ /g, '_')],
           content_type: 'product',
           content_name: packageName
         });
       }
       
-      console.log(`Pre-order tracked: ${packageName} - $${price}`);
+      // Console logging for debugging
+      console.log(`Enhanced pre-order tracking completed: ${packageName} - $${price}`, {
+        googleAnalytics: typeof gtag !== 'undefined',
+        redditPixel: typeof rdt !== 'undefined',
+        eventData: eventData
+      });
+      
+      // Track package-specific metrics
+      const packageType = packageName.toLowerCase().replace(/ /g, '_');
+      if (typeof gtag !== 'undefined') {
+        gtag('event', `${packageType}_purchase_attempt`, {
+          event_category: 'package_specific',
+          event_label: packageName,
+          value: price
+        });
+      }
     }
     
     // Initialize all tracking when page loads
@@ -2447,17 +2585,69 @@
       // Initialize time tracking
       setInterval(trackTimeOnPage, 1000);
       
-      // Track package hover interactions
+      // Track package hover interactions with purchase intent
       document.querySelectorAll('.package-bar').forEach((packageEl, index) => {
         const packageName = packageEl.querySelector('.package-name')?.textContent || `Package ${index + 1}`;
+        let hoverStartTime = null;
+        let hasTrackedLongHover = false;
         
         packageEl.addEventListener('mouseenter', () => {
+          hoverStartTime = Date.now();
+          hasTrackedLongHover = false;
           trackPackageInteraction(packageName, 'hover');
+          
+          // Track long hovers (indicating purchase consideration)
+          setTimeout(() => {
+            if (hoverStartTime && !hasTrackedLongHover) {
+              hasTrackedLongHover = true;
+              
+              if (typeof gtag !== 'undefined') {
+                gtag('event', 'package_consideration', {
+                  event_category: 'purchase_intent',
+                  event_label: `${packageName}_long_hover`,
+                  value: 1
+                });
+              }
+              
+              if (typeof rdt !== 'undefined') {
+                rdt('track', 'ViewContent', {
+                  content_type: 'product_consideration',
+                  content_name: packageName,
+                  value: 1
+                });
+              }
+            }
+          }, 3000); // 3 second hover indicates serious consideration
+        });
+        
+        packageEl.addEventListener('mouseleave', () => {
+          if (hoverStartTime) {
+            const hoverDuration = Date.now() - hoverStartTime;
+            hoverStartTime = null;
+            
+            // Track hover duration for analytics
+            if (typeof gtag !== 'undefined' && hoverDuration > 1000) {
+              gtag('event', 'package_hover_duration', {
+                event_category: 'engagement',
+                event_label: packageName,
+                value: Math.round(hoverDuration / 1000) // Duration in seconds
+              });
+            }
+          }
         });
         
         packageEl.addEventListener('click', (e) => {
           if (!e.target.closest('.package-btn')) {
             trackPackageInteraction(packageName, 'click');
+            
+            // Track package card clicks as purchase interest
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'package_card_clicked', {
+                event_category: 'purchase_interest',
+                event_label: packageName,
+                value: 1
+              });
+            }
           }
         });
       });
@@ -2472,17 +2662,67 @@
         });
       }
       
-      // Track external link clicks
+      // Track external link clicks with enhanced purchase tracking
       document.querySelectorAll('a[target="_blank"]').forEach(link => {
         link.addEventListener('click', (e) => {
           const href = link.href;
           const linkText = link.textContent.trim();
+          
+          // Check if this is a purchase link (Stripe)
+          const isPurchaseLink = href.includes('buy.stripe.com');
           
           if (typeof gtag !== 'undefined') {
             gtag('event', 'external_link_click', {
               event_category: 'navigation',
               event_label: linkText,
               external_url: href,
+              is_purchase_link: isPurchaseLink,
+              value: 1
+            });
+            
+            // Enhanced tracking for purchase links
+            if (isPurchaseLink) {
+              gtag('event', 'checkout_redirect', {
+                event_category: 'conversion_funnel',
+                event_label: 'stripe_redirect',
+                external_url: href,
+                value: 1
+              });
+              
+              // Track which package is being purchased based on button class
+              const button = e.target.closest('.package-btn');
+              if (button) {
+                let packageName = 'Unknown';
+                let price = 0;
+                
+                if (button.classList.contains('base-btn')) {
+                  packageName = 'Base Game';
+                  price = 30;
+                } else if (button.classList.contains('extended-btn')) {
+                  packageName = 'Extended Edition';
+                  price = 45;
+                } else if (button.classList.contains('founders-btn')) {
+                  packageName = 'Founders Edition';
+                  price = 65;
+                }
+                
+                gtag('event', 'stripe_checkout_initiated', {
+                  event_category: 'conversion_advanced',
+                  event_label: packageName,
+                  package_name: packageName,
+                  price: price,
+                  currency: 'USD',
+                  value: price
+                });
+              }
+            }
+          }
+          
+          // Enhanced Reddit Pixel tracking for purchase links
+          if (typeof rdt !== 'undefined' && isPurchaseLink) {
+            rdt('track', 'InitiateCheckout', {
+              content_type: 'product',
+              content_name: linkText,
               value: 1
             });
           }
@@ -2523,12 +2763,60 @@
         if (e.clientY <= 0 && !exitIntentTracked) {
           exitIntentTracked = true;
           
+          const timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
+          
           if (typeof gtag !== 'undefined') {
             gtag('event', 'exit_intent', {
               event_category: 'engagement',
               event_label: 'page_exit_intent',
-              time_on_page: Math.round((Date.now() - pageStartTime) / 1000),
+              time_on_page: timeOnPage,
               value: 1
+            });
+            
+            // Track as potential lost sale if they spent time on page
+            if (timeOnPage > 30) {
+              gtag('event', 'potential_lost_sale', {
+                event_category: 'conversion_funnel',
+                event_label: 'exit_without_purchase',
+                time_on_page: timeOnPage,
+                value: 1
+              });
+            }
+          }
+          
+          if (typeof rdt !== 'undefined' && timeOnPage > 30) {
+            rdt('track', 'Custom', {
+              customEventName: 'ExitIntent',
+              content_type: 'abandonment',
+              content_name: 'Store Exit',
+              value: timeOnPage
+            });
+          }
+        }
+      });
+      
+      // Track beforeunload for better exit tracking
+      window.addEventListener('beforeunload', () => {
+        const timeOnPage = Math.round((Date.now() - pageStartTime) / 1000);
+        
+        if (timeOnPage > 10) { // Only track if they spent at least 10 seconds
+          // Use sendBeacon for reliable tracking on page unload
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_unload', {
+              event_category: 'engagement',
+              event_label: 'session_end',
+              time_on_page: timeOnPage,
+              transport_type: 'beacon',
+              value: 1
+            });
+          }
+          
+          // Send beacon to track page abandonment
+          if (navigator.sendBeacon && typeof rdt !== 'undefined') {
+            rdt('track', 'Custom', {
+              customEventName: 'PageAbandon',
+              content_type: 'session_end',
+              value: timeOnPage
             });
           }
         }
