@@ -118,27 +118,15 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
       border:none;
       box-shadow:0 4px 12px rgba(0,0,0,.25),
                  0 0 8px rgba(199,164,85,.2);
-      border-radius:0;overflow:visible;
+      border-radius:16px;overflow:hidden;
       background:none;
-      transition:transform 0.15s ease-out, box-shadow 0.15s ease-out;
-      transform-style:preserve-3d;cursor:pointer;
-      transform-origin:center center;position:relative;z-index:10;
-      will-change:transform;
-      backface-visibility:hidden;
-      -webkit-backface-visibility:hidden}
-/* On touch devices, disable hand cursor since tilt is disabled */
-@media (hover: none) and (pointer: coarse){ .card{ cursor: default; } }
-.card:hover{box-shadow:0 12px 25px rgba(0,0,0,.4),
-                       0 0 20px rgba(199,164,85,.3)}
+      cursor:default;
+      position:relative;z-index:10}
 .card img{width:100%;height:100%;display:block;
           image-rendering:auto;image-rendering:high-quality;
           image-rendering:crisp-edges;-ms-interpolation-mode:bicubic;
-          transform:translateZ(1px);object-fit:contain;
-          image-rendering:-webkit-optimize-contrast;
-          filter:none;-webkit-filter:none;
-          backface-visibility:hidden;
-          -webkit-backface-visibility:hidden;
-          will-change:transform}
+          object-fit:contain;
+          border-radius:16px}
 
 /* Email CTA Card in Carousel */
 .email-cta-card {
