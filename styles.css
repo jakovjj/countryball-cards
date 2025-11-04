@@ -901,6 +901,8 @@ font-size:16px}
     min-width: 200px;
     box-sizing: border-box;
   }
+  .discord-btn{font-size:22px !important}
+  .discord-btn .btn-label{font-size:22px !important;font-weight:700 !important}
   .privacy-notice{text-align:center !important}
   .wrap{padding:clamp(16px,4vw,20px);max-width:calc(100vw - 8px)}
   .frame{padding:clamp(16px,4vw,20px)}
@@ -966,6 +968,8 @@ font-size:16px}
     max-width: 240px;
     margin: 0 auto;
   }
+  .discord-btn{font-size:22px !important}
+  .discord-btn .btn-label{font-size:22px !important;font-weight:700 !important}
 }
 
 /* Very small screens */
@@ -1026,6 +1030,8 @@ font-size:16px}
     max-width: 220px;
     margin: 0 auto;
   }
+  .discord-btn{font-size:22px !important}
+  .discord-btn .btn-label{font-size:22px !important;font-weight:700 !important}
 }
 
 /* Specific adjustments for 320px screens */
@@ -1054,6 +1060,8 @@ font-size:16px}
     max-width: 220px;
     margin: 0 auto;
   }
+  .discord-btn{font-size:22px !important}
+  .discord-btn .btn-label{font-size:22px !important;font-weight:700 !important}
 }
 
 /* Safari-specific fixes */

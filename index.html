@@ -352,7 +352,7 @@
     .copy{text-align:center}
     .cta,.cta-section{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:32px 0}
     .cta-secondary{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:16px 0}
-    .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border:none;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all 0.2s ease;box-sizing:border-box}
+    .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border:2px solid transparent;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all 0.2s ease;box-sizing:border-box}
     .btn.primary{background:var(--gold);color:var(--bg);box-shadow:0 2px 8px rgba(199,164,85,0.2)}
     .btn.primary:hover{background:#d4b866;transform:translateY(-1px);box-shadow:0 4px 12px rgba(199,164,85,0.3)}
     .btn.secondary{background:transparent;color:var(--gold);border:2px solid var(--gold);box-shadow:0 2px 8px rgba(199,164,85,0.1)}
@@ -362,11 +362,12 @@
     .btn-row{display:flex;align-items:center;gap:8px}
     .btn-icon{width:18px;height:18px;fill:currentColor}
     .btn-label{white-space:nowrap;font-weight:600}
-    .store-btn{padding:18px 32px;font-size:18px;font-weight:600;width:280px;justify-content:center}
-    .store-btn .btn-icon{width:20px;height:20px}
+    .store-btn{padding:18px 32px !important;font-size:18px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important}
+    .discord-btn{padding:12px 32px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important;background:#7289da !important;color:#000 !important;box-shadow:0 2px 8px rgba(114,137,218,0.2) !important;font-size:18px !important}
+    .store-btn .btn-icon, .discord-btn .btn-icon{width:20px;height:20px}
     .store-btn .btn-label{font-size:18px;font-weight:600}
-    .discord-btn{border-color:#5865f2;color:#5865f2;width:280px;justify-content:center}
-    .discord-btn:hover{background:rgba(88,101,242,0.1);border-color:#5865f2;color:#5865f2}
+    .discord-btn .btn-label{font-size:18px !important;font-weight:600 !important}
+    .discord-btn:hover{background:#8ea1e1 !important;transform:translateY(-1px) !important;box-shadow:0 4px 12px rgba(114,137,218,0.3) !important;color:#000 !important}
     .main-kickstarter-cta{background:linear-gradient(135deg,rgba(5,206,120,0.12),rgba(199,164,85,0.08));border:3px solid var(--kickstarter);border-radius:20px;padding:48px 32px;margin:40px 0;text-align:center;position:relative;overflow:hidden}
     .main-kickstarter-cta::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent 30%,rgba(5,206,120,0.05) 50%,transparent 70%);pointer-events:none}
     .kickstarter-cta-title{color:var(--text);font-size:32px;font-weight:800;margin:0 0 12px 0;text-shadow:0 1px 2px rgba(0,0,0,0.1)}
@@ -387,6 +388,8 @@
     @media(max-width:768px){
       .cta,.cta-section,.cta-secondary{flex-direction:column;align-items:center}
       .btn{width:100%;max-width:280px;justify-content:center}
+      .btn.discord-btn{font-size:14px !important;padding:12px 32px !important}
+      .btn.discord-btn .btn-label{font-size:14px !important;font-weight:600 !important}
       .countdown-number{font-size:22px;min-width:32px}
       .countdown-banner{padding:12px 16px}
       .main-kickstarter-cta{padding:32px 16px;margin:24px 0}
@@ -407,6 +410,8 @@
       .kickstarter-btn-icon{width:18px;height:18px}
       .kickstarter-btn-arrow{width:14px;height:14px}
       .kickstarter-btn-content{gap:5px}
+      .btn.discord-btn{font-size:12px !important;padding:12px 32px !important}
+      .btn.discord-btn .btn-label{font-size:12px !important;font-weight:600 !important}
     }
     
     /* Store Modal Styles */
@@ -589,13 +594,10 @@
         margin-top: 16px;
       }
       
-      .discord-btn {
-        min-width: 280px;
-      }
-      
       .store-btn, .discord-btn {
-        width: 100%;
-        max-width: 280px;
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
       }
     }
   </style>
@@ -627,18 +629,14 @@
                 <span class="btn-label">Get Countryball Cards</span>
               </span>
             </button>
-            
-            <!-- Secondary actions row -->
-            <div class="cta-secondary">
-              <a class="btn secondary discord-btn" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
-                <span class="btn-row">
-                  <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.30zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                  </svg>
-                  <span class="btn-label">Join Discord</span>
-                </span>
-              </a>
-            </div>
+            <a class="btn discord-btn" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
+              <span class="btn-row">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.010c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.210 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+                <span class="btn-label">Join Discord</span>
+              </span>
+            </a>
           </div>
           <div class="privacy-notice" style="font-size:12px;color:var(--muted);margin-top:8px">
             By subscribing, you agree to our <a href="privacy-policy.html" style="color:#0066cc;text-decoration:none">Privacy Policy</a>
