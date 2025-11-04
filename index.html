@@ -352,20 +352,21 @@
     .copy{text-align:center}
     .cta,.cta-section{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:32px 0}
     .cta-secondary{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:16px 0}
-    .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border:none;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-sizing:border-box}
-    .btn.primary{background:linear-gradient(135deg,var(--gold),#d4b866);color:var(--bg);box-shadow:0 6px 20px rgba(199,164,85,0.3)}
-    .btn.primary:hover{background:linear-gradient(135deg,#d4b866,#e6c875);transform:translateY(-3px);box-shadow:0 8px 30px rgba(199,164,85,0.4)}
-    .btn.secondary{background:transparent;color:var(--gold);border:2px solid var(--gold)}
-    .btn.secondary:hover{background:var(--gold);color:var(--bg);transform:translateY(-2px)}
+    .btn{display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border:none;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none;cursor:pointer;transition:all 0.2s ease;box-sizing:border-box}
+    .btn.primary{background:var(--gold);color:var(--bg);box-shadow:0 2px 8px rgba(199,164,85,0.2)}
+    .btn.primary:hover{background:#d4b866;transform:translateY(-1px);box-shadow:0 4px 12px rgba(199,164,85,0.3)}
+    .btn.secondary{background:transparent;color:var(--gold);border:2px solid var(--gold);box-shadow:0 2px 8px rgba(199,164,85,0.1)}
+    .btn.secondary:hover{background:rgba(251,191,36,0.1);transform:translateY(-1px);box-shadow:0 4px 12px rgba(199,164,85,0.2)}
     .btn.tertiary{background:rgba(0,0,0,0.05);color:var(--text);border:2px solid rgba(0,0,0,0.2)}
-    .btn.tertiary:hover{background:rgba(0,0,0,0.1);border-color:rgba(0,0,0,0.3);transform:translateY(-2px)}
+    .btn.tertiary:hover{background:rgba(0,0,0,0.1);border-color:rgba(0,0,0,0.3);transform:translateY(-1px)}
     .btn-row{display:flex;align-items:center;gap:8px}
-    .btn-icon{width:20px;height:20px;fill:currentColor}
-    .btn-label{white-space:nowrap}
-    .store-btn{padding:24px 40px!important;font-size:20px!important;font-weight:800!important;min-width:350px;justify-content:center;background:linear-gradient(135deg,#22c55e,#16a34a)!important;border:none!important;box-shadow:0 8px 25px rgba(34,197,94,0.4)!important}
-    .store-btn:hover{background:linear-gradient(135deg,#16a34a,#15803d)!important;transform:translateY(-3px)!important;box-shadow:0 12px 35px rgba(34,197,94,0.5)!important}
-    .store-btn .btn-icon{width:28px;height:28px}
-    .store-btn .btn-label{font-size:20px;font-weight:800}
+    .btn-icon{width:18px;height:18px;fill:currentColor}
+    .btn-label{white-space:nowrap;font-weight:600}
+    .store-btn{padding:18px 32px;font-size:18px;font-weight:600;min-width:280px;justify-content:center}
+    .store-btn .btn-icon{width:20px;height:20px}
+    .store-btn .btn-label{font-size:18px;font-weight:600}
+    .discord-btn{border-color:#5865f2;color:#5865f2;min-width:280px;justify-content:center}
+    .discord-btn:hover{background:rgba(88,101,242,0.1);border-color:#5865f2;color:#5865f2}
     .main-kickstarter-cta{background:linear-gradient(135deg,rgba(5,206,120,0.12),rgba(199,164,85,0.08));border:3px solid var(--kickstarter);border-radius:20px;padding:48px 32px;margin:40px 0;text-align:center;position:relative;overflow:hidden}
     .main-kickstarter-cta::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent 30%,rgba(5,206,120,0.05) 50%,transparent 70%);pointer-events:none}
     .kickstarter-cta-title{color:var(--text);font-size:32px;font-weight:800;margin:0 0 12px 0;text-shadow:0 1px 2px rgba(0,0,0,0.1)}
@@ -407,6 +408,196 @@
       .kickstarter-btn-arrow{width:14px;height:14px}
       .kickstarter-btn-content{gap:5px}
     }
+    
+    /* Store Modal Styles */
+    .store-modal {
+      max-width: 600px;
+      width: 90%;
+    }
+    
+    .store-modal-content {
+      padding: 0 24px 24px 24px;
+    }
+    
+    .store-modal-description {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .store-options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .store-option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .store-option:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .store-option-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(251, 191, 36, 0.1);
+      border-radius: 8px;
+    }
+    
+    .store-option-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--gold);
+    }
+    
+    .kickstarter-option .store-option-icon {
+      background: rgba(5, 206, 120, 0.1);
+    }
+    
+    .kickstarter-option .store-option-icon svg {
+      fill: var(--kickstarter);
+    }
+    
+    .store-option-content {
+      flex: 1;
+    }
+    
+    .store-option-content h3 {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .store-option-content p {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    
+    .store-option-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .kickstarter-badge {
+      background: rgba(5, 206, 120, 0.2);
+      color: var(--kickstarter);
+    }
+    
+    .webstore-badge {
+      background: rgba(251, 191, 36, 0.2);
+      color: var(--gold);
+    }
+    
+    .store-option-arrow {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      opacity: 0.5;
+      transition: all 0.2s ease;
+    }
+    
+    .store-option-arrow svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+    
+    .store-option:hover .store-option-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+    
+    .store-modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    
+    .store-modal-note {
+      font-size: 13px;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+    
+    @media(max-width:768px){
+      .store-modal {
+        width: 95%;
+      }
+      
+      .store-modal-content {
+        padding: 0 16px 16px 16px;
+      }
+      
+      .store-option {
+        padding: 16px;
+        gap: 12px;
+      }
+      
+      .store-option-icon {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .store-option-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .store-option-content h3 {
+        font-size: 16px;
+      }
+      
+      .store-option-content p {
+        font-size: 13px;
+      }
+      
+      .store-modal-footer {
+        padding: 12px 16px;
+      }
+      
+      .cta-secondary {
+        margin-top: 16px;
+      }
+      
+      .discord-btn {
+        min-width: 280px;
+      }
+      
+      .store-btn, .discord-btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
@@ -428,18 +619,18 @@
           <img src="logo.png" alt="Countryball Cards" class="main-logo" width="600" height="240" loading="eager" fetchpriority="high">
           
           <div class="cta">
-            <a class="btn primary store-btn" id="storeBtn" href="store.html" onclick="trackStoreClick()">
+            <button class="btn primary store-btn" id="storeBtn" onclick="showStoreModal(); trackStoreClick()">
               <span class="btn-row">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
                 </svg>
-                <span class="btn-label">View Store</span>
+                <span class="btn-label">Get Countryball Cards</span>
               </span>
-            </a>
+            </button>
             
             <!-- Secondary actions row -->
             <div class="cta-secondary">
-              <a class="btn secondary" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
+              <a class="btn secondary discord-btn" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
                 <span class="btn-row">
                   <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.30zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
@@ -660,6 +851,68 @@
     </div>
   </div>
 
+  <!-- Store Options Modal -->
+  <div class="modal-overlay" id="storeOverlay" hidden aria-hidden="true">
+    <div class="modal store-modal" role="dialog" aria-modal="true" aria-labelledby="storeModalTitle" tabindex="-1">
+      <header>
+        <h2 id="storeModalTitle">🛒 Choose Your Store</h2>
+        <button class="modal-close" type="button" id="storeCloseBtn" aria-label="Close store options">✕</button>
+      </header>
+      <div class="store-modal-content">
+        <p class="store-modal-description">Choose where you'd like to purchase Countryball Cards:</p>
+        
+        <div class="store-options">
+          <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" 
+             target="_blank" 
+             rel="noopener" 
+             class="store-option kickstarter-option"
+             onclick="trackStoreOptionClick('kickstarter')">
+            <div class="store-option-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <div class="store-option-content">
+              <h3>Kickstarter Campaign</h3>
+              <p>Support the project on Kickstarter. Even though the campaign is over, you can still pre-order your copy through Late Pledges!</p>
+              <span class="store-option-badge kickstarter-badge">Most Popular</span>
+            </div>
+            <div class="store-option-arrow">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              </svg>
+            </div>
+          </a>
+          
+          <a href="store.html" 
+             class="store-option webstore-option"
+             onclick="trackStoreOptionClick('webstore')">
+            <div class="store-option-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </div>
+            <div class="store-option-content">
+              <h3>Official Web Store</h3>
+              <p>Purchase directly from our web store with immediate checkout and payment processing.</p>
+              <span class="store-option-badge webstore-badge">Direct Purchase</span>
+            </div>
+            <div class="store-option-arrow">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+      <footer class="store-modal-footer">
+        <span class="store-modal-note">
+          Both options offer the same great products with secure payment processing.
+        </span>
+      </footer>
+    </div>
+  </div>
+
   <!-- Bottom Kickstarter Popup -->
   <div class="bottom-popup" id="bottomPopup" hidden>
     <div class="bottom-popup-content">
@@ -778,12 +1031,102 @@
       }
     });
     
+    // Store Modal Functions
+    function showStoreModal() {
+      const overlay = document.getElementById('storeOverlay');
+      const dialog = overlay ? overlay.querySelector('.modal') : null;
+      const closeBtn = document.getElementById('storeCloseBtn');
+      
+      if (!overlay || !dialog) return;
+      
+      let lastFocus = document.activeElement;
+      
+      function open() {
+        lastFocus = document.activeElement;
+        overlay.hidden = false;
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        
+        // Focus the modal
+        setTimeout(() => dialog.focus(), 100);
+        
+        document.addEventListener('keydown', onKeyDown);
+        overlay.addEventListener('click', onOverlayClick);
+      }
+      
+      function close() {
+        overlay.hidden = true;
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onKeyDown);
+        overlay.removeEventListener('click', onOverlayClick);
+        
+        if (lastFocus && typeof lastFocus.focus === 'function') {
+          lastFocus.focus();
+        }
+      }
+      
+      function onOverlayClick(e) {
+        if (e.target === overlay) close();
+      }
+      
+      function onKeyDown(e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          close();
+          return;
+        }
+      }
+      
+      // Event listeners
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      
+      // Open the modal
+      open();
+    }
+    
     // Tracking functions
     function trackStoreClick() {
       if (typeof gtag !== 'undefined') {
         gtag('event', 'store_clicked', {
           event_category: 'navigation',
-          event_label: 'home_to_store',
+          event_label: 'home_to_store_modal',
+          value: 1
+        });
+      }
+    }
+    
+    function trackStoreOptionClick(option) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'store_option_selected', {
+          event_category: 'navigation',
+          event_label: option,
+          value: 1
+        });
+      }
+      
+      if (typeof rdt !== 'undefined') {
+        rdt('track', 'ViewContent', {
+          content_type: 'store_selection',
+          content_name: option,
+          value: 1
+        });
+      }
+    }
+    
+    function trackDiscordClick() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'discord_clicked', {
+          event_category: 'social',
+          event_label: 'join_discord_homepage',
+          value: 1
+        });
+      }
+      
+      if (typeof rdt !== 'undefined') {
+        rdt('track', 'ViewContent', {
+          content_type: 'social_link',
+          content_name: 'discord',
           value: 1
         });
       }
