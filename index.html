@@ -1030,6 +1030,39 @@
     });
     
     // Store Modal Functions
+    const storeClickEndpoint = 'https://admin.countryballcards.com/countryball_cards/backend/store_click.php';
+    const storeClickSessionId = `store_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+
+    function sendStoreClickToBackend(action, metadata = {}) {
+      if (typeof FormData === 'undefined' || typeof fetch === 'undefined') {
+        return;
+      }
+
+      try {
+        const formData = new FormData();
+        formData.append('eventType', 'store_click');
+        formData.append('action', action);
+        formData.append('sessionId', storeClickSessionId);
+        formData.append('timestamp', new Date().toISOString());
+        formData.append('page', window.location.pathname);
+        formData.append('referrer', document.referrer || '');
+        formData.append('userAgent', navigator.userAgent || '');
+        Object.entries(metadata).forEach(([key, value]) => {
+          if (value !== undefined && value !== null && value !== '') {
+            formData.append(key, value);
+          }
+        });
+
+        fetch(storeClickEndpoint, {
+          method: 'POST',
+          body: formData,
+          keepalive: true
+        }).catch(err => console.warn('Store click tracking failed', err));
+      } catch (error) {
+        console.warn('Store click tracking error', error);
+      }
+    }
+    
     function showStoreModal() {
       const overlay = document.getElementById('storeOverlay');
       const dialog = overlay ? overlay.querySelector('.modal') : null;
@@ -1084,7 +1117,7 @@
     }
     
     // Tracking functions
-    function trackStoreClick() {
+    function trackStoreClick(source = 'primary_cta') {
       if (typeof gtag !== 'undefined') {
         gtag('event', 'store_clicked', {
           event_category: 'navigation',
@@ -1092,6 +1125,8 @@
           value: 1
         });
       }
+
+      sendStoreClickToBackend('modal_open', { source });
     }
     
     function trackStoreOptionClick(option) {
@@ -1110,6 +1145,8 @@
           value: 1
         });
       }
+
+      sendStoreClickToBackend('store_option_selected', { option });
     }
     
     function trackDiscordClick() {
