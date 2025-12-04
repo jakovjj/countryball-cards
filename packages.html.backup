@@ -15,13 +15,13 @@
   <meta property="og:description" content="Choose your perfect package for Countryball Cards. Kickstarter launching October 1st!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://countryballcards.com/packages.html" />
-  <meta property="og:image" content="https://countryballcards.com/logo.png" />
+  <meta property="og:image" content="https://countryballcards.com/logo.webp" />
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Game Packages - Countryball Cards" />
   <meta name="twitter:description" content="Choose your perfect package. Kickstarter launching October 1st!" />
-  <meta name="twitter:image" content="https://countryballcards.com/logo.png" />
+  <meta name="twitter:image" content="https://countryballcards.com/logo.webp" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
