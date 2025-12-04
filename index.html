@@ -451,16 +451,27 @@
     .package-price{font-size:32px;font-weight:800;color:var(--text);margin:0}
     .package-subtitle{margin:0;color:var(--muted)}
     .package-action{display:flex;align-items:center}
-    .package-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 32px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s ease;min-width:200px;background:rgba(255,255,255,0.08);color:var(--text);border:1px solid rgba(255,255,255,0.2);text-align:center}
-    .package-btn.disabled{opacity:0.5;cursor:not-allowed}
-    .package-btn .package-btn-label{display:block;font-size:18px;line-height:1.2}
-    .package-btn .package-btn-price{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-top:4px}
-    .package-btn.base-theme{border-color:rgba(251,191,36,0.6)}
+    .package-btn{--cta-rgb:255,255,255;position:relative;display:inline-flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;padding:18px 34px;border-radius:16px;font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;min-width:220px;color:var(--text);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);transition:transform 0.25s ease,box-shadow 0.25s ease,filter 0.25s ease;overflow:hidden;text-align:center;isolation:isolate}
+    .package-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0));opacity:0;transition:opacity 0.25s ease;pointer-events:none;z-index:1}
+    .package-btn::after{content:'';position:absolute;inset:auto auto -30% -30%;width:65%;height:220%;background:rgba(255,255,255,0.1);transform:rotate(25deg) translate3d(-30%,0,0);opacity:0;transition:transform 0.35s ease,opacity 0.35s ease;pointer-events:none;z-index:1}
+    .package-btn .package-btn-label{display:block;font-size:19px;line-height:1.2;letter-spacing:0.3px;z-index:2}
+    .package-btn .package-btn-price{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;padding:4px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);margin-top:4px;z-index:2;box-shadow:inset 0 0 0 1px rgba(251,191,36,0.35)}
+    .package-btn:not(.disabled):hover,.package-btn:not(.disabled):focus-visible{transform:translateY(-3px) scale(1.01);box-shadow:0 14px 32px rgba(0,0,0,0.35);color:var(--text)}
+    .package-btn:not(.disabled):hover::before,.package-btn:not(.disabled):focus-visible::before{opacity:1}
+    .package-btn:not(.disabled):hover::after,.package-btn:not(.disabled):focus-visible::after{opacity:1;transform:rotate(25deg) translate3d(180%,0,0)}
+    .package-btn:focus-visible{outline:2px solid rgba(var(--cta-rgb),0.8);outline-offset:4px}
+    .package-btn.disabled{opacity:0.45;cursor:not-allowed;pointer-events:none;filter:saturate(0.4);box-shadow:none}
+    .package-btn.disabled::before,.package-btn.disabled::after{opacity:0}
+    .package-btn.base-theme{--cta-rgb:251,191,36;background:linear-gradient(140deg,rgba(251,191,36,0.22),rgba(15,20,25,0.4));border-color:rgba(251,191,36,0.55)}
     .package-btn.base-theme .package-btn-label{color:var(--gold)}
-    .package-btn.extended-theme{border-color:rgba(147,51,234,0.6)}
+    .package-btn.extended-theme{--cta-rgb:185,131,255;background:linear-gradient(140deg,rgba(153,102,255,0.24),rgba(15,20,25,0.4));border-color:rgba(153,102,255,0.55)}
     .package-btn.extended-theme .package-btn-label{color:#b983ff}
-    .package-btn.founders-theme{border-color:rgba(34,197,94,0.6)}
+    .package-btn.founders-theme{--cta-rgb:52,211,153;background:linear-gradient(140deg,rgba(52,211,153,0.22),rgba(15,20,25,0.4));border-color:rgba(52,211,153,0.55)}
     .package-btn.founders-theme .package-btn-label{color:#34d399}
+    .package-btn.armed{animation:ctaPulse 2.6s ease-in-out infinite}
+    @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.35)}70%{box-shadow:0 0 0 18px rgba(var(--cta-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}}
+    .preorder-copy-highlight{display:inline-flex;align-items:center;gap:6px;padding:2px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);font-size:0.85em;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;box-shadow:0 4px 18px rgba(251,191,36,0.25);vertical-align:middle}
+    @media(prefers-reduced-motion:reduce){.package-btn{transition:none}.package-btn.armed{animation:none}}
     .packages-kickstarter-cta{background:rgba(5,206,120,0.08);border:1px solid rgba(5,206,120,0.4);border-radius:16px;padding:24px;margin:16px 0;display:flex;align-items:center;gap:24px;justify-content:center;flex-wrap:wrap;text-align:left}
     .kickstarter-inline-content{max-width:420px}
     .kickstarter-inline-content p{margin:0 0 12px;color:var(--text)}
@@ -523,7 +534,7 @@
 
         <div class="kickstarter-success-banner">
           <p>Our <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" style="color:#10b981;text-decoration:underline">Kickstarter campaign</a> wrapped with <strong>$5,388 raised</strong>! Manufacturing is underway and late pledges remain open.</p>
-          <p>Pre-order directly below or keep supporting us on Kickstarter. We will ship all copies in March 2026.</p>
+          <p><span class="preorder-copy-highlight">Pre-order directly below</span> or keep supporting us on Kickstarter. We will ship all copies in March 2026.</p>
         </div>
 
         <div class="video-showcase">
@@ -594,7 +605,7 @@
                 <p class="package-subtitle">Perfect for jumping into Countryball Cards with the core 20 nations.</p>
               </div>
               <div class="package-action">
-                <a href="#" class="package-btn base-theme disabled" data-package="base" onclick="return trackPreOrderClick('Base Game', 30)">
+                <a href="#" class="package-btn base-theme disabled base-btn" data-package="base" aria-disabled="true" onclick="return trackPreOrderClick('Base Game', 30)">
                   <span class="package-btn-label">Base Game</span>
                   <span class="package-btn-price">Pre-order • $30</span>
                 </a>
@@ -612,7 +623,7 @@
                 <p class="package-subtitle">Adds new mechanics, 10 extra Countryballs, and enhanced components.</p>
               </div>
               <div class="package-action">
-                <a href="#" class="package-btn extended-theme disabled" data-package="extended" onclick="return trackPreOrderClick('Extended Edition', 45)">
+                <a href="#" class="package-btn extended-theme disabled extended-btn" data-package="extended" aria-disabled="true" onclick="return trackPreOrderClick('Extended Edition', 45)">
                   <span class="package-btn-label">Extended Edition</span>
                   <span class="package-btn-price">Pre-order • $45</span>
                 </a>
@@ -630,7 +641,7 @@
                 <p class="package-subtitle">Numbered certificate, exclusive art prints, and all unlocked bonuses.</p>
               </div>
               <div class="package-action">
-                <a href="#" class="package-btn founders-theme disabled" data-package="founders" onclick="return trackPreOrderClick('Founders Edition', 65)">
+                <a href="#" class="package-btn founders-theme disabled founders-btn" data-package="founders" aria-disabled="true" onclick="return trackPreOrderClick('Founders Edition', 65)">
                   <span class="package-btn-label">Founder's Edition</span>
                   <span class="package-btn-price">Pre-order • $65</span>
                 </a>
@@ -993,20 +1004,37 @@
 
     function updatePaymentLinks(zone) {
       const zoneLinks = PAYMENT_LINKS[zone] || PAYMENT_LINKS.ZONE_1;
-      const baseBtn = document.querySelector('.base-btn');
-      const extendedBtn = document.querySelector('.extended-btn');
-      const foundersBtn = document.querySelector('.founders-btn');
-      if (baseBtn) baseBtn.href = zoneLinks.BASE_GAME;
-      if (extendedBtn) extendedBtn.href = zoneLinks.EXTENDED_EDITION;
-      if (foundersBtn) foundersBtn.href = zoneLinks.FOUNDERS_EDITION;
+      const linkMap = {
+        base: zoneLinks.BASE_GAME,
+        extended: zoneLinks.EXTENDED_EDITION,
+        founders: zoneLinks.FOUNDERS_EDITION
+      };
+      document.querySelectorAll('.package-btn').forEach(btn => {
+        const pkg = btn.dataset.package;
+        if (pkg && linkMap[pkg]) {
+          btn.dataset.checkoutUrl = linkMap[pkg];
+          btn.setAttribute('data-zone', zone);
+          if (!btn.classList.contains('disabled')) {
+            btn.href = linkMap[pkg];
+          }
+        }
+      });
     }
 
     function updateButtonStates(enabled) {
       document.querySelectorAll('.package-btn').forEach(btn => {
         if (enabled) {
+          const checkoutUrl = btn.dataset.checkoutUrl || '#';
+          btn.href = checkoutUrl;
           btn.classList.remove('disabled');
+          btn.classList.add('armed');
+          btn.setAttribute('aria-disabled', 'false');
         } else {
+          btn.href = '#';
           btn.classList.add('disabled');
+          btn.classList.remove('armed');
+          btn.setAttribute('aria-disabled', 'true');
+          btn.removeAttribute('data-zone');
         }
       });
     }
@@ -1014,6 +1042,7 @@
     function handleCountrySelection(countryCode) {
       selectedCountry = countryCode || null;
       if (!selectedCountry) {
+        selectedZone = null;
         updateButtonStates(false);
         return;
       }
@@ -1044,9 +1073,9 @@
     function attachPackageGuards() {
       document.querySelectorAll('.package-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
-          if (!selectedCountry) {
+          if (btn.classList.contains('disabled') || !selectedCountry) {
             e.preventDefault();
-            alert('Please select your shipping country first.');
+            alert('Please select your shipping country first so we can load the correct checkout link.');
           }
         });
       });
