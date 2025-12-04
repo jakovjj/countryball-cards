@@ -148,7 +148,7 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
     margin: 12px 0 16px 0;
   }
 }
-.logo{max-width:100%;height:auto;max-height:280px;margin:8px 0 6px;display:block;transform:none}
+.logo{max-width:100%;height:auto;max-height:480px;margin:8px auto 6px;display:block;transform:none;filter:none}
 .logo-fallback{display:none}
 .sub{color:var(--muted);margin:0 0 18px}
 .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
