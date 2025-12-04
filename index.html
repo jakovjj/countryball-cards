@@ -995,11 +995,29 @@
     };
     let selectedCountry = null;
     let selectedZone = null;
+    const GEO_PROMPT_TEXT = 'Select a country for shipping';
 
     function getShippingZone(countryCode) {
       if (SHIPPING_ZONES.ZONE_1.includes(countryCode)) return 'ZONE_1';
       if (SHIPPING_ZONES.ZONE_2.includes(countryCode)) return 'ZONE_2';
       return null;
+    }
+
+    function promptForCountrySelection() {
+      document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
+        if (!label.dataset.defaultLabel) {
+          label.dataset.defaultLabel = label.textContent.trim();
+        }
+        label.textContent = GEO_PROMPT_TEXT;
+      });
+    }
+
+    function restoreButtonLabels() {
+      document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
+        if (label.dataset.defaultLabel) {
+          label.textContent = label.dataset.defaultLabel;
+        }
+      });
     }
 
     function updatePaymentLinks(zone) {
@@ -1022,6 +1040,9 @@
     }
 
     function updateButtonStates(enabled) {
+      if (enabled) {
+        restoreButtonLabels();
+      }
       document.querySelectorAll('.package-btn').forEach(btn => {
         if (enabled) {
           const checkoutUrl = btn.dataset.checkoutUrl || '#';
@@ -1044,6 +1065,7 @@
       if (!selectedCountry) {
         selectedZone = null;
         updateButtonStates(false);
+        promptForCountrySelection();
         return;
       }
       selectedZone = getShippingZone(selectedCountry) || 'ZONE_1';
@@ -1051,23 +1073,74 @@
       updateButtonStates(true);
     }
 
-    function detectCountry() {
+    function geolocateByBrowser() {
+      return new Promise(resolve => {
+        if (!('geolocation' in navigator)) {
+          resolve(null);
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const coords = position.coords || {};
+            const latitude = typeof coords.latitude === 'number' ? coords.latitude : null;
+            const longitude = typeof coords.longitude === 'number' ? coords.longitude : null;
+            if (latitude == null || longitude == null) {
+              resolve(null);
+              return;
+            }
+            const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+            fetch(url)
+              .then(resp => resp.ok ? resp.json() : null)
+              .then(data => resolve(data && data.countryCode ? data.countryCode : null))
+              .catch(() => resolve(null));
+          },
+          () => resolve(null),
+          { enableHighAccuracy: false, timeout: 5000, maximumAge: 600000 }
+        );
+      });
+    }
+
+    async function detectCountry() {
       const selector = document.getElementById('countryAvailabilitySelector');
       if (!selector) return;
       const placeholder = selector.querySelector('option[value=""]');
-      fetch('https://ipapi.co/json/')
-        .then(resp => resp.ok ? resp.json() : Promise.reject('geo lookup failed'))
-        .then(data => {
-          const code = data && data.country_code ? data.country_code : null;
-          if (code && selector.querySelector(`option[value="${code}"]`)) {
-            selector.value = code;
-            handleCountrySelection(code);
-          }
-        })
-        .catch(() => {/* noop */})
-        .finally(() => {
+      let detected = false;
+
+      const applySelection = code => {
+        if (code && selector.querySelector(`option[value="${code}"]`)) {
+          selector.value = code;
+          handleCountrySelection(code);
+          detected = true;
+          return true;
+        }
+        return false;
+      };
+
+      try {
+        const browserCode = await geolocateByBrowser();
+        if (applySelection(browserCode)) {
           if (placeholder) placeholder.textContent = 'Select your country...';
-        });
+          return;
+        }
+      } catch (_) {
+        /* noop */
+      }
+
+      try {
+        const resp = await fetch('https://ipapi.co/json/');
+        if (!resp.ok) throw new Error('geo lookup failed');
+        const data = await resp.json();
+        const code = data && data.country_code ? data.country_code : null;
+        applySelection(code);
+      } catch (_) {
+        /* noop */
+      }
+
+      if (!detected) {
+        promptForCountrySelection();
+      }
+
+      if (placeholder) placeholder.textContent = 'Select your country...';
     }
 
     function attachPackageGuards() {
