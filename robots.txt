@@ -1,10 +1,8 @@
 User-agent: *
-Allow: /
+Disallow: /
+Allow: /$
 
-# Disallow internal files
-Disallow: /pixel-test.html
-
-# Important files for crawlers
+# Preserve access to favicons and touch icons
 Allow: /favicon.ico
 Allow: /favicon-*.png
 Allow: /android-chrome-*.png

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <title>Countryball Cards</title>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Countryball Cards">
   <meta name="format-detection" content="telephone=no, email=no">
@@ -190,7 +191,10 @@
     gtag('config', 'G-M366HCYL8Z', {
       transport_type: 'beacon',
       anonymize_ip: true,
-      allow_google_signals: false
+      allow_google_signals: false,
+      page_title: 'Countryball Cards',
+      page_location: 'https://countryballcards.com/',
+      page_path: '/'
     });
 
     // Optional: send a one-time referrer info event for easy debugging
@@ -382,11 +386,11 @@
     .btn-icon{width:18px;height:18px;fill:currentColor}
     .btn-label{white-space:nowrap;font-weight:600}
     .store-btn{padding:18px 32px !important;font-size:18px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important}
-    .discord-btn{padding:12px 32px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important;background:#7289da !important;color:#000 !important;box-shadow:0 2px 8px rgba(114,137,218,0.2) !important;font-size:18px !important}
+    .discord-btn{padding:12px 32px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important;background:#7289da !important;color:#fff !important;box-shadow:0 2px 8px rgba(114,137,218,0.2) !important;font-size:18px !important}
     .store-btn .btn-icon, .discord-btn .btn-icon{width:20px;height:20px}
     .store-btn .btn-label{font-size:18px;font-weight:600}
     .discord-btn .btn-label{font-size:18px !important;font-weight:600 !important}
-    .discord-btn:hover{background:#8ea1e1 !important;transform:translateY(-1px) !important;box-shadow:0 4px 12px rgba(114,137,218,0.3) !important;color:#000 !important}
+    .discord-btn:hover{background:#8ea1e1 !important;transform:translateY(-1px) !important;box-shadow:0 4px 12px rgba(114,137,218,0.3) !important;color:#fff !important}
     .main-kickstarter-cta{background:linear-gradient(135deg,rgba(5,206,120,0.12),rgba(199,164,85,0.08));border:3px solid var(--kickstarter);border-radius:20px;padding:48px 32px;margin:40px 0;text-align:center;position:relative;overflow:hidden}
     .main-kickstarter-cta::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(45deg,transparent 30%,rgba(5,206,120,0.05) 50%,transparent 70%);pointer-events:none}
     .kickstarter-cta-title{color:var(--text);font-size:32px;font-weight:800;margin:0 0 12px 0;text-shadow:0 1px 2px rgba(0,0,0,0.1)}
@@ -521,6 +525,28 @@
     .packages-bottom-cta h3{margin-top:0;color:var(--gold)}
     .packages-support-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:24px}
     .discord-btn-icon{width:22px;height:22px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2))}
+    .faq-section{margin:48px 0;padding:0}
+    .faq-section h2{margin:0;font-size:30px;color:var(--text)}
+    .faq-intro{margin:8px 0 0;color:var(--muted)}
+    .faq-list{margin:28px 0 0;padding-left:28px;list-style:disc;list-style-position:outside;color:var(--muted);display:flex;flex-direction:column;gap:18px}
+    .faq-item{margin:0}
+    .faq-item strong{display:block;margin-bottom:6px;color:var(--text);font-size:19px}
+    .faq-item p{margin:0;color:inherit;line-height:1.5}
+    .rules-viewer{margin:64px 0;padding:32px;background:rgba(7,10,18,0.92);border:1px solid rgba(255,255,255,0.08);border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,0.45)}
+    .rules-viewer h3{margin:8px 0 12px;font-size:30px;color:var(--text)}
+    .rules-viewer-copy{margin:0;color:var(--muted);font-size:16px;max-width:720px}
+    .rules-viewer-headline{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;flex-wrap:wrap}
+    .rules-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(251,191,36,0.15);color:var(--gold);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+    .rules-pill svg{width:16px;height:16px;fill:currentColor}
+    .rules-viewer-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .rules-action-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:14px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:var(--text);font-weight:700;cursor:pointer;text-decoration:none;transition:transform 0.2s ease,box-shadow 0.2s ease,border-color 0.2s ease}
+    .rules-action-btn svg{width:18px;height:18px;fill:currentColor}
+    .rules-action-btn.primary{background:linear-gradient(135deg,var(--gold),#d4b866);color:#0b0d11;border-color:rgba(251,191,36,0.6)}
+    .rules-action-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,0.35)}
+    .rules-frame-wrapper{margin-top:24px;border-radius:18px;overflow:hidden;background:#060910;position:relative}
+    .rules-frame{width:100%;height:720px;border:none;display:block;background:#060910}
+    .rules-viewer-note{margin:16px 0 0;font-size:13px;color:var(--muted)}
+    .rules-viewer-note a{color:var(--gold)}
 
     @media(max-width:768px){
       .video-container{max-width:95%}
@@ -536,6 +562,11 @@
       .how-it-works{padding:24px}
       .how-it-works-footer{flex-direction:column;align-items:flex-start}
       .how-it-works-footer button{width:100%;justify-content:center}
+      .faq-list{padding-left:20px}
+      .rules-viewer{padding:24px;margin:48px 0}
+      .rules-frame{height:520px}
+      .rules-viewer-actions{width:100%;flex-direction:column}
+      .rules-action-btn{width:100%;justify-content:center}
     }
   </style>
   
@@ -567,7 +598,7 @@
           <article class="how-step">
             <span class="how-step-number">1</span>
             <h3>Reserve your deck</h3>
-            <p>Pick any package below to lock in the best Kickstarter-era pricing and bonus goodies before retail increases.</p>
+            <p>Pick any package below to lock in the best Kickstarter-era pricing and bonus goodies before retail increases. Full free refunds until February 2026.</p>
           </article>
           <article class="how-step">
             <span class="how-step-number">2</span>
@@ -789,47 +820,63 @@
       <div class="golden-separator"></div>
 
       <!-- FAQ Section -->
-      <section class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>🎮 How do I play?</h3>
+      <section class="faq-section" aria-labelledby="faqTitle">
+        <h2 id="faqTitle">Frequently Asked Questions</h2>
+        <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
+        <ul class="faq-list">
+          <li class="faq-item">
+            <strong>How do I play?</strong>
             <p>The board game is now available for pre-order! Production is underway and will ship in March 2026. You can try out our limited print-and-play and read the rules online while you wait.</p>
-          </div>
-          <div class="faq-item">
-            <h3>📦 What's in the box?</h3>
-            <p>The base edition includes 20 countryball cards, 5 dice, a bunch resource cards, coin tokens, and a complete ruleset. See our packages page for detailed contents.</p>
-          </div>
-          <div class="faq-item">
-            <h3>💻 Will there be a digital version?</h3>
-            <p>Yes! A digital version will be available on Steam soon. Perfect for playing online with friends or trying the game before getting the physical version.</p>
-          </div>
-          <div class="faq-item">
-            <h3>⏰ When will it ship?</h3>
+          </li>
+          <li class="faq-item">
+            <strong>What's in the box?</strong>
+            <p>The base edition includes 20 countryball cards, 5 dice, a bunch resource cards, coin tokens, and a complete ruleset.</p>
+          </li>
+          <li class="faq-item">
+            <strong>When will it ship?</strong>
             <p>Pre-orders are now available! All orders will ship in March 2026 when production is complete. Full refunds available until February 1st, 2026.</p>
-          </div>
-        </div>
+          </li>
+        </ul>
       </section>
 
       <!-- Golden separator after FAQ -->
       <div class="golden-separator"></div>
 
-      <!-- Game Rules CTA -->
-      <div class="packages-cta-section">
-        <a href="rules.pdf" class="packages-cta-button rules-cta-button" onclick="trackRulesClick()" target="_blank" rel="noopener">
-          <span class="packages-cta-content">
-            <svg class="packages-cta-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8L13.5,10.5L16,10.5L14.25,12L16,13.5L13.5,13.5L12,16L10.5,13.5L8,13.5L9.75,12L8,10.5L10.5,10.5L12,8Z"/>
-            </svg>
-            <span class="packages-cta-text">
-              <span class="packages-cta-title">View Game Rules</span>
-              <span class="packages-cta-subtitle">Learn how to play Countryball Cards!</span>
+      <!-- Game Rules Viewer -->
+      <section class="rules-viewer" aria-labelledby="rulesViewerTitle">
+        <div class="rules-viewer-headline">
+          <div>
+            <span class="rules-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 3h14a2 2 0 0 1 2 2v14c0 1.1-.9 2-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm0 2v14h14V5H5zm3 3h6v2H8V8zm0 4h8v2H8v-2z"/>
+              </svg>
+              Game Rules
             </span>
-          </span>
-        </a>
-      </div>
+            <h3 id="rulesViewerTitle">Read the full Countryball Cards rulebook</h3>
+            <p class="rules-viewer-copy">Scroll through the latest rules.pdf without leaving the site. Use fullscreen at the table or download a copy for offline play.</p>
+          </div>
+          <div class="rules-viewer-actions">
+            <button type="button" class="rules-action-btn primary" onclick="fullscreenRulesViewer()">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4h6v2H6v4H4V4zm10 0h6v6h-2V6h-4V4zM4 14h2v4h4v2H4v-6zm14 4v-4h2v6h-6v-2h4z"/>
+              </svg>
+              <span>Fullscreen Viewer</span>
+            </button>
+            <a href="rules.pdf" class="rules-action-btn" target="_blank" rel="noopener" onclick="trackRulesAction('open_new_tab')">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 3h14a2 2 0 0 1 2 2v4h-2V5H5v14h6v2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm14 10v4h-4v-2h1.59l-5.3-5.29 1.41-1.42L18 13.59V12h2zm3-8h-8v2h4.59l-6.3 6.29 1.42 1.42L20 8.41V13h2V5a2 2 0 0 0-2-2z"/>
+              </svg>
+              <span>Open in New Tab</span>
+            </a>
+          </div>
+        </div>
+        <div class="rules-frame-wrapper" id="rulesFrameContainer">
+          <iframe src="rules.pdf#view=FitH" title="Countryball Cards Rulebook" class="rules-frame" id="rulesFrame" loading="lazy" allowfullscreen></iframe>
+        </div>
+        <p class="rules-viewer-note">Having trouble loading? <a href="rules.pdf" target="_blank" rel="noopener">Download the PDF</a>.</p>
+      </section>
 
-      <!-- Golden separator after rules CTA -->
+      <!-- Golden separator after rules viewer -->
       <div class="golden-separator"></div>
 
       <div class="art" style="margin-top:32px">
@@ -1043,6 +1090,35 @@
             console.log('ServiceWorker registration failed');
           });
       });
+    }
+  </script>
+  
+  <!-- Rules viewer helpers -->
+  <script>
+    function trackRulesAction(action) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'rules_viewer_action', {
+          event_category: 'engagement',
+          event_label: action,
+          value: 1
+        });
+      }
+    }
+
+    function fullscreenRulesViewer() {
+      const container = document.getElementById('rulesFrameContainer') || document.getElementById('rulesFrame');
+      if (!container) {
+        return;
+      }
+      trackRulesAction('fullscreen');
+      const requestFullscreen = container.requestFullscreen || container.webkitRequestFullscreen || container.mozRequestFullScreen || container.msRequestFullscreen;
+      if (requestFullscreen) {
+        requestFullscreen.call(container).catch(() => {
+          window.open('rules.pdf', '_blank', 'noopener');
+        });
+      } else {
+        window.open('rules.pdf', '_blank', 'noopener');
+      }
     }
   </script>
   
