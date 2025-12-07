@@ -1,6 +1,9 @@
 User-agent: *
 Disallow: /
 Allow: /$
+Allow: /index.html
+Allow: /sitemap.xml
+Allow: /rules.pdf
 
 # Preserve access to favicons and touch icons
 Allow: /favicon.ico
