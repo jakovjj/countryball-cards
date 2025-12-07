@@ -1044,7 +1044,7 @@
         <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">✕</button>
       </header>
       <div class="preorder-modal-body">
-        <p class="preorder-modal-copy">We’ll open a secure Stripe checkout in a new tab so you can finish your pre-order.</p>
+        <p class="preorder-modal-copy">We’ll open a secure Stripe checkout so you can finish your pre-order.</p>
         <p class="preorder-modal-note">Stripe keeps your payment info protected, and you can still back out before completing payment.</p>
       </div>
       <footer class="preorder-modal-footer">
@@ -1318,10 +1318,7 @@
       }
       const targetUrl = pendingPreorder.checkoutUrl;
       closePreorderConfirmation({ restoreFocus: false });
-      const newTab = window.open(targetUrl, '_blank', 'noopener');
-      if (!newTab || newTab.closed) {
-        window.location.href = targetUrl;
-      }
+      window.location.href = targetUrl;
     }
 
     function initPreorderModalControls() {

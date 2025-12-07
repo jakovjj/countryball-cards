@@ -1099,16 +1099,16 @@ font-size:16px}
 .modal .modal-close{appearance:none;background:transparent;border:none;color:var(--text);font-size:22px;line-height:1;border-radius:8px;padding:6px;cursor:pointer}
 .modal .modal-close:hover{background:rgba(255,255,255,0.06)}
 .roadmap-intro{color:var(--muted);margin:0 0 10px}
-.preorder-modal{max-width:420px;width:min(100%,420px)}
+.preorder-modal{max-width:520px;width:min(94vw,520px);border:2px solid #22c55e;box-shadow:0 18px 48px rgba(34,197,94,0.18);animation:preorder-pop 0.45s cubic-bezier(.22,1,.36,1)}
 .preorder-modal-body{padding-top:4px}
 .preorder-modal-copy{margin:0 0 12px;color:var(--text);font-size:16px;line-height:1.5;font-weight:600}
 .preorder-modal-note{margin:0;color:var(--muted);font-size:14px;line-height:1.4}
 .preorder-close{color:#9ca3af;font-size:18px}
 .preorder-close:hover{background:rgba(156,163,175,0.18);color:#f3f4f6}
 .preorder-modal-footer{padding-top:16px}
-.preorder-continue-btn{width:100%;border:none;border-radius:14px;font-size:18px;font-weight:700;padding:18px 24px;background:linear-gradient(135deg,var(--gold),#fcd34d);color:var(--bg);cursor:pointer;box-shadow:0 12px 30px rgba(251,191,36,0.25);transition:transform 0.2s ease,box-shadow 0.2s ease}
-.preorder-continue-btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(251,191,36,0.35)}
-.preorder-continue-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.preorder-continue-btn{width:100%;border:2px solid #34d399;border-radius:14px;font-size:18px;font-weight:700;padding:18px 24px;background:rgba(15,20,25,0.8);color:#34d399;cursor:pointer;box-shadow:0 12px 30px rgba(16,185,129,0.12);transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease,color 0.18s ease}
+.preorder-continue-btn:hover{transform:translateY(-2px);background:#34d399;color:#0f1419;box-shadow:0 18px 42px rgba(16,185,129,0.28)}
+.preorder-continue-btn:focus-visible{outline:2px solid #34d399;outline-offset:4px}
 .roadmap-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .roadmap-item{background:rgba(255,255,255,0.03);border:1px solid rgba(199,164,85,0.2);border-radius:10px;padding:12px}
 .roadmap-item h3{margin:0 0 6px;font-size:16px}
@@ -1144,6 +1144,12 @@ font-size:16px}
     margin-bottom: 16px !important;
     font-size: 14px;
   }
+}
+
+@keyframes preorder-pop{
+  0%{opacity:0;transform:translateY(12px) scale(0.94)}
+  60%{opacity:1;transform:translateY(-4px) scale(1.02)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
 }
 
 /* Golden separator */
