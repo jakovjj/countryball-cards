@@ -1318,7 +1318,10 @@
       }
       const targetUrl = pendingPreorder.checkoutUrl;
       closePreorderConfirmation({ restoreFocus: false });
-      window.location.href = targetUrl;
+      const newTab = window.open(targetUrl, '_blank', 'noopener');
+      if (!newTab || newTab.closed) {
+        window.location.href = targetUrl;
+      }
     }
 
     function initPreorderModalControls() {
