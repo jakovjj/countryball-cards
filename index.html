@@ -712,7 +712,7 @@
                 <p class="package-subtitle">Perfect for jumping into Countryball Cards with the core 20 nations.</p>
               </div>
               <div class="package-action">
-                <a href="#" class="package-btn base-theme disabled base-btn" data-package="base" aria-disabled="true" onclick="return trackPreOrderClick('Base Game', 30)">
+                <a href="#" class="package-btn base-theme disabled base-btn" data-package="base" aria-disabled="true" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                   <span class="package-btn-label">Base Game</span>
                   <span class="package-btn-price">Pre-order • $30</span>
                 </a>
@@ -730,7 +730,7 @@
                 <p class="package-subtitle">Adds new mechanics, 10 extra Countryballs, and enhanced components.</p>
               </div>
               <div class="package-action">
-                <a href="#" class="package-btn extended-theme disabled extended-btn" data-package="extended" aria-disabled="true" onclick="return trackPreOrderClick('Extended Edition', 45)">
+                <a href="#" class="package-btn extended-theme disabled extended-btn" data-package="extended" aria-disabled="true" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                   <span class="package-btn-label">Extended Edition</span>
                   <span class="package-btn-price">Pre-order • $45</span>
                 </a>
@@ -748,7 +748,7 @@
                 <p class="package-subtitle">Numbered certificate, exclusive art prints, and all unlocked bonuses.</p>
               </div>
               <div class="package-action">
-                <a href="#" class="package-btn founders-theme disabled founders-btn" data-package="founders" aria-disabled="true" onclick="return trackPreOrderClick('Founders Edition', 65)">
+                <a href="#" class="package-btn founders-theme disabled founders-btn" data-package="founders" aria-disabled="true" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                   <span class="package-btn-label">Founder's Edition</span>
                   <span class="package-btn-price">Pre-order • $65</span>
                 </a>
@@ -1036,6 +1036,23 @@
     </div>
   </div>
 
+  <!-- Pre-order Confirmation Modal -->
+  <div class="modal-overlay" id="preorderConfirmOverlay" hidden aria-hidden="true">
+    <div class="modal preorder-modal" role="dialog" aria-modal="true" aria-labelledby="preorderConfirmTitle" tabindex="-1">
+      <header>
+        <h2 id="preorderConfirmTitle">Ready to order?</h2>
+        <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">✕</button>
+      </header>
+      <div class="preorder-modal-body">
+        <p class="preorder-modal-copy">We’ll open a secure Stripe checkout in a new tab so you can finish your pre-order.</p>
+        <p class="preorder-modal-note">Stripe keeps your payment info protected, and you can still back out before completing payment.</p>
+      </div>
+      <footer class="preorder-modal-footer">
+        <button type="button" class="preorder-continue-btn" id="preorderContinueBtn">Continue to Secure Checkout</button>
+      </footer>
+    </div>
+  </div>
+
 
   <!-- Bottom Kickstarter Popup -->
   <div class="bottom-popup" id="bottomPopup" hidden>
@@ -1220,6 +1237,15 @@
     let selectedCountry = null;
     let selectedZone = null;
     const GEO_PROMPT_TEXT = 'Select a country for shipping';
+    const preorderOverlay = document.getElementById('preorderConfirmOverlay');
+    const preorderDialog = preorderOverlay ? preorderOverlay.querySelector('.modal') : null;
+    const preorderCloseBtn = document.getElementById('preorderConfirmClose');
+    const preorderContinueBtn = document.getElementById('preorderContinueBtn');
+    let pendingPreorder = null;
+    let preorderLastFocus = null;
+    let preorderKeyListenerAttached = false;
+    let preorderControlsBound = false;
+    let preorderScrollY = 0;
 
     function getShippingZone(countryCode) {
       if (SHIPPING_ZONES.ZONE_1.includes(countryCode)) return 'ZONE_1';
@@ -1227,6 +1253,96 @@
       if (SHIPPING_ZONES.ZONE_3.includes(countryCode)) return 'ZONE_3';
       return null;
     }
+
+    function handlePreorderKeydown(event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closePreorderConfirmation();
+      }
+    }
+
+    function openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl) {
+      if (!checkoutUrl) {
+        return;
+      }
+      if (!preorderOverlay || !preorderDialog || !preorderContinueBtn) {
+        window.location.href = checkoutUrl;
+        return;
+      }
+
+      pendingPreorder = { checkoutUrl };
+      preorderLastFocus = triggerEl || document.activeElement || null;
+      preorderScrollY = window.scrollY || window.pageYOffset || 0;
+
+      preorderOverlay.hidden = false;
+      preorderOverlay.setAttribute('aria-hidden', 'false');
+
+      setTimeout(() => {
+        if (preorderContinueBtn) {
+          preorderContinueBtn.focus();
+        } else {
+          preorderDialog.focus();
+        }
+        window.scrollTo(0, preorderScrollY);
+      }, 30);
+
+      if (!preorderKeyListenerAttached) {
+        document.addEventListener('keydown', handlePreorderKeydown);
+        preorderKeyListenerAttached = true;
+      }
+    }
+
+    function closePreorderConfirmation(options = {}) {
+      if (!preorderOverlay) {
+        return;
+      }
+      preorderOverlay.hidden = true;
+      preorderOverlay.setAttribute('aria-hidden', 'true');
+      if (preorderKeyListenerAttached) {
+        document.removeEventListener('keydown', handlePreorderKeydown);
+        preorderKeyListenerAttached = false;
+      }
+      const shouldRestoreFocus = options.restoreFocus !== false;
+      if (shouldRestoreFocus && preorderLastFocus && typeof preorderLastFocus.focus === 'function') {
+        preorderLastFocus.focus();
+        window.scrollTo(0, preorderScrollY);
+      }
+      pendingPreorder = null;
+      preorderLastFocus = null;
+    }
+
+    function confirmPreorderCheckout() {
+      if (!pendingPreorder || !pendingPreorder.checkoutUrl) {
+        closePreorderConfirmation();
+        return;
+      }
+      const targetUrl = pendingPreorder.checkoutUrl;
+      closePreorderConfirmation({ restoreFocus: false });
+      window.location.href = targetUrl;
+    }
+
+    function initPreorderModalControls() {
+      if (preorderControlsBound) {
+        return;
+      }
+      if (!preorderOverlay) {
+        return;
+      }
+      if (preorderContinueBtn) {
+        preorderContinueBtn.addEventListener('click', confirmPreorderCheckout);
+      }
+      if (preorderCloseBtn) {
+        preorderCloseBtn.addEventListener('click', () => closePreorderConfirmation());
+      }
+      preorderOverlay.addEventListener('click', event => {
+        if (event.target === preorderOverlay) {
+          closePreorderConfirmation();
+        }
+      });
+      preorderControlsBound = true;
+    }
+    initPreorderModalControls();
+    document.addEventListener('DOMContentLoaded', initPreorderModalControls);
 
     function forcePackageButtonLabels(text) {
       document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
@@ -1576,11 +1692,26 @@
       });
     }
 
-    function trackPreOrderClick(packageName, price) {
+    function trackPreOrderClick(event, packageName, price) {
       if (!selectedCountry) {
         alert('Please select your shipping country first.');
         return false;
       }
+
+      const trigger = event ? (event.currentTarget || event.target) : null;
+      const checkoutUrl = trigger ? (trigger.dataset.checkoutUrl || trigger.getAttribute('href')) : null;
+
+      if (!checkoutUrl || checkoutUrl === '#') {
+        alert('Please select your shipping country first.');
+        return false;
+      }
+
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      const zoneLabel = (trigger && trigger.dataset.zone) || selectedZone || 'unknown';
 
       if (typeof gtag !== 'undefined') {
         gtag('event', 'preorder_button_clicked', {
@@ -1588,7 +1719,7 @@
           event_label: packageName,
           value: price,
           currency: 'USD',
-          shipping_zone: selectedZone || 'unknown'
+          shipping_zone: zoneLabel
         });
         gtag('event', 'begin_checkout', {
           currency: 'USD',
@@ -1611,7 +1742,8 @@
         });
       }
 
-      return true;
+      openPreorderConfirmation(packageName, price, checkoutUrl, trigger);
+      return false;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
