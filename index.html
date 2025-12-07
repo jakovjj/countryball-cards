@@ -444,7 +444,7 @@
     #storeSection{scroll-margin-top:90px}
     .store-section{margin:40px 0 48px 0}
     .packages-hero{text-align:center;margin-bottom:24px}
-    .packages-hero h1{font-size:clamp(28px,5vw,48px);margin:0;color:var(--text);background:linear-gradient(120deg,rgba(251,191,36,0.85),rgba(59,130,246,0.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .packages-hero h1{font-size:clamp(32px,5.2vw,54px);margin:0;color:var(--text);background:linear-gradient(120deg,#fff7d6,#fde68a,#bae6fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
     .packages-hero .sub{color:var(--muted);font-size:18px;margin:12px auto 0;max-width:640px}
     .kickstarter-success-banner{padding:10px 0;margin:18px 0;color:var(--muted);font-size:15px}
     .kickstarter-success-banner strong{color:#10b981;font-weight:700}
@@ -861,12 +861,6 @@
       <section class="rules-viewer" aria-labelledby="rulesViewerTitle">
         <div class="rules-viewer-headline">
           <div>
-            <span class="rules-pill">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 3h14a2 2 0 0 1 2 2v14c0 1.1-.9 2-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2zm0 2v14h14V5H5zm3 3h6v2H8V8zm0 4h8v2H8v-2z"/>
-              </svg>
-              Game Rules
-            </span>
             <h3 id="rulesViewerTitle">Read the full Countryball Cards rulebook</h3>
             <p class="rules-viewer-copy">Scroll through the latest rules.pdf without leaving the site. Use fullscreen at the table or download a copy for offline play.</p>
           </div>
@@ -893,22 +887,7 @@
 
       <!-- Golden separator after rules viewer -->
       <div class="golden-separator"></div>
-
       <div class="art" style="margin-top:32px">
-        <!-- Carousel for countryball cards -->
-        <div class="carousel-container">
-          <div class="carousel">
-            <div class="carousel-track" id="carouselTrack">
-              <!-- Cards will be generated dynamically by JavaScript -->
-            </div>
-            <button class="carousel-nav carousel-prev" id="prevBtn">‹</button>
-            <button class="carousel-nav carousel-next" id="nextBtn">›</button>
-          </div>
-          <div class="carousel-dots" id="carouselDots">
-            <!-- Dots will be generated dynamically by JavaScript -->
-          </div>
-        </div>
-      </div>
 
       <div class="footer">
         © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
@@ -919,63 +898,6 @@
           <a href="tel:+13026100190" style="color:var(--muted);text-decoration:none">+1 302 610 0190</a>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Roadmap Modal -->
-  <div class="modal-overlay" id="roadmapOverlay" hidden aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="roadmapTitle" tabindex="-1">
-      <header>
-        <h2 id="roadmapTitle">Roadmap</h2>
-        <button class="modal-close" type="button" id="roadmapCloseBtn" aria-label="Close roadmap">✕</button>
-      </header>
-      <p class="roadmap-intro">A living plan shaped by player feedback. Timelines are estimates.</p>
-      <ol class="roadmap-list">
-        <li class="roadmap-item">
-          <h3>August & Early September 2025 · Further Product Development</h3>
-          <p>Tweak costs/abilities and add new country cards.</p>
-          <div class="tags">
-            <span class="tag">Balancing</span>
-            <span class="tag">New Cards</span>
-            <span class="tag">Community Vote</span>
-          </div>
-        </li>
-        <li class="roadmap-item">
-          <h3>Late September 2025 · Crowdfunding Pre-Launch</h3>
-          <p>Polished art, upgraded rulebook, Crowdfunding signups.</p>
-          <div class="tags">
-            <span class="tag">Art</span>
-            <span class="tag">Rules</span>
-            <span class="tag">KS Prep</span>
-          </div>
-        </li>
-        <li class="roadmap-item">
-          <h3>October 1st 2025 · Crowdfunding Launch</h3>
-          <p>Full launch of Crowdfunding campaign! We will attempt to raise US$4800 in 25 days!</p>
-          <div class="tags">
-            <span class="tag">Launch</span>
-            <span class="tag">Kickstater</span>
-          </div>
-        </li>
-        <li class="roadmap-item">
-          <h3>November 1st 2025 · End of Crowdfunding Campaign</h3>
-          <p>We order 500-1000 copies from a manufacturer that starts production ASAP. The production will probably take around 2-3 months after which we immediately start distributing the game with our logistics partners!</p>
-          <div class="tags">
-            <span class="tag">Manufacturing</span>
-          </div>
-        </li>
-        <li class="roadmap-item">
-          <h3>2026 · Final Product Delivery</h3>
-          <p>We successfully deliver the products to all our backers and open an online webstore! Our goal is to deliver the final product to all Crowdfunding backers in Q1 2026!</p>
-          <div class="tags">
-            <span class="tag">Delivery</span>
-            <span class="tag">Webstore</span>
-          </div>
-        </li>
-      </ol>
-      <footer>
-        <span class="small">Want to influence this? Join Discord for votes and playtests.</span>
-      </footer>
     </div>
   </div>
 
