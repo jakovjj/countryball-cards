@@ -1203,7 +1203,7 @@
       </header>
       <div class="email-modal-content">
         <p>Be the first to know when our Kickstarter launches on October 1st!</p>
-        <form id="emailForm" class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST">
+        <form id="emailForm" class="email-form" action="/backend/subscribe.php" method="POST">
           <div class="form-group">
             <label for="emailInput" class="visually-hidden">Email address</label>
             <input 
@@ -2199,7 +2199,7 @@
           // Create a temporary form for PHP backend
           const fallbackForm = document.createElement('form');
           fallbackForm.method = 'POST';
-          fallbackForm.action = 'https://admin.countryballcards.com/countryball_cards/backend/subscribe.php';
+          fallbackForm.action = '/backend/subscribe.php';
           fallbackForm.style.display = 'none';
           
           // Add form fields

@@ -443,8 +443,8 @@
     .packages-hero{text-align:center;margin-bottom:24px}
     .packages-hero h1{font-size:clamp(28px,5vw,48px);margin:0;color:var(--text);background:linear-gradient(120deg,rgba(251,191,36,0.85),rgba(59,130,246,0.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     .packages-hero .sub{color:var(--muted);font-size:18px;margin:12px auto 0;max-width:640px}
-    .kickstarter-success-banner{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.4);border-radius:16px;padding:20px;margin:24px 0;color:var(--text)}
-    .kickstarter-success-banner strong{color:#10b981}
+    .kickstarter-success-banner{padding:10px 0;margin:18px 0;color:var(--muted);font-size:15px}
+    .kickstarter-success-banner strong{color:#10b981;font-weight:700}
     .video-showcase{text-align:center;margin:40px 0;padding:0 12px}
     .video-showcase h2{font-size:32px;margin-bottom:20px;color:var(--text)}
     .video-container{position:relative;width:100%;max-width:800px;margin:0 auto;padding-bottom:56.25%;border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.4)}
@@ -452,10 +452,31 @@
     .availability-checker{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin:32px 0;text-align:center}
     .availability-checker h3{margin:0 0 8px;color:var(--text);font-size:22px}
     .availability-checker p{margin:0 0 16px;color:var(--muted)}
-    .country-selector-wrapper{display:flex;justify-content:center}
-    .country-dropdown{background:var(--card);color:var(--text);border:2px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 16px;font-size:16px;min-width:280px;cursor:pointer;transition:all 0.2s ease}
-    .country-dropdown:hover{border-color:rgba(199,164,85,0.4)}
-    .country-dropdown:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(199,164,85,0.2)}
+    .country-selector-wrapper{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;width:100%}
+    .country-dropdown{position:relative;width:100%;max-width:none;box-sizing:border-box;border:1px solid rgba(255,255,255,0.15);border-radius:12px;background:rgba(15,20,30,0.7);padding:10px 14px}
+    .country-dropdown-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:transparent;border:none;color:var(--text);font-size:16px;cursor:pointer;box-sizing:border-box;padding:4px 0}
+    .country-dropdown-toggle:focus-visible{outline:none}
+    .country-dropdown.open .country-dropdown-toggle{color:var(--gold)}
+    .country-dropdown-list{position:absolute;left:0;top:calc(100% + 8px);width:100%;max-height:280px;overflow-y:auto;background:rgba(10,13,22,0.98);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:6px 0;box-shadow:0 25px 45px rgba(0,0,0,0.55);display:none;z-index:40}
+    .country-dropdown.open .country-dropdown-list{display:block}
+    .country-dropdown-header{display:flex;flex-direction:column;gap:8px}
+    .country-option{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;font-size:15px;color:var(--text);cursor:pointer;gap:12px}
+    .country-option.empty-state{justify-content:center;color:var(--muted);pointer-events:none;font-style:italic}
+    .country-option:hover,.country-option:focus{background:rgba(251,191,36,0.08);outline:none}
+    .country-option.active{background:rgba(251,191,36,0.15);border-left:3px solid var(--gold)}
+    .country-option-left{display:flex;align-items:center;gap:8px;white-space:nowrap}
+    .country-option .zone-label{font-size:12px;color:var(--muted);white-space:nowrap}
+    .country-dropdown-chevron{width:18px;height:18px;fill:var(--muted);transition:transform 0.2s ease}
+    .country-dropdown.open .country-dropdown-chevron{transform:rotate(180deg)}
+    .country-selector-hidden{display:none}
+    .country-search{width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:10px;background:rgba(0,0,0,0.15);color:var(--text);font-size:15px}
+    .country-search::placeholder{color:var(--muted)}
+    .country-search:focus{outline:none;border-color:var(--gold)}
+    #countryDropdownLabel{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px;width:100%}
+    #countryDropdownLabel .country-option-left{gap:8px}
+    #countryDropdownLabel .zone-label{font-size:12px;color:var(--muted)}
+    #countryDropdownLabel .zone-label:empty{display:none}
+    .zone-status-message{margin-top:10px;color:var(--muted);font-size:14px}
     .packages-list{display:flex;flex-direction:column;gap:20px;margin:32px 0}
     .package-bar{background:rgba(26,31,46,0.8);border:2px solid rgba(251,191,36,0.3);border-radius:20px;overflow:hidden;transition:all 0.3s ease;position:relative}
     .package-bar::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(251,191,36,0.08),transparent);opacity:0;transition:opacity 0.3s}
@@ -512,7 +533,9 @@
     .email-updates-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(199,164,85,0.35)}
     .email-updates-note{margin:0;font-size:13px;color:var(--muted)}
     .email-modal .email-benefits{margin-bottom:18px}
-    .payment-note{font-size:13px;color:var(--muted);text-align:center;margin:12px 0}
+    .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:20px 0 12px;color:#f9fafb;text-align:center;font-size:15px}
+    .payment-note-logo{width:90px;height:auto;flex-shrink:0}
+    .payment-note span{opacity:0.85}
     .contents-showcase{text-align:center;margin:40px 0}
     .contents-showcase h2{margin-bottom:20px;font-size:28px;color:var(--text)}
     .contents-image{max-width:80%;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.4)}
@@ -633,60 +656,43 @@
           <p>Pre-order directly below or keep supporting us on Kickstarter. We will ship all copies in March 2026.</p>
         </div>
 
-        <div class="video-showcase">
-          <h2>Watch the Trailer</h2>
+        <div class="video-showcase" aria-labelledby="videoShowcaseTitle">
+          <h2 id="videoShowcaseTitle">Watch the Countryball Cards trailer</h2>
           <div class="video-container">
             <iframe
-              src="https://www.youtube.com/embed/78IQgH0lY60?rel=0&amp;modestbranding=1"
+              src="https://www.youtube.com/embed/78IQgH0lY60?rel=0&amp;modestbranding=1&amp;playsinline=1"
               title="Countryball Cards Trailer"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen>
-            </iframe>
+              loading="lazy"
+              allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            ></iframe>
           </div>
+          <p style="color:var(--muted);margin-top:12px;font-size:15px">
+            Prefer watching on YouTube? <a href="https://www.youtube.com/watch?v=78IQgH0lY60" target="_blank" rel="noopener" style="color:var(--gold)">Open the trailer in a new tab</a>.
+          </p>
         </div>
 
         <div class="availability-checker">
           <h3>Select a Country for Shipping</h3>
           <p>Pick your region to unlock the correct checkout links.</p>
           <div class="country-selector-wrapper">
-            <select id="countryAvailabilitySelector" class="country-dropdown">
-              <option value="">Detecting your location...</option>
-              <option value="US">🇺🇸 United States</option>
-              <option value="AT">🇦🇹 Austria</option>
-              <option value="AU">🇦🇺 Australia</option>
-              <option value="BA">🇧🇦 Bosnia and Herzegovina</option>
-              <option value="BE">🇧🇪 Belgium</option>
-              <option value="BG">🇧🇬 Bulgaria</option>
-              <option value="CA">🇨🇦 Canada</option>
-              <option value="CZ">🇨🇿 Czechia</option>
-              <option value="DK">🇩🇰 Denmark</option>
-              <option value="DE">🇩🇪 Germany</option>
-              <option value="EE">🇪🇪 Estonia</option>
-              <option value="ES">🇪🇸 Spain</option>
-              <option value="FI">🇫🇮 Finland</option>
-              <option value="FR">🇫🇷 France</option>
-              <option value="GR">🇬🇷 Greece</option>
-              <option value="HU">🇭🇺 Hungary</option>
-              <option value="HR">🇭🇷 Croatia</option>
-              <option value="IE">🇮🇪 Ireland</option>
-              <option value="IT">🇮🇹 Italy</option>
-              <option value="JP">🇯🇵 Japan</option>
-              <option value="LT">🇱🇹 Lithuania</option>
-              <option value="LU">🇱🇺 Luxembourg</option>
-              <option value="LV">🇱🇻 Latvia</option>
-              <option value="NL">🇳🇱 Netherlands</option>
-              <option value="NO">🇳🇴 Norway</option>
-              <option value="PL">🇵🇱 Poland</option>
-              <option value="PT">🇵🇹 Portugal</option>
-              <option value="RO">🇷🇴 Romania</option>
-              <option value="RS">🇷🇸 Serbia</option>
-              <option value="SE">🇸🇪 Sweden</option>
-              <option value="SI">🇸🇮 Slovenia</option>
-              <option value="SK">🇸🇰 Slovakia</option>
-              <option value="TR">🇹🇷 Turkey</option>
-              <option value="GB">🇬🇧 United Kingdom</option>
-            </select>
+            <div class="country-dropdown" id="countryDropdown">
+              <div class="country-dropdown-header">
+                <div class="country-dropdown-toggle" id="countryDropdownToggle" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="countryDropdownLabel">
+                    <span class="country-option-left">Detecting your location...</span>
+                    <span class="zone-label"></span>
+                  </span>
+                  <svg class="country-dropdown-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10l5 5 5-5z" />
+                  </svg>
+                </div>
+                <input type="text" id="countrySearchInput" class="country-search" placeholder="Search country" aria-label="Search country">
+              </div>
+              <ul class="country-dropdown-list" id="countryDropdownList" role="listbox"></ul>
+            </div>
+            <input type="hidden" id="countryAvailabilitySelector" class="country-selector-hidden" value="">
+            <p class="zone-status-message" id="zoneStatusMessage">Select your country to unlock the right checkout links.</p>
           </div>
         </div>
 
@@ -746,6 +752,12 @@
           </div>
         </div>
 
+        <div class="payment-note">
+          <img src="assets/stripe.webp" alt="Stripe" class="payment-note-logo" loading="lazy" decoding="async">
+          <span><b>Payments handled securely by Stripe, Inc.</span>
+          <br>
+        </div>
+
         <div class="packages-kickstarter-cta">
           <img src="assets/ks.png" alt="Kickstarter" class="kickstarter-badge" loading="lazy" decoding="async">
           <div class="kickstarter-inline-content">
@@ -771,8 +783,6 @@
             </button>
           </div>
         </div>
-
-        <div class="payment-note">Payment processing handled securely by Stripe, Inc.</div>
 
         <div class="contents-showcase">
           <h2>What's Inside</h2>
@@ -995,7 +1005,7 @@
           </div>
         </div>
         
-        <form id="emailForm" class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST">
+        <form id="emailForm" class="email-form" action="/backend/subscribe.php" method="POST">
           <div class="form-group">
             <label for="emailInput" class="visually-hidden">Email address</label>
             <input 
@@ -1124,9 +1134,73 @@
   
   <!-- Inline store logic -->
   <script>
+    const COUNTRY_OPTIONS = [
+      { code: 'DZ', label: 'Algeria', flag: '🇩🇿', zone: 'ZONE_3' },
+      { code: 'AR', label: 'Argentina', flag: '🇦🇷', zone: 'ZONE_3' },
+      { code: 'AU', label: 'Australia', flag: '🇦🇺', zone: 'ZONE_2' },
+      { code: 'AT', label: 'Austria', flag: '🇦🇹', zone: 'ZONE_1' },
+      { code: 'BD', label: 'Bangladesh', flag: '🇧🇩', zone: 'ZONE_3' },
+      { code: 'BG', label: 'Bulgaria', flag: '🇧🇬', zone: 'ZONE_1' },
+      { code: 'BE', label: 'Belgium', flag: '🇧🇪', zone: 'ZONE_1' },
+      { code: 'BO', label: 'Bolivia', flag: '🇧🇴', zone: 'ZONE_3' },
+      { code: 'BA', label: 'Bosnia and Herzegovina', flag: '🇧🇦', zone: 'ZONE_1' },
+      { code: 'BR', label: 'Brazil', flag: '🇧🇷', zone: 'ZONE_3' },
+      { code: 'CA', label: 'Canada', flag: '🇨🇦', zone: 'ZONE_2' },
+      { code: 'CL', label: 'Chile', flag: '🇨🇱', zone: 'ZONE_3' },
+      { code: 'HR', label: 'Croatia', flag: '🇭🇷', zone: 'ZONE_1' },
+      { code: 'CZ', label: 'Czechia', flag: '🇨🇿', zone: 'ZONE_1' },
+      { code: 'DK', label: 'Denmark', flag: '🇩🇰', zone: 'ZONE_1' },
+      { code: 'EE', label: 'Estonia', flag: '🇪🇪', zone: 'ZONE_1' },
+      { code: 'FI', label: 'Finland', flag: '🇫🇮', zone: 'ZONE_1' },
+      { code: 'FR', label: 'France', flag: '🇫🇷', zone: 'ZONE_1' },
+      { code: 'DE', label: 'Germany', flag: '🇩🇪', zone: 'ZONE_1' },
+      { code: 'GR', label: 'Greece', flag: '🇬🇷', zone: 'ZONE_1' },
+      { code: 'HU', label: 'Hungary', flag: '🇭🇺', zone: 'ZONE_1' },
+      { code: 'IN', label: 'India', flag: '🇮🇳', zone: 'ZONE_3' },
+      { code: 'ID', label: 'Indonesia', flag: '🇮🇩', zone: 'ZONE_3' },
+      { code: 'IR', label: 'Iran', flag: '🇮🇷', zone: 'ZONE_3' },
+      { code: 'IE', label: 'Ireland', flag: '🇮🇪', zone: 'ZONE_1' },
+      { code: 'IT', label: 'Italy', flag: '🇮🇹', zone: 'ZONE_1' },
+      { code: 'JP', label: 'Japan', flag: '🇯🇵', zone: 'ZONE_2' },
+      { code: 'JO', label: 'Jordan', flag: '🇯🇴', zone: 'ZONE_3' },
+      { code: 'LA', label: 'Laos', flag: '🇱🇦', zone: 'ZONE_3' },
+      { code: 'LV', label: 'Latvia', flag: '🇱🇻', zone: 'ZONE_1' },
+      { code: 'LT', label: 'Lithuania', flag: '🇱🇹', zone: 'ZONE_1' },
+      { code: 'LU', label: 'Luxembourg', flag: '🇱🇺', zone: 'ZONE_1' },
+      { code: 'MY', label: 'Malaysia', flag: '🇲🇾', zone: 'ZONE_3' },
+      { code: 'MX', label: 'Mexico', flag: '🇲🇽', zone: 'ZONE_3' },
+      { code: 'MA', label: 'Morocco', flag: '🇲🇦', zone: 'ZONE_3' },
+      { code: 'NL', label: 'Netherlands', flag: '🇳🇱', zone: 'ZONE_1' },
+      { code: 'NO', label: 'Norway', flag: '🇳🇴', zone: 'ZONE_1' },
+      { code: 'PK', label: 'Pakistan', flag: '🇵🇰', zone: 'ZONE_3' },
+      { code: 'PL', label: 'Poland', flag: '🇵🇱', zone: 'ZONE_1' },
+      { code: 'PT', label: 'Portugal', flag: '🇵🇹', zone: 'ZONE_1' },
+      { code: 'QA', label: 'Qatar', flag: '🇶🇦', zone: 'ZONE_3' },
+      { code: 'RO', label: 'Romania', flag: '🇷🇴', zone: 'ZONE_1' },
+      { code: 'SA', label: 'Saudi Arabia', flag: '🇸🇦', zone: 'ZONE_3' },
+      { code: 'RS', label: 'Serbia', flag: '🇷🇸', zone: 'ZONE_1' },
+      { code: 'SG', label: 'Singapore', flag: '🇸🇬', zone: 'ZONE_3' },
+      { code: 'SK', label: 'Slovakia', flag: '🇸🇰', zone: 'ZONE_1' },
+      { code: 'SI', label: 'Slovenia', flag: '🇸🇮', zone: 'ZONE_1' },
+      { code: 'ES', label: 'Spain', flag: '🇪🇸', zone: 'ZONE_1' },
+      { code: 'SE', label: 'Sweden', flag: '🇸🇪', zone: 'ZONE_1' },
+      { code: 'TH', label: 'Thailand', flag: '🇹🇭', zone: 'ZONE_3' },
+      { code: 'TR', label: 'Turkey', flag: '🇹🇷', zone: 'ZONE_2' },
+      { code: 'GB', label: 'United Kingdom', flag: '🇬🇧', zone: 'ZONE_1' },
+      { code: 'US', label: 'United States', flag: '🇺🇸', zone: 'ZONE_2' }
+    ].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
+
+    let filteredCountryOptions = COUNTRY_OPTIONS.slice();
+
+    const COUNTRY_MAP = COUNTRY_OPTIONS.reduce((acc, option) => {
+      acc[option.code] = option;
+      return acc;
+    }, {});
+
     const SHIPPING_ZONES = {
       ZONE_1: ['AT','BA','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB'],
-      ZONE_2: ['US','CA','AU','TR','JP']
+      ZONE_2: ['US','CA','AU','TR','JP'],
+      ZONE_3: ['DZ','AR','BD','BO','BR','CL','IN','MY','ID','IR','TH','SG','LA','JO','PK','MX','MA','QA','SA']
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
@@ -1138,25 +1212,236 @@
         BASE_GAME: 'https://buy.stripe.com/5kQ28renH8zq79s6Lncwg05',
         EXTENDED_EDITION: 'https://buy.stripe.com/7sY00j93n4ja3Xg3zbcwg06',
         FOUNDERS_EDITION: 'https://buy.stripe.com/aFafZhbbv16Y0L4c5Hcwg07'
+      },
+      ZONE_3: {
+        BASE_GAME: 'https://buy.stripe.com/8x28wPbbv2b28dwb1Dcwg08',
+        EXTENDED_EDITION: 'https://buy.stripe.com/4gM3cv7Zj8zq1P82v7cwg09',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/3cIbJ1a7raHydxQfhTcwg0a'
       }
     };
     let selectedCountry = null;
     let selectedZone = null;
     const GEO_PROMPT_TEXT = 'Select a country for shipping';
+    const ZONE_STATUS_MESSAGES = {
+      DEFAULT: 'Select your country to unlock checkout links.',
+      ZONE_1: 'Zone 1 · Ships from our EU hub with EUR pricing and fastest delivery.',
+      ZONE_2: 'Zone 2 · Ships from our global hub in USD. Taxes calculated at checkout.',
+      ZONE_3: 'Zone 3 · Ships from our global hub in USD. Local duties or import taxes may apply at delivery.'
+    };
 
     function getShippingZone(countryCode) {
       if (SHIPPING_ZONES.ZONE_1.includes(countryCode)) return 'ZONE_1';
       if (SHIPPING_ZONES.ZONE_2.includes(countryCode)) return 'ZONE_2';
+      if (SHIPPING_ZONES.ZONE_3.includes(countryCode)) return 'ZONE_3';
       return null;
     }
 
-    function promptForCountrySelection() {
+    function updateZoneStatus(zoneKey) {
+      const noteEl = document.getElementById('zoneStatusMessage');
+      if (!noteEl) return;
+      noteEl.textContent = ZONE_STATUS_MESSAGES[zoneKey] || ZONE_STATUS_MESSAGES.DEFAULT;
+    }
+
+    function forcePackageButtonLabels(text) {
       document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
         if (!label.dataset.defaultLabel) {
           label.dataset.defaultLabel = label.textContent.trim();
         }
-        label.textContent = GEO_PROMPT_TEXT;
+        label.textContent = text;
       });
+    }
+
+    function setDropdownLabel(primaryText, zoneText = '') {
+      const labelEl = document.getElementById('countryDropdownLabel');
+      if (!labelEl) return;
+      labelEl.innerHTML = `
+        <span class="country-option-left">${primaryText}</span>
+        <span class="zone-label">${zoneText}</span>
+      `;
+    }
+
+    function resetCountrySelection() {
+      const hiddenInput = document.getElementById('countryAvailabilitySelector');
+      if (hiddenInput) {
+        hiddenInput.value = '';
+      }
+      setDropdownLabel('Select a country for shipping', '');
+      highlightActiveCountryOption(null);
+    }
+
+    function renderCountryDropdown(options = filteredCountryOptions) {
+      const list = document.getElementById('countryDropdownList');
+      if (!list) return;
+      list.innerHTML = '';
+      const renderSet = Array.isArray(options) ? options : filteredCountryOptions;
+      if (!renderSet.length) {
+        const emptyState = document.createElement('li');
+        emptyState.className = 'country-option empty-state';
+        emptyState.setAttribute('role', 'status');
+        emptyState.tabIndex = -1;
+        emptyState.textContent = 'No countries match your search.';
+        list.appendChild(emptyState);
+        return;
+      }
+      renderSet.forEach(option => {
+        const item = document.createElement('li');
+        item.className = 'country-option';
+        item.dataset.value = option.code;
+        item.dataset.zone = option.zone;
+        item.setAttribute('role', 'option');
+        item.tabIndex = -1;
+        item.innerHTML = `
+          <span class="country-option-left">${option.flag} ${option.label}</span>
+          <span class="zone-label">(Zone ${option.zone.slice(-1)})</span>
+        `;
+        item.addEventListener('click', () => selectCountry(option.code));
+        item.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            selectCountry(option.code);
+          }
+        });
+        list.appendChild(item);
+      });
+    }
+
+    function highlightActiveCountryOption(code) {
+      document.querySelectorAll('.country-option').forEach(optionEl => {
+        const isActive = optionEl.dataset.value === code;
+        optionEl.classList.toggle('active', isActive);
+        optionEl.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+
+    function openCountryDropdown() {
+      const dropdown = document.getElementById('countryDropdown');
+      const toggle = document.getElementById('countryDropdownToggle');
+      if (!dropdown || !toggle) return;
+      dropdown.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeCountryDropdown() {
+      const dropdown = document.getElementById('countryDropdown');
+      const toggle = document.getElementById('countryDropdownToggle');
+      if (!dropdown || !toggle) return;
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function setupCountryDropdownInteractions() {
+      const dropdown = document.getElementById('countryDropdown');
+      const toggle = document.getElementById('countryDropdownToggle');
+      const list = document.getElementById('countryDropdownList');
+      if (!dropdown || !toggle || !list) return;
+
+      const toggleDropdown = () => {
+        const willOpen = !dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', willOpen);
+        toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        if (willOpen) {
+          const active = list.querySelector('.country-option.active') || list.querySelector('.country-option');
+          if (active) {
+            active.focus();
+          }
+        }
+      };
+
+      toggle.addEventListener('click', toggleDropdown);
+      toggle.addEventListener('keydown', event => {
+        if (['ArrowDown','Enter',' '].includes(event.key)) {
+          event.preventDefault();
+          toggleDropdown();
+        }
+      });
+
+      list.addEventListener('keydown', event => {
+        const options = Array.from(list.querySelectorAll('.country-option'));
+        const currentIndex = options.indexOf(document.activeElement);
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          const next = options[(currentIndex + 1) % options.length];
+          if (next) next.focus();
+        } else if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          const prev = options[(currentIndex - 1 + options.length) % options.length];
+          if (prev) prev.focus();
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          closeCountryDropdown();
+          toggle.focus();
+        }
+      });
+
+      document.addEventListener('click', event => {
+        if (!dropdown.contains(event.target)) {
+          closeCountryDropdown();
+        }
+      });
+    }
+
+    // Filter the available countries as the user types in the search box.
+    function handleCountrySearch(query) {
+      const normalized = (query || '').trim().toLowerCase();
+      if (!normalized) {
+        filteredCountryOptions = COUNTRY_OPTIONS.slice();
+      } else {
+        filteredCountryOptions = COUNTRY_OPTIONS.filter(option => {
+          const haystack = `${option.label} ${option.code} ${option.zone}`.toLowerCase();
+          return haystack.includes(normalized);
+        });
+      }
+      renderCountryDropdown(filteredCountryOptions);
+      highlightActiveCountryOption(selectedCountry);
+    }
+
+    // Wire up interactions for the search input so it always surfaces visible results.
+    function setupCountrySearch() {
+      const searchInput = document.getElementById('countrySearchInput');
+      if (!searchInput) return;
+
+      searchInput.addEventListener('input', event => {
+        handleCountrySearch(event.target.value);
+        openCountryDropdown();
+      });
+
+      searchInput.addEventListener('focus', () => {
+        openCountryDropdown();
+        if (!searchInput.value) {
+          handleCountrySearch('');
+        }
+      });
+
+      searchInput.addEventListener('keydown', event => {
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          const firstOption = document.querySelector('.country-option:not(.empty-state)');
+          if (firstOption) {
+            firstOption.focus();
+          }
+        } else if (event.key === 'Escape') {
+          closeCountryDropdown();
+        }
+      });
+    }
+
+    function selectCountry(countryCode) {
+      const option = COUNTRY_MAP[countryCode];
+      if (!option) return;
+      const hiddenInput = document.getElementById('countryAvailabilitySelector');
+      if (hiddenInput) {
+        hiddenInput.value = countryCode;
+      }
+      setDropdownLabel(`${option.flag} ${option.label}`, `(Zone ${option.zone.slice(-1)})`);
+      highlightActiveCountryOption(countryCode);
+      closeCountryDropdown();
+      handleCountrySelection(countryCode);
+    }
+
+    function promptForCountrySelection() {
+      forcePackageButtonLabels(GEO_PROMPT_TEXT);
+      updateZoneStatus('DEFAULT');
+      resetCountrySelection();
     }
 
     function restoreButtonLabels() {
@@ -1168,7 +1453,10 @@
     }
 
     function updatePaymentLinks(zone) {
-      const zoneLinks = PAYMENT_LINKS[zone] || PAYMENT_LINKS.ZONE_1;
+      const zoneLinks = PAYMENT_LINKS[zone];
+      if (!zoneLinks) {
+        return;
+      }
       const linkMap = {
         base: zoneLinks.BASE_GAME,
         extended: zoneLinks.EXTENDED_EDITION,
@@ -1215,9 +1503,16 @@
         promptForCountrySelection();
         return;
       }
-      selectedZone = getShippingZone(selectedCountry) || 'ZONE_1';
+      selectedZone = getShippingZone(selectedCountry);
+      if (!selectedZone) {
+        updateButtonStates(false);
+        promptForCountrySelection();
+        return;
+      }
+
       updatePaymentLinks(selectedZone);
       updateButtonStates(true);
+      updateZoneStatus(selectedZone);
     }
 
     function geolocateByBrowser() {
@@ -1248,15 +1543,12 @@
     }
 
     async function detectCountry() {
-      const selector = document.getElementById('countryAvailabilitySelector');
-      if (!selector) return;
-      const placeholder = selector.querySelector('option[value=""]');
+      setDropdownLabel('Detecting your location...', '');
       let detected = false;
 
       const applySelection = code => {
-        if (code && selector.querySelector(`option[value="${code}"]`)) {
-          selector.value = code;
-          handleCountrySelection(code);
+        if (code && COUNTRY_MAP[code]) {
+          selectCountry(code);
           detected = true;
           return true;
         }
@@ -1266,7 +1558,6 @@
       try {
         const browserCode = await geolocateByBrowser();
         if (applySelection(browserCode)) {
-          if (placeholder) placeholder.textContent = 'Select your country...';
           return;
         }
       } catch (_) {
@@ -1286,8 +1577,6 @@
       if (!detected) {
         promptForCountrySelection();
       }
-
-      if (placeholder) placeholder.textContent = 'Select your country...';
     }
 
     function attachPackageGuards() {
@@ -1340,12 +1629,13 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      const selector = document.getElementById('countryAvailabilitySelector');
-      if (!selector) return;
-      selector.addEventListener('change', function() {
-        handleCountrySelection(this.value);
-      });
+      renderCountryDropdown();
+      setupCountryDropdownInteractions();
+      setupCountrySearch();
       updateButtonStates(false);
+      forcePackageButtonLabels(GEO_PROMPT_TEXT);
+      updateZoneStatus('DEFAULT');
+      setDropdownLabel('Detecting your location...', '');
       attachPackageGuards();
       detectCountry();
     });
