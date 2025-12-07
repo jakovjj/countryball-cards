@@ -335,8 +335,9 @@
     .countdown-timer.live-cta{font-size:16px;color:rgba(255,255,255,0.9);font-weight:600;display:flex;align-items:center;gap:12px}
     .countdown-number{font-size:28px;font-weight:800;color:var(--text);min-width:40px;display:inline-block}
     .countdown-separator{font-size:24px;font-weight:700;color:var(--text);opacity:0.7}
-    .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:24px}
-    .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease}
+    .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:24px;position:relative;align-items:center;padding:16px 0;z-index:1}
+    .logo-section::before{content:'';position:absolute;top:-80px;bottom:-32px;left:50%;transform:translateX(-50%);width:min(960px,125%);background:url('assets/background.webp') center/cover no-repeat;opacity:0.45;filter:blur(0.5px);pointer-events:none;z-index:0}
+    .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .logo-fallback{display:none;font-size:32px;font-weight:bold;color:var(--gold)}
     .hero{
       text-align:center;
@@ -355,10 +356,12 @@
     .how-it-works-header h2{margin:12px 0 10px;font-size:28px;color:var(--text)}
     .how-it-works-header p{margin:0;color:var(--muted);font-size:16px}
     .how-it-works-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
-    .how-step{background:rgba(15,20,25,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:20px;position:relative;overflow:hidden}
+    .how-step{background:rgba(15,20,25,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px 20px 20px;position:relative;overflow:visible}
     .how-step-number{width:36px;height:36px;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px}
     .how-step h3{margin:0 0 8px;font-size:18px;color:var(--text)}
     .how-step p{margin:0;color:var(--muted);line-height:1.4}
+    .how-step-flag{position:absolute;top:-16px;right:-12px;width:80px;opacity:0.95;filter:drop-shadow(0 6px 15px rgba(0,0,0,0.45))}
+    .how-step-flag img{width:100%;height:auto;display:block}
     .how-it-works-footer{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
     .how-it-works-footer button{padding:14px 26px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--gold),#d4b866);color:var(--bg);font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 8px 25px rgba(199,164,85,0.35);transition:transform 0.2s ease,box-shadow 0.2s ease}
     .how-it-works-footer button:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(199,164,85,0.45)}
@@ -619,16 +622,19 @@
         </div>
         <div class="how-it-works-steps">
           <article class="how-step">
+            <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.png" alt="" loading="lazy"></span>
             <span class="how-step-number">1</span>
             <h3>Reserve your deck</h3>
             <p>Pick any package below to lock in the best Kickstarter-era pricing and bonus goodies before retail increases. Full free refunds until February 2026.</p>
           </article>
           <article class="how-step">
+            <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
             <span class="how-step-number">2</span>
             <h3>Production updates</h3>
             <p>We wrap manufacturing, share progress shots, and confirm freight timelines so you always know where things stand.</p>
           </article>
           <article class="how-step">
+            <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.png" alt="" loading="lazy"></span>
             <span class="how-step-number">3</span>
             <h3>Ships March 2026</h3>
             <p>We send your copy straight to your doorstep as soon as fulfillment opens in March 2026.</p>
@@ -985,11 +991,6 @@
         <p>Sign up for the Countryball Cards Newsletter!</p>
         
         <div class="email-benefits">
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-          </div>
           <div class="benefit">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
