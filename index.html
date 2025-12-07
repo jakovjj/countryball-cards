@@ -698,7 +698,6 @@
               <ul class="country-dropdown-list" id="countryDropdownList" role="listbox"></ul>
             </div>
             <input type="hidden" id="countryAvailabilitySelector" class="country-selector-hidden" value="">
-            <p class="zone-status-message" id="zoneStatusMessage">Select your country to unlock the right checkout links.</p>
           </div>
         </div>
 
@@ -1221,21 +1220,12 @@
     let selectedCountry = null;
     let selectedZone = null;
     const GEO_PROMPT_TEXT = 'Select a country for shipping';
-    const ZONE_STATUS_MESSAGES = {
-      DEFAULT: 'Select your country to unlock checkout links.',
-    };
 
     function getShippingZone(countryCode) {
       if (SHIPPING_ZONES.ZONE_1.includes(countryCode)) return 'ZONE_1';
       if (SHIPPING_ZONES.ZONE_2.includes(countryCode)) return 'ZONE_2';
       if (SHIPPING_ZONES.ZONE_3.includes(countryCode)) return 'ZONE_3';
       return null;
-    }
-
-    function updateZoneStatus(zoneKey) {
-      const noteEl = document.getElementById('zoneStatusMessage');
-      if (!noteEl) return;
-      noteEl.textContent = ZONE_STATUS_MESSAGES[zoneKey] || ZONE_STATUS_MESSAGES.DEFAULT;
     }
 
     function forcePackageButtonLabels(text) {
