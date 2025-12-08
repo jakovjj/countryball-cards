@@ -1,246 +1,49 @@
 // ===== KICKSTARTER COUNTDOWN =====
 function initCountdown() {
-  // Kickstarter launch date: October 1st, 2025 at 22:15 PM CEST
-  const launchDate = new Date('2025-10-01T20:15:00.000Z'); // 22:15 PM CEST = 20:15 UTC
-  
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const timeLeft = launchDate.getTime() - now;
-    
-    if (timeLeft > 0) {
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-      
-      const daysEl = document.getElementById('days');
-      const hoursEl = document.getElementById('hours');
-      const minutesEl = document.getElementById('minutes');
-      const secondsEl = document.getElementById('seconds');
-      
-      // Helper function to update with animation
-      function updateWithAnimation(element, newValue) {
-        if (!element) return;
-        const currentValue = element.textContent;
-        const formattedValue = newValue.toString().padStart(2, '0');
-        
-        if (currentValue !== formattedValue && currentValue !== '--') {
-          // Add glow animation only (no scaling)
-          element.style.animation = 'countdown-glow 0.6s ease-in-out';
-          
-          // Remove animation after it completes
-          setTimeout(() => {
-            element.style.animation = '';
-          }, 600);
-        }
-        
-        element.textContent = formattedValue;
-      }
-      
-      updateWithAnimation(daysEl, days);
-      updateWithAnimation(hoursEl, hours);
-      updateWithAnimation(minutesEl, minutes);
-      updateWithAnimation(secondsEl, seconds);
-    } else {
-      // Launch day reached - transform countdown into button
-      const countdownBanner = document.getElementById('countdownBanner');
-      const countdownLabel = document.getElementById('countdownLabel');
-      const countdownTimer = document.getElementById('countdownTimer');
-      
-      if (countdownBanner && countdownLabel && countdownTimer) {
-        // Add button classes and make it clickable
-        countdownBanner.classList.add('live-button');
-        countdownLabel.classList.add('live-text');
-        countdownTimer.classList.add('live-cta');
-        
-        // Update content
-        countdownLabel.innerHTML = '🚀 <span class="kickstarter-text">Kickstarter</span> is Live!';
-        countdownTimer.innerHTML = `
-          <img src="assets/ks.png" alt="Kickstarter" style="width:28px;height:28px;" />
-          <span>Order on Kickstarter</span>
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px;">
-            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
-          </svg>
-        `;
-        
-        // Make it a clickable link
-        countdownBanner.onclick = function(e) {
-          e.preventDefault();
-          trackKickstarterClick('countdown_button');
-          window.open('https://www.kickstarter.com/projects/glarestudios/countryball-cards', '_blank');
-        };
-        
-        // Add cursor pointer
-        countdownBanner.style.cursor = 'pointer';
-      }
+  const launchDate = new Date('2025-10-01T20:15:00.000Z');
+  const dayEl = document.getElementById('countdownDays');
+  const hourEl = document.getElementById('countdownHours');
+  const minuteEl = document.getElementById('countdownMinutes');
+  const secondEl = document.getElementById('countdownSeconds');
+  const statusEl = document.getElementById('countdownStatus');
+
+  function setValue(el, value) {
+    if (el) {
+      el.textContent = String(value).padStart(2, '0');
     }
   }
-  
-  // Update immediately and then every second
+
+  function updateCountdown() {
+    const now = Date.now();
+    const timeLeft = launchDate.getTime() - now;
+
+    if (timeLeft <= 0) {
+      setValue(dayEl, 0);
+      setValue(hourEl, 0);
+      setValue(minuteEl, 0);
+      setValue(secondEl, 0);
+      if (statusEl) {
+        statusEl.textContent = 'Launching Soon';
+        statusEl.classList.add('countdown-status--live');
+      }
+      return;
+    }
+
+    const seconds = Math.floor((timeLeft / 1000) % 60);
+    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+
+    setValue(dayEl, days);
+    setValue(hourEl, hours);
+    setValue(minuteEl, minutes);
+    setValue(secondEl, seconds);
+  }
+
   updateCountdown();
   setInterval(updateCountdown, 1000);
 }
 
-// ===== COUNTRY DETECTION & BACKGROUND =====
-const countryBackgrounds = {
-  'US': 'bg/us.png',
-  'DE': 'bg/germany.png',
-  'CA': 'bg/canada.png',
-  'NL': 'bg/netherlands.png',
-  'SE': 'bg/sweden.png',
-  'FR': 'bg/france.png',
-  'GB': 'bg/uk.png',
-  'CH': 'bg/switzerland.png',
-  'PL': 'bg/poland.png',
-  'NO': 'bg/norway.png',
-  'RU': 'bg/russia.png',
-  'RO': 'bg/romania.png',
-  'MX': 'bg/mexico.png',
-  'IT': 'bg/italy.png',
-  'AU': 'bg/australia.png',
-  'CA': 'bg/canada.png',
-  'UA': 'bg/ukraine.png',
-  'TR': 'bg/turkey.png',
-  'CN': 'bg/china.png',
-  'JP': 'bg/japan.png'
-};
-
-async function detectCountryAndSetBackground(){
-  // Background functionality disabled for white theme
-  // Track that country detection started
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'country_detection_started', {
-      event_category: 'user_data',
-      event_label: 'api_call_initiated',
-      value: 1
-    });
-  }
-
-  try {
-    const response = await fetch('https://ipapi.co/json/');
-    
-    // Track API response status
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'country_api_response', {
-        event_category: 'user_data',
-        event_label: `status_${response.status}`,
-        value: 1
-      });
-    }
-
-    const data = await response.json();
-    const countryCode = data.country_code;
-    
-    // Track country detection success
-    trackCountryDetection(countryCode);
-    
-    // Track additional data for debugging
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'country_data_received', {
-        event_category: 'user_data',
-        event_label: `country_${countryCode}_ip_${data.ip ? 'present' : 'missing'}`,
-        value: 1
-      });
-    }
-    
-    // Background image and overlay functionality disabled for white theme
-    /*
-    let backgroundImage = countryBackgrounds[countryCode] || countryBackgrounds['PL'];
-    const img = new Image();
-    img.onload = () => {
-      document.body.style.backgroundImage = `url('${backgroundImage}')`;
-      document.body.style.backgroundSize = 'auto 70vh';
-      document.body.style.backgroundPosition = 'top 10px right -200px';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundAttachment = 'fixed';
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to right, rgba(21,21,21,.95), rgba(21,21,21,.8), rgba(21,21,21,.4));z-index:-1;pointer-events:none;`;
-      document.body.appendChild(overlay);
-    };
-    img.src = backgroundImage;
-    */
-  } catch (e) {
-    // Track country detection failure
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'country_detection_failed', {
-        event_category: 'user_data',
-        event_label: `error_${e.name || 'unknown'}_${e.message ? e.message.substring(0, 50) : 'no_message'}`,
-        value: 1
-      });
-    }
-
-    // Fallback to Poland background - disabled for white theme
-    trackCountryDetection('PL_FALLBACK');
-    
-    /*
-    const backgroundImage = countryBackgrounds['PL'];
-    const img = new Image();
-    img.onload = () => {
-      document.body.style.backgroundImage = `url('${backgroundImage}')`;
-      document.body.style.backgroundSize = 'auto 70vh';
-      document.body.style.backgroundPosition = 'top 10px right -200px';
-      document.body.style.backgroundRepeat = 'no-repeat';
-      document.body.style.backgroundAttachment = 'fixed';
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to right, rgba(21,21,21,.95), rgba(21,21,21,.8), rgba(21,21,21,.4));z-index:-1;pointer-events:none;`;
-      document.body.appendChild(overlay);
-    };
-    img.src = backgroundImage;
-    */
-  }
-}
-
-// ===== CARD CONFIGURATION =====
-const cardData = [
-  { src: 'us.png', webp: 'us.webp', alt: 'United States card' },
-  { src: 'canada.png', webp: 'canada.webp', alt: 'Canada card' },
-  { src: 'netherlands.png', webp: 'netherlands.webp', alt: 'Netherlands card' },
-  { src: 'germany.png', webp: 'germany.webp', alt: 'Germany card' },
-  { src: 'sweden.png', webp: 'sweden.webp', alt: 'Sweden card' },
-  { src: 'uk.png', webp: 'uk.webp', alt: 'United Kingdom card' },
-  { src: 'switzerland.png', webp: 'switzerland.webp', alt: 'Switzerland card' },
-  { src: 'poland.png', webp: 'poland.webp', alt: 'Poland card' },
-  { type: 'email-cta', alt: 'Email signup card' }
-];
-
-// ===== CAROUSEL =====
-const track = document.getElementById('carouselTrack');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const dotsContainer = document.getElementById('carouselDots');
-
-let currentSlide = 0;
-const totalSlides = cardData.length;
-
-function initializeCarousel(){
-  track.innerHTML = '';
-  dotsContainer.innerHTML = '';
-  cardData.forEach((card, index) => {
-    const slide = document.createElement('div');
-    slide.className = 'carousel-slide';
-    
-    if (card.type === 'email-cta') {
-      // Create email signup CTA card
-      slide.innerHTML = `
-        <div class="card email-cta-card">
-          <div class="email-cta-content">
-            <p class="email-cta-more-text">...and many more!</p>
-            <div class="email-cta-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-            </div>
-            <h3 class="email-cta-title">Stay Updated!</h3>
-            <p class="email-cta-description">Get notified when we launch on Kickstarter</p>
-            <button class="email-cta-button" onclick="showEmailModal(); trackCarouselEmailCTA();">
-              Sign Up for Updates
-            </button>
-          </div>
-        </div>
-      `;
-    } else {
-      // Create regular card
-      const imgPerf = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" fetchpriority="low" decoding="async"';
       slide.innerHTML = `
         <div class="card">
           <picture>
@@ -1270,3 +1073,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 1000);
 });
+
