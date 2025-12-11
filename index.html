@@ -484,14 +484,27 @@
     .packages-list{display:flex;flex-direction:column;gap:20px;margin:32px 0}
     .package-bar{background:rgba(26,31,46,0.8);border:2px solid rgba(251,191,36,0.3);border-radius:20px;overflow:hidden;transition:all 0.3s ease;position:relative}
     .package-bar::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(251,191,36,0.08),transparent);opacity:0;transition:opacity 0.3s}
+    .package-bar.base-bar{border-color:rgba(251,191,36,0.4)}
+    .package-bar.extended-bar{border-color:rgba(192,132,252,0.55)}
+    .package-bar.extended-bar::before{background:linear-gradient(90deg,transparent,rgba(192,132,252,0.12),transparent)}
+    .package-bar.founders-bar{border-color:rgba(52,211,153,0.45)}
+    .package-bar.founders-bar::before{background:linear-gradient(90deg,transparent,rgba(52,211,153,0.12),transparent)}
+    .package-bar.extended-bar:hover{border-color:rgba(192,132,252,0.9);box-shadow:0 12px 32px rgba(67,36,97,0.45)}
+    .package-bar.founders-bar:hover{border-color:rgba(52,211,153,0.75);box-shadow:0 12px 32px rgba(8,58,46,0.45)}
     .package-bar:hover{transform:translateY(-6px);border-color:rgba(251,191,36,0.6);box-shadow:0 12px 28px rgba(0,0,0,0.35)}
     .package-bar-content{display:flex;justify-content:space-between;gap:24px;padding:24px;position:relative;z-index:1}
     .package-info{flex:1}
-    .package-header-bar{display:flex;gap:16px;align-items:center;margin-bottom:8px}
+    .package-header-bar{display:flex;gap:16px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
     .package-name{font-size:24px;font-weight:700;color:var(--gold);margin:0}
     .package-bar.extended-bar .package-name{color:#c084fc}
     .package-bar.founders-bar .package-name{color:#34d399}
     .package-price{font-size:32px;font-weight:800;color:var(--text);margin:0}
+    .package-header-bar .package-badge{order:1;margin:0}
+    .package-header-bar .package-name{order:2}
+    .package-header-bar .package-price{order:3}
+    .package-badge{width:70px;height:70px;border-radius:50%;object-fit:contain;display:inline-block;flex-shrink:0}
+    .package-badge.extended-badge,
+    .package-badge.founders-badge{border:none;box-shadow:none}
     .package-subtitle{margin:0;color:var(--muted)}
     .package-action{display:flex;align-items:center}
     .package-btn{--cta-rgb:255,255,255;position:relative;display:inline-flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;padding:18px 34px;border-radius:16px;font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;min-width:220px;color:var(--text);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);transition:transform 0.25s ease,box-shadow 0.25s ease,filter 0.25s ease;overflow:hidden;text-align:center;isolation:isolate}
@@ -507,10 +520,15 @@
     .package-btn.disabled::before,.package-btn.disabled::after{opacity:0}
     .package-btn.base-theme{--cta-rgb:251,191,36;background:linear-gradient(140deg,rgba(251,191,36,0.22),rgba(15,20,25,0.4));border-color:rgba(251,191,36,0.55)}
     .package-btn.base-theme .package-btn-label{color:var(--gold)}
-    .package-btn.extended-theme{--cta-rgb:185,131,255;background:linear-gradient(140deg,rgba(153,102,255,0.24),rgba(15,20,25,0.4));border-color:rgba(153,102,255,0.55)}
+    .package-btn.extended-theme{--cta-rgb:185,131,255;background:linear-gradient(140deg,rgba(153,102,255,0.24),rgba(15,20,25,0.4));border-color:rgba(153,102,255,0.75);box-shadow:0 0 0 1px rgba(153,102,255,0.35)}
     .package-btn.extended-theme .package-btn-label{color:#b983ff}
-    .package-btn.founders-theme{--cta-rgb:52,211,153;background:linear-gradient(140deg,rgba(52,211,153,0.22),rgba(15,20,25,0.4));border-color:rgba(52,211,153,0.55)}
+    .package-btn.founders-theme{--cta-rgb:52,211,153;background:linear-gradient(140deg,rgba(52,211,153,0.22),rgba(15,20,25,0.4));border-color:rgba(52,211,153,0.7);box-shadow:0 0 0 1px rgba(52,211,153,0.35)}
     .package-btn.founders-theme .package-btn-label{color:#34d399}
+    .package-bar.base-bar .package-btn .package-btn-price{color:#f8fafc}
+    .package-bar.extended-bar .package-btn .package-btn-price{background:rgba(192,132,252,0.18);color:#f5f3ff;box-shadow:inset 0 0 0 1px rgba(192,132,252,0.35)}
+    .package-bar.founders-bar .package-btn .package-btn-price{background:rgba(52,211,153,0.18);color:#ecfdf5;box-shadow:inset 0 0 0 1px rgba(52,211,153,0.35)}
+    .package-bar.extended-bar .package-btn.disabled,
+    .package-bar.founders-bar .package-btn.disabled{filter:none;opacity:0.75}
     .package-btn.armed{animation:ctaPulse 2.6s ease-in-out infinite}
     @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.35)}70%{box-shadow:0 0 0 18px rgba(var(--cta-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}}
     .preorder-copy-highlight{display:inline-flex;align-items:center;gap:6px;padding:2px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);font-size:0.85em;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;box-shadow:0 4px 18px rgba(251,191,36,0.25);vertical-align:middle}
@@ -523,6 +541,7 @@
       .packages-kickstarter-cta{text-align:center}
       .kickstarter-inline-content{max-width:100%}
       .kickstarter-badge{width:64px}
+      .package-badge{width:58px;height:58px}
     }
     .kickstarter-inline-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,var(--kickstarter),#04b86a);color:#fff;text-decoration:none;font-weight:700}
     .kickstarter-inline-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(5,206,120,0.35)}
@@ -543,6 +562,22 @@
     .contents-showcase{text-align:center;margin:32px auto 16px;padding:0;border:none;border-radius:0;background:transparent;box-shadow:none}
     .contents-subtitle{display:none}
     .contents-image{max-width:720px;width:100%;display:block;margin:0 auto;border:none;border-radius:0;box-shadow:none;background:transparent}
+    .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:rgba(17,23,38,0.8);border:1px solid rgba(255,255,255,0.05)}
+    .card-peek-header{text-align:center;margin-bottom:16px}
+    .card-peek-header h3{margin:0;font-size:24px;color:var(--text)}
+    .card-peek-carousel{display:flex;align-items:center;gap:14px}
+    .card-peek-window{flex:1;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding-bottom:4px;touch-action:auto}
+    .card-peek-window::-webkit-scrollbar{display:none}
+    .card-peek-track{display:flex;flex-wrap:nowrap;gap:18px;width:max-content}
+    .card-peek-image{flex:0 0 auto;width:min(220px,30vw);height:auto;border-radius:12px;display:block}
+    .card-peek-nav{width:38px;height:38px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;transition:background 0.2s ease,transform 0.2s ease}
+    .card-peek-nav:hover{background:rgba(255,255,255,0.08);transform:translateY(-1px)}
+    .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    @media(max-width:600px){
+      .card-peek-carousel{flex-direction:column}
+      .card-peek-nav{width:100%}
+      .card-peek-image{width:85vw}
+    }
     .founders-bonus-note{margin:12px auto 32px;padding:18px 22px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.35);color:var(--text);font-weight:600;text-align:center;max-width:880px;line-height:1.5}
     .shipping-info{background:rgba(199,164,85,0.08);border:1px solid rgba(199,164,85,0.3);border-radius:16px;padding:28px;margin:40px 0}
     .shipping-info h3{margin:0 0 12px;color:var(--gold)}
@@ -724,6 +759,7 @@
             <div class="package-bar-content">
               <div class="package-info">
                 <div class="package-header-bar">
+                  <img src="extended_badge.png" alt="Extended Edition badge" class="package-badge extended-badge" loading="lazy" decoding="async">
                   <h3 class="package-name">Extended Edition</h3>
                   <div class="package-price">$45</div>
                 </div>
@@ -742,6 +778,7 @@
             <div class="package-bar-content">
               <div class="package-info">
                 <div class="package-header-bar">
+                  <img src="founders_badge.png" alt="Founder's Edition badge" class="package-badge founders-badge" loading="lazy" decoding="async">
                   <h3 class="package-name">Founder's Edition</h3>
                   <div class="package-price">$65</div>
                 </div>
@@ -791,6 +828,47 @@
         <div class="contents-showcase" id="whatsInside">
           <img src="assets/contents.png" alt="Contents of Countryball Cards" class="contents-image" loading="lazy">
         </div>
+
+        <section class="card-peek-section" aria-labelledby="cardPeekTitle">
+          <div class="card-peek-carousel" role="region" aria-live="polite">
+            <button class="card-peek-nav" type="button" id="cardPeekPrev" aria-label="Show previous cards">&#8249;</button>
+            <div class="card-peek-window">
+              <div class="card-peek-track" id="cardPeekTrack">
+                <img class="card-peek-image" src="australia.webp" alt="Australia countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="austria.webp" alt="Austria countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="belgium.webp" alt="Belgium countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="canada.webp" alt="Canada countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="china.webp" alt="China countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="croatia.webp" alt="Croatia countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="czechia.webp" alt="Czechia countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="finland.webp" alt="Finland countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="france.webp" alt="France countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="germany.webp" alt="Germany countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="hungary.webp" alt="Hungary countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="india.webp" alt="India countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="italy.webp" alt="Italy countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="japan.webp" alt="Japan countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="mexico.webp" alt="Mexico countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="mongolia.webp" alt="Mongolia countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="netherlands.webp" alt="Netherlands countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="norway.webp" alt="Norway countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="poland.webp" alt="Poland countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="portugal.webp" alt="Portugal countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="romania.webp" alt="Romania countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="russia.webp" alt="Russia countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="saudi_arabia.webp" alt="Saudi Arabia countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="spain.webp" alt="Spain countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="sweden.webp" alt="Sweden countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="switzerland.webp" alt="Switzerland countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="turkiye.webp" alt="Türkiye countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="uk.webp" alt="United Kingdom countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="ukraine.webp" alt="Ukraine countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="us.webp" alt="United States countryball card" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#8250;</button>
+          </div>
+        </section>
 
         <p class="founders-bonus-note">Extended Edition Backers receive an extra expansion that features 10 extra Countryball Cards, 5 extra Project Cards and an ally system. Along with that, Founder's Edition Backers will also receive a numbered holographic Founder's Certificate, a set of 5 holographic countryball cards and 8x DIY Cards (cards you draw on to make your own, custom cards)!</p>
 
@@ -875,6 +953,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Card Viewer Modal -->
+
 
   <!-- Email Signup Modal -->
   <div class="modal-overlay" id="emailOverlay" hidden aria-hidden="true">
@@ -1117,7 +1198,7 @@
     };
     let selectedCountry = null;
     let selectedZone = null;
-    const GEO_PROMPT_TEXT = 'Select a country for shipping';
+    const GEO_PROMPT_TEXT = 'Select a country';
     const preorderOverlay = document.getElementById('preorderConfirmOverlay');
     const preorderDialog = preorderOverlay ? preorderOverlay.querySelector('.modal') : null;
     const preorderCloseBtn = document.getElementById('preorderConfirmClose');
