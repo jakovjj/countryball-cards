@@ -721,7 +721,7 @@
               <div class="country-dropdown-header">
                 <div class="country-dropdown-toggle" id="countryDropdownToggle" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
                   <span id="countryDropdownLabel">
-                    <span class="country-option-left">Detecting your location...</span>
+                    <span class="country-option-left">Select where to ship!</span>
                     <span class="zone-label"></span>
                   </span>
                   <svg class="country-dropdown-chevron" viewBox="0 0 24 24" aria-hidden="true">
@@ -759,7 +759,7 @@
             <div class="package-bar-content">
               <div class="package-info">
                 <div class="package-header-bar">
-                  <img src="extended_badge.png" alt="Extended Edition badge" class="package-badge extended-badge" loading="lazy" decoding="async">
+                  <img src="extended_badge.webp" alt="Extended Edition badge" class="package-badge extended-badge" loading="lazy" decoding="async">
                   <h3 class="package-name">Extended Edition</h3>
                   <div class="package-price">$45</div>
                 </div>
@@ -778,7 +778,7 @@
             <div class="package-bar-content">
               <div class="package-info">
                 <div class="package-header-bar">
-                  <img src="founders_badge.png" alt="Founder's Edition badge" class="package-badge founders-badge" loading="lazy" decoding="async">
+                  <img src="founders_badge.webp" alt="Founder's Edition badge" class="package-badge founders-badge" loading="lazy" decoding="async">
                   <h3 class="package-name">Founder's Edition</h3>
                   <div class="package-price">$65</div>
                 </div>
@@ -826,7 +826,7 @@
         </div>
 
         <div class="contents-showcase" id="whatsInside">
-          <img src="assets/contents.png" alt="Contents of Countryball Cards" class="contents-image" loading="lazy">
+          <img src="assets/contents.webp" alt="Contents of Countryball Cards" class="contents-image" loading="lazy">
         </div>
 
         <section class="card-peek-section" aria-labelledby="cardPeekTitle">
@@ -1208,6 +1208,8 @@
     let preorderKeyListenerAttached = false;
     let preorderControlsBound = false;
     let preorderScrollY = 0;
+    const LAST_COUNTRY_STORAGE_KEY = 'cbc:lastCountryCode';
+    const DETECTION_TIMEOUT_MS = 4500;
 
     function getShippingZone(countryCode) {
       if (SHIPPING_ZONES.ZONE_1.includes(countryCode)) return 'ZONE_1';
@@ -1324,12 +1326,29 @@
       `;
     }
 
+    function persistStoredCountry(code) {
+      try {
+        localStorage.setItem(LAST_COUNTRY_STORAGE_KEY, code);
+      } catch (_) {
+        /* noop */
+      }
+    }
+
+    function getStoredCountry() {
+      try {
+        const stored = localStorage.getItem(LAST_COUNTRY_STORAGE_KEY);
+        return stored && COUNTRY_MAP[stored] ? stored : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
     function resetCountrySelection() {
       const hiddenInput = document.getElementById('countryAvailabilitySelector');
       if (hiddenInput) {
         hiddenInput.value = '';
       }
-      setDropdownLabel('Select a country for shipping', '');
+      setDropdownLabel('Select where to ship!', '');
       highlightActiveCountryOption(null);
     }
 
@@ -1489,9 +1508,9 @@
       });
     }
 
-    function selectCountry(countryCode) {
+    function selectCountry(countryCode, options = {}) {
       const option = COUNTRY_MAP[countryCode];
-      if (!option) return;
+      if (!option) return false;
       const hiddenInput = document.getElementById('countryAvailabilitySelector');
       if (hiddenInput) {
         hiddenInput.value = countryCode;
@@ -1500,6 +1519,10 @@
       highlightActiveCountryOption(countryCode);
       closeCountryDropdown();
       handleCountrySelection(countryCode);
+      if (!options.skipStorage) {
+        persistStoredCountry(countryCode);
+      }
+      return true;
     }
 
     function promptForCountrySelection() {
@@ -1579,6 +1602,98 @@
       updateZoneStatus(selectedZone);
     }
 
+    function normalizeCountryCode(code) {
+      if (!code || typeof code !== 'string') {
+        return null;
+      }
+      const normalized = code.trim().toUpperCase();
+      return normalized.length === 2 ? normalized : null;
+    }
+
+    function withTimeout(promise, timeoutMs = DETECTION_TIMEOUT_MS) {
+      return new Promise(resolve => {
+        let settled = false;
+        const timer = setTimeout(() => {
+          if (!settled) {
+            settled = true;
+            resolve(null);
+          }
+        }, timeoutMs);
+        Promise.resolve(promise)
+          .then(value => {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            clearTimeout(timer);
+            resolve(value);
+          })
+          .catch(() => {
+            if (settled) {
+              return;
+            }
+            settled = true;
+            clearTimeout(timer);
+            resolve(null);
+          });
+      });
+    }
+
+    function firstSuccessful(promises, evaluator) {
+      return new Promise(resolve => {
+        if (!promises.length) {
+          resolve(false);
+          return;
+        }
+        let pending = promises.length;
+        let completed = false;
+        promises.forEach(promise => {
+          Promise.resolve(promise)
+            .then(value => {
+              if (completed) {
+                return;
+              }
+              if (evaluator(value)) {
+                completed = true;
+                resolve(true);
+              } else {
+                pending -= 1;
+                if (pending === 0) {
+                  resolve(false);
+                }
+              }
+            })
+            .catch(() => {
+              if (completed) {
+                return;
+              }
+              pending -= 1;
+              if (pending === 0) {
+                resolve(false);
+              }
+            });
+        });
+      });
+    }
+
+    async function lookupCountryViaIpApi() {
+      const resp = await fetch('https://ipapi.co/json/', { cache: 'no-store' });
+      if (!resp.ok) {
+        throw new Error('ipapi lookup failed');
+      }
+      const data = await resp.json();
+      return data && data.country_code ? data.country_code : null;
+    }
+
+    async function lookupCountryViaIpWhois() {
+      const resp = await fetch('https://ipwho.is/?fields=country_code', { cache: 'no-store' });
+      if (!resp.ok) {
+        throw new Error('ipwho.is lookup failed');
+      }
+      const data = await resp.json();
+      return data && data.country_code ? data.country_code : null;
+    }
+
     function geolocateByBrowser() {
       return new Promise(resolve => {
         if (!('geolocation' in navigator)) {
@@ -1607,36 +1722,24 @@
     }
 
     async function detectCountry() {
-      setDropdownLabel('Detecting your location...', '');
-      let detected = false;
+      setDropdownLabel('Select where to ship!', '');
 
       const applySelection = code => {
-        if (code && COUNTRY_MAP[code]) {
-          selectCountry(code);
-          detected = true;
+        const normalized = normalizeCountryCode(code);
+        if (normalized && COUNTRY_MAP[normalized]) {
+          selectCountry(normalized);
           return true;
         }
         return false;
       };
 
-      try {
-        const browserCode = await geolocateByBrowser();
-        if (applySelection(browserCode)) {
-          return;
-        }
-      } catch (_) {
-        /* noop */
-      }
+      const detectionAttempts = [
+        withTimeout(geolocateByBrowser(), DETECTION_TIMEOUT_MS),
+        withTimeout(lookupCountryViaIpApi(), DETECTION_TIMEOUT_MS),
+        withTimeout(lookupCountryViaIpWhois(), DETECTION_TIMEOUT_MS)
+      ];
 
-      try {
-        const resp = await fetch('https://ipapi.co/json/');
-        if (!resp.ok) throw new Error('geo lookup failed');
-        const data = await resp.json();
-        const code = data && data.country_code ? data.country_code : null;
-        applySelection(code);
-      } catch (_) {
-        /* noop */
-      }
+      const detected = await firstSuccessful(detectionAttempts, applySelection);
 
       if (!detected) {
         promptForCountrySelection();
@@ -1715,9 +1818,12 @@
       updateButtonStates(false);
       forcePackageButtonLabels(GEO_PROMPT_TEXT);
       updateZoneStatus('DEFAULT');
-      setDropdownLabel('Detecting your location...', '');
+      setDropdownLabel('Select where to ship!', '');
       attachPackageGuards();
-      detectCountry();
+      const storedCountry = getStoredCountry();
+      if (!storedCountry || !selectCountry(storedCountry, { skipStorage: true })) {
+        detectCountry();
+      }
     });
   </script>
   

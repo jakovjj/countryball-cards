@@ -273,6 +273,101 @@ if (document.readyState === 'loading') {
   initCardPeekCarousel();
 }
 
+// Opportunistically warm up off-screen card art once the main work is done.
+const cardPeekWarmup = (() => {
+  let idleHandle = null;
+  let queue = [];
+  let started = false;
+
+  const slowTypes = new Set(['slow-2g', '2g']);
+
+  function shouldWarmup() {
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!conn) {
+      return true;
+    }
+    if (conn.saveData) {
+      return false;
+    }
+    if (conn.effectiveType && slowTypes.has(conn.effectiveType)) {
+      return false;
+    }
+    return true;
+  }
+
+  function primeQueue() {
+    const track = document.getElementById('cardPeekTrack');
+    if (!track) {
+      return [];
+    }
+    return Array.from(track.querySelectorAll('img.card-peek-image[loading="lazy"]'))
+      .filter(img => !img.dataset.prefetched);
+  }
+
+  function preload(img) {
+    if (!img) {
+      return;
+    }
+    const source = img.currentSrc || img.src;
+    if (!source) {
+      return;
+    }
+    img.dataset.prefetched = 'true';
+    const preloader = new Image();
+    preloader.decoding = 'async';
+    preloader.src = source;
+  }
+
+  function processQueue(deadline) {
+    while (queue.length && (deadline.timeRemaining() > 7 || deadline.didTimeout)) {
+      const nextImage = queue.shift();
+      if (nextImage?.complete && nextImage.naturalWidth > 0) {
+        nextImage.dataset.prefetched = 'true';
+        continue;
+      }
+      preload(nextImage);
+    }
+    if (queue.length) {
+      schedule();
+    }
+  }
+
+  function schedule() {
+    if ('requestIdleCallback' in window) {
+      idleHandle = requestIdleCallback(processQueue, { timeout: 1500 });
+    } else {
+      idleHandle = setTimeout(() => {
+        processQueue({ timeRemaining: () => 0, didTimeout: true });
+      }, 600);
+    }
+  }
+
+  function start() {
+    if (started) {
+      return;
+    }
+    if (!shouldWarmup()) {
+      started = true;
+      return;
+    }
+    queue = primeQueue();
+    if (!queue.length) {
+      started = true;
+      return;
+    }
+    started = true;
+    schedule();
+  }
+
+  return { start };
+})();
+
+if (document.readyState === 'complete') {
+  cardPeekWarmup.start();
+} else {
+  window.addEventListener('load', () => cardPeekWarmup.start(), { once: true });
+}
+
 // ===== COMMUNITY COUNTS =====
 (function(){
   const discordCountEl = document.getElementById('discordCount');
