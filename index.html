@@ -507,9 +507,13 @@
     .package-info{flex:1}
     .package-header-bar{display:flex;gap:16px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
     .package-name{font-size:24px;font-weight:700;color:var(--gold);margin:0}
+    .package-name .package-was-price{margin-left:10px;font-size:32px;font-weight:800;color:var(--muted);white-space:nowrap;position:relative;display:inline-block}
+    .package-name .package-was-price::after{content:'';position:absolute;left:0;right:0;top:50%;height:3px;background:currentColor;transform:translateY(-50%);opacity:0.95}
     .package-bar.extended-bar .package-name{color:#c084fc}
     .package-bar.founders-bar .package-name{color:#34d399}
     .package-price{font-size:32px;font-weight:800;color:var(--text);margin:0}
+
+    .preorder-discount-note{margin:18px auto 6px;padding:12px 18px;display:block;width:fit-content;max-width:100%;text-align:center;border-radius:999px;border:1px solid rgba(251,191,36,0.45);background:rgba(251,191,36,0.14);color:var(--gold);font-size:16px;font-weight:900;letter-spacing:0.9px;text-transform:uppercase}
     .package-header-bar .package-badge{order:1;margin:0}
     .package-header-bar .package-name{order:2}
     .package-header-bar .package-price{order:3}
@@ -527,7 +531,7 @@
     .package-btn:not(.disabled):hover::before,.package-btn:not(.disabled):focus-visible::before{opacity:1}
     .package-btn:not(.disabled):hover::after,.package-btn:not(.disabled):focus-visible::after{opacity:1;transform:rotate(25deg) translate3d(180%,0,0)}
     .package-btn:focus-visible{outline:2px solid rgba(var(--cta-rgb),0.8);outline-offset:4px}
-    .package-btn.disabled{opacity:0.45;cursor:not-allowed;pointer-events:none;filter:saturate(0.4);box-shadow:none}
+    .package-btn.disabled{opacity:0.45;cursor:pointer;pointer-events:auto;filter:saturate(0.4);box-shadow:none}
     .package-btn.disabled::before,.package-btn.disabled::after{opacity:0}
     .package-btn.base-theme{--cta-rgb:251,191,36;background:linear-gradient(140deg,rgba(251,191,36,0.22),rgba(15,20,25,0.4));border-color:rgba(251,191,36,0.55)}
     .package-btn.base-theme .package-btn-label{color:var(--gold)}
@@ -666,7 +670,7 @@
       <section class="how-it-works" aria-labelledby="howItWorksTitle">
         <div class="how-it-works-header">
           <span class="how-it-works-pill">How does it work?</span>
-          <h2 id="howItWorksTitle">Pre-order now, relax until delivery</h2>
+          <h2 id="howItWorksTitle">Pre-order now with discount, relax until delivery</h2>
           <p>Secure the lowest pre-order price today, we finish manufacturing over winter, and your copy arrives at your door when fulfillment begins.</p>
         </div>
         <div class="how-it-works-steps">
@@ -674,7 +678,7 @@
             <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.png" alt="" loading="lazy"></span>
             <span class="how-step-number">1</span>
             <h3>Reserve your deck</h3>
-            <p>Pick any package below to lock in the best Kickstarter-era pricing and bonus goodies before retail increases. Full free refunds until February 2026.</p>
+            <p>Pick any package below to lock in the best Kickstarter-era pricing before the price increases. Full free refunds until February 2026.</p>
           </article>
           <article class="how-step">
             <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
@@ -725,37 +729,16 @@
           </p>
         </div>
 
-        <div class="availability-checker">
-          <h3>Select a Country for Shipping</h3>
-          <div class="country-selector-wrapper">
-            <div class="country-dropdown" id="countryDropdown">
-              <div class="country-dropdown-header">
-                <div class="country-dropdown-top">
-                  <div class="country-dropdown-toggle" id="countryDropdownToggle" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
-                    <span id="countryDropdownLabel">
-                      <span class="country-option-left">Choose a shipping location</span>
-                      <span class="zone-label"></span>
-                    </span>
-                    <svg class="country-dropdown-chevron" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M7 10l5 5 5-5z" />
-                    </svg>
-                  </div>
-                  <button type="button" class="country-change-btn" id="countryChangeBtn" aria-label="Change shipping location" onclick="return changeShippingLocation(event)">Change</button>
-                </div>
-                <input type="text" id="countrySearchInput" class="country-search" placeholder="Search country" aria-label="Search country">
-              </div>
-              <ul class="country-dropdown-list" id="countryDropdownList" role="listbox"></ul>
-            </div>
-            <input type="hidden" id="countryAvailabilitySelector" class="country-selector-hidden" value="">
-          </div>
-        </div>
+        <!-- Shipping selection now happens in a modal when you click Pre-order. -->
+
+        <p class="preorder-discount-note">PRE-ORDER DISCOUNT! Everything is 25% off!</p>
 
         <div class="packages-list">
           <div class="package-bar base-bar">
             <div class="package-bar-content">
               <div class="package-info">
                 <div class="package-header-bar">
-                  <h3 class="package-name">Base Game</h3>
+                  <h3 class="package-name">Base Game <span class="package-was-price">$40</span></h3>
                   <div class="package-price">$30</div>
                 </div>
                 <p class="package-subtitle">Perfect for jumping into Countryball Cards with the core 20 nations.</p>
@@ -774,7 +757,7 @@
               <div class="package-info">
                 <div class="package-header-bar">
                   <img src="extended_badge.webp" alt="Extended Edition badge" class="package-badge extended-badge" loading="lazy" decoding="async">
-                  <h3 class="package-name">Extended Edition</h3>
+                  <h3 class="package-name">Extended Edition <span class="package-was-price">$60</span></h3>
                   <div class="package-price">$45</div>
                 </div>
                 <p class="package-subtitle">Adds new mechanics, 10 extra Countryballs, and enhanced components.</p>
@@ -793,7 +776,7 @@
               <div class="package-info">
                 <div class="package-header-bar">
                   <img src="founders_badge.webp" alt="Founder's Edition badge" class="package-badge founders-badge" loading="lazy" decoding="async">
-                  <h3 class="package-name">Founder's Edition</h3>
+                  <h3 class="package-name">Founder's Edition <span class="package-was-price">$85</span></h3>
                   <div class="package-price">$65</div>
                 </div>
                 <p class="package-subtitle">Numbered certificate, exclusive art prints, and all unlocked bonuses.</p>
@@ -1045,6 +1028,43 @@
     </div>
   </div>
 
+  <!-- Shipping Location Modal -->
+  <div class="modal-overlay" id="shippingConfirmOverlay" hidden aria-hidden="true">
+    <div class="modal shipping-modal" role="dialog" aria-modal="true" aria-labelledby="shippingConfirmTitle" tabindex="-1">
+      <header>
+        <h2 id="shippingConfirmTitle">Select shipping country</h2>
+        <button class="modal-close" type="button" id="shippingConfirmClose" aria-label="Close shipping selection">✕</button>
+      </header>
+      <div class="shipping-modal-body">
+        <div class="country-selector-wrapper">
+          <div class="country-dropdown" id="countryDropdown">
+            <div class="country-dropdown-header">
+              <div class="country-dropdown-top">
+                <div class="country-dropdown-toggle" id="countryDropdownToggle" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+                  <span id="countryDropdownLabel">
+                    <span class="country-option-left">Choose a shipping location</span>
+                    <span class="zone-label"></span>
+                  </span>
+                  <svg class="country-dropdown-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10l5 5 5-5z" />
+                  </svg>
+                </div>
+                <button type="button" class="country-change-btn" id="countryChangeBtn" aria-label="Change shipping location" onclick="return changeShippingLocation(event)">Change</button>
+              </div>
+              <input type="text" id="countrySearchInput" class="country-search" placeholder="Search country" aria-label="Search country">
+            </div>
+            <ul class="country-dropdown-list" id="countryDropdownList" role="listbox"></ul>
+          </div>
+          <input type="hidden" id="countryAvailabilitySelector" class="country-selector-hidden" value="">
+        </div>
+        <p class="shipping-modal-note">We use your shipping zone to load the correct Stripe checkout.</p>
+      </div>
+      <footer class="shipping-modal-footer">
+        <button type="button" class="shipping-confirm-btn" id="shippingConfirmBtn" disabled aria-disabled="true">Confirm shipping</button>
+      </footer>
+    </div>
+  </div>
+
 
   <!-- Bottom Kickstarter Popup -->
   <div class="bottom-popup" id="bottomPopup" hidden>
@@ -1215,11 +1235,20 @@
     let detectionRunId = 0;
     let suppressAutoDetectSelection = false;
     const GEO_PROMPT_TEXT = 'Select a country';
+    const shippingOverlay = document.getElementById('shippingConfirmOverlay');
+    const shippingDialog = shippingOverlay ? shippingOverlay.querySelector('.modal') : null;
+    const shippingCloseBtn = document.getElementById('shippingConfirmClose');
+    const shippingConfirmBtn = document.getElementById('shippingConfirmBtn');
     const preorderOverlay = document.getElementById('preorderConfirmOverlay');
     const preorderDialog = preorderOverlay ? preorderOverlay.querySelector('.modal') : null;
     const preorderCloseBtn = document.getElementById('preorderConfirmClose');
     const preorderContinueBtn = document.getElementById('preorderContinueBtn');
     let pendingPreorder = null;
+    let pendingShippingIntent = null;
+    let shippingLastFocus = null;
+    let shippingKeyListenerAttached = false;
+    let shippingControlsBound = false;
+    let shippingScrollY = 0;
     let preorderLastFocus = null;
     let preorderKeyListenerAttached = false;
     let preorderControlsBound = false;
@@ -1241,6 +1270,112 @@
       }
     }
 
+    function handleShippingKeydown(event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeShippingConfirmation();
+      }
+    }
+
+    function getCheckoutUrlForPackage(zone, pkg) {
+      const zoneLinks = PAYMENT_LINKS[zone];
+      if (!zoneLinks) return null;
+      if (pkg === 'base') return zoneLinks.BASE_GAME;
+      if (pkg === 'extended') return zoneLinks.EXTENDED_EDITION;
+      if (pkg === 'founders') return zoneLinks.FOUNDERS_EDITION;
+      return null;
+    }
+
+    function updateShippingConfirmState() {
+      if (!shippingConfirmBtn) return;
+      const enabled = !!selectedCountry && !!selectedZone;
+      shippingConfirmBtn.disabled = !enabled;
+      shippingConfirmBtn.setAttribute('aria-disabled', enabled ? 'false' : 'true');
+    }
+
+    function openShippingConfirmation(intent, triggerEl) {
+      if (!shippingOverlay || !shippingDialog) {
+        return;
+      }
+      pendingShippingIntent = intent || null;
+      shippingLastFocus = triggerEl || document.activeElement || null;
+      shippingScrollY = window.scrollY || window.pageYOffset || 0;
+
+      shippingOverlay.hidden = false;
+      shippingOverlay.setAttribute('aria-hidden', 'false');
+      updateShippingConfirmState();
+
+      setTimeout(() => {
+        const searchInput = document.getElementById('countrySearchInput');
+        if (searchInput && !selectedCountry) {
+          openCountryDropdown();
+          searchInput.focus();
+        } else if (shippingConfirmBtn && !shippingConfirmBtn.disabled) {
+          shippingConfirmBtn.focus();
+        } else {
+          shippingDialog.focus();
+        }
+        window.scrollTo(0, shippingScrollY);
+      }, 30);
+
+      if (!shippingKeyListenerAttached) {
+        document.addEventListener('keydown', handleShippingKeydown);
+        shippingKeyListenerAttached = true;
+      }
+    }
+
+    function closeShippingConfirmation(options = {}) {
+      if (!shippingOverlay) {
+        return;
+      }
+      shippingOverlay.hidden = true;
+      shippingOverlay.setAttribute('aria-hidden', 'true');
+      if (shippingKeyListenerAttached) {
+        document.removeEventListener('keydown', handleShippingKeydown);
+        shippingKeyListenerAttached = false;
+      }
+      const shouldRestoreFocus = options.restoreFocus !== false;
+      if (shouldRestoreFocus && shippingLastFocus && typeof shippingLastFocus.focus === 'function') {
+        shippingLastFocus.focus();
+        window.scrollTo(0, shippingScrollY);
+      }
+      pendingShippingIntent = null;
+      shippingLastFocus = null;
+    }
+
+    function confirmShippingSelection() {
+      if (!selectedCountry || !selectedZone || !pendingShippingIntent) {
+        return;
+      }
+      const { packageName, price, packageKey, triggerEl } = pendingShippingIntent;
+      const checkoutUrl = getCheckoutUrlForPackage(selectedZone, packageKey);
+      closeShippingConfirmation({ restoreFocus: false });
+      openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl);
+    }
+
+    function initShippingModalControls() {
+      if (shippingControlsBound) {
+        return;
+      }
+      if (!shippingOverlay) {
+        return;
+      }
+      if (shippingConfirmBtn) {
+        shippingConfirmBtn.addEventListener('click', confirmShippingSelection);
+      }
+      if (shippingCloseBtn) {
+        shippingCloseBtn.addEventListener('click', () => closeShippingConfirmation());
+      }
+      shippingOverlay.addEventListener('click', event => {
+        if (event.target === shippingOverlay) {
+          closeShippingConfirmation();
+        }
+      });
+      shippingControlsBound = true;
+    }
+    initShippingModalControls();
+    document.addEventListener('DOMContentLoaded', initShippingModalControls);
+
     function openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl) {
       if (!checkoutUrl) {
         return;
@@ -1248,6 +1383,14 @@
       if (!preorderOverlay || !preorderDialog || !preorderContinueBtn) {
         window.location.href = checkoutUrl;
         return;
+      }
+
+      const titleEl = document.getElementById('preorderConfirmTitle');
+      if (titleEl) {
+        const flag = selectedCountry && COUNTRY_MAP[selectedCountry] ? COUNTRY_MAP[selectedCountry].flag : '';
+        titleEl.innerHTML = flag
+          ? `<span class="preorder-title-flag" aria-hidden="true">${flag}</span> Ready to order?`
+          : 'Ready to order?';
       }
 
       pendingPreorder = { checkoutUrl };
@@ -1380,7 +1523,16 @@
       const list = document.getElementById('countryDropdownList');
       if (!list) return;
       list.innerHTML = '';
-      const renderSet = Array.isArray(options) ? options : filteredCountryOptions;
+      let renderSet = Array.isArray(options) ? options : filteredCountryOptions;
+      // Pin United States at the top when not searching.
+      const searchInput = document.getElementById('countrySearchInput');
+      const query = searchInput ? (searchInput.value || '').trim() : '';
+      if (!query && Array.isArray(renderSet) && renderSet.length) {
+        const usOption = renderSet.find(option => option.code === 'US');
+        if (usOption) {
+          renderSet = [usOption, ...renderSet.filter(option => option.code !== 'US')];
+        }
+      }
       if (!renderSet.length) {
         const emptyState = document.createElement('li');
         emptyState.className = 'country-option empty-state';
@@ -1426,6 +1578,7 @@
       if (!dropdown || !toggle) return;
       dropdown.classList.add('open');
       toggle.setAttribute('aria-expanded', 'true');
+      positionCountryDropdownList();
     }
 
     function closeCountryDropdown() {
@@ -1434,6 +1587,37 @@
       if (!dropdown || !toggle) return;
       dropdown.classList.remove('open');
       toggle.setAttribute('aria-expanded', 'false');
+      const list = document.getElementById('countryDropdownList');
+      if (list) {
+        list.style.maxHeight = '';
+        list.style.top = '';
+        list.style.bottom = '';
+      }
+    }
+
+    function positionCountryDropdownList() {
+      const dropdown = document.getElementById('countryDropdown');
+      const list = document.getElementById('countryDropdownList');
+      if (!dropdown || !list || !dropdown.classList.contains('open')) {
+        return;
+      }
+      const rect = dropdown.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      const margin = 12;
+      const spaceBelow = Math.max(0, viewportHeight - rect.bottom - margin);
+      const spaceAbove = Math.max(0, rect.top - margin);
+      const minHeight = 180;
+
+      const openDown = spaceBelow >= minHeight || spaceBelow >= spaceAbove;
+      if (openDown) {
+        list.style.top = 'calc(100% + 8px)';
+        list.style.bottom = 'auto';
+        list.style.maxHeight = `${Math.max(minHeight, spaceBelow)}px`;
+      } else {
+        list.style.top = 'auto';
+        list.style.bottom = 'calc(100% + 8px)';
+        list.style.maxHeight = `${Math.max(minHeight, spaceAbove)}px`;
+      }
     }
 
     function setupCountryDropdownInteractions() {
@@ -1446,6 +1630,9 @@
         const willOpen = !dropdown.classList.contains('open');
         dropdown.classList.toggle('open', willOpen);
         toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+        if (willOpen) {
+          positionCountryDropdownList();
+        }
         if (willOpen) {
           const active = list.querySelector('.country-option.active') || list.querySelector('.country-option');
           if (active) {
@@ -1485,6 +1672,9 @@
           closeCountryDropdown();
         }
       });
+
+      window.addEventListener('resize', () => positionCountryDropdownList());
+      window.addEventListener('scroll', () => positionCountryDropdownList(), true);
     }
 
     // Filter the available countries as the user types in the search box.
@@ -1556,6 +1746,7 @@
       if (typeof updateZoneStatus === 'function') {
         updateZoneStatus('DEFAULT');
       }
+      updateShippingConfirmState();
     }
 
     function restoreButtonLabels() {
@@ -1619,6 +1810,7 @@
         if (dropdown) {
           dropdown.classList.remove('has-selection');
         }
+        updateShippingConfirmState();
         return;
       }
       selectedZone = getShippingZone(selectedCountry);
@@ -1640,6 +1832,7 @@
       if (typeof updateZoneStatus === 'function') {
         updateZoneStatus(selectedZone);
       }
+      updateShippingConfirmState();
     }
 
     function normalizeCountryCode(code) {
@@ -1841,37 +2034,21 @@
     }
 
     function attachPackageGuards() {
-      document.querySelectorAll('.package-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          if (btn.classList.contains('disabled') || !selectedCountry) {
-            e.preventDefault();
-            alert('Please select your shipping country first so we can load the correct checkout link.');
-          }
-        });
-      });
+      // No-op: package buttons open the shipping modal via inline onclick.
     }
 
     function trackPreOrderClick(event, packageName, price) {
-      if (!selectedCountry) {
-        alert('Please select your shipping country first.');
-        return false;
-      }
-
       const trigger = event ? (event.currentTarget || event.target) : null;
-      const checkoutUrl = trigger ? (trigger.dataset.checkoutUrl || trigger.getAttribute('href')) : null;
-
-      if (!checkoutUrl || checkoutUrl === '#') {
-        alert('Please select your shipping country first.');
-        return false;
-      }
-
       if (event) {
         event.preventDefault();
         event.stopPropagation();
       }
 
-      const zoneLabel = (trigger && trigger.dataset.zone) || selectedZone || 'unknown';
+      const zoneLabel = (trigger && trigger.dataset && trigger.dataset.zone) || selectedZone || 'unknown';
 
+      // Always collect/confirm shipping via modal first (instead of inline selector).
+      const packageKey = trigger && trigger.dataset && trigger.dataset.package ? trigger.dataset.package : null;
+      pendingShippingIntent = { packageName, price, packageKey, triggerEl: trigger };
       if (typeof gtag !== 'undefined') {
         gtag('event', 'preorder_button_clicked', {
           event_category: 'conversion',
@@ -1901,7 +2078,7 @@
         });
       }
 
-      openPreorderConfirmation(packageName, price, checkoutUrl, trigger);
+      openShippingConfirmation(pendingShippingIntent, trigger);
       return false;
     }
 
@@ -1921,7 +2098,6 @@
           changeShippingLocation(event);
         });
       }
-      attachPackageGuards();
       const storedCountry = getStoredCountry();
       if (storedCountry) {
         selectCountry(storedCountry, { skipStorage: true });

@@ -1103,12 +1103,31 @@ font-size:16px}
 .preorder-modal-body{padding-top:4px}
 .preorder-modal-copy{margin:0 0 12px;color:var(--text);font-size:16px;line-height:1.5;font-weight:600}
 .preorder-modal-note{margin:0;color:var(--muted);font-size:14px;line-height:1.4}
+.preorder-title-flag{display:inline-block;margin-right:10px;font-size:24px;line-height:1;transform:translateY(2px)}
 .preorder-close{color:#9ca3af;font-size:18px}
 .preorder-close:hover{background:rgba(156,163,175,0.18);color:#f3f4f6}
 .preorder-modal-footer{padding-top:16px}
 .preorder-continue-btn{width:100%;border:2px solid #34d399;border-radius:14px;font-size:18px;font-weight:700;padding:18px 24px;background:rgba(15,20,25,0.8);color:#34d399;cursor:pointer;box-shadow:0 12px 30px rgba(16,185,129,0.12);transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease,color 0.18s ease}
 .preorder-continue-btn:hover{transform:translateY(-2px);background:#34d399;color:#0f1419;box-shadow:0 18px 42px rgba(16,185,129,0.28)}
 .preorder-continue-btn:focus-visible{outline:2px solid #34d399;outline-offset:4px}
+
+/* Shipping selection modal (yellow, lower glow) */
+.shipping-modal{max-width:560px;width:min(94vw,560px);border:2px solid var(--gold);box-shadow:0 14px 38px rgba(251,191,36,0.10);animation:preorder-pop 0.45s cubic-bezier(.22,1,.36,1);
+  /* Slightly taller than default modals */
+  max-height:min(94vh, calc(100dvh - 20px));
+  /* Allow the country list to escape the modal bounds */
+  overflow:visible;
+}
+.shipping-modal-body{padding-top:4px;overflow:visible}
+.shipping-modal .country-selector-wrapper,.shipping-modal .country-dropdown{overflow:visible}
+.shipping-modal .country-dropdown-list{max-height:55vh}
+.shipping-modal .country-dropdown.has-selection #countrySearchInput{display:block !important}
+.shipping-modal-note{margin:12px 0 0;color:var(--muted);font-size:14px;line-height:1.4}
+.shipping-modal-footer{padding-top:16px}
+.shipping-confirm-btn{width:100%;border:2px solid var(--gold);border-radius:14px;font-size:18px;font-weight:800;padding:18px 24px;background:rgba(15,20,25,0.85);color:var(--gold);cursor:pointer;box-shadow:0 10px 26px rgba(251,191,36,0.10);transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease,color 0.18s ease}
+.shipping-confirm-btn:hover{transform:translateY(-2px);background:var(--gold);color:#0f1419;box-shadow:0 14px 32px rgba(251,191,36,0.16)}
+.shipping-confirm-btn:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.shipping-confirm-btn[disabled]{opacity:0.55;transform:none;cursor:not-allowed}
 .roadmap-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .roadmap-item{background:rgba(255,255,255,0.03);border:1px solid rgba(199,164,85,0.2);border-radius:10px;padding:12px}
 .roadmap-item h3{margin:0 0 6px;font-size:16px}
