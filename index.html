@@ -194,19 +194,11 @@
       transport_type: 'beacon',
       anonymize_ip: true,
       allow_google_signals: false,
+      send_page_view: false,
       page_title: 'Countryball Cards',
       page_location: 'https://countryballcards.com/',
       page_path: '/'
     });
-
-    // Optional: send a one-time referrer info event for easy debugging
-    (function(){
-      try {
-        var ref = document.referrer || '';
-        var host = ref ? new URL(ref).hostname : '(direct)';
-        gtag('event', 'referrer_info', { referrer: ref, referrer_host: host });
-      } catch (e) { /* noop */ }
-    })();
   </script>
 
   <!-- FAQ structured data to boost eligibility and clarify topic -->
@@ -718,7 +710,8 @@
         <div class="video-showcase" aria-labelledby="videoShowcaseTitle">
           <div class="video-container">
             <iframe
-              src="https://www.youtube.com/embed/78IQgH0lY60?rel=0&amp;modestbranding=1&amp;playsinline=1"
+              id="trailerIframe"
+              src="https://www.youtube.com/embed/78IQgH0lY60?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1"
               title="Countryball Cards Trailer"
               loading="lazy"
               allowfullscreen

@@ -1802,15 +1802,8 @@
         }
       }
     }
-    // Track packages page view
+    // Track packages interest
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'page_view', {
-        page_title: 'Game Packages',
-        page_location: window.location.href,
-        custom_parameter: 'packages_visited'
-      });
-      
-      // Track packages interest
       gtag('event', 'packages_page_viewed', {
         event_category: 'engagement',
         event_label: 'packages_comparison',

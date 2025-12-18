@@ -742,15 +742,6 @@
       }, 1500);
     });
 
-    // Track print-and-play page view
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'page_view', {
-        page_title: 'Print-and-Play',
-        page_location: window.location.href,
-        custom_parameter: 'pnp_visited'
-      });
-    }
-    
     function trackPDFDownload() {
       if (typeof gtag !== 'undefined') {
         gtag('event', 'pdf_download', {

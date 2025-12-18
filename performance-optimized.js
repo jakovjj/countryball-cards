@@ -115,19 +115,7 @@
     // Preload resources after page is interactive
     setTimeout(preloadNextResources, 1000);
     
-    // Report performance after load
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'page_timing', {
-            event_category: 'performance',
-            custom_dom_ready: Math.round(perfData.domReady),
-            custom_load_time: Math.round(perfData.loadTime),
-            custom_lcp: Math.round(perfData.lcp || 0)
-          });
-        }
-      }, 100);
-    });
+    // (GA4) page_timing event removed to reduce event volume
   }
   
   // Start optimizations

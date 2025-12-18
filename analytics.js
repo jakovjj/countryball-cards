@@ -1,14 +1,41 @@
 // Analytics and pixels (Reddit + GA4)
 (function(){
-  // Track JavaScript support immediately
-  function trackJavaScriptSupport() {
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'javascript_supported', {
-        event_category: 'technical',
-        event_label: 'js_enabled',
-        value: 1
-      });
+  // Fallback GA4 loader for pages that don't include it in HTML.
+  // Keeps `send_page_view:false` to avoid emitting the `page_view` event.
+  (function ensureGA4(){
+    if (typeof window.gtag !== 'undefined') return;
+
+    var h = window.location && window.location.hostname;
+    var isLocal = !h || h === 'localhost' || h === '127.0.0.1' || h.endsWith('.local') ||
+      h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.');
+    if (isLocal) return;
+
+    var GA4_ID = 'G-M366HCYL8Z';
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+
+    if (!document.querySelector('script[src*="https://www.googletagmanager.com/gtag/js?id=' + GA4_ID + '"]')) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+      document.head.appendChild(s);
     }
+
+    window.gtag('js', new Date());
+    window.gtag('config', GA4_ID, {
+      transport_type: 'beacon',
+      anonymize_ip: true,
+      allow_google_signals: false,
+      send_page_view: false,
+      page_title: document.title,
+      page_location: window.location.href
+    });
+  })();
+
+  function safeGtagEvent(eventName, params) {
+    if (typeof gtag === 'undefined') return;
+    try { gtag('event', eventName, params || {}); } catch (_) { /* noop */ }
   }
 
   // Track browser capabilities
@@ -42,8 +69,88 @@
     }
   }
 
+  function initKickstarterClickTracking() {
+    document.addEventListener('click', function(e) {
+      const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+
+      const href = String(a.getAttribute('href') || '');
+      if (!href) return;
+
+      // Track only outbound clicks to Kickstarter.
+      if (href.indexOf('kickstarter.com') === -1) return;
+
+      const text = (a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+      const classes = (a.className && typeof a.className === 'string') ? a.className.slice(0, 120) : '';
+
+      safeGtagEvent('kickstarter_click', {
+        event_category: 'conversion',
+        link_url: href,
+        link_text: text,
+        link_classes: classes,
+        page_path: location.pathname
+      });
+    }, { capture: true });
+  }
+
+  function initTrailerTracking() {
+    const iframe = document.getElementById('trailerIframe');
+    if (!iframe) return;
+
+    let playFired = false;
+
+    function initPlayer() {
+      if (!window.YT || !window.YT.Player) return;
+
+      try {
+        const player = new window.YT.Player('trailerIframe', {
+          events: {
+            onStateChange: function(ev) {
+              if (playFired) return;
+              if (!window.YT || !window.YT.PlayerState) return;
+              if (ev.data !== window.YT.PlayerState.PLAYING) return;
+              playFired = true;
+
+              let videoId = '';
+              try {
+                const data = player.getVideoData ? player.getVideoData() : null;
+                videoId = (data && data.video_id) ? data.video_id : '';
+              } catch (_) { /* noop */ }
+
+              safeGtagEvent('trailer_play', {
+                event_category: 'engagement',
+                video_id: videoId,
+                page_path: location.pathname
+              });
+            }
+          }
+        });
+      } catch (_) {
+        // If iframe API fails, skip tracking rather than breaking the page.
+      }
+    }
+
+    // Load YouTube IFrame API only on pages that have the trailer.
+    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      tag.async = true;
+      (document.head || document.documentElement).appendChild(tag);
+    }
+
+    const prevReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function() {
+      if (typeof prevReady === 'function') {
+        try { prevReady(); } catch (_) { /* noop */ }
+      }
+      initPlayer();
+    };
+
+    // In case the API is already ready.
+    initPlayer();
+  }
+
   // Track immediately on script execution
-  trackJavaScriptSupport();
   trackPageLoadStage('analytics_script_loaded');
 
   // Track when DOM is ready
@@ -51,10 +158,14 @@
     document.addEventListener('DOMContentLoaded', function() {
       trackPageLoadStage('dom_ready');
       trackBrowserCapabilities();
+      initKickstarterClickTracking();
+      initTrailerTracking();
     });
   } else {
     trackPageLoadStage('dom_already_ready');
     trackBrowserCapabilities();
+    initKickstarterClickTracking();
+    initTrailerTracking();
   }
 
   // Track when everything is loaded
