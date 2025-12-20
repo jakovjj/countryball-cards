@@ -380,7 +380,7 @@ if (document.readyState === 'complete') {
     if(el){ 
       el.textContent = text; 
       if(text && el.parentElement && el.classList.contains('btn-count')){ 
-        el.style.display='block'; 
+        el.style.display='inline'; 
         el.parentElement.classList.add('has-count'); 
       } 
     } 
@@ -388,10 +388,7 @@ if (document.readyState === 'complete') {
   
   function formatCount(n){
     if(n==null || isNaN(n)) return '---';
-    if(n < 1000) return n.toString();
-    if(n < 10000) return (n/1000).toFixed(1).replace(/\.0$/,'') + 'k';
-    if(n < 1000000) return Math.round(n/1000) + 'k';
-    return (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+    try{ return Number(n).toLocaleString(); }catch(_){ return String(n); }
   }
 
   function readCache(){

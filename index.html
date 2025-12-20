@@ -258,7 +258,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-image:
+        url('bg/us.webp'),
+        url('bg/japan.webp'),
+        url('bg/germany.webp'),
+        url('bg/uk.webp'),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 260px auto, 240px auto, 250px auto, 270px auto, auto;
+      background-position: 0 0, 120px 160px, 240px 60px, 60px 260px, 0 0;
+      opacity: 0.14;
+      filter: saturate(1.05) contrast(1.08);
+      mix-blend-mode: screen;
       pointer-events: none;
       z-index: -1;
     }
@@ -361,6 +372,13 @@
     .how-it-works-footer button:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(199,164,85,0.45)}
     .how-it-works-footer button svg{width:20px;height:20px;fill:currentColor}
     .how-it-works-footer p{margin:0;color:var(--muted);font-size:14px}
+
+    .pre-howitworks-cta{margin:0 0 18px;display:flex;justify-content:center;width:100%}
+    .pre-howitworks-cta .discord-btn{width:100% !important;min-width:0 !important;max-width:none !important}
+    .pre-howitworks-cta .btn-row{width:100%;justify-content:flex-start;gap:12px}
+    .pre-howitworks-cta .btn-label{flex:1;min-width:0;white-space:normal;line-height:1.25}
+    .pre-howitworks-cta #discordCount{font-weight:800;font-size:1em}
+    .pre-howitworks-cta #discordCount.btn-count{background:none !important;border:0 !important;padding:0 !important;margin:0 !important;border-radius:0 !important;box-shadow:none !important;width:auto !important;color:inherit !important}
     
     /* Enhanced content positioning */
     .hero, .faq-section, .seo-copy, .footer {
@@ -382,8 +400,11 @@
     .btn-row{display:flex;align-items:center;gap:8px}
     .btn-icon{width:18px;height:18px;fill:currentColor}
     .btn-label{white-space:nowrap;font-weight:600}
+    .btn-count-wrap{white-space:nowrap;opacity:0.92}
+    .btn-count{font-weight:800}
     .store-btn{padding:18px 32px !important;font-size:18px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important}
     .discord-btn{padding:12px 32px !important;font-weight:600 !important;width:280px !important;min-width:280px !important;max-width:280px !important;justify-content:center !important;box-sizing:border-box !important;border:2px solid transparent !important;display:flex !important;align-items:center !important;background:#7289da !important;color:#fff !important;box-shadow:0 2px 8px rgba(114,137,218,0.2) !important;font-size:18px !important}
+    .discord-btn.discord-btn--auto{width:auto !important;min-width:0 !important;max-width:none !important}
     .store-btn .btn-icon, .discord-btn .btn-icon{width:20px;height:20px}
     .store-btn .btn-label{font-size:18px;font-weight:600}
     .discord-btn .btn-label{font-size:18px !important;font-weight:600 !important}
@@ -408,6 +429,8 @@
     @media(max-width:768px){
       .cta,.cta-section,.cta-secondary{flex-direction:column;align-items:center}
       .btn{width:100%;max-width:280px;justify-content:center}
+      .pre-howitworks-cta{margin:0 0 14px}
+      .btn.discord-btn.discord-btn--auto{width:100% !important;max-width:420px !important}
       .btn.discord-btn{font-size:14px !important;padding:12px 32px !important}
       .btn.discord-btn .btn-label{font-size:14px !important;font-weight:600 !important}
       .countdown-number{font-size:22px;min-width:32px}
@@ -660,6 +683,15 @@
       </div>
       <div class="golden-separator"></div>
 
+      <div class="pre-howitworks-cta">
+        <a class="btn discord-btn discord-btn--auto" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
+          <span class="btn-row">
+            <img src="assets/discord.png" alt="Discord" class="discord-btn-icon" loading="lazy" decoding="async">
+            <span class="btn-label">Join the <span id="discordCount" class="btn-count">…</span> other members in the Countryball Cards Discord</span>
+          </span>
+        </a>
+      </div>
+
       <section class="how-it-works" aria-labelledby="howItWorksTitle">
         <div class="how-it-works-header">
           <span class="how-it-works-pill">How does it work?</span>
@@ -907,28 +939,6 @@
         </ul>
       </section>
 
-      <!-- Golden separator after FAQ -->
-      <div class="golden-separator"></div>
-
-      <!-- Game Rules Viewer -->
-      <section class="rules-viewer" aria-labelledby="rulesViewerTitle">
-        <div class="rules-viewer-headline">
-          <div>
-            <h3 id="rulesViewerTitle">Read the full Countryball Cards rulebook</h3>
-            <p class="rules-viewer-copy">Scroll through the latest rules.pdf without leaving the site!</p>
-          </div>
-          <div class="rules-viewer-actions">
-            <a href="rules.pdf" class="rules-action-btn" target="_blank" rel="noopener" onclick="trackRulesAction('open_new_tab')">
-              <span>Open in New Tab</span>
-            </a>
-          </div>
-        </div>
-        <div class="rules-frame-wrapper" id="rulesFrameContainer">
-          <iframe src="rules.pdf#view=FitH" title="Countryball Cards Rulebook" class="rules-frame" id="rulesFrame" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <p class="rules-viewer-note">Having trouble loading? <a href="rules.pdf" target="_blank" rel="noopener">Download the PDF</a>.</p>
-      </section>
-
       <!-- Golden separator after rules viewer -->
       <div class="golden-separator"></div>
       <div class="art" style="margin-top:32px">
@@ -1079,22 +1089,6 @@
       <button class="bottom-popup-close" onclick="dismissBottomPopup(); trackBottomPopupClick('close')" aria-label="Close">
         ✕
       </button>
-    </div>
-  </div>
-
-  <!-- Compact Bottom Kickstarter CTA -->
-  <div class="bottom-email-cta" id="bottomEmailCta">
-    <div class="bottom-cta-content">
-      <div class="bottom-cta-text">
-        <span class="bottom-cta-title">🚀 Available on Kickstarter</span>
-      </div>
-      <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" 
-         target="_blank" 
-         rel="noopener" 
-         class="bottom-cta-btn" 
-         onclick="trackBottomEmailClick()">
-        Order Now
-      </a>
     </div>
   </div>
 
