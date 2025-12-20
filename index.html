@@ -375,10 +375,9 @@
 
     .pre-howitworks-cta{margin:0 0 18px;display:flex;justify-content:center;width:100%}
     .pre-howitworks-cta .discord-btn{width:100% !important;min-width:0 !important;max-width:none !important}
-    .pre-howitworks-cta .btn-row{width:100%;justify-content:flex-start;gap:12px}
-    .pre-howitworks-cta .btn-label{flex:1;min-width:0;white-space:normal;line-height:1.25}
-    .pre-howitworks-cta #discordCount{font-weight:800;font-size:1em}
-    .pre-howitworks-cta #discordCount.btn-count{background:none !important;border:0 !important;padding:0 !important;margin:0 !important;border-radius:0 !important;box-shadow:none !important;width:auto !important;color:inherit !important}
+    .pre-howitworks-cta .btn-row{width:100%;justify-content:space-between;gap:12px}
+    .pre-howitworks-cta .btn-label{white-space:normal}
+    .pre-howitworks-cta .btn-count-wrap{flex:0 0 auto;white-space:nowrap}
     
     /* Enhanced content positioning */
     .hero, .faq-section, .seo-copy, .footer {
@@ -687,7 +686,8 @@
         <a class="btn discord-btn discord-btn--auto" id="discordBtn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
           <span class="btn-row">
             <img src="assets/discord.png" alt="Discord" class="discord-btn-icon" loading="lazy" decoding="async">
-            <span class="btn-label">Join the <span id="discordCount" class="btn-count">…</span> other members in the Countryball Cards Discord</span>
+            <span class="btn-label">Join the Official Countryball Cards Discord Server</span>
+            <span class="btn-count-wrap">• <span id="discordCount" class="btn-count">…</span> members</span>
           </span>
         </a>
       </div>

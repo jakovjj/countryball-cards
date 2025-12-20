@@ -19,8 +19,8 @@
     :root { --bg:#151515; --card:#1d1d1d; --gold:#c7a455; --text:#eee; --muted:#b7b7b7; }
     *{box-sizing:border-box} 
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden}
-    .wrap{max-width:800px;margin:0 auto;padding:28px}
-    .frame{border:3px solid var(--gold);border-radius:18px;padding:28px}
+    .wrap{max-width:1100px;margin:0 auto;padding:clamp(16px,3vw,40px)}
+    .frame{border:none;border-radius:18px;padding:clamp(18px,2.2vw,34px);background:rgba(29,29,29,0.25);backdrop-filter:blur(10px)}
     h1{font-size: clamp(28px,4.5vw,36px);letter-spacing:1px;margin:8px 0 16px;color:var(--gold)}
     h2{font-size: clamp(20px,3.5vw,24px);margin:24px 0 12px;color:var(--gold)}
     h3{font-size: clamp(16px,2.8vw,18px);margin:20px 0 8px;color:var(--text)}
