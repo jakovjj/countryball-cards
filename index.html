@@ -312,6 +312,7 @@
     .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px}
     button.site-topbar-link{background:transparent;border:none;appearance:none;font:inherit}
     .site-topbar-link-icon{display:block;flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2));width:20px;height:20px}
+    .site-topbar-link-icon.reddit-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.22);border-radius:999px;font-size:12px;font-weight:900;letter-spacing:0.2px;line-height:1;color:currentColor}
     .site-topbar-help-icon{display:block;width:22px;height:22px}
     .site-topbar-link:hover{opacity:1;color:var(--gold);transform:translateY(-1px)}
     .site-topbar-brand:hover{color:var(--gold)}
@@ -324,6 +325,7 @@
       .site-topbar-actions{gap:12px}
       .site-topbar-link{font-size:18px;padding:14px 16px}
       .site-topbar-link-icon{width:24px;height:24px}
+      .site-topbar-link-icon.reddit-badge{font-size:13px}
     }
     .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
     .frame{border:2px solid rgba(251, 191, 36, 0.3);border-radius:24px;background:rgba(26, 31, 46, 0.6);backdrop-filter:blur(20px);box-shadow:0 8px 32px rgba(0, 0, 0, 0.3);position:relative;overflow:hidden;animation:fadeInUp 0.8s ease-out;padding:28px;box-sizing:border-box;max-width:100%;opacity:1}
@@ -588,6 +590,37 @@
     .package-bar.extended-bar .package-btn.disabled,
     .package-bar.founders-bar .package-btn.disabled{filter:none;opacity:0.75}
     .package-btn.armed{animation:ctaPulse 2.6s ease-in-out infinite}
+
+    .packages-comparison{margin:20px 0 32px;padding:26px 22px;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)}
+    .packages-comparison-art{display:block;width:min(360px,92%);height:auto;margin:0 auto 18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,0.35))}
+    .packages-compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .packages-compare-table{width:100%;min-width:820px;border-collapse:separate;border-spacing:0}
+    .packages-compare-table th,.packages-compare-table td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:middle}
+    .packages-compare-table th.feature-col{padding-left:8px;padding-right:8px}
+    .packages-compare-table thead th{border-bottom:1px solid rgba(255,255,255,0.12)}
+    .packages-compare-table th{font-weight:800}
+    .packages-compare-table .feature-col{text-align:left;color:var(--text);font-weight:800;width:38%;font-size:15px;line-height:1.35}
+    .packages-compare-table .feature-subtle{color:var(--muted);font-weight:700}
+    .packages-compare-table .edition-col{text-align:center;width:18.666%}
+    .packages-comparison-title{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:fit-content;margin:0 auto 16px;padding:10px 18px;border-radius:999px;color:var(--text);font-size:28px;letter-spacing:1px;font-style:italic;text-transform:uppercase;background:linear-gradient(90deg,rgba(251,191,36,0.14),rgba(59,130,246,0.14));border:1px solid rgba(255,255,255,0.12);box-shadow:0 16px 40px rgba(0,0,0,0.35),inset 0 0 0 1px rgba(251,191,36,0.18);text-shadow:0 0 12px rgba(255,255,255,0.22),0 0 22px rgba(251,191,36,0.25),0 0 22px rgba(59,130,246,0.18)}
+    .packages-comparison-title::before,.packages-comparison-title::after{content:"";display:block;width:44px;height:2px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(251,191,36,0.85),rgba(59,130,246,0.85),rgba(255,255,255,0));filter:drop-shadow(0 0 10px rgba(251,191,36,0.22)) drop-shadow(0 0 10px rgba(59,130,246,0.18))}
+    .compare-edition-name{display:block;font-size:clamp(16px, 1.35vw, 19px);letter-spacing:0.25px;text-transform:uppercase;white-space:nowrap;line-height:1.1;margin:0 0 clamp(10px,1.6vw,14px)}
+    .compare-edition-name.edition-base{color:var(--gold);text-shadow:0 0 8px rgba(251,191,36,0.42),0 0 16px rgba(251,191,36,0.18)}
+    .compare-edition-name.edition-extended{color:#b983ff;text-shadow:0 0 8px rgba(185,131,255,0.42),0 0 16px rgba(185,131,255,0.18)}
+    .compare-edition-name.edition-founders{color:#34d399;text-shadow:0 0 8px rgba(52,211,153,0.42),0 0 16px rgba(52,211,153,0.18)}
+    .compare-edition-price{display:block;margin-top:8px;font-size:16px;color:var(--text);font-weight:900;opacity:0.92}
+    .compare-buy-btn{min-width:0;width:100%;padding:14px 16px;border-radius:16px}
+    .compare-buy-btn .package-btn-label{font-size:16px}
+    .compare-buy-btn .package-btn-price{font-size:12px;margin-top:0}
+    .packages-compare-table td{text-align:center}
+    .compare-icon{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:999px;box-sizing:border-box}
+    .compare-icon svg{width:16px;height:16px}
+    .compare-yes{color:#34d399;background:rgba(52,211,153,0.12);border:1px solid rgba(52,211,153,0.35)}
+    .compare-no{color:var(--muted);background:rgba(156,163,175,0.08);border:1px solid rgba(255,255,255,0.08)}
+    .packages-compare-table tfoot th,.packages-compare-table tfoot td{border-bottom:none;padding-top:18px}
+
+    .packages-comparison-divider{height:1px;margin:18px 0 16px;border-radius:999px;background:rgba(255,255,255,0.10)}
+    .packages-comparison-bottom{display:flex;flex-direction:column;gap:14px}
     @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.35)}70%{box-shadow:0 0 0 18px rgba(var(--cta-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}}
     .preorder-copy-highlight{display:inline-flex;align-items:center;gap:6px;padding:2px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);font-size:0.85em;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;box-shadow:0 4px 18px rgba(251,191,36,0.25);vertical-align:middle}
     @media(prefers-reduced-motion:reduce){.package-btn{transition:none}.package-btn.armed{animation:none}}
@@ -603,23 +636,15 @@
     }
     .kickstarter-inline-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,var(--kickstarter),#04b86a);color:#fff;text-decoration:none;font-weight:700}
     .kickstarter-inline-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(5,206,120,0.35)}
-    .email-updates-section{background:rgba(26,31,46,0.75);border:1px solid rgba(251,191,36,0.35);border-radius:20px;padding:28px;margin:24px 0;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-    .email-updates-content{flex:2;min-width:240px}
-    .email-updates-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(251,191,36,0.15);color:var(--gold);font-size:13px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase}
-    .email-updates-title{margin:12px 0 8px;font-size:24px;color:var(--text)}
-    .email-updates-copy{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
-    .email-updates-action{flex:1;min-width:220px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-    .email-updates-btn{width:100%;padding:16px 22px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--gold),#d4b866);color:var(--bg);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:transform 0.2s ease,box-shadow 0.2s ease}
-    .email-updates-btn svg{width:22px;height:22px;fill:currentColor}
-    .email-updates-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(199,164,85,0.35)}
-    .email-updates-note{margin:0;font-size:13px;color:var(--muted)}
+    .email-updates-section{text-align:center;margin:40px 0;padding:32px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
+    .email-updates-section h3{margin-top:0;color:var(--gold)}
     .email-modal .email-benefits{margin-bottom:18px}
     .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:20px 0 12px;color:#f9fafb;text-align:center;font-size:15px}
     .payment-note-logo{width:90px;height:auto;flex-shrink:0}
     .payment-note span{opacity:0.85}
     .contents-showcase{text-align:center;margin:32px auto 16px;padding:0;border:none;border-radius:0;background:transparent;box-shadow:none}
     .contents-subtitle{display:none}
-    .contents-image{max-width:720px;width:100%;display:block;margin:0 auto;border:none;border-radius:0;box-shadow:none;background:transparent}
+    .contents-image{max-width:1080px;width:100%;display:block;margin:0 auto;border:none;border-radius:0;box-shadow:none;background:transparent}
     .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:rgba(17,23,38,0.8);border:1px solid rgba(255,255,255,0.05)}
     .card-peek-header{text-align:center;margin-bottom:16px}
     .card-peek-header h3{margin:0;font-size:24px;color:var(--text)}
@@ -678,9 +703,7 @@
       .country-dropdown{min-width:0;width:100%}
       .contents-image{max-width:100%}
       .contents-showcase{margin:24px auto 12px;padding:0}
-      .email-updates-section{padding:24px;gap:16px}
-      .email-updates-action{width:100%}
-      .email-updates-btn{width:100%}
+      .email-updates-section{padding:32px 24px}
       .how-it-works{padding:24px}
       .how-it-works-footer{flex-direction:column;align-items:flex-start}
       .how-it-works-footer button{width:100%;justify-content:center}
@@ -720,6 +743,10 @@
             <img class="site-topbar-link-icon" src="assets/discord.png" alt="" width="18" height="18" loading="lazy" decoding="async">
             <span>Discord</span>
           </a>
+          <a class="site-topbar-link" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('reddit_header');">
+            <img class="site-topbar-link-icon" src="assets/reddit.png" alt="" width="18" height="18" loading="lazy" decoding="async">
+            <span>Reddit</span>
+          </a>
           <button class="site-topbar-link site-topbar-help-btn" type="button" id="supportHelpBtn" aria-haspopup="dialog" aria-controls="supportOverlay" aria-expanded="false">
             <svg class="site-topbar-help-icon" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 15a1.25 1.25 0 110 2.5A1.25 1.25 0 0112 17zm1.2-4.9c-.9.52-1.2.86-1.2 1.65v.25h-1.8v-.35c0-1.35.62-2.08 1.76-2.72.86-.5 1.44-.93 1.44-1.7 0-.82-.62-1.35-1.6-1.35-.96 0-1.64.52-1.76 1.46l-1.78-.22C8.52 6.85 9.88 5.6 12 5.6c2.04 0 3.46 1.14 3.46 2.9 0 1.57-1.05 2.34-2.26 3.04z"/>
@@ -738,15 +765,7 @@
       <div class="golden-separator"></div>
 
       <section id="storeSection" class="store-section">
-        <div class="packages-hero">
-          <h1>Pre-Order Countryball Cards</h1>
-          <p class="sub">Select your edition and secure your copy today.</p>
-        </div>
 
-        <div class="kickstarter-success-banner">
-          <p>Our <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" style="color:#10b981;text-decoration:underline">Kickstarter campaign</a> wrapped with <strong>$5,388 raised</strong>! Manufacturing is underway and late pledges remain open.</p>
-          <p>Pre-order directly below or keep supporting us on Kickstarter. We will ship all copies in March 2026.</p>
-        </div>
         <div class="video-showcase" aria-labelledby="videoShowcaseTitle">
           <div class="video-container">
             <iframe
@@ -810,12 +829,10 @@
           </div>
         </section>
 
-        <p class="founders-bonus-note">Extended Edition Backers receive an extra expansion that features 10 extra Countryball Cards, 5 extra Project Cards and an ally system. Along with that, Founder's Edition Backers will also receive a numbered holographic Founder's Certificate, a set of 5 holographic countryball cards and 8x DIY Cards (cards you draw on to make your own, custom cards)!</p>
-
         <section class="how-it-works" aria-labelledby="howItWorksTitle">
           <div class="how-it-works-header">
             <span class="how-it-works-pill">How does it work?</span>
-            <h2 id="howItWorksTitle">Pre-order now with discount, relax until delivery</h2>
+            <h2 id="howItWorksTitle">Pre-order now, relax until delivery</h2>
             <p>Secure the lowest pre-order price today, we finish manufacturing over winter, and your copy arrives at your door when fulfillment begins.</p>
           </div>
           <div class="how-it-works-steps">
@@ -829,7 +846,7 @@
               <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
               <span class="how-step-number">2</span>
               <h3>Production updates</h3>
-              <p>We wrap manufacturing, share progress shots, and confirm freight timelines so you always know where things stand.</p>
+              <p>We finish manufacturing while sharing progress and keeping you updated with our <b>monthly progress updates</b>!</p>
             </article>
             <article class="how-step">
               <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.png" alt="" loading="lazy"></span>
@@ -849,96 +866,174 @@
           </div>
         </section>
 
-        <p class="preorder-discount-note">PRE-ORDER DISCOUNT! Everything is 25% off!</p>
-
-        <div class="packages-list">
-          <div class="package-bar base-bar">
-            <div class="package-bar-content">
-              <div class="package-info">
-                <div class="package-header-bar">
-                  <h3 class="package-name">Base Game <span class="package-was-price">$40</span></h3>
-                  <div class="package-price">$30</div>
-                </div>
-                <p class="package-subtitle">Perfect for jumping into Countryball Cards with the core 20 nations.</p>
-              </div>
-              <div class="package-action">
-                <a href="#" class="package-btn base-theme base-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
-                  <span class="package-btn-label">Base Game</span>
-                  <span class="package-btn-price">Pre-order • $30</span>
-                </a>
-              </div>
-            </div>
+        <div class="packages-comparison" aria-label="Compare editions">
+          <h3 class="packages-comparison-title">Choose your Edition!</h3>
+          <img src="assets/box_art.png" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
+          <div class="packages-compare-wrap">
+            <table class="packages-compare-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="feature-col feature-subtle">Included</th>
+                  <th scope="col" class="edition-col">
+                    <span class="compare-edition-name edition-base">Base Edition</span>
+                    <a href="#" class="package-btn base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
+                      <span class="package-btn-label">Buy Base</span>
+                      <span class="package-btn-price">Pre-order • $30</span>
+                    </a>
+                  </th>
+                  <th scope="col" class="edition-col">
+                    <span class="compare-edition-name edition-extended">Extended Edition</span>
+                    <a href="#" class="package-btn extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
+                      <span class="package-btn-label">Buy Extended</span>
+                      <span class="package-btn-price">Pre-order • $45</span>
+                    </a>
+                  </th>
+                  <th scope="col" class="edition-col">
+                    <span class="compare-edition-name edition-founders">Founder's Edition</span>
+                    <a href="#" class="package-btn founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
+                      <span class="package-btn-label">Buy Founder's</span>
+                      <span class="package-btn-price">Pre-order • $65</span>
+                    </a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" class="feature-col">Set of base 20 Countryball Cards</th>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">60 Resource Cards, 14 Project Cards</th>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">50 Coin Tokens, 20 Damage Tokens</th>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">5 Dice (4 Resource, 1 Combat)</th>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">Alliance Expansion (New Mechanics)</th>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">10 Extra Countryballs + 5 Extra Project Cards</th>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">Numbered holographic Founder's Certificate</th>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">Set of 5 holographic Countryball Cards</th>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+                <tr>
+                  <th scope="row" class="feature-col">8× DIY Cards (make your own customs)</th>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
+                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th scope="row" class="feature-col feature-subtle">Ready?</th>
+                  <td>
+                    <a href="#" class="package-btn base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
+                      <span class="package-btn-label">Buy Base</span>
+                      <span class="package-btn-price">Pre-order • $30</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="package-btn extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
+                      <span class="package-btn-label">Buy Extended</span>
+                      <span class="package-btn-price">Pre-order • $45</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="#" class="package-btn founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
+                      <span class="package-btn-label">Buy Founder's</span>
+                      <span class="package-btn-price">Pre-order • $65</span>
+                    </a>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
 
-          <div class="package-bar extended-bar">
-            <div class="package-bar-content">
-              <div class="package-info">
-                <div class="package-header-bar">
-                  <img src="extended_badge.webp" alt="Extended Edition badge" class="package-badge extended-badge" loading="lazy" decoding="async">
-                  <h3 class="package-name">Extended Edition <span class="package-was-price">$60</span></h3>
-                  <div class="package-price">$45</div>
-                </div>
-                <p class="package-subtitle">Adds new mechanics, 10 extra Countryballs, and enhanced components.</p>
-              </div>
-              <div class="package-action">
-                <a href="#" class="package-btn extended-theme extended-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
-                  <span class="package-btn-label">Extended Edition</span>
-                  <span class="package-btn-price">Pre-order • $45</span>
-                </a>
-              </div>
+          <div class="packages-comparison-divider" aria-hidden="true"></div>
+          <div class="packages-comparison-bottom">
+            <div class="payment-note">
+              <img src="assets/stripe.webp" alt="Stripe" class="payment-note-logo" loading="lazy" decoding="async">
+              <span><b>Payments handled securely by Stripe, Inc.</span>
+              <br>
             </div>
-          </div>
-
-          <div class="package-bar founders-bar">
-            <div class="package-bar-content">
-              <div class="package-info">
-                <div class="package-header-bar">
-                  <img src="founders_badge.webp" alt="Founder's Edition badge" class="package-badge founders-badge" loading="lazy" decoding="async">
-                  <h3 class="package-name">Founder's Edition <span class="package-was-price">$85</span></h3>
-                  <div class="package-price">$65</div>
-                </div>
-                <p class="package-subtitle">Numbered certificate, exclusive art prints, and all unlocked bonuses.</p>
-              </div>
-              <div class="package-action">
-                <a href="#" class="package-btn founders-theme founders-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
-                  <span class="package-btn-label">Founder's Edition</span>
-                  <span class="package-btn-price">Pre-order • $65</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="payment-note">
-          <img src="assets/stripe.webp" alt="Stripe" class="payment-note-logo" loading="lazy" decoding="async">
-          <span><b>Payments handled securely by Stripe, Inc.</span>
-          <br>
-        </div>
-
-        <div class="packages-kickstarter-cta">
-          <img src="assets/ks.png" alt="Kickstarter" class="kickstarter-badge" loading="lazy" decoding="async">
-          <div class="kickstarter-inline-content">
-            <p>Prefer Kickstarter late pledges? You can still join the campaign.</p>
-            <a class="kickstarter-inline-btn" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="trackStoreClick('kickstarter_cta')">
-              Late Pledge on Kickstarter
-            </a>
           </div>
         </div>
 
         <div class="email-updates-section" aria-labelledby="emailUpdatesTitle">
-          <div class="email-updates-content">
-            <h3 id="emailUpdatesTitle" class="email-updates-title">Email updates for news & manufacturing</h3>
-            <p class="email-updates-copy">Get a short note when we share production milestones, shipping windows, or new card reveals. Zero spam, unsubscribe anytime.</p>
-          </div>
-          <div class="email-updates-action">
-            <button type="button" class="email-updates-btn" onclick="showEmailModal(); trackEmailSignup();">
-              <span class="email-updates-btn-text">Get Email Updates</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
+          <h3 id="emailUpdatesTitle">Email updates for news & manufacturing</h3>
+          <p style="color:var(--muted);margin-bottom:24px">Get a short note when we share production milestones, shipping windows, or new card reveals. Zero spam, unsubscribe anytime.</p>
+          <div class="packages-support-actions">
+            <button type="button" class="btn secondary" onclick="showEmailModal(); trackEmailSignup();">
+              <span class="btn-row">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <span class="btn-label">Get Email Updates</span>
+              </span>
             </button>
           </div>
         </div>
+
+      </section>
+
+      <div class="golden-separator"></div>
+
+      <!-- FAQ Section -->
+      <section class="faq-section" aria-labelledby="faqTitle">
+        <h2 id="faqTitle">Frequently Asked Questions</h2>
+        <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
+        <ul class="faq-list">
+          <li class="faq-item">
+            <strong>Can I cancel or change my pre-order?</strong>
+            <p>Yes. You can request a refund any time up to February 1st, 2026. If you need to change your order details, email us at jakob.countryballcards@gmail.com and we’ll help. We answer all queries within 24 hours.</p>
+          </li>
+          <li class="faq-item">
+            <strong>Do you ship internationally?</strong>
+            <p>Not at the moment, but we do ship to 52 different countries! Availability and shipping costs depend on your country and will be shown during checkout.</p>
+          </li>
+          <li class="faq-item">
+            <strong>How is shipping calculated?</strong>
+            <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
+          </li>
+          <li class="faq-item">
+            <strong>What payments do you accept?</strong>
+            <p>Payments are processed securely by Stripe. Most major credit/debit cards are supported.</p>
+          </li>
+          <li class="faq-item">
+            <strong>Where can I get updates?</strong>
+            <p>You can join the Discord for real-time news, or click “Get Email Updates” for monthly updates.</p>
+          </li>
+        </ul>
 
         <div class="packages-bottom-cta">
           <h3>Questions or Need Help?</h3>
@@ -962,34 +1057,13 @@
         </div>
       </section>
 
-      <div class="golden-separator"></div>
-
-      <!-- FAQ Section -->
-      <section class="faq-section" aria-labelledby="faqTitle">
-        <h2 id="faqTitle">Frequently Asked Questions</h2>
-        <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
-        <ul class="faq-list">
-          <li class="faq-item">
-            <strong>How do I play?</strong>
-            <p>The board game is now available for pre-order! Production is underway and will ship in March 2026. You can try out our limited print-and-play and read the rules online while you wait.</p>
-          </li>
-          <li class="faq-item">
-            <strong>What's in the box?</strong>
-            <p>The base edition includes 20 countryball cards, 5 dice, a bunch resource cards, coin tokens, and a complete ruleset.</p>
-          </li>
-          <li class="faq-item">
-            <strong>When will it ship?</strong>
-            <p>Pre-orders are now available! All orders will ship in March 2026 when production is complete. Full refunds available until February 1st, 2026.</p>
-          </li>
-        </ul>
-      </section>
-
       <!-- Golden separator after rules viewer -->
       <div class="golden-separator"></div>
       <div class="art" style="margin-top:32px">
 
       <div class="footer">
-        © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
+        © 2025 Glare Studios, LLC • Made for fans of countryballs & strategy.<br>
+        131 Continental Dr Newark, DE, US<br>
         <a href="privacy-policy.html" style="color:#0066cc;text-decoration:none">Privacy Policy</a> • 
         <a href="terms-and-conditions.html" style="color:#0066cc;text-decoration:none">Terms & Conditions</a><br>
         <div style="margin-top:8px;font-size:12px;color:var(--muted);opacity:0.7">
