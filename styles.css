@@ -40,7 +40,7 @@ body::after {
 .site-topbar-inner{
   max-width: 1280px;
   margin: 0 auto;
-  padding: 14px clamp(16px, 3vw, 40px);
+  padding: 22px clamp(16px, 3vw, 40px);
 }
 .site-topbar-nav{
   display: flex;
@@ -51,19 +51,29 @@ body::after {
 .site-topbar-brand{
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   color: var(--text);
   text-decoration: none;
   font-weight: 800;
   letter-spacing: 0.2px;
-  font-size: 16px;
+  font-size: 19px;
 }
 .site-topbar-brand-icon{
   display: block;
   flex: 0 0 auto;
-  border-radius: 6px;
-  width: 22px;
-  height: 22px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
+}
+.site-topbar-brand-title{
+  display: block;
+  flex: 0 1 auto;
+  max-height: 52px;
+  width: auto;
+  max-width: 480px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
 }
 .site-topbar-brand-text{
   opacity: 0.96;
@@ -77,25 +87,33 @@ body::after {
 .site-topbar-link{
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text);
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.2px;
   opacity: 0.9;
   transition: opacity 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  font-size: 15px;
-  padding: 8px 10px;
-  border-radius: 12px;
+  font-size: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
 }
+button.site-topbar-link{background:transparent;border:none;appearance:none;font:inherit}
 .site-topbar-link-icon{
   display: block;
   flex: 0 0 auto;
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2));
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
+
+/* Support modal */
+.support-modal{max-width:520px;width:min(94vw,520px)}
+.support-modal-body{padding-top:4px}
+.support-modal-copy{margin:0 0 14px;color:var(--text);font-size:16px;line-height:1.5;font-weight:600}
+.support-modal-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.support-modal-actions .btn{flex:1 1 220px;justify-content:center}
 .site-topbar-link:hover{
   opacity: 1;
   color: var(--gold);
@@ -111,12 +129,13 @@ body::after {
   border-radius: 10px;
 }
 @media (max-width: 768px) {
-  .site-topbar-inner{padding:16px clamp(16px, 3vw, 40px)}
-  .site-topbar-brand{gap:12px;font-size:16px}
-  .site-topbar-brand-icon{width:26px;height:26px;border-radius:8px}
-  .site-topbar-actions{gap:10px}
-  .site-topbar-link{font-size:16px;padding:10px 12px}
-  .site-topbar-link-icon{width:20px;height:20px}
+  .site-topbar-inner{padding:28px clamp(16px, 3vw, 40px)}
+  .site-topbar-brand{gap:14px;font-size:22px}
+  .site-topbar-brand-icon{width:56px;height:56px;border-radius:16px}
+  .site-topbar-brand-title{max-height:68px;max-width:520px}
+  .site-topbar-actions{gap:12px}
+  .site-topbar-link{font-size:18px;padding:14px 16px}
+  .site-topbar-link-icon{width:24px;height:24px}
 }
 .wrap{max-width:1280px;margin:0 auto;padding:clamp(16px,3vw,40px);box-sizing:border-box}
 .frame{border:none;border-radius:20px;background:rgba(26, 31, 46, 0.25);backdrop-filter:blur(12px);box-shadow:none;position:relative;overflow:hidden;padding:clamp(18px,2.2vw,34px);box-sizing:border-box;max-width:100%;animation:fadeInUp 0.8s ease-out}
