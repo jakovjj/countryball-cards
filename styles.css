@@ -61,17 +61,17 @@ body::after {
 .site-topbar-brand-icon{
   display: block;
   flex: 0 0 auto;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
 }
 .site-topbar-brand-title{
   display: block;
   flex: 0 1 auto;
-  max-height: 52px;
+  max-height: 78px;
   width: auto;
-  max-width: 480px;
+  max-width: 720px;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
 }
@@ -131,8 +131,8 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font:
 @media (max-width: 768px) {
   .site-topbar-inner{padding:28px clamp(16px, 3vw, 40px)}
   .site-topbar-brand{gap:14px;font-size:22px}
-  .site-topbar-brand-icon{width:56px;height:56px;border-radius:16px}
-  .site-topbar-brand-title{max-height:68px;max-width:520px}
+  .site-topbar-brand-icon{width:84px;height:84px;border-radius:24px}
+  .site-topbar-brand-title{max-height:102px;max-width:780px}
   .site-topbar-actions{gap:12px}
   .site-topbar-link{font-size:18px;padding:14px 16px}
   .site-topbar-link-icon{width:24px;height:24px}
