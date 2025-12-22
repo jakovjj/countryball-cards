@@ -1185,14 +1185,80 @@
           By subscribing, you agree to our <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a>
         </div>
       </div>
-
-      <div class="footer">
-        © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
-        <a href="privacy-policy.html" style="color:var(--gold);text-decoration:none">Privacy Policy</a> • 
-        <a href="terms-and-conditions.html" style="color:var(--gold);text-decoration:none">Terms & Conditions</a>
-      </div>
     </div>
   </div>
+
+  <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-top">
+        <div>
+          <p class="site-footer-title">Glare Studios, LLC</p>
+          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Questions about the game or your order? Reach out any time.</p>
+        </div>
+
+        <div class="site-footer-cta" aria-label="Email updates">
+          <strong>Email updates</strong>
+          <p>Get occasional milestones and launch reminders. No spam.</p>
+          <div class="site-footer-cta-row">
+            <button type="button" class="btn secondary" onclick="if (typeof showEmailModal==='function'){showEmailModal();} else if (typeof openEmailModal==='function'){openEmailModal();} else {window.location.href='join.html';} if (typeof trackBottomEmailClick==='function'){trackBottomEmailClick();}">
+              <span class="btn-row">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                </svg>
+                <span class="btn-label">Get Email Updates</span>
+              </span>
+            </button>
+          </div>
+          <div class="site-footer-cta-note">Unsubscribe anytime. See our <a href="privacy-policy.html">Privacy Policy</a>.</div>
+        </div>
+      </div>
+
+      <div class="site-footer-grid">
+        <div class="site-footer-col">
+          <h3>Reach out</h3>
+          <div class="site-footer-meta">
+            131 Continental Dr<br>
+            Newark, DE, US
+          </div>
+          <ul class="site-footer-list" style="margin-top:10px">
+            <li><a href="mailto:jakob.countryballcards@gmail.com">jakob.countryballcards@gmail.com</a></li>
+            <li><a href="tel:+13026100190">+1 302 610 0190</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer-col">
+          <h3>Social</h3>
+          <div class="site-footer-social">
+            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
+              <img src="assets/ks.png" alt="" loading="lazy" decoding="async">
+              <span>Kickstarter</span>
+            </a>
+            <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackDiscordClick==='function') trackDiscordClick();">
+              <img src="assets/discord.png" alt="" loading="lazy" decoding="async">
+              <span>Discord</span>
+            </a>
+            <a href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackRedditClick==='function') trackRedditClick();">
+              <img src="assets/reddit.png" alt="" loading="lazy" decoding="async">
+              <span>Reddit</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="site-footer-col">
+          <h3>Info</h3>
+          <ul class="site-footer-list">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer-bottom">
+        <span>© 2025 Glare Studios, LLC</span>
+        <span>Need help? <a href="mailto:jakob.countryballcards@gmail.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
+      </div>
+    </div>
+  </footer>
 
   <!-- Email Signup Modal -->
   <div class="modal-overlay" id="emailOverlay" hidden aria-hidden="true">

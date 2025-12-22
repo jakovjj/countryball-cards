@@ -112,7 +112,7 @@
     *{box-sizing:border-box;max-width:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;max-width:100vw}
     .wrap{max-width:1280px;margin:0 auto;padding:clamp(16px,3vw,40px);box-sizing:border-box}
-    .frame{border:none;border-radius:18px;padding:clamp(18px,2.2vw,34px);box-sizing:border-box;max-width:100%;opacity:1}
+    .frame{border:none;border-radius:0;padding:0;box-sizing:border-box;max-width:100%;opacity:1;background:transparent;backdrop-filter:none}
     .poll-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center;width:100%}
     .poll-logo{max-width:300px;height:auto;margin:0 auto 20px;display:block;filter:drop-shadow(0 0 8px rgba(199,164,85,0.3));transition:all 0.5s ease;position:relative;animation:float 3s ease-in-out infinite;width:100%;text-align:center;margin-left:calc(36%);transform:translateX(-50%)}
     .poll-logo:hover{filter:drop-shadow(0 0 12px rgba(199,164,85,0.5));transform:scale(1.02) translateY(var(--float-offset, 0px)) translateX(-50%)}
@@ -309,14 +309,81 @@
           </div>
         </div>
         
-        <div class="poll-footer">
-          © 2025 Glare Studios • Made for fans of countryballs & strategy.<br>
-          <a href="privacy-policy.html">Privacy Policy</a> • 
-          <a href="terms-and-conditions.html">Terms & Conditions</a>
-        </div>
       </div>
     </div>
   </div>
+
+  <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-top">
+        <div>
+          <p class="site-footer-title">Glare Studios, LLC</p>
+          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Questions about the game or your order? Reach out any time.</p>
+        </div>
+
+        <div class="site-footer-cta" aria-label="Email updates">
+          <strong>Email updates</strong>
+          <p>Get occasional milestones and launch reminders. No spam.</p>
+          <div class="site-footer-cta-row">
+            <button type="button" class="btn secondary" onclick="if (typeof showEmailModal==='function'){showEmailModal();} else if (typeof openEmailModal==='function'){openEmailModal();} else {window.location.href='join.html';} if (typeof trackBottomEmailClick==='function'){trackBottomEmailClick();}">
+              <span class="btn-row">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                </svg>
+                <span class="btn-label">Get Email Updates</span>
+              </span>
+            </button>
+          </div>
+          <div class="site-footer-cta-note">Unsubscribe anytime. See our <a href="privacy-policy.html">Privacy Policy</a>.</div>
+        </div>
+      </div>
+
+      <div class="site-footer-grid">
+        <div class="site-footer-col">
+          <h3>Reach out</h3>
+          <div class="site-footer-meta">
+            131 Continental Dr<br>
+            Newark, DE, US
+          </div>
+          <ul class="site-footer-list" style="margin-top:10px">
+            <li><a href="mailto:jakob.countryballcards@gmail.com">jakob.countryballcards@gmail.com</a></li>
+            <li><a href="tel:+13026100190">+1 302 610 0190</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer-col">
+          <h3>Social</h3>
+          <div class="site-footer-social">
+            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
+              <img src="assets/ks.png" alt="" loading="lazy" decoding="async">
+              <span>Kickstarter</span>
+            </a>
+            <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackDiscordClick==='function') trackDiscordClick();">
+              <img src="assets/discord.png" alt="" loading="lazy" decoding="async">
+              <span>Discord</span>
+            </a>
+            <a href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackRedditClick==='function') trackRedditClick();">
+              <img src="assets/reddit.png" alt="" loading="lazy" decoding="async">
+              <span>Reddit</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="site-footer-col">
+          <h3>Info</h3>
+          <ul class="site-footer-list">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer-bottom">
+        <span>© 2025 Glare Studios, LLC</span>
+        <span>Need help? <a href="mailto:jakob.countryballcards@gmail.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
+      </div>
+    </div>
+  </footer>
 
   <script>
     // Poll state management
