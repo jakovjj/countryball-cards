@@ -1,7 +1,7 @@
 // Analytics and pixels (Reddit + GA4)
 (function(){
   // Fallback GA4 loader for pages that don't include it in HTML.
-  // Keeps `send_page_view:false` to avoid emitting the `page_view` event.
+  // Keeps defaults consistent with pages that inline GA4.
   (function ensureGA4(){
     if (typeof window.gtag !== 'undefined') return;
 
@@ -27,7 +27,7 @@
       transport_type: 'beacon',
       anonymize_ip: true,
       allow_google_signals: false,
-      send_page_view: false,
+      send_page_view: true,
       page_title: document.title,
       page_location: window.location.href
     });

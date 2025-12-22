@@ -101,7 +101,7 @@
         transport_type: 'beacon',
         anonymize_ip: true,
         allow_google_signals: false,
-        send_page_view: false,
+        send_page_view: true,
         page_title: 'Join Newsletter',
         page_location: window.location.href
       });
@@ -119,7 +119,7 @@
   <style>
     :root{--bg:#ffffff;--card:#f8f9fa;--gold:#c7a455;--text:#333333;--muted:#666666;--pink:#e6a8e6}
     *{box-sizing:border-box;max-width:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;max-width:100vw}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%}
     .wrap{max-width:1280px;margin:0 auto;padding:clamp(16px,3vw,40px);box-sizing:border-box}
     .frame{border:none;border-radius:0;padding:0;box-sizing:border-box;max-width:100%;opacity:1;background:transparent;backdrop-filter:none}
     .join-container{min-height:calc(100vh - 112px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0;box-sizing:border-box;text-align:center;width:100%}
