@@ -58,16 +58,7 @@
     }
   }
 
-  // Track page load progress
-  function trackPageLoadStage(stage) {
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'page_load_stage', {
-        event_category: 'technical',
-        event_label: stage,
-        value: 1
-      });
-    }
-  }
+  // NOTE: Intentionally no page-load-stage tracking.
 
   function initKickstarterClickTracking() {
     document.addEventListener('click', function(e) {
@@ -150,28 +141,18 @@
     initPlayer();
   }
 
-  // Track immediately on script execution
-  trackPageLoadStage('analytics_script_loaded');
-
   // Track when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      trackPageLoadStage('dom_ready');
       trackBrowserCapabilities();
       initKickstarterClickTracking();
       initTrailerTracking();
     });
   } else {
-    trackPageLoadStage('dom_already_ready');
     trackBrowserCapabilities();
     initKickstarterClickTracking();
     initTrailerTracking();
   }
-
-  // Track when everything is loaded
-  window.addEventListener('load', function() {
-    trackPageLoadStage('window_loaded');
-  });
 
   // GA4 loader remains in HTML head for early init
 
