@@ -325,28 +325,35 @@
     .site-topbar-brand:hover{color:var(--gold)}
     .site-topbar-link:focus-visible,.site-topbar-brand:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
     @media(max-width:768px){
-      .site-topbar-inner{padding:28px 16px}
-      .site-topbar-brand{gap:14px;font-size:22px}
-      .site-topbar-brand-icon{width:56px;height:56px;border-radius:16px}
-      .site-topbar-brand-title{max-height:68px;max-width:520px}
-      .site-topbar-actions{gap:12px}
-      .site-topbar-link{font-size:18px;padding:14px 16px}
-      .site-topbar-link-icon{width:24px;height:24px}
-      .site-topbar-link-icon.reddit-badge{font-size:13px}
+      .site-topbar-inner{padding:10px 10px}
+      .site-topbar-nav{gap:8px}
+      .site-topbar-brand{gap:8px;font-size:15px}
+      .site-topbar-brand-icon{width:30px;height:30px;border-radius:9px}
+      .site-topbar-brand-title{max-height:34px;max-width:min(54vw,280px)}
+      .site-topbar-actions{gap:6px;flex-wrap:wrap}
+      .site-topbar-link{font-size:13px;padding:8px 8px;border-radius:11px;gap:7px}
+      .site-topbar-link-icon{width:16px;height:16px}
+      .site-topbar-help-icon{width:16px;height:16px}
+      .site-topbar-link-icon.reddit-badge{font-size:11px}
     }
-    .wrap{max-width:980px;margin:0 auto;padding:28px;box-sizing:border-box}
-    .frame{border:none;border-radius:0;background:transparent;backdrop-filter:none;box-shadow:none;position:relative;overflow:visible;animation:none;padding:0;box-sizing:border-box;max-width:100%;opacity:1}
-    
-    .frame::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, transparent 0%, rgba(251, 191, 36, 0.05) 50%, transparent 100%);
-      pointer-events: none;
-      z-index: -1;
+    @media(max-width:420px){
+      .site-topbar-inner{padding:8px 8px}
+      .site-topbar-brand-title{max-width:46vw}
+      .site-topbar-link{font-size:12px;padding:7px 7px}
+    }
+    @media(max-width:360px){
+      .site-topbar-inner{padding:6px 6px}
+      .site-topbar-brand-icon{width:26px;height:26px;border-radius:8px}
+      .site-topbar-brand-title{max-height:28px;max-width:44vw}
+      .site-topbar-link{font-size:11px;padding:6px 6px;border-radius:10px}
+      .site-topbar-link-icon{width:14px;height:14px}
+      .site-topbar-help-icon{width:14px;height:14px}
+    }
+    @media(max-width:320px){
+      .site-topbar-nav{gap:6px}
+      .site-topbar-actions{gap:4px}
+      .site-topbar-link{gap:0}
+      .site-topbar-link span{display:none}
     }
     
     @keyframes fadeInUp {
