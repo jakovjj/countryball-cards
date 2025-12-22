@@ -427,6 +427,19 @@
     .how-it-works-footer button svg{width:20px;height:20px;fill:currentColor}
     .how-it-works-footer p{margin:0;color:var(--muted);font-size:14px}
 
+    /* When nested under the edition comparison frame, keep it lighter + more compact */
+    .packages-comparison .how-it-works{margin:18px 0 22px;border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.02);box-shadow:none;border-radius:20px;padding:20px}
+    .packages-comparison .how-it-works-pill{background:rgba(255,255,255,0.06);color:var(--gold)}
+    .packages-comparison .how-it-works-header h2{margin:10px 0 8px;font-size:22px}
+    .packages-comparison .how-it-works-header p{font-size:14px}
+    .packages-comparison .how-it-works-steps{gap:12px;margin:16px 0}
+    .packages-comparison .how-step{padding:16px 16px 14px;background:rgba(255,255,255,0.02)}
+    .packages-comparison .how-step-number{width:30px;height:30px;margin-bottom:8px}
+    .packages-comparison .how-step h3{margin:0 0 6px;font-size:16px}
+    .packages-comparison .how-step p{font-size:13px}
+    .packages-comparison .how-step-flag{width:64px;top:-12px;right:-10px;opacity:0.85}
+    .packages-comparison .how-it-works-footer button{padding:12px 18px;font-size:15px;border-radius:12px}
+
     .pre-howitworks-cta{margin:0 0 18px;display:flex;justify-content:center;width:100%}
     .pre-howitworks-cta .discord-btn{width:100% !important;min-width:0 !important;max-width:none !important}
     .pre-howitworks-cta .btn-row{width:100%;justify-content:space-between;gap:12px}
@@ -629,8 +642,8 @@
     .packages-compare-table .feature-col{text-align:left;color:var(--text);font-weight:800;width:38%;font-size:15px;line-height:1.35}
     .packages-compare-table .feature-subtle{color:var(--muted);font-weight:700}
     .packages-compare-table .edition-col{text-align:center;width:18.666%}
-    .packages-comparison-title{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:fit-content;margin:0 auto 16px;padding:10px 18px;border-radius:999px;color:var(--text);font-size:28px;letter-spacing:1px;font-style:italic;text-transform:uppercase;background:linear-gradient(90deg,rgba(251,191,36,0.14),rgba(59,130,246,0.14));border:1px solid rgba(255,255,255,0.12);box-shadow:0 16px 40px rgba(0,0,0,0.35),inset 0 0 0 1px rgba(251,191,36,0.18);text-shadow:0 0 12px rgba(255,255,255,0.22),0 0 22px rgba(251,191,36,0.25),0 0 22px rgba(59,130,246,0.18)}
-    .packages-comparison-title::before,.packages-comparison-title::after{content:"";display:block;width:44px;height:2px;border-radius:999px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(251,191,36,0.85),rgba(59,130,246,0.85),rgba(255,255,255,0));filter:drop-shadow(0 0 10px rgba(251,191,36,0.22)) drop-shadow(0 0 10px rgba(59,130,246,0.18))}
+    .packages-comparison-title{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:fit-content;margin:0 auto 16px;padding:0;color:var(--text);font-size:28px;letter-spacing:1px;font-style:italic;text-transform:uppercase;text-shadow:0 0 12px rgba(255,255,255,0.22),0 0 22px rgba(251,191,36,0.25),0 0 22px rgba(59,130,246,0.18)}
+    .packages-comparison-title::before,.packages-comparison-title::after{display:none}
     .compare-edition-name{display:block;font-size:clamp(16px, 1.35vw, 19px);letter-spacing:0.25px;text-transform:uppercase;white-space:nowrap;line-height:1.1;margin:0 0 clamp(10px,1.6vw,14px)}
     .compare-edition-name.edition-base{color:var(--gold);text-shadow:0 0 8px rgba(251,191,36,0.42),0 0 16px rgba(251,191,36,0.18)}
     .compare-edition-name.edition-extended{color:#b983ff;text-shadow:0 0 8px rgba(185,131,255,0.42),0 0 16px rgba(185,131,255,0.18)}
@@ -870,46 +883,35 @@
           </div>
         </section>
 
-        <section class="how-it-works" aria-labelledby="howItWorksTitle">
-          <div class="how-it-works-header">
-            <span class="how-it-works-pill">How does it work?</span>
-            <h2 id="howItWorksTitle">Pre-order now, relax until delivery</h2>
-            <p>Secure the lowest pre-order price today, we finish manufacturing over winter, and your copy arrives at your door when fulfillment begins.</p>
-          </div>
-          <div class="how-it-works-steps">
-            <article class="how-step">
-              <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.png" alt="" loading="lazy"></span>
-              <span class="how-step-number">1</span>
-              <h3>Reserve your deck</h3>
-              <p>Pick any package below to lock in the best Kickstarter-era pricing before the price increases. Full free refunds until February 2026.</p>
-            </article>
-            <article class="how-step">
-              <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
-              <span class="how-step-number">2</span>
-              <h3>Production updates</h3>
-              <p>We finish manufacturing while sharing progress and keeping you updated with our <b>monthly progress updates</b>!</p>
-            </article>
-            <article class="how-step">
-              <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.png" alt="" loading="lazy"></span>
-              <span class="how-step-number">3</span>
-              <h3>Ships Early 2026</h3>
-              <p>We send your copy straight to your doorstep as soon as fulfillment opens around February/March 2026.</p>
-            </article>
-          </div>
-          <div class="how-it-works-footer">
-            <button type="button" onclick="showEmailModal(); trackEmailSignup();">
-              Stay in the loop
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-              </svg>
-            </button>
-            <p>You can also sign up for email updates if you want reminders between now and delivery.</p>
-          </div>
-        </section>
-
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
           <img src="assets/box_art.webp" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
+          <section class="how-it-works" aria-labelledby="howItWorksTitle">
+            <div class="how-it-works-header">
+              <h2 id="howItWorksTitle">Pre-order in 3 steps</h2>
+              <p>Choose an edition, get monthly updates, and receive your copy when fulfillment opens (Early 2026).</p>
+            </div>
+            <div class="how-it-works-steps">
+              <article class="how-step">
+                <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.png" alt="" loading="lazy"></span>
+                <span class="how-step-number">1</span>
+                <h3>Pick an edition</h3>
+                <p>Select a shipping location and lock in the low pre-order price by ordering now. Full refunds available until Feb 2026.</p>
+              </article>
+              <article class="how-step">
+                <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
+                <span class="how-step-number">2</span>
+                <h3>We produce + update</h3>
+                <p>Monthly progress updates during manufacturing via Email.</p>
+              </article>
+              <article class="how-step">
+                <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.png" alt="" loading="lazy"></span>
+                <span class="how-step-number">3</span>
+                <h3>Ships Early 2026</h3>
+                <p>Delivered to your doorstep when fulfillment opens (Feb/Mar 2026).</p>
+              </article>
+            </div>
+          </section>
           <div class="packages-compare-wrap">
             <table class="packages-compare-table">
               <thead>
