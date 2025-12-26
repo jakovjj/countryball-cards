@@ -127,20 +127,24 @@ function initializeCarousel() {
   currentSlide = 0;
 
   if (heroPrevBtn) {
-    heroPrevBtn.addEventListener('click', () => {
-      prevSlide();
-      handleUserInteraction();
-    });
+    if (!heroPrevBtn.dataset.carouselNavBound) {
+      heroPrevBtn.dataset.carouselNavBound = '1';
+      heroPrevBtn.addEventListener('click', () => {
+        prevSlide();
+        handleUserInteraction();
+      });
+    }
   }
 
   if (heroNextBtn) {
-    heroNextBtn.addEventListener('click', () => {
-      nextSlide();
-      handleUserInteraction();
-    });
+    if (!heroNextBtn.dataset.carouselNavBound) {
+      heroNextBtn.dataset.carouselNavBound = '1';
+      heroNextBtn.addEventListener('click', () => {
+        nextSlide();
+        handleUserInteraction();
+      });
+    }
   }
-
-  setTimeout(initializeImageQuality, 10);
 }
 
 function getSlideWidth() {
@@ -163,8 +167,6 @@ function updateCarousel() {
       dot.classList.toggle('active', i === currentSlide);
     });
   }
-
-  setTimeout(init3DCardEffects, 50);
 }
 
 function nextSlide() {
@@ -193,9 +195,15 @@ function prevSlide() {
 function init3DCardEffects(){
   const cards = document.querySelectorAll('.carousel-slide .card');
   cards.forEach(card=>{
+    if (card && card.dataset && card.dataset.tiltBound === '1') {
+      return;
+    }
     // Skip 3D effects for the email CTA card
     if (card.classList.contains('email-cta-card')) {
       return;
+    }
+    if (card && card.dataset) {
+      card.dataset.tiltBound = '1';
     }
     card.onmousemove=(e)=>{
       const r=card.getBoundingClientRect();
@@ -221,6 +229,12 @@ function init3DCardEffects(){
 
 function initializeImageQuality(){
   document.querySelectorAll('.carousel-slide .card img, .carousel-slide .card picture img').forEach(img=>{
+    if (img && img.dataset && img.dataset.imageQualitySet === '1') {
+      return;
+    }
+    if (img && img.dataset) {
+      img.dataset.imageQualitySet = '1';
+    }
     img.style.imageRendering='auto';
     img.style.filter='none';
     img.style.transform='translateZ(1px)';
@@ -387,6 +401,11 @@ if (document.readyState === 'complete') {
   const discordCountEl = document.getElementById('discordCount');
   const redditCountEl = document.getElementById('redditCount');
 
+  // If the page doesn't render these counters, avoid any work/network.
+  if (!discordCountEl && !redditCountEl) {
+    return;
+  }
+
   const cacheKey = 'cbc_counts_v1';
   const cacheTtlMs = 5*60*1000; // 5 minutes
 
@@ -459,8 +478,13 @@ if (document.readyState === 'complete') {
     if(result.reddit!=null) setText(redditCountEl, formatCount(result.reddit));
   }
 
-  // kick off when DOM is ready (defer ensures this runs after parse)
-  loadCounts();
+  // Kick off when the main thread is idle so we don't compete with rendering.
+  const kickoff = () => { try { loadCounts(); } catch (_) { /* noop */ } };
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(kickoff, { timeout: 1500 });
+  } else {
+    setTimeout(kickoff, 400);
+  }
 })();
 
 // Resize alignment
@@ -730,16 +754,39 @@ function showEmailModal() {
 
 // Boot
 initCountdown();
-initializeCarousel();
-updateCarousel();
-detectCountryAndSetBackground();
-startAutoScroll();
+
 // Enable 3D tilt only on devices with a precise pointer and hover (i.e., desktops)
 const supports3DTilt = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-if (supports3DTilt) {
-  setTimeout(()=>{ init3DCardEffects(); initializeImageQuality(); },100);
-} else {
-  setTimeout(()=>{ initializeImageQuality(); },100);
+
+function runAfterFirstPaint(fn) {
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(() => requestAnimationFrame(fn));
+  } else {
+    setTimeout(fn, 0);
+  }
+}
+
+runAfterFirstPaint(() => {
+  try {
+    initializeCarousel();
+    updateCarousel();
+    startAutoScroll();
+    initializeImageQuality();
+    if (supports3DTilt) {
+      init3DCardEffects();
+    }
+  } catch (error) {
+    console.warn('Boot error:', error);
+  }
+});
+
+// Country/background detection is page-specific; don't hard-fail if absent.
+if (typeof detectCountryAndSetBackground === 'function') {
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => { try { detectCountryAndSetBackground(); } catch (_) { /* noop */ } }, { timeout: 2000 });
+  } else {
+    setTimeout(() => { try { detectCountryAndSetBackground(); } catch (_) { /* noop */ } }, 1200);
+  }
 }
 
 // ===== ADVANCED TRACKING =====
@@ -813,7 +860,27 @@ function trackTimeOnPage() {
 
 // Initialize advanced tracking
 window.addEventListener('scroll', trackScrollDepth, { passive: true });
-setInterval(trackTimeOnPage, 1000);
+
+// Track time-on-page milestones without a 1s interval.
+const timeMilestones = [30, 60, 120, 300];
+let nextTimeMilestoneIndex = 0;
+function scheduleNextTimeMilestone() {
+  if (nextTimeMilestoneIndex >= timeMilestones.length) return;
+  const targetSeconds = timeMilestones[nextTimeMilestoneIndex];
+  const elapsedSeconds = Math.round((Date.now() - startTime) / 1000);
+  const delayMs = Math.max(0, (targetSeconds - elapsedSeconds) * 1000);
+
+  setTimeout(() => {
+    trackAdvancedEvent('time_on_page', {
+      label: `${targetSeconds}s`,
+      value: targetSeconds,
+      content_category: 'engagement_time'
+    });
+    nextTimeMilestoneIndex += 1;
+    scheduleNextTimeMilestone();
+  }, delayMs);
+}
+scheduleNextTimeMilestone();
 
 // ===== TRACKING FUNCTIONS =====
 function trackPackagesClick() {
@@ -1222,14 +1289,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const shouldShow = window.innerWidth <= 1024 && !isAtBottom;
     
     if (shouldShow && !isVisible) {
-      console.log('Showing floating arrow');
       floatingArrow.style.display = 'flex';
       setTimeout(() => {
         floatingArrow.style.opacity = '1';
       }, 100);
       isVisible = true;
     } else if (!shouldShow && isVisible) {
-      console.log('Hiding floating arrow');
       floatingArrow.style.opacity = '0';
       setTimeout(() => {
         floatingArrow.style.display = 'none';

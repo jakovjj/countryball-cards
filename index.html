@@ -29,7 +29,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://countryballcards.com/">
   <meta property="og:title" content="Countryball Cards - Strategic Card Game | Now Available for Pre-Order">
-  <meta property="og:description" content="Strategic countryball-themed card game now available for pre-order! Ships by March 2026 (likely sooner). Get the free print-and-play and join our community!">
+  <meta property="og:description" content="Strategic countryball-themed card game now available for pre-order! Ships March 2026. Get the free print-and-play and join our community!">
   <meta property="og:image" content="https://countryballcards.com/assets/embed.png">
   <meta property="og:image:alt" content="Preview artwork of Countryball Cards showing hero art and preorder callouts" />
   <meta property="og:locale" content="en_US" />
@@ -39,7 +39,7 @@
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://countryballcards.com/">
   <meta property="twitter:title" content="Countryball Cards - Strategic Card Game | Now Available for Pre-Order">
-  <meta property="twitter:description" content="Strategic countryball-themed card game now available for pre-order! Ships by March 2026 (likely sooner). Get the free print-and-play and join our community!">
+  <meta property="twitter:description" content="Strategic countryball-themed card game now available for pre-order! Ships March 2026. Get the free print-and-play and join our community!">
   <meta property="twitter:image" content="https://countryballcards.com/assets/embed.png">
   <meta property="twitter:image:alt" content="Preview artwork of Countryball Cards showing hero art and preorder callouts" />
   
@@ -98,6 +98,8 @@
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://ipapi.co">
   <link rel="dns-prefetch" href="https://discord.com">
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
@@ -122,6 +124,10 @@
   <!-- Windows 8/10 tile -->
   <meta name="msapplication-TileImage" content="android-chrome-192x192.png">
   <meta name="msapplication-TileColor" content="#ffffff">
+
+  <!-- Load fonts without blocking first paint -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"></noscript>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -204,6 +210,29 @@
     });
   </script>
 
+  <!-- Meta Pixel Code -->
+  <script>
+    (function(){
+      var h = window.location && window.location.hostname;
+      var isLocal = !h || h === 'localhost' || h === '127.0.0.1' || h.endsWith('.local') ||
+        h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.');
+      if (isLocal) return;
+
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '659591973725729');
+      fbq('track', 'PageView');
+    })();
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=659591973725729&ev=PageView&noscript=1" /></noscript>
+
   <!-- FAQ structured data to boost eligibility and clarify topic -->
   <script type="application/ld+json">
   {
@@ -241,14 +270,6 @@
           "@type": "Answer",
           "text": "We offer 4 packages: Base Game (25€), 2-Pack (40€), Extended Edition (35€) with mini-expansions, and Founder's Edition (50€) with handdrawn cards and exclusive content. All include free shipping to major markets. Prices displayed in USD for non-Eurozone visitors."
         }
-      },
-      {
-        "@type": "Question",
-        "name": "When will my order arrive?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "As shared on our Kickstarter updates, fulfillment can take a little time because production + freight happen in stages. We’re already in production and will start shipping as soon as everything clears. Our latest target is March 2026 (likely sooner). We’ll keep you posted the whole way (Kickstarter, Discord, and email updates), so you always know where your copy stands."
-        }
       }
     ]
   }
@@ -256,7 +277,6 @@
   
   <!-- Critical CSS (above-the-fold) -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
     :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;color-scheme:dark}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
     *{box-sizing:border-box;max-width:100%}
@@ -270,18 +290,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image:
-        url('bg/us.webp'),
-        url('bg/japan.webp'),
-        url('bg/germany.webp'),
-        url('bg/uk.webp'),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 260px auto, 240px auto, 250px auto, 270px auto, auto;
-      background-position: 0 0, 120px 160px, 240px 60px, 60px 260px, 0 0;
-      opacity: 0.14;
-      filter: saturate(1.05) contrast(1.08);
-      mix-blend-mode: screen;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       pointer-events: none;
       z-index: -1;
     }
@@ -324,7 +333,7 @@
     .site-topbar-brand-icon{display:block;flex:0 0 auto;width:40px;height:40px;border-radius:12px;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
     .site-topbar-brand-title{display:block;flex:0 1 auto;max-height:52px;width:auto;max-width:480px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
     .site-topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:14px}
-    .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px;white-space:nowrap}
+    .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px}
     button.site-topbar-link{background:transparent;border:none;appearance:none;font:inherit}
     .site-topbar-link-icon{display:block;flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2));width:20px;height:20px}
     .site-topbar-link-icon.reddit-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.22);border-radius:999px;font-size:12px;font-weight:900;letter-spacing:0.2px;line-height:1;color:currentColor}
@@ -332,28 +341,17 @@
     .site-topbar-link:hover{opacity:1;color:var(--gold);transform:translateY(-1px)}
     .site-topbar-brand:hover{color:var(--gold)}
     .site-topbar-link:focus-visible,.site-topbar-brand:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
-
-    @media(max-width:820px){
-      .site-topbar-inner{padding:16px 14px}
-      .site-topbar-actions{gap:10px}
-      .site-topbar-brand-title{max-width:min(42vw,360px)}
-      .site-topbar-link{font-size:14px;padding:10px 10px;border-radius:12px;gap:8px}
-      .site-topbar-link-icon{width:18px;height:18px}
-      .site-topbar-help-icon{width:18px;height:18px}
-    }
     @media(max-width:768px){
       .site-topbar-inner{padding:10px 10px}
-      .site-topbar-nav{gap:8px;flex-wrap:nowrap}
-      .site-topbar-brand{gap:8px;font-size:15px;flex:0 1 auto;min-width:0}
+      .site-topbar-nav{gap:8px}
+      .site-topbar-brand{gap:8px;font-size:15px}
       .site-topbar-brand-icon{width:30px;height:30px;border-radius:9px}
-      .site-topbar-brand-title{max-height:34px;max-width:min(36vw,220px)}
-      .site-topbar-actions{gap:6px;flex-wrap:nowrap;justify-content:flex-end;flex:0 0 auto}
+      .site-topbar-brand-title{max-height:34px;max-width:min(54vw,280px)}
+      .site-topbar-actions{gap:6px;flex-wrap:wrap}
       .site-topbar-link{font-size:13px;padding:8px 8px;border-radius:11px;gap:7px}
       .site-topbar-link-icon{width:16px;height:16px}
       .site-topbar-help-icon{width:16px;height:16px}
       .site-topbar-link-icon.reddit-badge{font-size:11px}
-      .site-topbar-link span{display:none}
-      .site-topbar-link{gap:0}
     }
     @media(max-width:440px){
       .site-topbar-nav{gap:12px}
@@ -364,7 +362,6 @@
       .site-topbar-brand-title{max-width:46vw}
       .site-topbar-link{font-size:12px;padding:7px 7px}
     }
-
     @media(max-width:360px){
       .site-topbar-inner{padding:6px 6px}
       .site-topbar-brand-icon{width:26px;height:26px;border-radius:8px}
@@ -451,11 +448,7 @@
     .how-it-works-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(251,191,36,0.15);color:var(--gold);font-size:13px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase}
     .how-it-works-header h2{margin:12px 0 10px;font-size:28px;color:var(--text)}
     .how-it-works-header p{margin:0;color:var(--muted);font-size:16px}
-    /* Avoid odd 2+1 layouts: use 1 column on smaller widths, 3 columns when there's room */
-    .how-it-works-steps{display:grid;grid-template-columns:1fr;gap:18px;margin:22px 0}
-    @media (min-width: 840px){
-      .how-it-works-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
-    }
+    .how-it-works-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
     .how-step{background:rgba(15,20,25,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px 20px 20px;position:relative;overflow:visible}
     .how-step-number{width:36px;height:36px;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px}
     .how-step h3{margin:0 0 8px;font-size:18px;color:var(--text)}
@@ -468,13 +461,13 @@
     .how-it-works-footer button svg{width:20px;height:20px;fill:currentColor}
     .how-it-works-footer p{margin:0;color:var(--muted);font-size:14px}
 
-    /* When nested under the edition comparison frame, remove the extra window/border */
-    .packages-comparison .how-it-works{margin:16px 0 18px;border:none;background:transparent;box-shadow:none;border-radius:0;padding:0}
+    /* When nested under the edition comparison frame, keep it lighter + more compact */
+    .packages-comparison .how-it-works{margin:18px 0 22px;border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.02);box-shadow:none;border-radius:20px;padding:20px}
     .packages-comparison .how-it-works-pill{background:rgba(255,255,255,0.06);color:var(--gold)}
-    .packages-comparison .how-it-works-header h2{margin:8px 0 6px;font-size:20px}
-    .packages-comparison .how-it-works-header p{font-size:13px}
-    .packages-comparison .how-it-works-steps{gap:12px;margin:14px 0}
-    .packages-comparison .how-step{padding:14px 14px 12px;background:rgba(255,255,255,0.02)}
+    .packages-comparison .how-it-works-header h2{margin:10px 0 8px;font-size:22px}
+    .packages-comparison .how-it-works-header p{font-size:14px}
+    .packages-comparison .how-it-works-steps{gap:12px;margin:16px 0}
+    .packages-comparison .how-step{padding:16px 16px 14px;background:rgba(255,255,255,0.02)}
     .packages-comparison .how-step-number{width:30px;height:30px;margin-bottom:8px}
     .packages-comparison .how-step h3{margin:0 0 6px;font-size:16px}
     .packages-comparison .how-step p{font-size:13px}
@@ -683,8 +676,12 @@
     .packages-compare-table .feature-col{text-align:left;color:var(--text);font-weight:800;width:38%;font-size:15px;line-height:1.35}
     .packages-compare-table .feature-subtle{color:var(--muted);font-weight:700}
     .packages-compare-table .edition-col{text-align:center;width:18.666%}
-    .packages-comparison-title{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;width:fit-content;margin:0 auto 16px;padding:0;color:var(--text);font-size:28px;letter-spacing:1px;font-style:italic;text-transform:uppercase;text-shadow:0 0 12px rgba(255,255,255,0.22),0 0 22px rgba(251,191,36,0.25),0 0 22px rgba(59,130,246,0.18)}
+    .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:28px;letter-spacing:1px;font-style:italic;text-transform:uppercase;text-shadow:0 0 12px rgba(255,255,255,0.22),0 0 22px rgba(251,191,36,0.25),0 0 22px rgba(59,130,246,0.18);text-align:center}
     .packages-comparison-title::before,.packages-comparison-title::after{display:none}
+
+    /* Avoid a brief "unstyled images" flash on reload while the async stylesheet loads */
+    html:not(.styles-ready) .card-peek-section,
+    html:not(.styles-ready) .how-step-flag{visibility:hidden}
     .compare-edition-name{display:block;font-size:clamp(16px, 1.35vw, 19px);letter-spacing:0.25px;text-transform:uppercase;white-space:nowrap;line-height:1.1;margin:0 0 clamp(10px,1.6vw,14px)}
     .compare-edition-name.edition-base{color:var(--gold);text-shadow:0 0 8px rgba(251,191,36,0.42),0 0 16px rgba(251,191,36,0.18)}
     .compare-edition-name.edition-extended{color:#b983ff;text-shadow:0 0 8px rgba(185,131,255,0.42),0 0 16px rgba(185,131,255,0.18)}
@@ -716,6 +713,7 @@
     @media(max-width:960px){
       .compare-mobile-picker{display:flex}
       .compare-mobile-cta{display:flex}
+      .packages-comparison-title{display:block;width:100%;text-align:center}
       .packages-compare-wrap{overflow-x:visible;-webkit-overflow-scrolling:auto}
       .packages-compare-table{min-width:0;table-layout:fixed}
       .packages-compare-table th,.packages-compare-table td{padding:10px 8px}
@@ -774,22 +772,8 @@
     .card-peek-nav:active{transform:translateY(0) scale(0.98)}
     .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
     @media(max-width:600px){
-      /* Small screens: snap cleanly (no half cards) */
-      .card-peek-carousel{flex-direction:row;gap:10px;justify-content:center}
-      .card-peek-window{padding:0;scroll-snap-type:x mandatory;scroll-padding:0}
-      .card-peek-nav{width:38px;height:38px;border-radius:10px;font-size:30px}
-    }
-    /* <=500px: show exactly one card per view */
-    @media(max-width:500px){
-      .card-peek-window{flex:0 1 360px;max-width:calc(100vw - 120px)}
-      .card-peek-track{gap:0}
-      .card-peek-image{flex:0 0 100%;width:100%;scroll-snap-align:start}
-    }
-    /* 501–600px: show 2 cards per view to reduce card height */
-    @media(min-width:501px) and (max-width:600px){
-      .card-peek-window{flex:0 1 520px;max-width:calc(100vw - 120px)}
-      .card-peek-track{gap:12px}
-      .card-peek-image{flex:0 0 calc((100% - 12px) / 2);width:calc((100% - 12px) / 2);scroll-snap-align:start}
+      .card-peek-carousel{flex-direction:row;gap:10px}
+      .card-peek-image{width:85vw}
     }
     .founders-bonus-note{margin:12px auto 32px;padding:18px 22px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.35);color:var(--text);font-weight:600;text-align:center;max-width:880px;line-height:1.5}
     .shipping-info{background:rgba(199,164,85,0.08);border:1px solid rgba(199,164,85,0.3);border-radius:16px;padding:28px;margin:40px 0}
@@ -848,8 +832,11 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2025090701" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css?v=2025090701"></noscript>
+  <link rel="preload" href="styles.css?v=2025090701" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
+  <noscript>
+    <link rel="stylesheet" href="styles.css?v=2025090701">
+    <style>html .card-peek-section,html .how-step-flag{visibility:visible}</style>
+  </noscript>
 
   <!-- Preload critical JavaScript -->
   <link rel="preload" href="main.js" as="script">
@@ -980,27 +967,27 @@
           <img src="assets/box_art.webp" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
           <section class="how-it-works" aria-labelledby="howItWorksTitle">
             <div class="how-it-works-header">
-              <h2 id="howItWorksTitle">Reserve your copy in 3 quick steps</h2>
-              <p>Pick an edition, check out in minutes, and we’ll ship as soon as production clears (latest March 2026, likely sooner).</p>
+              <h2 id="howItWorksTitle">Pre-order in 3 steps</h2>
+              <p>Choose an edition, get monthly updates, and receive your copy when fulfillment opens (Early 2026).</p>
             </div>
             <div class="how-it-works-steps">
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.png" alt="" loading="lazy"></span>
                 <span class="how-step-number">1</span>
-                <h3>Pick your edition</h3>
-                <p>Select your shipping country and place your preorder. Full refunds are available any time before we ship.</p>
+                <h3>Pick an edition</h3>
+                <p>Select a shipping location and lock in the low pre-order price by ordering now. Full refunds available until Feb 2026.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
                 <span class="how-step-number">2</span>
-                <h3>We produce + keep you posted</h3>
-                <p>We share progress updates during manufacturing so you always know what’s next.</p>
+                <h3>We produce + update</h3>
+                <p>Monthly progress updates during manufacturing via Email.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.png" alt="" loading="lazy"></span>
                 <span class="how-step-number">3</span>
-                <h3>Ships by March 2026 (likely sooner)</h3>
-                <p>We ship as soon as everything clears. Latest March 2026, likely sooner.</p>
+                <h3>Ships Early 2026</h3>
+                <p>Delivered to your doorstep when fulfillment opens (Feb/Mar 2026).</p>
               </article>
             </div>
           </section>
@@ -1016,15 +1003,15 @@
             <div class="compare-mobile-cta" aria-label="Buy selected edition">
               <a href="#" class="package-btn base-theme compare-buy-btn compare-mobile-buy" data-edition="base" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                 <span class="package-btn-label">Buy Base</span>
-                <span class="package-btn-price">Order Now • $30</span>
+                <span class="package-btn-price">Pre-order • $30</span>
               </a>
               <a href="#" class="package-btn extended-theme compare-buy-btn compare-mobile-buy" data-edition="extended" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                 <span class="package-btn-label">Buy Extended</span>
-                <span class="package-btn-price">Order Now • $45</span>
+                <span class="package-btn-price">Pre-order • $45</span>
               </a>
               <a href="#" class="package-btn founders-theme compare-buy-btn compare-mobile-buy" data-edition="founders" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                 <span class="package-btn-label">Buy Founder's</span>
-                <span class="package-btn-price">Order Now • $65</span>
+                <span class="package-btn-price">Pre-order • $65</span>
               </a>
             </div>
             <table class="packages-compare-table">
@@ -1035,21 +1022,21 @@
                     <span class="compare-edition-name edition-base">Base Edition</span>
                     <a href="#" class="package-btn base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                       <span class="package-btn-label">Buy Base</span>
-                      <span class="package-btn-price">Order Now • $30</span>
+                      <span class="package-btn-price">Pre-order • $30</span>
                     </a>
                   </th>
                   <th scope="col" class="edition-col">
                     <span class="compare-edition-name edition-extended">Extended Edition</span>
                     <a href="#" class="package-btn extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                       <span class="package-btn-label">Buy Extended</span>
-                      <span class="package-btn-price">Order Now • $45</span>
+                      <span class="package-btn-price">Pre-order • $45</span>
                     </a>
                   </th>
                   <th scope="col" class="edition-col">
                     <span class="compare-edition-name edition-founders">Founder's Edition</span>
                     <a href="#" class="package-btn founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                       <span class="package-btn-label">Buy Founder's</span>
-                      <span class="package-btn-price">Order Now • $65</span>
+                      <span class="package-btn-price">Pre-order • $65</span>
                     </a>
                   </th>
                 </tr>
@@ -1116,19 +1103,19 @@
                   <td>
                     <a href="#" class="package-btn base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                       <span class="package-btn-label">Buy Base</span>
-                      <span class="package-btn-price">Order Now • $30</span>
+                      <span class="package-btn-price">Pre-order • $30</span>
                     </a>
                   </td>
                   <td>
                     <a href="#" class="package-btn extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                       <span class="package-btn-label">Buy Extended</span>
-                      <span class="package-btn-price">Order Now • $45</span>
+                      <span class="package-btn-price">Pre-order • $45</span>
                     </a>
                   </td>
                   <td>
                     <a href="#" class="package-btn founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                       <span class="package-btn-label">Buy Founder's</span>
-                      <span class="package-btn-price">Order Now • $65</span>
+                      <span class="package-btn-price">Pre-order • $65</span>
                     </a>
                   </td>
                 </tr>
@@ -1181,10 +1168,6 @@
           <li class="faq-item">
             <strong>How is shipping calculated?</strong>
             <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
-          </li>
-          <li class="faq-item">
-            <strong>When will my order arrive?</strong>
-            <p>As we share on Kickstarter, fulfillment can take a little time because production and freight happen in stages. We’re already in production and will ship as soon as everything clears. Our latest target is March 2026 (likely sooner). We’ll post progress updates (Kickstarter, Discord, and email) so you always know where your copy stands.</p>
           </li>
           <li class="faq-item">
             <strong>What payments do you accept?</strong>
@@ -1291,7 +1274,7 @@
 
       <div class="site-footer-bottom">
         <span>© 2025 Glare Studios, LLC</span>
-        <span>Need help? <a href="mailto:jakob.countryballcards@gmail.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>. Payments accepted: Cards, Apple Pay, Google Pay, Amazon Pay, Cash App Pay, Link, Samsung Pay.</span>
+        <span>Need help? <a href="mailto:jakob.countryballcards@gmail.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
       </div>
     </div>
   </footer>
