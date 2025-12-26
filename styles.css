@@ -102,6 +102,7 @@ body::after {
   font-size: 16px;
   padding: 12px 14px;
   border-radius: 14px;
+  white-space: nowrap;
 }
 button.site-topbar-link{background:transparent;border:none;appearance:none;font:inherit}
 .site-topbar-link-icon{
@@ -111,6 +112,15 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font:
   filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2));
   width: 20px;
   height: 20px;
+}
+
+@media (max-width: 820px) {
+  .site-topbar-inner{padding:16px 14px}
+  .site-topbar-actions{gap:10px}
+  .site-topbar-brand-title{max-width:min(42vw, 360px)}
+  .site-topbar-link{font-size:14px;padding:10px 10px;border-radius:12px;gap:8px}
+  .site-topbar-link-icon{width:18px;height:18px}
+  .site-topbar-help-icon{width:18px;height:18px}
 }
 
 /* Support modal */
@@ -135,20 +145,23 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font:
 }
 @media (max-width: 768px) {
   .site-topbar-inner{padding:10px 10px}
-  .site-topbar-nav{gap:8px}
-  .site-topbar-brand{gap:8px;font-size:15px}
+  .site-topbar-nav{gap:8px;flex-wrap:nowrap}
+  .site-topbar-brand{gap:8px;font-size:15px;flex:0 1 auto;min-width:0}
   .site-topbar-brand-icon{width:30px;height:30px;border-radius:9px}
-  .site-topbar-brand-title{max-height:34px;max-width:min(54vw,280px)}
-  .site-topbar-actions{gap:6px;flex-wrap:wrap}
+  .site-topbar-brand-title{max-height:34px;max-width:min(36vw,220px)}
+  .site-topbar-actions{gap:6px;flex-wrap:nowrap;justify-content:flex-end;flex:0 0 auto}
   .site-topbar-link{font-size:13px;padding:8px 8px;border-radius:11px;gap:7px}
   .site-topbar-link-icon{width:16px;height:16px}
   .site-topbar-help-icon{width:16px;height:16px}
+  .site-topbar-link span{display:none}
+  .site-topbar-link{gap:0}
 }
 
 @media (max-width: 440px) {
   .site-topbar-nav{gap:12px}
   .site-topbar-actions{justify-content:center}
 }
+
 
 @media (max-width: 420px) {
   .site-topbar-inner{padding:8px 8px}

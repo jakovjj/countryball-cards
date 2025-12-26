@@ -246,6 +246,20 @@ function initCardPeekCarousel() {
 
   function scrollAmount() {
     const base = viewport.clientWidth || 300;
+    // On <=600px we use snap points; scroll exactly one card per click (no half cards).
+    if (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
+      const firstCard = cards[0];
+      if (firstCard) {
+        const cardWidth = firstCard.getBoundingClientRect().width;
+        if (cardWidth > 0) {
+          const styles = window.getComputedStyle(track);
+          const gapValue = styles.columnGap || styles.gap || styles.rowGap || '0';
+          const gap = parseFloat(gapValue) || 0;
+          return Math.max(1, cardWidth + gap);
+        }
+      }
+      return base;
+    }
     return Math.max(150, base * 0.85);
   }
 

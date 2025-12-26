@@ -29,7 +29,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://countryballcards.com/">
   <meta property="og:title" content="Countryball Cards - Strategic Card Game | Now Available for Pre-Order">
-  <meta property="og:description" content="Strategic countryball-themed card game now available for pre-order! Ships March 2026. Get the free print-and-play and join our community!">
+  <meta property="og:description" content="Strategic countryball-themed card game now available for pre-order! Ships by March 2026 (likely sooner). Get the free print-and-play and join our community!">
   <meta property="og:image" content="https://countryballcards.com/assets/embed.png">
   <meta property="og:image:alt" content="Preview artwork of Countryball Cards showing hero art and preorder callouts" />
   <meta property="og:locale" content="en_US" />
@@ -39,7 +39,7 @@
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://countryballcards.com/">
   <meta property="twitter:title" content="Countryball Cards - Strategic Card Game | Now Available for Pre-Order">
-  <meta property="twitter:description" content="Strategic countryball-themed card game now available for pre-order! Ships March 2026. Get the free print-and-play and join our community!">
+  <meta property="twitter:description" content="Strategic countryball-themed card game now available for pre-order! Ships by March 2026 (likely sooner). Get the free print-and-play and join our community!">
   <meta property="twitter:image" content="https://countryballcards.com/assets/embed.png">
   <meta property="twitter:image:alt" content="Preview artwork of Countryball Cards showing hero art and preorder callouts" />
   
@@ -241,6 +241,14 @@
           "@type": "Answer",
           "text": "We offer 4 packages: Base Game (25€), 2-Pack (40€), Extended Edition (35€) with mini-expansions, and Founder's Edition (50€) with handdrawn cards and exclusive content. All include free shipping to major markets. Prices displayed in USD for non-Eurozone visitors."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "When will my order arrive?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As shared on our Kickstarter updates, fulfillment can take a little time because production + freight happen in stages. We’re already in production and will start shipping as soon as everything clears. Our latest target is March 2026 (likely sooner). We’ll keep you posted the whole way (Kickstarter, Discord, and email updates), so you always know where your copy stands."
+        }
       }
     ]
   }
@@ -316,7 +324,7 @@
     .site-topbar-brand-icon{display:block;flex:0 0 auto;width:40px;height:40px;border-radius:12px;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
     .site-topbar-brand-title{display:block;flex:0 1 auto;max-height:52px;width:auto;max-width:480px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
     .site-topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:14px}
-    .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px}
+    .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px;white-space:nowrap}
     button.site-topbar-link{background:transparent;border:none;appearance:none;font:inherit}
     .site-topbar-link-icon{display:block;flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2));width:20px;height:20px}
     .site-topbar-link-icon.reddit-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.22);border-radius:999px;font-size:12px;font-weight:900;letter-spacing:0.2px;line-height:1;color:currentColor}
@@ -324,17 +332,28 @@
     .site-topbar-link:hover{opacity:1;color:var(--gold);transform:translateY(-1px)}
     .site-topbar-brand:hover{color:var(--gold)}
     .site-topbar-link:focus-visible,.site-topbar-brand:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
+
+    @media(max-width:820px){
+      .site-topbar-inner{padding:16px 14px}
+      .site-topbar-actions{gap:10px}
+      .site-topbar-brand-title{max-width:min(42vw,360px)}
+      .site-topbar-link{font-size:14px;padding:10px 10px;border-radius:12px;gap:8px}
+      .site-topbar-link-icon{width:18px;height:18px}
+      .site-topbar-help-icon{width:18px;height:18px}
+    }
     @media(max-width:768px){
       .site-topbar-inner{padding:10px 10px}
-      .site-topbar-nav{gap:8px}
-      .site-topbar-brand{gap:8px;font-size:15px}
+      .site-topbar-nav{gap:8px;flex-wrap:nowrap}
+      .site-topbar-brand{gap:8px;font-size:15px;flex:0 1 auto;min-width:0}
       .site-topbar-brand-icon{width:30px;height:30px;border-radius:9px}
-      .site-topbar-brand-title{max-height:34px;max-width:min(54vw,280px)}
-      .site-topbar-actions{gap:6px;flex-wrap:wrap}
+      .site-topbar-brand-title{max-height:34px;max-width:min(36vw,220px)}
+      .site-topbar-actions{gap:6px;flex-wrap:nowrap;justify-content:flex-end;flex:0 0 auto}
       .site-topbar-link{font-size:13px;padding:8px 8px;border-radius:11px;gap:7px}
       .site-topbar-link-icon{width:16px;height:16px}
       .site-topbar-help-icon{width:16px;height:16px}
       .site-topbar-link-icon.reddit-badge{font-size:11px}
+      .site-topbar-link span{display:none}
+      .site-topbar-link{gap:0}
     }
     @media(max-width:440px){
       .site-topbar-nav{gap:12px}
@@ -345,6 +364,7 @@
       .site-topbar-brand-title{max-width:46vw}
       .site-topbar-link{font-size:12px;padding:7px 7px}
     }
+
     @media(max-width:360px){
       .site-topbar-inner{padding:6px 6px}
       .site-topbar-brand-icon{width:26px;height:26px;border-radius:8px}
@@ -431,7 +451,11 @@
     .how-it-works-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(251,191,36,0.15);color:var(--gold);font-size:13px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase}
     .how-it-works-header h2{margin:12px 0 10px;font-size:28px;color:var(--text)}
     .how-it-works-header p{margin:0;color:var(--muted);font-size:16px}
-    .how-it-works-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
+    /* Avoid odd 2+1 layouts: use 1 column on smaller widths, 3 columns when there's room */
+    .how-it-works-steps{display:grid;grid-template-columns:1fr;gap:18px;margin:22px 0}
+    @media (min-width: 840px){
+      .how-it-works-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
     .how-step{background:rgba(15,20,25,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px 20px 20px;position:relative;overflow:visible}
     .how-step-number{width:36px;height:36px;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px}
     .how-step h3{margin:0 0 8px;font-size:18px;color:var(--text)}
@@ -444,13 +468,13 @@
     .how-it-works-footer button svg{width:20px;height:20px;fill:currentColor}
     .how-it-works-footer p{margin:0;color:var(--muted);font-size:14px}
 
-    /* When nested under the edition comparison frame, keep it lighter + more compact */
-    .packages-comparison .how-it-works{margin:18px 0 22px;border-color:rgba(255,255,255,0.10);background:rgba(255,255,255,0.02);box-shadow:none;border-radius:20px;padding:20px}
+    /* When nested under the edition comparison frame, remove the extra window/border */
+    .packages-comparison .how-it-works{margin:16px 0 18px;border:none;background:transparent;box-shadow:none;border-radius:0;padding:0}
     .packages-comparison .how-it-works-pill{background:rgba(255,255,255,0.06);color:var(--gold)}
-    .packages-comparison .how-it-works-header h2{margin:10px 0 8px;font-size:22px}
-    .packages-comparison .how-it-works-header p{font-size:14px}
-    .packages-comparison .how-it-works-steps{gap:12px;margin:16px 0}
-    .packages-comparison .how-step{padding:16px 16px 14px;background:rgba(255,255,255,0.02)}
+    .packages-comparison .how-it-works-header h2{margin:8px 0 6px;font-size:20px}
+    .packages-comparison .how-it-works-header p{font-size:13px}
+    .packages-comparison .how-it-works-steps{gap:12px;margin:14px 0}
+    .packages-comparison .how-step{padding:14px 14px 12px;background:rgba(255,255,255,0.02)}
     .packages-comparison .how-step-number{width:30px;height:30px;margin-bottom:8px}
     .packages-comparison .how-step h3{margin:0 0 6px;font-size:16px}
     .packages-comparison .how-step p{font-size:13px}
@@ -750,8 +774,22 @@
     .card-peek-nav:active{transform:translateY(0) scale(0.98)}
     .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
     @media(max-width:600px){
-      .card-peek-carousel{flex-direction:row;gap:10px}
-      .card-peek-image{width:85vw}
+      /* Small screens: snap cleanly (no half cards) */
+      .card-peek-carousel{flex-direction:row;gap:10px;justify-content:center}
+      .card-peek-window{padding:0;scroll-snap-type:x mandatory;scroll-padding:0}
+      .card-peek-nav{width:38px;height:38px;border-radius:10px;font-size:30px}
+    }
+    /* <=500px: show exactly one card per view */
+    @media(max-width:500px){
+      .card-peek-window{flex:0 1 360px;max-width:calc(100vw - 120px)}
+      .card-peek-track{gap:0}
+      .card-peek-image{flex:0 0 100%;width:100%;scroll-snap-align:start}
+    }
+    /* 501–600px: show 2 cards per view to reduce card height */
+    @media(min-width:501px) and (max-width:600px){
+      .card-peek-window{flex:0 1 520px;max-width:calc(100vw - 120px)}
+      .card-peek-track{gap:12px}
+      .card-peek-image{flex:0 0 calc((100% - 12px) / 2);width:calc((100% - 12px) / 2);scroll-snap-align:start}
     }
     .founders-bonus-note{margin:12px auto 32px;padding:18px 22px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.35);color:var(--text);font-weight:600;text-align:center;max-width:880px;line-height:1.5}
     .shipping-info{background:rgba(199,164,85,0.08);border:1px solid rgba(199,164,85,0.3);border-radius:16px;padding:28px;margin:40px 0}
@@ -942,27 +980,27 @@
           <img src="assets/box_art.webp" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
           <section class="how-it-works" aria-labelledby="howItWorksTitle">
             <div class="how-it-works-header">
-              <h2 id="howItWorksTitle">Pre-order in 3 steps</h2>
-              <p>Choose an edition, get monthly updates, and receive your copy when fulfillment opens (Early 2026).</p>
+              <h2 id="howItWorksTitle">Reserve your copy in 3 quick steps</h2>
+              <p>Pick an edition, check out in minutes, and we’ll ship as soon as production clears (latest March 2026, likely sooner).</p>
             </div>
             <div class="how-it-works-steps">
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.png" alt="" loading="lazy"></span>
                 <span class="how-step-number">1</span>
-                <h3>Pick an edition</h3>
-                <p>Select a shipping location and lock in the low pre-order price by ordering now. Full refunds available until Feb 2026.</p>
+                <h3>Pick your edition</h3>
+                <p>Select your shipping country and place your preorder. Full refunds are available any time before we ship.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/us.png" alt="" loading="lazy"></span>
                 <span class="how-step-number">2</span>
-                <h3>We produce + update</h3>
-                <p>Monthly progress updates during manufacturing via Email.</p>
+                <h3>We produce + keep you posted</h3>
+                <p>We share progress updates during manufacturing so you always know what’s next.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.png" alt="" loading="lazy"></span>
                 <span class="how-step-number">3</span>
-                <h3>Ships Early 2026</h3>
-                <p>Delivered to your doorstep when fulfillment opens (Feb/Mar 2026).</p>
+                <h3>Ships by March 2026 (likely sooner)</h3>
+                <p>We ship as soon as everything clears. Latest March 2026, likely sooner.</p>
               </article>
             </div>
           </section>
@@ -978,15 +1016,15 @@
             <div class="compare-mobile-cta" aria-label="Buy selected edition">
               <a href="#" class="package-btn base-theme compare-buy-btn compare-mobile-buy" data-edition="base" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                 <span class="package-btn-label">Buy Base</span>
-                <span class="package-btn-price">Pre-order • $30</span>
+                <span class="package-btn-price">Order Now • $30</span>
               </a>
               <a href="#" class="package-btn extended-theme compare-buy-btn compare-mobile-buy" data-edition="extended" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                 <span class="package-btn-label">Buy Extended</span>
-                <span class="package-btn-price">Pre-order • $45</span>
+                <span class="package-btn-price">Order Now • $45</span>
               </a>
               <a href="#" class="package-btn founders-theme compare-buy-btn compare-mobile-buy" data-edition="founders" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                 <span class="package-btn-label">Buy Founder's</span>
-                <span class="package-btn-price">Pre-order • $65</span>
+                <span class="package-btn-price">Order Now • $65</span>
               </a>
             </div>
             <table class="packages-compare-table">
@@ -997,21 +1035,21 @@
                     <span class="compare-edition-name edition-base">Base Edition</span>
                     <a href="#" class="package-btn base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                       <span class="package-btn-label">Buy Base</span>
-                      <span class="package-btn-price">Pre-order • $30</span>
+                      <span class="package-btn-price">Order Now • $30</span>
                     </a>
                   </th>
                   <th scope="col" class="edition-col">
                     <span class="compare-edition-name edition-extended">Extended Edition</span>
                     <a href="#" class="package-btn extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                       <span class="package-btn-label">Buy Extended</span>
-                      <span class="package-btn-price">Pre-order • $45</span>
+                      <span class="package-btn-price">Order Now • $45</span>
                     </a>
                   </th>
                   <th scope="col" class="edition-col">
                     <span class="compare-edition-name edition-founders">Founder's Edition</span>
                     <a href="#" class="package-btn founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                       <span class="package-btn-label">Buy Founder's</span>
-                      <span class="package-btn-price">Pre-order • $65</span>
+                      <span class="package-btn-price">Order Now • $65</span>
                     </a>
                   </th>
                 </tr>
@@ -1078,19 +1116,19 @@
                   <td>
                     <a href="#" class="package-btn base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
                       <span class="package-btn-label">Buy Base</span>
-                      <span class="package-btn-price">Pre-order • $30</span>
+                      <span class="package-btn-price">Order Now • $30</span>
                     </a>
                   </td>
                   <td>
                     <a href="#" class="package-btn extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
                       <span class="package-btn-label">Buy Extended</span>
-                      <span class="package-btn-price">Pre-order • $45</span>
+                      <span class="package-btn-price">Order Now • $45</span>
                     </a>
                   </td>
                   <td>
                     <a href="#" class="package-btn founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
                       <span class="package-btn-label">Buy Founder's</span>
-                      <span class="package-btn-price">Pre-order • $65</span>
+                      <span class="package-btn-price">Order Now • $65</span>
                     </a>
                   </td>
                 </tr>
@@ -1133,8 +1171,8 @@
         <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
         <ul class="faq-list">
           <li class="faq-item">
-            <strong>Can I cancel or change my pre-order?</strong>
-            <p>Yes. You can request a refund any time up to February 1st, 2026. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
+            <strong>Can I cancel or change my order?</strong>
+            <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
           </li>
           <li class="faq-item">
             <strong>Do you ship internationally?</strong>
@@ -1145,8 +1183,12 @@
             <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
           </li>
           <li class="faq-item">
+            <strong>When will my order arrive?</strong>
+            <p>As we share on Kickstarter, fulfillment can take a little time because production and freight happen in stages. We’re already in production and will ship as soon as everything clears. Our latest target is March 2026 (likely sooner). We’ll post progress updates (Kickstarter, Discord, and email) so you always know where your copy stands.</p>
+          </li>
+          <li class="faq-item">
             <strong>What payments do you accept?</strong>
-            <p>Payments are processed securely by Stripe. Most major credit/debit cards are supported.</p>
+            <p>Most major credit/debit cards are supported. We also accept Apple Pay, Google Pay, Amazon Pay, Link, Samsung Pay and Cash App Pay. Payments are processed securely by Stripe. </p>
           </li>
           <li class="faq-item">
             <strong>Where can I get updates?</strong>
@@ -1249,7 +1291,7 @@
 
       <div class="site-footer-bottom">
         <span>© 2025 Glare Studios, LLC</span>
-        <span>Need help? <a href="mailto:jakob.countryballcards@gmail.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
+        <span>Need help? <a href="mailto:jakob.countryballcards@gmail.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>. Payments accepted: Cards, Apple Pay, Google Pay, Amazon Pay, Cash App Pay, Link, Samsung Pay.</span>
       </div>
     </div>
   </footer>
