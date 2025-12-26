@@ -3,6 +3,7 @@ const CACHE_NAME = 'countryball-cards-v2025090701'; // Update this version when 
 const urlsToCache = [
   '/',
   '/index.html',
+  '/success.html',
   '/styles.css',
   '/main.js',
   '/analytics.js',
