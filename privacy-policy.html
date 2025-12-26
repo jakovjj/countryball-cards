@@ -7,6 +7,7 @@
   <meta name="description" content="Privacy Policy for Countryball Cards - Learn how we collect, use, and protect your data." />
   <link rel="canonical" href="https://countryballcards.com/privacy-policy.html" />
   <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#151515" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -15,50 +16,64 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <link rel="stylesheet" href="styles.css" />
-  
-  <style>
-    :root { --bg:#151515; --card:#1d1d1d; --gold:#c7a455; --text:#eee; --muted:#b7b7b7; }
-    *{box-sizing:border-box} 
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden}
-    .wrap{max-width:1100px;margin:0 auto;padding:clamp(16px,3vw,40px)}
-    .frame{border:none;border-radius:0;padding:0;background:transparent;backdrop-filter:none;box-sizing:border-box;max-width:100%}
-    h1{font-size: clamp(28px,4.5vw,36px);letter-spacing:1px;margin:8px 0 16px;color:var(--gold)}
-    h2{font-size: clamp(20px,3.5vw,24px);margin:24px 0 12px;color:var(--gold)}
-    h3{font-size: clamp(16px,2.8vw,18px);margin:20px 0 8px;color:var(--text)}
-    p, li{margin:0 0 12px;line-height:1.6}
-    ul{padding-left:20px;margin:0 0 16px}
-    .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--gold);text-decoration:none;margin-bottom:20px;font-weight:600}
-    .back-link:hover{color:#d4b866}
-    .back-link svg{width:16px;height:16px}
-    .contact-info{background:var(--card);border-radius:12px;padding:20px;margin:20px 0;border-left:4px solid var(--gold)}
-    .last-updated{color:var(--muted);font-size:14px;margin-bottom:20px}
-    .highlight{background:rgba(199,164,85,.15);padding:16px;border-radius:8px;margin:16px 0}
-    
-    @media (max-width:719px){
-      .wrap{padding:16px}
-      .frame{padding:16px}
-      h1{font-size:24px;text-align:center}
-      h2{font-size:20px}
-    }
-  </style>
+  <link rel="preload" href="styles.css?v=2025090701" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css?v=2025090701"></noscript>
+
+  <link rel="preload" href="main.js" as="script">
+  <link rel="preload" href="analytics.js" as="script">
 </head>
 <body>
+  <header class="site-topbar" role="banner">
+    <div class="site-topbar-inner">
+      <nav class="site-topbar-nav" aria-label="Primary">
+        <a class="site-topbar-brand" href="index.html" aria-label="Countryball Cards home">
+          <img class="site-topbar-brand-icon" src="android-chrome-192x192.png" alt="" loading="eager" decoding="async" fetchpriority="high">
+          <img class="site-topbar-brand-title" src="assets/title.webp" alt="Countryball Cards" loading="eager" decoding="async" fetchpriority="high">
+        </a>
+
+        <div class="site-topbar-actions" aria-label="Links">
+          <a class="site-topbar-link" href="index.html#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('header_buy_now');">
+            <svg class="site-topbar-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 6h15l-2 8H8L6 6Zm0 0L5 3H2m6 16a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm10 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/>
+            </svg>
+            <span>Buy Now</span>
+          </a>
+          <a class="site-topbar-link" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
+            <img class="site-topbar-link-icon" src="assets/ks.png" alt="" width="18" height="18" loading="lazy" decoding="async">
+            <span>Kickstarter</span>
+          </a>
+          <a class="site-topbar-link" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
+            <img class="site-topbar-link-icon" src="assets/discord.png" alt="" width="18" height="18" loading="lazy" decoding="async">
+            <span>Discord</span>
+          </a>
+          <a class="site-topbar-link" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('reddit_header');">
+            <img class="site-topbar-link-icon" src="assets/reddit.png" alt="" width="18" height="18" loading="lazy" decoding="async">
+            <span>Reddit</span>
+          </a>
+          <button class="site-topbar-link site-topbar-help-btn" type="button" id="supportHelpBtn" aria-haspopup="dialog" aria-controls="supportOverlay" aria-expanded="false">
+            <svg class="site-topbar-help-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 15a1.25 1.25 0 110 2.5A1.25 1.25 0 0112 17zm1.2-4.9c-.9.52-1.2.86-1.2 1.65v.25h-1.8v-.35c0-1.35.62-2.08 1.76-2.72.86-.5 1.44-.93 1.44-1.7 0-.82-.62-1.35-1.6-1.35-.96 0-1.64.52-1.76 1.46l-1.78-.22C8.52 6.85 9.88 5.6 12 5.6c2.04 0 3.46 1.14 3.46 2.9 0 1.57-1.05 2.34-2.26 3.04z"/>
+            </svg>
+            <span>Help</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   <div class="wrap">
     <div class="frame">
-      <a href="index.html" class="back-link">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
-        Back to Home
-      </a>
-      
-      <h1>Privacy Policy</h1>
-  <div class="last-updated">Last updated: August 12, 2025</div>
-      
-      <div class="highlight">
-        <strong>Quick Summary:</strong> We collect minimal data to improve your experience. We use analytics (Google Analytics 4 and Reddit Pixel) to understand how our site is used and where visitors come from, detect your country for a personalized background, and collect email addresses only if you voluntarily provide them. We don't sell your data or share it unnecessarily.
-      </div>
+      <section class="legal-page" aria-label="Privacy Policy">
+        <div class="legal-actions">
+          <a class="btn secondary" href="index.html">Back to Home</a>
+        </div>
+
+        <h1>Privacy Policy</h1>
+        <div class="legal-meta">Last updated: August 12, 2025</div>
+
+        <div class="legal-callout">
+          <strong>Quick Summary:</strong> We collect minimal data to improve your experience. We use analytics (Google Analytics 4 and Reddit Pixel) to understand how our site is used and where visitors come from, detect your country for a personalized background, and collect email addresses only if you voluntarily provide them. We don't sell your data or share it unnecessarily.
+        </div>
 
       <h2>1. Information We Collect</h2>
       
@@ -150,13 +165,14 @@
   <h2>11. Changes to This Policy</h2>
       <p>We may update this Privacy Policy from time to time. We'll notify you of any material changes by posting the new policy on this page and updating the "Last updated" date.</p>
 
-      <div class="contact-info">
+      <div class="legal-callout">
         <h2>Contact Us</h2>
         <p>If you have questions about this Privacy Policy or want to exercise your rights, contact us at:</p>
         <p><strong>Email:</strong> jakob.j.anders@outlook.com<br>
         <strong>Discord:</strong> <a href="https://discord.gg/GVkrHXvzf8" target="_blank" style="color:var(--gold)">Join our Discord</a><br>
         <strong>Reddit:</strong> <a href="https://reddit.com/r/countryball_cards" target="_blank" style="color:var(--gold)">r/countryball_cards</a></p>
       </div>
+      </section>
     </div>
   </div>
 
@@ -165,7 +181,7 @@
       <div class="site-footer-top">
         <div>
           <p class="site-footer-title">Glare Studios, LLC</p>
-          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Questions about the game or your order? Reach out any time.</p>
+          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Reach out any time. We typically respond within 24 hours.</p>
         </div>
 
         <div class="site-footer-cta" aria-label="Email updates">
@@ -181,7 +197,7 @@
               </span>
             </button>
           </div>
-          <div class="site-footer-cta-note">Unsubscribe anytime. See this page or our <a href="privacy-policy.html">Privacy Policy</a>.</div>
+          <div class="site-footer-cta-note">Unsubscribe anytime. See our <a href="privacy-policy.html">Privacy Policy</a>.</div>
         </div>
       </div>
 
@@ -231,5 +247,81 @@
       </div>
     </div>
   </footer>
+
+  <!-- Support / Help Modal (matches index.html) -->
+  <div class="modal-overlay" id="supportOverlay" hidden aria-hidden="true">
+    <div class="modal support-modal" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle" tabindex="-1">
+      <header>
+        <h2 id="supportModalTitle">Need help?</h2>
+        <button class="modal-close" type="button" id="supportCloseBtn" aria-label="Close support">✕</button>
+      </header>
+      <div class="support-modal-body">
+        <p class="support-modal-copy">Reach us via email or get fast help in Discord. We should respond within 24 hours.</p>
+        <div class="support-modal-actions">
+          <a class="btn secondary" href="mailto:jakob.countryballcards@gmail.com" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_email_header');">
+            <span class="btn-row">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span class="btn-label">Email Support</span>
+            </span>
+          </a>
+          <a class="btn discord-btn discord-btn--auto" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_discord_header');">
+            <span class="btn-row">
+              <img src="assets/discord.png" alt="" class="discord-btn-icon" loading="lazy" decoding="async">
+              <span class="btn-label">Discord Support</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="analytics.js" defer></script>
+  <script src="main.js" defer></script>
+
+  <script>
+    (function() {
+      const helpBtn = document.getElementById('supportHelpBtn');
+      const overlay = document.getElementById('supportOverlay');
+      const dialog = overlay ? overlay.querySelector('.support-modal') : null;
+      const closeBtn = document.getElementById('supportCloseBtn');
+      let lastActiveEl = null;
+
+      function openSupportModal() {
+        if (!overlay || !dialog) return;
+        lastActiveEl = document.activeElement;
+        overlay.hidden = false;
+        overlay.setAttribute('aria-hidden', 'false');
+        if (helpBtn) helpBtn.setAttribute('aria-expanded', 'true');
+        dialog.focus();
+      }
+
+      function closeSupportModal() {
+        if (!overlay) return;
+        overlay.hidden = true;
+        overlay.setAttribute('aria-hidden', 'true');
+        if (helpBtn) helpBtn.setAttribute('aria-expanded', 'false');
+        if (lastActiveEl && typeof lastActiveEl.focus === 'function') {
+          lastActiveEl.focus();
+        }
+      }
+
+      if (helpBtn) helpBtn.addEventListener('click', openSupportModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeSupportModal);
+
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) closeSupportModal();
+        });
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay && overlay.hidden === false) {
+          closeSupportModal();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
