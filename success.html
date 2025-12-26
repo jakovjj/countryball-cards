@@ -241,6 +241,32 @@
     })();
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=659591973725729&ev=PageView&noscript=1" /></noscript>
+
+  <script>
+    (function(){
+      var params = new URLSearchParams(window.location.search || '');
+      var edition = (params.get('edition') || '').trim().toUpperCase();
+
+      var prices = {
+        BASE: 30,
+        EXTENDED: 45,
+        FOUNDER: 65
+      };
+
+      var value = prices[edition];
+      if (!value) return;
+
+      var payload = {
+        value: value,
+        currency: 'USD',
+        edition: edition
+      };
+
+      if (typeof fbq === 'function') {
+        fbq('track', 'Purchase', payload);
+      }
+    })();
+  </script>
 </head>
 <body>
   <header class="site-topbar" role="banner">
