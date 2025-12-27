@@ -71,7 +71,7 @@
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   
   <!-- Preload critical above-the-fold images -->
-  <link rel="preload" href="logo.webp" as="image" type="image/webp">
+  <link rel="preload" href="logo-320.webp" as="image" type="image/webp" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px">
   
   <!-- Google tag (GA4) - Optimized loading -->
   <script>
@@ -210,7 +210,7 @@
   <div class="wrap">
     <div class="frame">
       <div class="poll-container">
-        <img src="logo.webp" alt="Countryball Cards" class="poll-logo" style="opacity:1;" onerror="this.src='logo.png'; this.onerror=null;">
+        <img src="logo-320.webp" srcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" sizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" width="1882" height="2500" alt="Countryball Cards" class="poll-logo" style="opacity:1;" onerror="this.src='logo.png'; this.onerror=null;">
         
         <h1 class="poll-title">Community Poll</h1>
         <p class="poll-subtitle">Help us shape the future of Countryball Cards with your feedback!</p>
