@@ -278,10 +278,20 @@ function initCardPeekCarousel() {
   }
 
   function scrollByDirection(direction) {
-    viewport.scrollBy({
-      left: direction * scrollAmount(),
-      behavior: 'smooth'
-    });
+    const maxScrollLeft = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+
+    // Wrap-around behavior: when reaching an edge, loop to the other side.
+    const epsilon = 2; // px tolerance for fractional scrollLeft
+    if (direction > 0 && viewport.scrollLeft >= maxScrollLeft - epsilon) {
+      viewport.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+    if (direction < 0 && viewport.scrollLeft <= epsilon) {
+      viewport.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+      return;
+    }
+
+    viewport.scrollBy({ left: direction * scrollAmount(), behavior: 'smooth' });
   }
 
   prevBtn.addEventListener('click', () => scrollByDirection(-1));

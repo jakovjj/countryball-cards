@@ -770,18 +770,29 @@
     .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none}
     .card-peek-header{text-align:center;margin-bottom:16px}
     .card-peek-header h3{margin:0;font-size:24px;color:var(--text)}
-    .card-peek-carousel{display:flex;align-items:center;gap:14px}
-    .card-peek-window{flex:1;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;scrollbar-width:none;padding:0 12px;touch-action:auto}
+    .card-peek-carousel{position:relative;display:block}
+    .card-peek-window{width:100%;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;scrollbar-width:none;padding:0 12px;touch-action:auto}
     .card-peek-window::-webkit-scrollbar{display:none}
     .card-peek-track{display:flex;flex-wrap:nowrap;gap:18px;width:max-content}
     .card-peek-image{flex:0 0 auto;width:min(220px,30vw);height:auto;border-radius:12px;display:block}
-    .card-peek-nav{width:44px;height:44px;border-radius:12px;border:none;background:transparent;color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.92}
-    .card-peek-nav:hover{transform:translateY(-1px) scale(1.04);opacity:1}
-    .card-peek-nav:active{transform:translateY(0) scale(0.98)}
+    .card-peek-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.92;z-index:3}
+    #cardPeekPrev{left:10px}
+    #cardPeekNext{right:10px}
+    .card-peek-nav:hover{transform:translateY(-50%) translateY(-1px) scale(1.04);opacity:1}
+    .card-peek-nav:active{transform:translateY(-50%) scale(0.98)}
     .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
     @media(max-width:600px){
-      .card-peek-carousel{flex-direction:row;gap:10px}
-      .card-peek-image{width:85vw}
+      /* Keep the peek cards from feeling oversized on small screens */
+      .card-peek-track{gap:14px}
+      .card-peek-image{width:min(74vw, 320px)}
+
+      /* Reserve space so overlay arrows don't sit on top of the card art */
+      .card-peek-window{padding:0 56px}
+
+      /* Slightly smaller buttons on mobile */
+      .card-peek-nav{width:40px;height:40px;font-size:30px}
+      #cardPeekPrev{left:8px}
+      #cardPeekNext{right:8px}
     }
     .founders-bonus-note{margin:12px auto 32px;padding:18px 22px;border-radius:20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.35);color:var(--text);font-weight:600;text-align:center;max-width:880px;line-height:1.5}
     .shipping-info{background:rgba(199,164,85,0.08);border:1px solid rgba(199,164,85,0.3);border-radius:16px;padding:28px;margin:40px 0}
@@ -832,6 +843,12 @@
       .how-it-works-footer{flex-direction:column;align-items:flex-start}
       .how-it-works-footer button{width:100%;justify-content:center}
       .faq-list{padding-left:0}
+      .faq-section{margin:32px 0}
+      .faq-section h2{font-size:24px}
+      .faq-intro{font-size:14px;line-height:1.45}
+      .faq-list{margin-top:18px;gap:14px}
+      .faq-item strong{font-size:16px}
+      .faq-item p{font-size:14px;line-height:1.5}
       .rules-viewer{padding:24px;margin:48px 0}
       .rules-frame{height:520px}
       .rules-viewer-actions{width:100%;flex-direction:column}
@@ -926,7 +943,7 @@
         <!-- Shipping selection now happens in a modal when you click Pre-order. -->
 
         <div class="contents-showcase" id="whatsInside">
-          <img src="assets/contents-720.webp" srcset="assets/contents-360.webp 360w, assets/contents-540.webp 540w, assets/contents-720.webp 720w, assets/contents-900.webp 900w, assets/contents-1080.webp 1080w, assets/contents-1440.webp 1440w" sizes="(max-width: 1100px) 100vw, 1080px" width="1911" height="927" alt="Contents of Countryball Cards" class="contents-image" loading="lazy" decoding="async">
+          <img src="assets/contents.webp" width="1911" height="927" alt="Contents of Countryball Cards" class="contents-image" loading="lazy" decoding="async">
         </div>
 
         <section class="card-peek-section" aria-labelledby="cardPeekTitle">
