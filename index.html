@@ -767,6 +767,9 @@
     .contents-showcase{text-align:center;margin:32px auto 16px;padding:0;border:none;border-radius:0;background:transparent;box-shadow:none}
     .contents-subtitle{display:none}
     .contents-image{max-width:1080px;width:100%;height:auto;display:block;margin:0 auto;border:none;border-radius:0;box-shadow:none;background:transparent}
+    @media(min-width:900px){
+      .contents-image{max-width:880px}
+    }
     .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none}
     .card-peek-header{text-align:center;margin-bottom:16px}
     .card-peek-header h3{margin:0;font-size:24px;color:var(--text)}
@@ -943,7 +946,10 @@
         <!-- Shipping selection now happens in a modal when you click Pre-order. -->
 
         <div class="contents-showcase" id="whatsInside">
-          <img src="assets/contents.webp" width="1911" height="927" alt="Contents of Countryball Cards" class="contents-image" loading="lazy" decoding="async">
+          <picture>
+            <source media="(min-width: 1000px)" srcset="assets/contents_desktop.webp">
+            <img src="assets/contents.webp" width="1911" height="927" alt="Contents of Countryball Cards" class="contents-image" loading="lazy" decoding="async">
+          </picture>
         </div>
 
         <section class="card-peek-section" aria-labelledby="cardPeekTitle">
