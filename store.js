@@ -342,9 +342,9 @@
     function getDeliveryLabelForZone(zone) {
       switch (zone) {
         case 'ZONE_1':
-          return '($5.40 delivery)';
+          return '($5.40 Shipping)';
         case 'ZONE_2':
-          return '($12.20 delivery)';
+          return '($12.20 Shipping)';
         default:
           return '';
       }
