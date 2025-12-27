@@ -1,16 +1,10 @@
 ﻿const COUNTRY_OPTIONS = [
-      { code: 'DZ', label: 'Algeria', flag: '�Y?��Y?�', zone: 'ZONE_3' },
-      { code: 'AR', label: 'Argentina', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'AU', label: 'Australia', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'AT', label: 'Austria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'BD', label: 'Bangladesh', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'BG', label: 'Bulgaria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'BE', label: 'Belgium', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'BO', label: 'Bolivia', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'BA', label: 'Bosnia and Herzegovina', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'BR', label: 'Brazil', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'CA', label: 'Canada', flag: '�Y?��Y?�', zone: 'ZONE_2' },
-      { code: 'CL', label: 'Chile', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'HR', label: 'Croatia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'CZ', label: 'Czechia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'DK', label: 'Denmark', flag: '�Y?��Y?�', zone: 'ZONE_1' },
@@ -20,34 +14,22 @@
       { code: 'DE', label: 'Germany', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'GR', label: 'Greece', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'HU', label: 'Hungary', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'IN', label: 'India', flag: '�Y?��Y?�', zone: 'ZONE_3' },
-      { code: 'ID', label: 'Indonesia', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'IE', label: 'Ireland', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'IT', label: 'Italy', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'JP', label: 'Japan', flag: '�Y?��Y?�', zone: 'ZONE_2' },
-      { code: 'JO', label: 'Jordan', flag: '�Y?��Y?�', zone: 'ZONE_3' },
-      { code: 'LA', label: 'Laos', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'LV', label: 'Latvia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'LT', label: 'Lithuania', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'LU', label: 'Luxembourg', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'MY', label: 'Malaysia', flag: '�Y?��Y?�', zone: 'ZONE_3' },
-      { code: 'MX', label: 'Mexico', flag: '�Y?��Y?�', zone: 'ZONE_3' },
-      { code: 'MA', label: 'Morocco', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'NL', label: 'Netherlands', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'NO', label: 'Norway', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'PK', label: 'Pakistan', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'PL', label: 'Poland', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'PT', label: 'Portugal', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'QA', label: 'Qatar', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'RO', label: 'Romania', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'SA', label: 'Saudi Arabia', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'RS', label: 'Serbia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'SG', label: 'Singapore', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'SK', label: 'Slovakia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'SI', label: 'Slovenia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'ES', label: 'Spain', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'SE', label: 'Sweden', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'TH', label: 'Thailand', flag: '�Y?��Y?�', zone: 'ZONE_3' },
       { code: 'TR', label: 'Turkey', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'GB', label: 'United Kingdom', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'US', label: 'United States', flag: '�Y?��Y?�', zone: 'ZONE_2' }
@@ -81,8 +63,7 @@
 
     const SHIPPING_ZONES = {
       ZONE_1: ['AT','BA','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB'],
-      ZONE_2: ['US','CA','AU','TR','JP'],
-      ZONE_3: ['DZ','AR','BD','BO','BR','CL','IN','MY','ID','IR','TH','SG','LA','JO','PK','MX','MA','QA','SA']
+      ZONE_2: ['US','CA','AU','TR','JP']
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
@@ -94,11 +75,6 @@
         BASE_GAME: 'https://buy.stripe.com/5kQ28renH8zq79s6Lncwg05',
         EXTENDED_EDITION: 'https://buy.stripe.com/7sY00j93n4ja3Xg3zbcwg06',
         FOUNDERS_EDITION: 'https://buy.stripe.com/aFafZhbbv16Y0L4c5Hcwg07'
-      },
-      ZONE_3: {
-        BASE_GAME: 'https://buy.stripe.com/8x28wPbbv2b28dwb1Dcwg08',
-        EXTENDED_EDITION: 'https://buy.stripe.com/4gM3cv7Zj8zq1P82v7cwg09',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/3cIbJ1a7raHydxQfhTcwg0a'
       }
     };
     let selectedCountry = null;
@@ -130,7 +106,6 @@
     function getShippingZone(countryCode) {
       if (SHIPPING_ZONES.ZONE_1.includes(countryCode)) return 'ZONE_1';
       if (SHIPPING_ZONES.ZONE_2.includes(countryCode)) return 'ZONE_2';
-      if (SHIPPING_ZONES.ZONE_3.includes(countryCode)) return 'ZONE_3';
       return null;
     }
 
