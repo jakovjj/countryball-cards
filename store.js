@@ -231,6 +231,14 @@
         return;
       }
 
+      const copyEl = preorderDialog.querySelector('.preorder-modal-copy');
+      if (copyEl) {
+        const basePrice = Number(price);
+        const delivery = getDeliveryAmountForZone(selectedZone);
+        const total = (Number.isFinite(basePrice) ? basePrice : 0) + delivery;
+        copyEl.textContent = `Your total will be ${formatUsd(total)}. We'll open a secure Stripe checkout so you can finish your pre-order. You'll receive a receipt after checkout.`;
+      }
+
       const titleEl = document.getElementById('preorderConfirmTitle');
       if (titleEl) {
         const flag = selectedCountry && COUNTRY_MAP[selectedCountry] ? COUNTRY_MAP[selectedCountry].flag : '';
@@ -331,6 +339,36 @@
       `;
     }
 
+    function getDeliveryLabelForZone(zone) {
+      switch (zone) {
+        case 'ZONE_1':
+          return '($5.40 delivery)';
+        case 'ZONE_2':
+          return '($12.20 delivery)';
+        default:
+          return '';
+      }
+    }
+
+    function getDeliveryAmountForZone(zone) {
+      switch (zone) {
+        case 'ZONE_1':
+          return 5.40;
+        case 'ZONE_2':
+          return 12.20;
+        default:
+          return 0;
+      }
+    }
+
+    function formatUsd(amount) {
+      const numeric = Number(amount);
+      if (!Number.isFinite(numeric)) {
+        return '$0.00';
+      }
+      return `$${numeric.toFixed(2)}`;
+    }
+
     function persistStoredCountry(code) {
       try {
         localStorage.setItem(LAST_COUNTRY_STORAGE_KEY, code);
@@ -397,7 +435,7 @@
         item.tabIndex = -1;
         item.innerHTML = `
           <span class="country-option-left">${option.flag} ${option.label}</span>
-          <span class="zone-label">(Zone ${option.zone.slice(-1)})</span>
+          <span class="zone-label">${getDeliveryLabelForZone(option.zone)}</span>
         `;
         item.addEventListener('click', () => selectCountry(option.code));
         item.addEventListener('keydown', event => {
@@ -575,7 +613,7 @@
       if (hiddenInput) {
         hiddenInput.value = countryCode;
       }
-      setDropdownLabel(`${option.flag} ${option.label}`, `(Zone ${option.zone.slice(-1)})`);
+      setDropdownLabel(`${option.flag} ${option.label}`, getDeliveryLabelForZone(option.zone));
       highlightActiveCountryOption(countryCode);
       closeCountryDropdown();
       handleCountrySelection(countryCode);
