@@ -241,32 +241,6 @@
     })();
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=659591973725729&ev=PageView&noscript=1" /></noscript>
-
-  <script>
-    (function(){
-      var params = new URLSearchParams(window.location.search || '');
-      var edition = (params.get('edition') || '').trim().toUpperCase();
-
-      var prices = {
-        BASE: 30,
-        EXTENDED: 45,
-        FOUNDER: 65
-      };
-
-      var value = prices[edition];
-      if (!value) return;
-
-      var payload = {
-        value: value,
-        currency: 'USD',
-        edition: edition
-      };
-
-      if (typeof fbq === 'function') {
-        fbq('track', 'Purchase', payload);
-      }
-    })();
-  </script>
 </head>
 <body>
   <header class="site-topbar" role="banner">
@@ -892,7 +866,19 @@
         });
       }
 
-      if (typeof fbq !== 'undefined') {
+      // Prevent double-counting if multiple scripts run or the page is reloaded.
+      // Uses querystring (if any) as a stable per-purchase key.
+      try {
+        const purchaseKey = 'cbc_meta_purchase_tracked:' + (window.location.pathname || '/success.html') + (window.location.search || '');
+        if (window.sessionStorage && sessionStorage.getItem(purchaseKey) === '1') return;
+        if (window.sessionStorage) sessionStorage.setItem(purchaseKey, '1');
+      } catch (_) {
+        // ignore storage errors; still attempt to fire once per load
+        if (window.__cbcMetaPurchaseTracked) return;
+        window.__cbcMetaPurchaseTracked = true;
+      }
+
+      if (typeof fbq === 'function') {
         if (params.value !== null) {
           fbq('track', 'Purchase', { value: params.value, currency: params.currency });
         } else {
