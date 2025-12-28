@@ -1179,6 +1179,8 @@ function initScrollGradient() {
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
 
+  const isCoarsePointer = () => !!(window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches);
+
   const isMobileViewport = () => window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
 
   function applyGradientFrom(el) {
@@ -1198,6 +1200,16 @@ function initScrollGradient() {
     root.style.setProperty('--bg-grad-1', bg1);
     root.style.setProperty('--bg-grad-2', bg2);
     root.style.setProperty('--bg-grad-3', bg3);
+
+    // Mobile reliability: some mobile browsers are flaky repainting gradients driven
+    // purely via CSS custom properties on the root element.
+    if (isMobileViewport() || isCoarsePointer()) {
+      const gradient = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 25%, ${bg3} 50%, ${bg2} 75%, ${bg1} 100%)`;
+      root.style.background = gradient;
+      if (document.body) {
+        document.body.style.background = gradient;
+      }
+    }
   }
 
   // Apply something immediately (first target by default, then observer/scroll will correct it).
@@ -1275,6 +1287,14 @@ function initScrollGradient() {
     observer.observe(el);
   }
 }
+
+// Kick off scroll-driven background gradient.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initScrollGradient, { once: true });
+} else {
+  initScrollGradient();
+}
+window.addEventListener('load', initScrollGradient, { once: true });
 
 // Inline Email Form Handler
 document.addEventListener('DOMContentLoaded', function() {

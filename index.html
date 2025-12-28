@@ -322,7 +322,7 @@
     /* Ensure dark background on mobile */
     @media (max-width: 768px) {
       html { background-attachment: scroll; }
-      body { background: transparent !important; background-attachment: scroll; }
+      body { background-attachment: scroll; }
     }
     @media (hover: none) and (pointer: coarse) {
       html { background-attachment: scroll; }
@@ -1099,7 +1099,7 @@
 
         <div class="golden-separator"></div>
 
-        <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#0f0f1e" data-bg2="#171434" data-bg3="#22164a" data-mbg1="#160a2a" data-mbg2="#2a0f55" data-mbg3="#3f0d7f">
+        <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
           <img src="assets/box_art-720.webp" srcset="assets/box_art-320.webp 320w, assets/box_art-480.webp 480w, assets/box_art-640.webp 640w, assets/box_art-720.webp 720w, assets/box_art-960.webp 960w" sizes="(max-width: 800px) 92vw, 720px" width="1067" height="533" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
 
@@ -1125,7 +1125,7 @@
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/us.webp" alt="" loading="lazy"></span>
                 <span class="how-step-number">2</span>
                 <h3>We produce + update</h3>
-                <p>Monthly progress updates during manufacturing via Email. Click here to see our last post, the <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts/4566272" target="_blank" rel="noopener"><strong>December Progress Update</strong></a>!</p>
+                <p>Monthly progress updates during manufacturing via Email. Click here to see our last post, the <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts/4566272" target="_blank" rel="noopener">December Progress Update</a>!</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.webp" alt="" loading="lazy"></span>
@@ -1599,6 +1599,12 @@
         root.style.setProperty('--bg-grad-1', bg1);
         root.style.setProperty('--bg-grad-2', bg2);
         root.style.setProperty('--bg-grad-3', bg3);
+
+        // Mobile reliability: also set an explicit background so we don't depend on
+        // CSS custom-property painting quirks on some mobile browsers.
+        const gradient = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 25%, ${bg3} 50%, ${bg2} 75%, ${bg1} 100%)`;
+        root.style.background = gradient;
+        if (document.body) document.body.style.background = gradient;
       }
 
       function pickClosestToCenter() {
