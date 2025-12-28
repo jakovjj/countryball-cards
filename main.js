@@ -258,6 +258,24 @@ function initCardPeekCarousel() {
     return;
   }
 
+  let userInteracted = false;
+  function markUserInteracted() { userInteracted = true; }
+  prevBtn.addEventListener('click', markUserInteracted);
+  nextBtn.addEventListener('click', markUserInteracted);
+  viewport.addEventListener('pointerdown', markUserInteracted, { once: true });
+  viewport.addEventListener('touchstart', markUserInteracted, { once: true, passive: true });
+
+  // Center the carousel by default (show the middle of the track) instead of
+  // starting at the far left.
+  requestAnimationFrame(() => {
+    if (userInteracted) return;
+    if (viewport.scrollLeft > 1) return;
+    const maxScrollLeft = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    if (maxScrollLeft > 0) {
+      viewport.scrollLeft = Math.round(maxScrollLeft / 2);
+    }
+  });
+
   function scrollAmount() {
     const base = viewport.clientWidth || 300;
     // On <=600px we use snap points; scroll exactly one card per click (no half cards).
@@ -298,6 +316,7 @@ function initCardPeekCarousel() {
   nextBtn.addEventListener('click', () => scrollByDirection(1));
 
   viewport.addEventListener('wheel', event => {
+    userInteracted = true;
     if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
       event.preventDefault();
       viewport.scrollBy({ left: event.deltaY, behavior: 'auto' });

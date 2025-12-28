@@ -593,6 +593,10 @@
     .hero-video-cta{margin-top:14px;display:flex;justify-content:center}
     .hero-video-cta .store-btn{width:100% !important;max-width:100% !important;min-width:0 !important}
     .hero-video-cta .hero-buy-btn img{max-width:100%}
+    .hero-video-cta{flex-direction:column;align-items:center;gap:10px}
+    .hero-video-cta .pre-footer-buy-kicker{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:0.2px;text-align:center}
+    .hero-video-cta .hero-buy-btn{padding:14px 22px !important;border-radius:16px !important}
+    .hero-video-cta .hero-buy-btn img{height:36px;max-width:360px}
     .availability-checker{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin:32px 0;text-align:center}
     .availability-checker h3{margin:0 0 8px;color:var(--text);font-size:22px}
     .availability-checker p{margin:0 0 16px;color:var(--muted)}
@@ -700,7 +704,7 @@
     .packages-compare-table .feature-col{text-align:left;color:var(--text);font-weight:800;width:38%;font-size:15px;line-height:1.35}
     .packages-compare-table .feature-subtle{color:var(--muted);font-weight:700}
     .packages-compare-table .edition-col{text-align:center;width:18.666%}
-    .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:28px;letter-spacing:1px;font-style:italic;text-transform:uppercase;text-shadow:0 0 12px rgba(255,255,255,0.22),0 0 22px rgba(251,191,36,0.25),0 0 22px rgba(59,130,246,0.18);text-align:center}
+    .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:30px;font-weight:700;letter-spacing:0;font-style:normal;text-transform:none;text-shadow:none;text-align:center}
     .packages-comparison-title::before,.packages-comparison-title::after{display:none}
 
     /* Avoid a brief "unstyled images" flash on reload while the async stylesheet loads */
@@ -801,15 +805,15 @@
     .card-peek-nav:active{transform:translateY(-50%) scale(0.98)}
     .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
     @media(max-width:600px){
-      /* Keep the peek cards from feeling oversized on small screens */
+      /* Ensure 3 cards are visible on small screens */
       .card-peek-track{gap:14px}
-      .card-peek-image{width:min(74vw, 320px)}
+      .card-peek-image{width:clamp(72px, calc((100vw - 52px) / 3), 160px)}
 
-      /* Reserve space so overlay arrows don't sit on top of the card art */
-      .card-peek-window{padding:0 56px}
+      /* Keep padding tight so 3-up can fit; nav buttons may overlap slightly */
+      .card-peek-window{padding:0 12px}
 
       /* Slightly smaller buttons on mobile */
-      .card-peek-nav{width:40px;height:40px;font-size:30px}
+      .card-peek-nav{width:40px;height:40px;font-size:30px;opacity:0.80;background:rgba(10,13,22,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
       #cardPeekPrev{left:8px}
       #cardPeekNext{right:8px}
     }
@@ -851,6 +855,7 @@
     @media(max-width:768px){
       .video-container{max-width:100%}
       .packages-hero .sub{font-size:16px}
+      .packages-comparison-title{font-size:24px}
       .package-bar-content{flex-direction:column;align-items:flex-start}
       .package-btn{width:100%;min-width:0}
       .packages-bottom-cta .cta{flex-direction:column}
@@ -1003,6 +1008,8 @@
             <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#10095;</button>
           </div>
         </section>
+
+        <div class="golden-separator"></div>
 
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
@@ -1251,6 +1258,13 @@
       <div class="golden-separator"></div>
       <div class="art" style="margin-top:32px"></div>
     </div>
+  </div>
+
+  <div class="hero-video hero-video-cta" aria-label="Buy Countryball Cards">
+    <div class="pre-footer-buy-kicker">Ready to lock it in?</div>
+    <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('footer_buy_now');">
+      <img src="assets/buynow.webp" alt="Buy now" loading="lazy" decoding="async">
+    </a>
   </div>
 
   <footer class="site-footer" role="contentinfo" aria-label="Site footer">
