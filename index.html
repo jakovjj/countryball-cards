@@ -784,6 +784,36 @@
     .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:20px 0 12px;color:#f9fafb;text-align:center;font-size:15px}
     .payment-note span{opacity:0.85}
     .duty-paid-note{margin:0 auto 6px;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
+    .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
+    .game-explainer-grid{margin:0 auto;max-width:1080px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:start}
+    @media(max-width:900px){
+      .game-explainer-grid{grid-template-columns:1fr;gap:14px}
+    }
+    .game-explainer-left{padding:16px 16px 14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);text-align:left}
+    @media(max-width:900px){
+      .game-explainer-left{padding:14px}
+    }
+    .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:16px;line-height:1.55;font-weight:750}
+    .game-explainer-lede strong{color:var(--gold)}
+    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:10px;text-align:left}
+    .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:12px 12px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
+    .game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
+    .game-explainer-bullets strong{color:var(--text)}
+    .game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
+    .game-crash-course{margin:0 auto;text-align:left;padding:14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
+    .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text)}
+    .crash-course-title span{color:var(--gold)}
+    .crash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    @media(max-width:420px){
+      .crash-grid{grid-template-columns:1fr}
+    }
+    .crash-card{padding:12px 12px 10px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10)}
+    .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text)}
+    .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
+    .crash-card strong{color:var(--gold)}
+    .game-crash-course-link{margin:12px 0 0;display:block}
+    .rules-pdf-link{color:var(--gold);font-weight:800;text-decoration:underline;text-underline-offset:4px}
+    .rules-pdf-link:hover{filter:brightness(1.1)}
     .contents-showcase{text-align:center;margin:32px auto 16px;padding:0;border:none;border-radius:0;background:transparent;box-shadow:none}
     .contents-subtitle{display:none}
     .contents-image{max-width:1080px;width:100%;height:auto;display:block;margin:0 auto;border:none;border-radius:0;box-shadow:none;background:transparent}
@@ -960,6 +990,46 @@
         <!-- Trailer moved to the top hero section -->
 
         <!-- Shipping selection now happens in a modal when you click Pre-order. -->
+
+        <section class="game-explainer" aria-labelledby="gameExplainerTitle">
+          <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
+          <div class="game-explainer-grid">
+            <div class="game-explainer-left">
+              <div class="game-explainer-lede">Draft your dream countryball team. Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
+              <ul class="game-explainer-bullets" aria-label="Game highlights">
+                <li><span><strong><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
+                <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
+                <li><span><strong>Win with brains, not luck:</strong> smart decisions with coins + resources decide who snowballs and who gets rolled.</span></li>
+                <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> unique countries. (Even more with the Extended Edition)</span></li>
+              </ul>
+            </div>
+
+            <aside class="game-crash-course" aria-label="Rules crash course">
+              <h4 class="crash-course-title"><span>Crash</span> Course</h4>
+              <div class="crash-grid" aria-label="Quick rules overview">
+                <div class="crash-card">
+                  <h4>1. Setup</h4>
+                  <p>Both players draw <strong>2 cards</strong>, keep <strong>1</strong>, discard the other (repeat <strong>3</strong>x). Set the market with resource dice, then decide who starts.</p>
+                </div>
+                <div class="crash-card">
+                  <h4>2. Your Turn</h4>
+                  <p>Gain <strong>coins</strong> (10x first turn, 5x for the rest of the game), buy/sell resources, use abilities (pay costs), then attack enemies.</p>
+                </div>
+                <div class="crash-card">
+                  <h4>3. Abilities</h4>
+                  <p>Some abilities require a die roll. Meet the number shown to succeed; attacks deal damage and can stun.</p>
+                </div>
+                <div class="crash-card">
+                  <h4>4. Win</h4>
+                  <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). Last player standing wins.</p>
+                </div>
+              </div>
+              <div class="game-crash-course-link">
+                <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download rules.pdf for full rules</a>
+              </div>
+            </aside>
+          </div>
+        </section>
 
         <div class="contents-showcase" id="whatsInside">
           <picture>
