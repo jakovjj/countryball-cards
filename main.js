@@ -1201,14 +1201,11 @@ function initScrollGradient() {
     root.style.setProperty('--bg-grad-2', bg2);
     root.style.setProperty('--bg-grad-3', bg3);
 
-    // Mobile reliability: some mobile browsers are flaky repainting gradients driven
-    // purely via CSS custom properties on the root element.
-    if (isMobileViewport() || isCoarsePointer()) {
-      const gradient = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 25%, ${bg3} 50%, ${bg2} 75%, ${bg1} 100%)`;
-      root.style.background = gradient;
-      if (document.body) {
-        document.body.style.background = gradient;
-      }
+    // Keep transitions smooth: don't overwrite `background` with a new gradient string.
+    // Let the CSS gradient interpolate via the registered custom properties.
+    root.style.removeProperty('background');
+    if (document.body) {
+      document.body.style.removeProperty('background');
     }
   }
 

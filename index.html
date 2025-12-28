@@ -813,7 +813,7 @@
     @media(max-width:900px){
       .game-explainer-left{padding:14px}
     }
-    .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:16px;line-height:1.55;font-weight:750}
+    .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:750}
     .game-explainer-lede strong{color:var(--gold)}
     .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:10px;text-align:left}
     .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:12px 12px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
@@ -1020,7 +1020,7 @@
           <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
           <div class="game-explainer-grid">
             <div class="game-explainer-left">
-              <div class="game-explainer-lede">Draft your dream countryball team. Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
+              <div class="game-explainer-lede">Countryball Cards is a tabletop card game in which you draft your very own team of countryballs! Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
               <ul class="game-explainer-bullets" aria-label="Game highlights">
                 <li><span><strong><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
                 <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
@@ -1600,11 +1600,10 @@
         root.style.setProperty('--bg-grad-2', bg2);
         root.style.setProperty('--bg-grad-3', bg3);
 
-        // Mobile reliability: also set an explicit background so we don't depend on
-        // CSS custom-property painting quirks on some mobile browsers.
-        const gradient = `linear-gradient(135deg, ${bg1} 0%, ${bg2} 25%, ${bg3} 50%, ${bg2} 75%, ${bg1} 100%)`;
-        root.style.background = gradient;
-        if (document.body) document.body.style.background = gradient;
+        // Preserve smooth transitions: don't overwrite `background` with a new gradient string.
+        // Let the CSS gradient interpolate via the registered custom properties.
+        root.style.removeProperty('background');
+        if (document.body) document.body.style.removeProperty('background');
       }
 
       function pickClosestToCenter() {
