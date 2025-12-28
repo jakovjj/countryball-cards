@@ -108,7 +108,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2025122803" />
+  <link rel="preload" as="style" href="styles.css?v=2025122804" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -289,9 +289,9 @@
     @property --bg-grad-2 { syntax: '<color>'; inherits: true; initial-value: #1e293b; }
     @property --bg-grad-3 { syntax: '<color>'; inherits: true; initial-value: #334155; }
     :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;--bg-grad-1:#0f1419;--bg-grad-2:#1e293b;--bg-grad-3:#334155;color-scheme:dark}
-    html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+    html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
     *{box-sizing:border-box;max-width:100%}
-    body{margin:0;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
+    body{margin:0;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
     
     /* Background overlay patterns */
     body::before {
@@ -321,12 +321,11 @@
     
     /* Ensure dark background on mobile */
     @media (max-width: 768px) {
-      body {
-        background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%) !important;
-        background-attachment: scroll;
-      }
+      html { background-attachment: scroll; }
+      body { background: transparent !important; background-attachment: scroll; }
     }
     @media (hover: none) and (pointer: coarse) {
+      html { background-attachment: scroll; }
       body { background-attachment: scroll; }
     }
     @media (prefers-color-scheme: light) {
@@ -578,7 +577,13 @@
     .video-showcase{text-align:center;margin:40px 0;padding:0 12px}
     .video-showcase h2{font-size:32px;margin-bottom:20px;color:var(--text)}
     .video-container{position:relative;width:100%;max-width:100%;margin:0 auto;padding-bottom:56.25%;border-radius:18px;overflow:hidden;background:rgba(15,20,30,0.72);border:1px solid rgba(255,255,255,0.10);box-shadow:0 18px 45px rgba(0,0,0,0.38);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform:translateZ(0);transition:transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease}
-    .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;z-index:1}
+    .yt-poster{display:none;position:absolute;inset:0;z-index:5;align-items:center;justify-content:center;padding:0;border:0;background:transparent;cursor:pointer}
+    .video-container.yt-poster-ready .yt-poster{display:flex}
+    .video-container.is-playing .yt-poster{display:none}
+    .yt-poster-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .yt-poster-play{position:relative;display:block;width:74px;height:74px;border-radius:999px;background:rgba(15,20,30,0.72);border:1px solid rgba(255,255,255,0.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 18px 45px rgba(0,0,0,0.45)}
+    .yt-poster-play::before{content:'';position:absolute;left:30px;top:22px;border-style:solid;border-width:15px 0 15px 22px;border-color:transparent transparent transparent rgba(249,250,251,0.92)}
     .video-container::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 18%, rgba(251,191,36,0.16), transparent 45%),radial-gradient(circle at 86% 80%, rgba(59,130,246,0.12), transparent 48%),linear-gradient(135deg, rgba(255,255,255,0.08), transparent 55%);opacity:0.55;pointer-events:none;mix-blend-mode:screen;transition:opacity 240ms ease}
     .video-container::after{content:'';position:absolute;inset:-35%;background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);opacity:0;transform:translateX(-18%);pointer-events:none;transition:opacity 240ms ease, transform 650ms ease}
     .video-container:hover{transform:translateY(-2px);border-color:rgba(251,191,36,0.24);box-shadow:0 24px 70px rgba(0,0,0,0.50)}
@@ -926,14 +931,14 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2025122803" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
+  <link rel="preload" href="styles.css?v=2025122804" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2025122803">
+    <link rel="stylesheet" href="styles.css?v=2025122804">
     <style>html .card-peek-section,html .how-step-flag{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2025122803" as="script">
+  <link rel="preload" href="main.js?v=2025122804" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -978,12 +983,16 @@
   </header>
   <div class="wrap">
     <div class="frame">
-      <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#0a1028" data-mbg2="#0c1a3d" data-mbg3="#10245a">
+      <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#07152b" data-mbg2="#0a2a55" data-mbg3="#0d3f7f">
         <div class="hero-video" aria-label="Countryball Cards trailer video">
-          <div class="video-container">
+          <div class="video-container" id="trailerContainer">
+            <button class="yt-poster" type="button" aria-label="Play trailer" data-autoplay-src="https://www.youtube.com/embed/78IQgH0lY60?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080">
+              <img class="yt-poster-img" src="https://i.ytimg.com/vi/78IQgH0lY60/maxresdefault.jpg" srcset="https://i.ytimg.com/vi/78IQgH0lY60/maxresdefault.jpg 1280w, https://i.ytimg.com/vi/78IQgH0lY60/hqdefault.jpg 480w" sizes="100vw" alt="Countryball Cards trailer thumbnail" loading="eager" decoding="async">
+              <span class="yt-poster-play" aria-hidden="true"></span>
+            </button>
             <iframe
               id="trailerIframe"
-              src="https://www.youtube.com/embed/78IQgH0lY60?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1"
+              src="https://www.youtube.com/embed/78IQgH0lY60?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080"
               title="Countryball Cards Trailer"
               loading="lazy"
               allowfullscreen
@@ -1007,7 +1016,7 @@
 
         <!-- Shipping selection now happens in a modal when you click Pre-order. -->
 
-        <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#07161a" data-mbg2="#083032" data-mbg3="#0a4a3f">
+        <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
           <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
           <div class="game-explainer-grid">
             <div class="game-explainer-left">
@@ -1090,7 +1099,7 @@
 
         <div class="golden-separator"></div>
 
-        <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#0f0f1e" data-bg2="#171434" data-bg3="#22164a" data-mbg1="#120c22" data-mbg2="#1c1240" data-mbg3="#2a175f">
+        <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#0f0f1e" data-bg2="#171434" data-bg3="#22164a" data-mbg1="#160a2a" data-mbg2="#2a0f55" data-mbg3="#3f0d7f">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
           <img src="assets/box_art-720.webp" srcset="assets/box_art-320.webp 320w, assets/box_art-480.webp 480w, assets/box_art-640.webp 640w, assets/box_art-720.webp 720w, assets/box_art-960.webp 960w" sizes="(max-width: 800px) 92vw, 720px" width="1067" height="533" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
 
@@ -1288,7 +1297,7 @@
       <div class="golden-separator"></div>
 
       <!-- FAQ Section -->
-      <section class="faq-section" aria-labelledby="faqTitle" data-scroll-gradient data-bg1="#14120b" data-bg2="#1f1a0d" data-bg3="#2b230f" data-mbg1="#191406" data-mbg2="#2a2209" data-mbg3="#3b2f0b">
+      <section class="faq-section" aria-labelledby="faqTitle" data-scroll-gradient data-bg1="#14120b" data-bg2="#1f1a0d" data-bg3="#2b230f" data-mbg1="#1d1807" data-mbg2="#3d320a" data-mbg3="#5d4c0c">
         <h2 id="faqTitle">Frequently Asked Questions</h2>
         <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
         <ul class="faq-list">
@@ -1569,7 +1578,85 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2025122803" defer></script>
+  <script src="main.js?v=2025122804" defer></script>
+
+  <script>
+    // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
+    (function() {
+      const targets = Array.from(document.querySelectorAll('[data-scroll-gradient]'));
+      if (!targets.length) return;
+
+      const root = document.documentElement;
+      const isMobile = () => !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
+
+      function applyFrom(el) {
+        if (!el || !el.dataset) return;
+        const useMobile = isMobile();
+        const bg1 = (useMobile && el.dataset.mbg1) ? el.dataset.mbg1 : el.dataset.bg1;
+        const bg2 = (useMobile && el.dataset.mbg2) ? el.dataset.mbg2 : el.dataset.bg2;
+        const bg3 = (useMobile && el.dataset.mbg3) ? el.dataset.mbg3 : el.dataset.bg3;
+        if (!bg1 || !bg2 || !bg3) return;
+        root.style.setProperty('--bg-grad-1', bg1);
+        root.style.setProperty('--bg-grad-2', bg2);
+        root.style.setProperty('--bg-grad-3', bg3);
+      }
+
+      function pickClosestToCenter() {
+        const centerY = window.innerHeight * 0.5;
+        let best = null;
+        let bestDist = Infinity;
+        for (const el of targets) {
+          const rect = el.getBoundingClientRect();
+          const elCenter = rect.top + rect.height * 0.5;
+          const dist = Math.abs(elCenter - centerY);
+          if (dist < bestDist) {
+            bestDist = dist;
+            best = el;
+          }
+        }
+        if (best) applyFrom(best);
+      }
+
+      let rafPending = false;
+      function schedule() {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          rafPending = false;
+          pickClosestToCenter();
+        });
+      }
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
+      window.addEventListener('orientationchange', schedule);
+
+      // Prime initial state.
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', schedule, { once: true });
+      } else {
+        schedule();
+      }
+      window.addEventListener('load', schedule, { once: true });
+    })();
+  </script>
+
+  <script>
+    // Trailer thumbnail: show crisp poster overlay, then start playback on tap.
+    (function() {
+      const container = document.getElementById('trailerContainer');
+      const poster = container ? container.querySelector('.yt-poster') : null;
+      const iframe = document.getElementById('trailerIframe');
+      if (!container || !poster || !iframe) return;
+
+      container.classList.add('yt-poster-ready');
+      poster.addEventListener('click', function() {
+        container.classList.add('is-playing');
+        const autoplaySrc = poster.getAttribute('data-autoplay-src');
+        if (autoplaySrc) iframe.setAttribute('src', autoplaySrc);
+      });
+    })();
+  </script>
 
   <script>
     (function() {
