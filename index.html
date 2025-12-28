@@ -411,9 +411,8 @@
     .countdown-number{font-size:28px;font-weight:800;color:var(--text);min-width:40px;display:inline-block}
     .countdown-separator{font-size:24px;font-weight:700;color:var(--text);opacity:0.7}
     .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:0;position:relative;align-items:center;flex-direction:column;padding:16px 0 28px;z-index:1;overflow-x:hidden;overflow-y:visible;contain:paint}
-    .logo-section::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100vw);max-width:100%;background:url('assets/background.webp') center top/cover no-repeat;opacity:0.40;filter:blur(0.5px);pointer-events:none;z-index:0;border-radius:28px;-webkit-mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:100% 100%;mask-size:100% 100%}
+    .logo-section::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100vw);max-width:100%;background:radial-gradient(circle at 22% 35%, rgba(251,191,36,0.16) 0%, transparent 52%),radial-gradient(circle at 78% 70%, rgba(59,130,246,0.12) 0%, transparent 56%),linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));opacity:1;filter:none;pointer-events:none;z-index:0;border-radius:28px;-webkit-mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:100% 100%;mask-size:100% 100%}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
-    .hero-top-cta{margin-top:14px;position:relative;z-index:1;display:flex;justify-content:center}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:18px 32px !important;border-radius:18px !important;position:relative;
       background:linear-gradient(135deg, rgba(5,206,120,0.22) 0%, rgba(59,130,246,0.12) 55%, rgba(251,191,36,0.08) 100%) !important;
       border:3px solid rgba(5,206,120,0.50) !important;
@@ -575,8 +574,25 @@
     .kickstarter-success-banner strong{color:#10b981;font-weight:700}
     .video-showcase{text-align:center;margin:40px 0;padding:0 12px}
     .video-showcase h2{font-size:32px;margin-bottom:20px;color:var(--text)}
-    .video-container{position:relative;width:100%;max-width:100%;margin:0 auto;padding-bottom:56.25%;border-radius:16px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.4)}
+    .video-container{position:relative;width:100%;max-width:100%;margin:0 auto;padding-bottom:56.25%;border-radius:18px;overflow:hidden;background:rgba(15,20,30,0.72);border:1px solid rgba(255,255,255,0.10);box-shadow:0 18px 45px rgba(0,0,0,0.38);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform:translateZ(0);transition:transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease}
     .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .video-container::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 18%, rgba(251,191,36,0.16), transparent 45%),radial-gradient(circle at 86% 80%, rgba(59,130,246,0.12), transparent 48%),linear-gradient(135deg, rgba(255,255,255,0.08), transparent 55%);opacity:0.55;pointer-events:none;mix-blend-mode:screen;transition:opacity 240ms ease}
+    .video-container::after{content:'';position:absolute;inset:-35%;background:linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);opacity:0;transform:translateX(-18%);pointer-events:none;transition:opacity 240ms ease, transform 650ms ease}
+    .video-container:hover{transform:translateY(-2px);border-color:rgba(251,191,36,0.24);box-shadow:0 24px 70px rgba(0,0,0,0.50)}
+    .video-container:hover::before{opacity:0.75}
+    .video-container:hover::after{opacity:0.65;transform:translateX(18%)}
+    .video-container:focus-within{outline:2px solid rgba(251,191,36,0.55);outline-offset:4px;border-color:rgba(251,191,36,0.30);box-shadow:0 0 0 1px rgba(251,191,36,0.18),0 26px 80px rgba(0,0,0,0.55)}
+
+    @media (prefers-reduced-motion: reduce){
+      .video-container{transition:none}
+      .video-container::before,.video-container::after{transition:none}
+      .video-container:hover{transform:none}
+      .video-container:hover::after{transform:none}
+    }
+    .hero-video{width:min(980px,92vw);margin:10px auto 0;position:relative;z-index:1}
+    .hero-video-cta{margin-top:14px;display:flex;justify-content:center}
+    .hero-video-cta .store-btn{width:100% !important;max-width:100% !important;min-width:0 !important}
+    .hero-video-cta .hero-buy-btn img{max-width:100%}
     .availability-checker{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin:32px 0;text-align:center}
     .availability-checker h3{margin:0 0 8px;color:var(--text);font-size:22px}
     .availability-checker p{margin:0 0 16px;color:var(--muted)}
@@ -912,22 +928,8 @@
   </header>
   <div class="wrap">
     <div class="frame">
-      <div class="logo-section" aria-label="Countryball Cards logo">
-        <img src="logo-320.webp" srcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" sizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" width="1882" height="2500" alt="Countryball Cards logo" class="logo" loading="eager" decoding="async" fetchpriority="high">
-        <div class="hero-top-cta">
-          <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('hero_buy_now');">
-            <img src="assets/buynow.webp" alt="Buy now" loading="eager" decoding="async">
-          </a>
-        </div>
-      </div>
-      <div class="golden-separator logo-separator"></div>
-      <a class="progress-update-extension" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts/4566272" aria-label="Read the December progress update on Kickstarter">
-        <img class="progress-update-extension-image" src="assets/december_update_light.png" alt="December progress update" loading="eager" decoding="async">
-      </a>
-
-      <section id="storeSection" class="store-section">
-
-        <div class="video-showcase" aria-labelledby="videoShowcaseTitle">
+      <div class="logo-section" aria-label="Countryball Cards trailer">
+        <div class="hero-video" aria-label="Countryball Cards trailer video">
           <div class="video-container">
             <iframe
               id="trailerIframe"
@@ -938,10 +940,19 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
           </div>
-          <p style="color:var(--muted);margin-top:12px;font-size:15px">
-            Prefer watching on YouTube? <a href="https://www.youtube.com/watch?v=78IQgH0lY60" target="_blank" rel="noopener" style="color:var(--gold)">Open the trailer in a new tab</a>.
-          </p>
+
+          <div class="hero-video-cta">
+            <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('hero_buy_now');">
+              <img src="assets/buynow.webp" alt="Buy now" loading="eager" decoding="async">
+            </a>
+          </div>
         </div>
+      </div>
+      <div class="golden-separator logo-separator"></div>
+
+      <section id="storeSection" class="store-section">
+
+        <!-- Trailer moved to the top hero section -->
 
         <!-- Shipping selection now happens in a modal when you click Pre-order. -->
 
@@ -1012,13 +1023,13 @@
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/us.webp" alt="" loading="lazy"></span>
                 <span class="how-step-number">2</span>
                 <h3>We produce + update</h3>
-                <p>Monthly progress updates during manufacturing via Email.</p>
+                <p>Monthly progress updates during manufacturing via Email. Click here to see our last post, the <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts/4566272" target="_blank" rel="noopener"><strong>December Progress Update</strong></a>!</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.webp" alt="" loading="lazy"></span>
                 <span class="how-step-number">3</span>
                 <h3>Ships Early 2026</h3>
-                <p>Delivered to your doorstep when fulfillment opens (Feb/Mar 2026).</p>
+                <p>Your very own copy of Countryball Cards gets delivered to your doorstep when fulfillment opens Feb/Mar 2026.</p>
               </article>
             </div>
           </section>
