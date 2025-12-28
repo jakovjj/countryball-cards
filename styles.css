@@ -1,7 +1,11 @@
-:root { --bg:#0f1419; --card:#1a1f2e; --gold:#fbbf24; --text:#f9fafb; --muted:#9ca3af; --accent:#3b82f6; }
+:root { --bg:#0f1419; --card:#1a1f2e; --gold:#fbbf24; --text:#f9fafb; --muted:#9ca3af; --accent:#3b82f6; --bg-grad-1:#0f1419; --bg-grad-2:#1e293b; --bg-grad-3:#334155; }
+
+@property --bg-grad-1 { syntax: '<color>'; inherits: true; initial-value: #0f1419; }
+@property --bg-grad-2 { syntax: '<color>'; inherits: true; initial-value: #1e293b; }
+@property --bg-grad-3 { syntax: '<color>'; inherits: true; initial-value: #334155; }
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:var(--bg);overflow-x:hidden;overflow-x:clip;width:100%;max-width:100%}
 *{box-sizing:border-box;max-width:100%}
-body{margin:0;min-height:100dvh;background:linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%);background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;overflow-x:clip;position:relative;width:100%;max-width:100%}
+body{margin:0;min-height:100dvh;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;overflow-x:clip;position:relative;width:100%;max-width:100%;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
 
 @media (hover: none) and (pointer: coarse) {
   body{background-attachment:scroll}
@@ -26,11 +30,21 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), 
-              radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.035) 0%, transparent 55%), 
+              radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.035) 0%, transparent 55%);
   pointer-events: none;
   z-index: -1;
 }
+
+.trust-strip{display:flex;flex-wrap:nowrap;justify-content:center;gap:10px;margin:14px 0 0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;max-width:100%}
+.trust-strip::-webkit-scrollbar{display:none}
+.trust-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.15px;opacity:0.92;transition:opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;flex:0 0 auto;white-space:nowrap}
+.trust-pill:hover{opacity:1;transform:translateY(-1px);border-color:rgba(255,255,255,0.18)}
+.trust-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.trust-pill.kickstarter{border-color:rgba(5,206,120,0.35)}
+.trust-pill.kickstarter:hover{border-color:rgba(5,206,120,0.55)}
+.trust-pill-muted{font-weight:700;opacity:0.95}
+@media(max-width:1199.98px){.trust-strip{display:none}}
 
 /* Sticky top header (used on index.html) */
 .site-topbar{

@@ -108,7 +108,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2025090701" />
+  <link rel="preload" as="style" href="styles.css?v=2025122803" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -285,10 +285,13 @@
   
   <!-- Critical CSS (above-the-fold) -->
   <style>
-    :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;color-scheme:dark}
+    @property --bg-grad-1 { syntax: '<color>'; inherits: true; initial-value: #0f1419; }
+    @property --bg-grad-2 { syntax: '<color>'; inherits: true; initial-value: #1e293b; }
+    @property --bg-grad-3 { syntax: '<color>'; inherits: true; initial-value: #334155; }
+    :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;--bg-grad-1:#0f1419;--bg-grad-2:#1e293b;--bg-grad-3:#334155;color-scheme:dark}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
     *{box-sizing:border-box;max-width:100%}
-    body{margin:0;background:linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%);background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative}
+    body{margin:0;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
     
     /* Background overlay patterns */
     body::before {
@@ -310,8 +313,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), 
-                  radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+      background: radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.035) 0%, transparent 55%), 
+                  radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.035) 0%, transparent 55%);
       pointer-events: none;
       z-index: -1;
     }
@@ -319,7 +322,7 @@
     /* Ensure dark background on mobile */
     @media (max-width: 768px) {
       body {
-        background: linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%) !important;
+        background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%) !important;
         background-attachment: scroll;
       }
     }
@@ -328,7 +331,7 @@
     }
     @media (prefers-color-scheme: light) {
       body {
-        background: linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%) !important;
+        background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%) !important;
         color: var(--text);
       }
     }
@@ -568,7 +571,7 @@
     #storeSection,#editionComparison{scroll-margin-top:90px}
     .store-section{margin:40px 0 48px 0}
     .packages-hero{text-align:center;margin-bottom:24px}
-    .packages-hero h1{font-size:clamp(32px,5.2vw,54px);margin:0;color:var(--text);background:linear-gradient(120deg,#fff7d6,#fde68a,#bae6fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
+    .packages-hero h1{font-size:clamp(32px,5.2vw,54px);margin:0;color:var(--text);background:linear-gradient(120deg,#fff7d6,#fde68a,#bae6fd);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
     .packages-hero .sub{color:var(--muted);font-size:18px;margin:12px auto 0;max-width:640px}
     .kickstarter-success-banner{padding:10px 0;margin:18px 0;color:var(--muted);font-size:15px}
     .kickstarter-success-banner strong{color:#10b981;font-weight:700}
@@ -597,6 +600,18 @@
     .hero-video-cta .pre-footer-buy-kicker{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:0.2px;text-align:center}
     .hero-video-cta .hero-buy-btn{padding:14px 22px !important;border-radius:16px !important}
     .hero-video-cta .hero-buy-btn img{height:36px;max-width:360px}
+
+    .trust-strip{display:flex;flex-wrap:nowrap;justify-content:center;gap:10px;margin:14px 0 0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;max-width:100%}
+    .trust-strip::-webkit-scrollbar{display:none}
+    .trust-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.15px;opacity:0.92;transition:opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;flex:0 0 auto;white-space:nowrap}
+    .trust-pill:hover{opacity:1;transform:translateY(-1px);border-color:rgba(255,255,255,0.18)}
+    .trust-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    .trust-pill.kickstarter{border-color:rgba(5,206,120,0.35)}
+    .trust-pill.kickstarter:hover{border-color:rgba(5,206,120,0.55)}
+    .trust-pill-muted{font-weight:700;opacity:0.95}
+    @media(max-width:1199.98px){
+      .trust-strip{display:none}
+    }
     .availability-checker{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin:32px 0;text-align:center}
     .availability-checker h3{margin:0 0 8px;color:var(--text);font-size:22px}
     .availability-checker p{margin:0 0 16px;color:var(--muted)}
@@ -911,14 +926,14 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2025090701" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
+  <link rel="preload" href="styles.css?v=2025122803" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2025090701">
+    <link rel="stylesheet" href="styles.css?v=2025122803">
     <style>html .card-peek-section,html .how-step-flag{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js" as="script">
+  <link rel="preload" href="main.js?v=2025122803" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -963,7 +978,7 @@
   </header>
   <div class="wrap">
     <div class="frame">
-      <div class="logo-section" aria-label="Countryball Cards trailer">
+      <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#0a1028" data-mbg2="#0c1a3d" data-mbg3="#10245a">
         <div class="hero-video" aria-label="Countryball Cards trailer video">
           <div class="video-container">
             <iframe
@@ -981,6 +996,7 @@
               <img src="assets/buynow.webp" alt="Buy now" loading="eager" decoding="async">
             </a>
           </div>
+
         </div>
       </div>
       <div class="golden-separator logo-separator"></div>
@@ -991,7 +1007,7 @@
 
         <!-- Shipping selection now happens in a modal when you click Pre-order. -->
 
-        <section class="game-explainer" aria-labelledby="gameExplainerTitle">
+        <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#07161a" data-mbg2="#083032" data-mbg3="#0a4a3f">
           <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
           <div class="game-explainer-grid">
             <div class="game-explainer-left">
@@ -1074,9 +1090,16 @@
 
         <div class="golden-separator"></div>
 
-        <div class="packages-comparison" id="editionComparison" aria-label="Compare editions">
+        <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#0f0f1e" data-bg2="#171434" data-bg3="#22164a" data-mbg1="#120c22" data-mbg2="#1c1240" data-mbg3="#2a175f">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
           <img src="assets/box_art-720.webp" srcset="assets/box_art-320.webp 320w, assets/box_art-480.webp 480w, assets/box_art-640.webp 640w, assets/box_art-720.webp 720w, assets/box_art-960.webp 960w" sizes="(max-width: 800px) 92vw, 720px" width="1067" height="533" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
+
+          <div class="trust-strip" aria-label="Trust and community links">
+            <a class="trust-pill" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">Successful Kickstarter ($5,000+ Raised)</a>
+            <a class="trust-pill" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_discord');">Community on Discord (100+ Members)</a>
+            <a class="trust-pill" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_reddit');">Community on Reddit (400+ Members)</a>
+            <a class="trust-pill" target="_blank">Over 100+ Pre-Orders</a>
+          </div>
           <section class="how-it-works" aria-labelledby="howItWorksTitle">
             <div class="how-it-works-header">
               <h2 id="howItWorksTitle">Pre-order in 3 steps</h2>
@@ -1114,15 +1137,15 @@
           <div class="packages-compare-wrap" data-selected="base">
             <div class="compare-mobile-cta" aria-label="Buy selected edition">
               <a href="#" class="package-btn base-theme compare-buy-btn compare-mobile-buy" data-edition="base" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
-                <span class="package-btn-label">Buy Base</span>
+                <span class="package-btn-label">Buy Base Edition</span>
                 <span class="package-btn-price">Pre-order • $30</span>
               </a>
               <a href="#" class="package-btn extended-theme compare-buy-btn compare-mobile-buy" data-edition="extended" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
-                <span class="package-btn-label">Buy Extended</span>
+                <span class="package-btn-label">Buy Extended Edition</span>
                 <span class="package-btn-price">Pre-order • $45</span>
               </a>
               <a href="#" class="package-btn founders-theme compare-buy-btn compare-mobile-buy" data-edition="founders" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
-                <span class="package-btn-label">Buy Founder's</span>
+                <span class="package-btn-label">Buy Founder's Edition</span>
                 <span class="package-btn-price">Pre-order • $65</span>
               </a>
             </div>
@@ -1265,7 +1288,7 @@
       <div class="golden-separator"></div>
 
       <!-- FAQ Section -->
-      <section class="faq-section" aria-labelledby="faqTitle">
+      <section class="faq-section" aria-labelledby="faqTitle" data-scroll-gradient data-bg1="#14120b" data-bg2="#1f1a0d" data-bg3="#2b230f" data-mbg1="#191406" data-mbg2="#2a2209" data-mbg3="#3b2f0b">
         <h2 id="faqTitle">Frequently Asked Questions</h2>
         <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
         <ul class="faq-list">
@@ -1546,7 +1569,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js" defer></script>
+  <script src="main.js?v=2025122803" defer></script>
 
   <script>
     (function() {

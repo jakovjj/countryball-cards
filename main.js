@@ -1170,6 +1170,112 @@ function trackBottomPopupClick(action) {
   }
 }
 
+function initScrollGradient() {
+  const targets = Array.from(document.querySelectorAll('[data-scroll-gradient]'));
+  if (!targets.length) {
+    return;
+  }
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+
+  const isMobileViewport = () => window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+
+  function applyGradientFrom(el) {
+    if (!el || !el.dataset) {
+      return;
+    }
+
+    const useMobile = isMobileViewport();
+    const bg1 = (useMobile && el.dataset.mbg1) ? el.dataset.mbg1 : el.dataset.bg1;
+    const bg2 = (useMobile && el.dataset.mbg2) ? el.dataset.mbg2 : el.dataset.bg2;
+    const bg3 = (useMobile && el.dataset.mbg3) ? el.dataset.mbg3 : el.dataset.bg3;
+
+    if (!bg1 || !bg2 || !bg3) {
+      return;
+    }
+
+    root.style.setProperty('--bg-grad-1', bg1);
+    root.style.setProperty('--bg-grad-2', bg2);
+    root.style.setProperty('--bg-grad-3', bg3);
+  }
+
+  // Apply something immediately (first target by default, then observer/scroll will correct it).
+  applyGradientFrom(targets[0]);
+
+  // Lightweight scroll-based updater (4 targets) to ensure mobile browsers update reliably.
+  let rafPending = false;
+  const updateFromScroll = () => {
+    if (rafPending) {
+      return;
+    }
+    rafPending = true;
+    requestAnimationFrame(() => {
+      rafPending = false;
+      const centerY = window.innerHeight * 0.5;
+      let best = null;
+      let bestDist = Infinity;
+      for (const el of targets) {
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.top + rect.height * 0.5;
+        const dist = Math.abs(elCenter - centerY);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = el;
+        }
+      }
+      if (best) {
+        applyGradientFrom(best);
+      }
+    });
+  };
+  window.addEventListener('scroll', updateFromScroll, { passive: true });
+  window.addEventListener('resize', updateFromScroll);
+  window.addEventListener('orientationchange', updateFromScroll);
+  updateFromScroll();
+
+  if (!('IntersectionObserver' in window)) {
+    return;
+  }
+
+  // Observer: choose the element with the highest intersection ratio.
+  const ratios = new Map();
+  let activeEl = null;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        ratios.set(entry.target, entry.intersectionRatio);
+      }
+
+      let best = activeEl;
+      let bestRatio = best ? (ratios.get(best) || 0) : 0;
+      for (const el of targets) {
+        const ratio = ratios.get(el) || 0;
+        if (ratio > bestRatio + 0.001) {
+          bestRatio = ratio;
+          best = el;
+        }
+      }
+
+      if (best && best !== activeEl) {
+        activeEl = best;
+        applyGradientFrom(activeEl);
+      }
+    },
+    {
+      // Bias activation toward the middle of the viewport.
+      root: null,
+      rootMargin: '-45% 0px -45% 0px',
+      threshold: prefersReducedMotion ? [0, 1] : [0, 0.25, 0.5, 0.75, 1]
+    }
+  );
+
+  for (const el of targets) {
+    observer.observe(el);
+  }
+}
+
 // Inline Email Form Handler
 document.addEventListener('DOMContentLoaded', function() {
   const inlineEmailForm = document.getElementById('inlineEmailForm');
@@ -1403,4 +1509,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 1000);
 });
+
+document.addEventListener('DOMContentLoaded', initScrollGradient);
 
