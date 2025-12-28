@@ -32,7 +32,7 @@
       { code: 'SE', label: 'Sweden', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'TR', label: 'Turkey', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'GB', label: 'United Kingdom', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'US', label: 'United States', flag: '�Y?��Y?�', zone: 'ZONE_2' }
+      { code: 'US', label: 'United States', flag: '�Y?��Y?�', zone: 'ZONE_1' }
     ].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
 
     function countryCodeToFlag(code) {
@@ -62,8 +62,8 @@
     }, {});
 
     const SHIPPING_ZONES = {
-      ZONE_1: ['AT','BA','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB'],
-      ZONE_2: ['US','CA','AU','TR','JP']
+      ZONE_1: ['AT','BA','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB','US'],
+      ZONE_2: ['CA','AU','TR','JP']
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
