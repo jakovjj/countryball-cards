@@ -151,6 +151,24 @@
       shippingOverlay.setAttribute('aria-hidden', 'false');
       updateShippingConfirmState();
 
+      // Only attempt to infer the user's country after they explicitly click Buy/Pre-order.
+      // This avoids triggering the browser geolocation permission prompt during page load.
+      const defer = typeof queueMicrotask === 'function'
+        ? queueMicrotask
+        : (fn) => Promise.resolve().then(fn);
+
+      defer(() => {
+        if (selectedCountry) {
+          return;
+        }
+        const storedCountry = getStoredCountry();
+        if (storedCountry) {
+          selectCountry(storedCountry, { skipStorage: true });
+          return;
+        }
+        detectCountry({ silent: true, allowGeolocationPrompt: true });
+      });
+
       setTimeout(() => {
         const searchInput = document.getElementById('countrySearchInput');
         if (searchInput && !selectedCountry) {
@@ -839,7 +857,7 @@
     }
 
     async function detectCountry(options = {}) {
-      const { silent = false } = options;
+      const { silent = false, allowGeolocationPrompt = true } = options;
       const runId = ++detectionRunId;
       if (!silent && !selectedCountry) {
         setDropdownLabel('Choose a shipping location', '');
@@ -857,11 +875,14 @@
         return false;
       };
 
-      const detectionAttempts = [
-        withTimeout(geolocateByBrowser(), DETECTION_TIMEOUT_MS),
+      const detectionAttempts = [];
+      if (allowGeolocationPrompt) {
+        detectionAttempts.push(withTimeout(geolocateByBrowser(), DETECTION_TIMEOUT_MS));
+      }
+      detectionAttempts.push(
         withTimeout(lookupCountryViaIpApi(), DETECTION_TIMEOUT_MS),
         withTimeout(lookupCountryViaIpWhois(), DETECTION_TIMEOUT_MS)
-      ];
+      );
 
       const detected = await firstSuccessful(detectionAttempts, applySelection);
 
@@ -988,14 +1009,8 @@
           changeShippingLocation(event);
         });
       }
-      const storedCountry = getStoredCountry();
-      if (storedCountry) {
-        selectCountry(storedCountry, { skipStorage: true });
-        // Still attempt to detect (may update if user moved).
-        detectCountry({ silent: true });
-      } else {
-        detectCountry();
-      }
+      // Do not auto-detect country on page load. We only detect once the user clicks
+      // a package button and needs to pick a shipping location.
     }
 
     if (document.readyState === 'loading') {
