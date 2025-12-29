@@ -166,7 +166,8 @@
           selectCountry(storedCountry, { skipStorage: true });
           return;
         }
-        detectCountry({ silent: true, allowGeolocationPrompt: true });
+        // Only IP-based detection (no browser geolocation permission prompt).
+        detectCountry({ silent: true, allowGeolocationPrompt: false });
       });
 
       setTimeout(() => {
@@ -857,7 +858,8 @@
     }
 
     async function detectCountry(options = {}) {
-      const { silent = false, allowGeolocationPrompt = true } = options;
+      // Default to NOT using browser geolocation to avoid triggering a permission prompt.
+      const { silent = false, allowGeolocationPrompt = false } = options;
       const runId = ++detectionRunId;
       if (!silent && !selectedCountry) {
         setDropdownLabel('Choose a shipping location', '');
