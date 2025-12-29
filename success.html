@@ -866,25 +866,8 @@
         });
       }
 
-      // Prevent double-counting if multiple scripts run or the page is reloaded.
-      // Uses querystring (if any) as a stable per-purchase key.
-      try {
-        const purchaseKey = 'cbc_meta_purchase_tracked:' + (window.location.pathname || '/success.html') + (window.location.search || '');
-        if (window.sessionStorage && sessionStorage.getItem(purchaseKey) === '1') return;
-        if (window.sessionStorage) sessionStorage.setItem(purchaseKey, '1');
-      } catch (_) {
-        // ignore storage errors; still attempt to fire once per load
-        if (window.__cbcMetaPurchaseTracked) return;
-        window.__cbcMetaPurchaseTracked = true;
-      }
-
-      if (typeof fbq === 'function') {
-        if (params.value !== null) {
-          fbq('track', 'Purchase', { value: params.value, currency: params.currency });
-        } else {
-          fbq('track', 'Purchase');
-        }
-      }
+      // Meta Purchase is tracked via Meta's own Event Setup Tool / automatic events.
+      // Intentionally do not call fbq('track', 'Purchase', ...) here to avoid double counting.
     });
   </script>
 </body>
