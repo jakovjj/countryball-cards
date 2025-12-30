@@ -866,8 +866,24 @@
         });
       }
 
-      // Meta Purchase is tracked via Meta's own Event Setup Tool / automatic events.
-      // Intentionally do not call fbq('track', 'Purchase', ...) here to avoid double counting.
+      // Meta Ads: send a Purchase event on the success page.
+      // Use sessionStorage to avoid double-counting on refresh.
+      try {
+        if (typeof fbq === 'function') {
+          const sentKey = '__cbc_meta_purchase_sent';
+          if (!sessionStorage.getItem(sentKey)) {
+            const payload = {};
+            if (params && params.value != null) {
+              payload.value = params.value;
+              payload.currency = params.currency || 'USD';
+            }
+            fbq('track', 'Purchase', payload);
+            sessionStorage.setItem(sentKey, '1');
+          }
+        }
+      } catch (_) {
+        // ignore
+      }
     });
   </script>
 </body>
