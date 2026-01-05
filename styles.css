@@ -7,10 +7,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:linear-gradi
 *{box-sizing:border-box;max-width:100%}
 body{margin:0;min-height:100dvh;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;overflow-x:clip;position:relative;width:100%;max-width:100%;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
 
-@media (hover: none) and (pointer: coarse) {
-  html{background-attachment:scroll}
-  body{background-attachment:scroll}
-}
+
 
 body::before {
   content: '';
@@ -2254,7 +2251,7 @@ a:focus-visible {
   
   /* Ensure dark background on mobile */
   body {
-    background: linear-gradient(135deg, #0f1419 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f1419 100%) !important;
-    background-attachment: scroll;
+    background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%) !important;
+    background-attachment: fixed;
   }
 }
