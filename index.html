@@ -318,15 +318,7 @@
       z-index: -1;
     }
     
-    /* Ensure dark background on mobile */
-    @media (max-width: 768px) {
-      html { background-attachment: scroll; }
-      body { background-attachment: scroll; }
-    }
-    @media (hover: none) and (pointer: coarse) {
-      html { background-attachment: scroll; }
-      body { background-attachment: scroll; }
-    }
+
     @media (prefers-color-scheme: light) {
       body {
         background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%) !important;
@@ -1586,26 +1578,121 @@
       if (!targets.length) return;
 
       const root = document.documentElement;
-      const isMobile = () => !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
 
-      function applyFrom(el) {
-        if (!el || !el.dataset) return;
-        const useMobile = isMobile();
-        const bg1 = (useMobile && el.dataset.mbg1) ? el.dataset.mbg1 : el.dataset.bg1;
-        const bg2 = (useMobile && el.dataset.mbg2) ? el.dataset.mbg2 : el.dataset.bg2;
-        const bg3 = (useMobile && el.dataset.mbg3) ? el.dataset.mbg3 : el.dataset.bg3;
-        if (!bg1 || !bg2 || !bg3) return;
+      function isOwnedByMain() {
+        return root && root.dataset && root.dataset.scrollGradientDriver === 'main';
+      }
+
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isMobileViewport = () => !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
+
+      function clampByte(value) {
+        const n = Math.round(Number(value) || 0);
+        return Math.max(0, Math.min(255, n));
+      }
+
+      function parseColor(input) {
+        const s = String(input || '').trim();
+        if (!s) return null;
+        if (s[0] === '#') {
+          const hex = s.slice(1);
+          if (hex.length === 3) {
+            return {
+              r: parseInt(hex[0] + hex[0], 16),
+              g: parseInt(hex[1] + hex[1], 16),
+              b: parseInt(hex[2] + hex[2], 16)
+            };
+          }
+          if (hex.length === 6) {
+            return {
+              r: parseInt(hex.slice(0, 2), 16),
+              g: parseInt(hex.slice(2, 4), 16),
+              b: parseInt(hex.slice(4, 6), 16)
+            };
+          }
+          return null;
+        }
+        const m = s.match(/rgba?\(([^)]+)\)/i);
+        if (m) {
+          const parts = m[1].split(/\s*,\s*|\s+/).filter(Boolean);
+          if (parts.length >= 3) {
+            return { r: clampByte(parts[0]), g: clampByte(parts[1]), b: clampByte(parts[2]) };
+          }
+        }
+        return null;
+      }
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      function lerpColor(a, b, t) {
+        return {
+          r: clampByte(lerp(a.r, b.r, t)),
+          g: clampByte(lerp(a.g, b.g, t)),
+          b: clampByte(lerp(a.b, b.b, t))
+        };
+      }
+      function colorToCss(c) { return `rgb(${c.r}, ${c.g}, ${c.b})`; }
+
+      let lastRgb = null;
+      let tweenToken = 0;
+
+      function setGradientColors(bg1, bg2, bg3) {
         root.style.setProperty('--bg-grad-1', bg1);
         root.style.setProperty('--bg-grad-2', bg2);
         root.style.setProperty('--bg-grad-3', bg3);
-
-        // Preserve smooth transitions: don't overwrite `background` with a new gradient string.
-        // Let the CSS gradient interpolate via the registered custom properties.
         root.style.removeProperty('background');
         if (document.body) document.body.style.removeProperty('background');
       }
 
+      function animateGradientTo(target1, target2, target3) {
+        if (prefersReducedMotion || !isMobileViewport()) {
+          setGradientColors(target1, target2, target3);
+          lastRgb = { c1: parseColor(target1), c2: parseColor(target2), c3: parseColor(target3) };
+          return;
+        }
+
+        const computed = window.getComputedStyle ? getComputedStyle(root) : null;
+        const start1 = (lastRgb && lastRgb.c1) || parseColor(root.style.getPropertyValue('--bg-grad-1')) || parseColor(computed && computed.getPropertyValue('--bg-grad-1'));
+        const start2 = (lastRgb && lastRgb.c2) || parseColor(root.style.getPropertyValue('--bg-grad-2')) || parseColor(computed && computed.getPropertyValue('--bg-grad-2'));
+        const start3 = (lastRgb && lastRgb.c3) || parseColor(root.style.getPropertyValue('--bg-grad-3')) || parseColor(computed && computed.getPropertyValue('--bg-grad-3'));
+        const end1 = parseColor(target1);
+        const end2 = parseColor(target2);
+        const end3 = parseColor(target3);
+
+        if (!start1 || !start2 || !start3 || !end1 || !end2 || !end3) {
+          setGradientColors(target1, target2, target3);
+          lastRgb = { c1: end1, c2: end2, c3: end3 };
+          return;
+        }
+
+        const myToken = ++tweenToken;
+        const duration = 650;
+        const startTime = performance.now();
+
+        const step = (now) => {
+          if (myToken !== tweenToken) return;
+          const t = Math.min(1, (now - startTime) / duration);
+          const eased = t < 0.5 ? (2 * t * t) : (1 - Math.pow(-2 * t + 2, 2) / 2);
+          const c1 = lerpColor(start1, end1, eased);
+          const c2 = lerpColor(start2, end2, eased);
+          const c3 = lerpColor(start3, end3, eased);
+          setGradientColors(colorToCss(c1), colorToCss(c2), colorToCss(c3));
+          lastRgb = { c1, c2, c3 };
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+
+      function applyFrom(el) {
+        if (!el || !el.dataset) return;
+        const bg1 = el.dataset.bg1;
+        const bg2 = el.dataset.bg2;
+        const bg3 = el.dataset.bg3;
+        if (!bg1 || !bg2 || !bg3) return;
+        animateGradientTo(bg1, bg2, bg3);
+      }
+
       function pickClosestToCenter() {
+        if (isOwnedByMain()) return;
         const centerY = window.innerHeight * 0.5;
         let best = null;
         let bestDist = Infinity;
@@ -1623,6 +1710,7 @@
 
       let rafPending = false;
       function schedule() {
+        if (isOwnedByMain()) return;
         if (rafPending) return;
         rafPending = true;
         requestAnimationFrame(() => {

@@ -1176,37 +1176,160 @@ function initScrollGradient() {
     return;
   }
 
+  // Signal that main.js is managing the scroll gradient (so inline fallback can back off).
+  try {
+    document.documentElement.dataset.scrollGradientDriver = 'main';
+  } catch (e) {
+    // ignore
+  }
+
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
 
-  const isCoarsePointer = () => !!(window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches);
+  const isMobileViewport = () => !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
 
-  const isMobileViewport = () => window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  function clampByte(value) {
+    const n = Math.round(Number(value) || 0);
+    return Math.max(0, Math.min(255, n));
+  }
+
+  function parseColor(input) {
+    const s = String(input || '').trim();
+    if (!s) return null;
+
+    if (s[0] === '#') {
+      const hex = s.slice(1);
+      if (hex.length === 3) {
+        const r = parseInt(hex[0] + hex[0], 16);
+        const g = parseInt(hex[1] + hex[1], 16);
+        const b = parseInt(hex[2] + hex[2], 16);
+        return { r, g, b };
+      }
+      if (hex.length === 6) {
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        return { r, g, b };
+      }
+      return null;
+    }
+
+    const m = s.match(/rgba?\(([^)]+)\)/i);
+    if (m) {
+      const parts = m[1].split(/\s*,\s*|\s+/).filter(Boolean);
+      if (parts.length >= 3) {
+        return {
+          r: clampByte(parts[0]),
+          g: clampByte(parts[1]),
+          b: clampByte(parts[2])
+        };
+      }
+    }
+
+    return null;
+  }
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  function lerpColor(a, b, t) {
+    return {
+      r: clampByte(lerp(a.r, b.r, t)),
+      g: clampByte(lerp(a.g, b.g, t)),
+      b: clampByte(lerp(a.b, b.b, t))
+    };
+  }
+
+  function colorToCss(c) {
+    return `rgb(${c.r}, ${c.g}, ${c.b})`;
+  }
+
+  let activeEl = null;
+  let lastRgb = null;
+  let tweenToken = 0;
+
+  function setGradientColors(bg1, bg2, bg3) {
+    root.style.setProperty('--bg-grad-1', bg1);
+    root.style.setProperty('--bg-grad-2', bg2);
+    root.style.setProperty('--bg-grad-3', bg3);
+
+    // Keep transitions smooth: don't overwrite `background` with a new gradient string.
+    // Let CSS use the gradient declared in stylesheet/critical CSS.
+    root.style.removeProperty('background');
+    if (document.body) {
+      document.body.style.removeProperty('background');
+    }
+  }
+
+  function animateGradientTo(target1, target2, target3) {
+    if (prefersReducedMotion || !isMobileViewport()) {
+      setGradientColors(target1, target2, target3);
+      lastRgb = {
+        c1: parseColor(target1),
+        c2: parseColor(target2),
+        c3: parseColor(target3)
+      };
+      return;
+    }
+
+    const computed = window.getComputedStyle ? getComputedStyle(root) : null;
+    const start1 = (lastRgb && lastRgb.c1) || parseColor(root.style.getPropertyValue('--bg-grad-1')) || parseColor(computed && computed.getPropertyValue('--bg-grad-1'));
+    const start2 = (lastRgb && lastRgb.c2) || parseColor(root.style.getPropertyValue('--bg-grad-2')) || parseColor(computed && computed.getPropertyValue('--bg-grad-2'));
+    const start3 = (lastRgb && lastRgb.c3) || parseColor(root.style.getPropertyValue('--bg-grad-3')) || parseColor(computed && computed.getPropertyValue('--bg-grad-3'));
+
+    const end1 = parseColor(target1);
+    const end2 = parseColor(target2);
+    const end3 = parseColor(target3);
+
+    if (!start1 || !start2 || !start3 || !end1 || !end2 || !end3) {
+      setGradientColors(target1, target2, target3);
+      lastRgb = { c1: end1, c2: end2, c3: end3 };
+      return;
+    }
+
+    const myToken = ++tweenToken;
+    const duration = 650;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      if (myToken !== tweenToken) {
+        return;
+      }
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = t < 0.5 ? (2 * t * t) : (1 - Math.pow(-2 * t + 2, 2) / 2);
+      const c1 = lerpColor(start1, end1, eased);
+      const c2 = lerpColor(start2, end2, eased);
+      const c3 = lerpColor(start3, end3, eased);
+      setGradientColors(colorToCss(c1), colorToCss(c2), colorToCss(c3));
+      lastRgb = { c1, c2, c3 };
+      if (t < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  }
 
   function applyGradientFrom(el) {
     if (!el || !el.dataset) {
       return;
     }
 
-    const useMobile = isMobileViewport();
-    const bg1 = (useMobile && el.dataset.mbg1) ? el.dataset.mbg1 : el.dataset.bg1;
-    const bg2 = (useMobile && el.dataset.mbg2) ? el.dataset.mbg2 : el.dataset.bg2;
-    const bg3 = (useMobile && el.dataset.mbg3) ? el.dataset.mbg3 : el.dataset.bg3;
+    if (el === activeEl) {
+      return;
+    }
+
+    const bg1 = el.dataset.bg1;
+    const bg2 = el.dataset.bg2;
+    const bg3 = el.dataset.bg3;
 
     if (!bg1 || !bg2 || !bg3) {
       return;
     }
 
-    root.style.setProperty('--bg-grad-1', bg1);
-    root.style.setProperty('--bg-grad-2', bg2);
-    root.style.setProperty('--bg-grad-3', bg3);
-
-    // Keep transitions smooth: don't overwrite `background` with a new gradient string.
-    // Let the CSS gradient interpolate via the registered custom properties.
-    root.style.removeProperty('background');
-    if (document.body) {
-      document.body.style.removeProperty('background');
-    }
+    activeEl = el;
+    animateGradientTo(bg1, bg2, bg3);
   }
 
   // Apply something immediately (first target by default, then observer/scroll will correct it).
@@ -1233,7 +1356,25 @@ function initScrollGradient() {
           best = el;
         }
       }
-      if (best) {
+      if (!best) {
+        return;
+      }
+
+      if (!activeEl) {
+        applyGradientFrom(best);
+        return;
+      }
+
+      if (best === activeEl) {
+        return;
+      }
+
+      // Small hysteresis to avoid rapid flipping near section boundaries.
+      const hysteresisPx = 28;
+      const activeRect = activeEl.getBoundingClientRect();
+      const activeCenter = activeRect.top + activeRect.height * 0.5;
+      const activeDist = Math.abs(activeCenter - centerY);
+      if (bestDist + hysteresisPx < activeDist) {
         applyGradientFrom(best);
       }
     });
@@ -1249,7 +1390,7 @@ function initScrollGradient() {
 
   // Observer: choose the element with the highest intersection ratio.
   const ratios = new Map();
-  let activeEl = null;
+  // Note: activeEl is tracked above for scroll-based updates too.
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -1268,8 +1409,7 @@ function initScrollGradient() {
       }
 
       if (best && best !== activeEl) {
-        activeEl = best;
-        applyGradientFrom(activeEl);
+        applyGradientFrom(best);
       }
     },
     {
