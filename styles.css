@@ -1,4 +1,4 @@
-:root { --bg:#0f1419; --card:#1a1f2e; --gold:#fbbf24; --text:#f9fafb; --muted:#9ca3af; --accent:#3b82f6; --bg-grad-1:#0f1419; --bg-grad-2:#1e293b; --bg-grad-3:#334155; }
+:root { --bg:#0f1419; --card:#1a1f2e; --gold:#fbbf24; --text:#f9fafb; --muted:#9ca3af; --accent:#3b82f6; --green:#05ce78; --bg-grad-1:#0f1419; --bg-grad-2:#1e293b; --bg-grad-3:#334155; }
 
 @property --bg-grad-1 { syntax: '<color>'; inherits: true; initial-value: #0f1419; }
 @property --bg-grad-2 { syntax: '<color>'; inherits: true; initial-value: #1e293b; }
@@ -39,8 +39,6 @@ body::after {
 .trust-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.15px;opacity:0.92;transition:opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;flex:0 0 auto;white-space:nowrap}
 .trust-pill:hover{opacity:1;transform:translateY(-1px);border-color:rgba(255,255,255,0.18)}
 .trust-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.trust-pill.kickstarter{border-color:rgba(5,206,120,0.35)}
-.trust-pill.kickstarter:hover{border-color:rgba(5,206,120,0.55)}
 .trust-pill-muted{font-weight:700;opacity:0.95}
 @media(max-width:1199.98px){.trust-strip{display:none}}
 
@@ -993,7 +991,7 @@ font-size:16px}
 }
 
 .bottom-cta-btn {
-  background: var(--kickstarter);
+  background: var(--green);
   color: white;
   border: none;
   border-radius: 8px;
@@ -1021,7 +1019,7 @@ font-size:16px}
 
 @keyframes ctaFlash {
   0%, 100% { 
-    background: var(--kickstarter);
+    background: var(--green);
     transform: scale(1);
   }
   50% { 
@@ -2190,7 +2188,7 @@ a:focus-visible {
 }
 
 .bottom-popup-btn.primary {
-  background: var(--kickstarter);
+  background: var(--green);
   color: white;
   padding: 12px 20px;
   font-size: 14px;

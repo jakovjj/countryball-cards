@@ -1,6 +1,5 @@
-// ===== KICKSTARTER COUNTDOWN =====
+// ===== STORE AVAILABILITY BANNER =====
 function initCountdown() {
-  const launchDate = new Date('2025-10-01T20:15:00.000Z');
   const dayEl = document.getElementById('countdownDays');
   const hourEl = document.getElementById('countdownHours');
   const minuteEl = document.getElementById('countdownMinutes');
@@ -13,35 +12,15 @@ function initCountdown() {
     }
   }
 
-  function updateCountdown() {
-    const now = Date.now();
-    const timeLeft = launchDate.getTime() - now;
-
-    if (timeLeft <= 0) {
-      setValue(dayEl, 0);
-      setValue(hourEl, 0);
-      setValue(minuteEl, 0);
-      setValue(secondEl, 0);
-      if (statusEl) {
-        statusEl.textContent = 'Launching Soon';
-        statusEl.classList.add('countdown-status--live');
-      }
-      return;
-    }
-
-    const seconds = Math.floor((timeLeft / 1000) % 60);
-    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-
-    setValue(dayEl, days);
-    setValue(hourEl, hours);
-    setValue(minuteEl, minutes);
-    setValue(secondEl, seconds);
+  // Countdown-to-launch is retired; keep the banner but mark as available.
+  setValue(dayEl, 0);
+  setValue(hourEl, 0);
+  setValue(minuteEl, 0);
+  setValue(secondEl, 0);
+  if (statusEl) {
+    statusEl.textContent = 'Available Now';
+    statusEl.classList.add('countdown-status--live');
   }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
 }
 
 const cardData = Array.isArray(window.cardData) ? window.cardData : [];
@@ -748,7 +727,7 @@ function showEmailModal() {
     
     // Show success message after delay
     setTimeout(() => {
-      showMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+      showMessage('✓ Success! You\'re subscribed for updates.', 'success');
       emailInput.value = '';
       submitBtn.classList.add('success');
       
@@ -982,24 +961,6 @@ function trackDiceClick() {
   }
 }
 
-function trackFreePrintPlayClick() {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'free_print_play_clicked', {
-      event_category: 'navigation',
-      event_label: 'from_homepage',
-      value: 1
-    });
-  }
-  
-  // Track with Reddit Pixel if available
-  if (typeof rdt !== 'undefined') {
-    rdt('track', 'Custom', {
-      customEventName: 'FreePrintPlayClick',
-      content_name: 'Free Print and Play Button'
-    });
-  }
-}
-
 function trackBottomEmailClick() {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'bottom_email_cta_clicked', {
@@ -1042,28 +1003,6 @@ function trackCountryDetection(country) {
       event_category: 'user_data',
       event_label: country,
       value: 1
-    });
-  }
-}
-
-function trackKickstarterClick(source) {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'kickstarter_clicked', {
-      event_category: 'conversion',
-      event_label: source,
-      value: 1
-    });
-  }
-  
-  // Track with Reddit Pixel if available
-  if (typeof rdt !== 'undefined') {
-    rdt('track', 'Lead', {
-      event_name: 'KickstarterClick',
-      content_name: 'Kickstarter Campaign',
-      content_category: 'Campaign',
-      content_ids: ['kickstarter_campaign'],
-      content_type: 'campaign',
-      source: source
     });
   }
 }
