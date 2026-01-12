@@ -1816,9 +1816,102 @@ font-size:16px}
 .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text)}
 .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
 .crash-card strong{color:var(--gold)}
+.crash-card::before,
+.crash-card h4::before{
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+}
+.crash-card::before{
+  width:25px;
+  height:25px;
+  max-width:25px;
+  max-height:25px;
+  display:block;
+  margin:0 0 10px;
+}
+.crash-card h4::before{
+  width:20px;
+  height:20px;
+  max-width:20px;
+  max-height:20px;
+  display:inline-block;
+  vertical-align:middle;
+  margin:0 8px 0 0;
+}
+.crash-card > img,
+.crash-card > svg,
+.crash-card h4 img,
+.crash-card h4 svg,
+.game-crash-course .crash-icon{
+  width:25px;
+  height:25px;
+  max-width:25px;
+  max-height:25px;
+  object-fit:contain;
+}
+.crash-card > img,
+.crash-card > svg,
+.game-crash-course .crash-icon{
+  display:block;
+  margin:0 0 10px;
+}
+@media(max-width:600px){
+  .crash-card::before{
+    width:28px;
+    height:28px;
+    max-width:28px;
+    max-height:28px;
+    margin:0 0 10px;
+  }
+  .crash-card h4::before{
+    width:20px;
+    height:20px;
+    max-width:20px;
+    max-height:20px;
+    margin:0 8px 0 0;
+  }
+  .crash-card > img,
+  .crash-card > svg,
+  .crash-card h4 img,
+  .crash-card h4 svg,
+  .game-crash-course .crash-icon{
+    width:28px;
+    height:28px;
+    max-width:28px;
+    max-height:28px;
+  }
+}
 .game-crash-course-link{margin:12px 0 0;display:block}
 .rules-pdf-link{color:var(--gold);font-weight:800;text-decoration:underline;text-underline-offset:4px}
 .rules-pdf-link:hover{filter:brightness(1.1)}
+
+/* Homepage: keep Email Updates + FAQ looking like mobile on desktop */
+.email-updates-section{
+  margin:32px auto;
+  padding:32px 24px;
+  width:min(100%, 720px);
+  text-align:center;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+}
+.email-updates-section h3{margin-top:0;color:var(--gold);font-size:20px}
+.email-updates-section p{font-size:14px;line-height:1.45}
+.email-updates-section .packages-support-actions{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.faq-section{margin:32px 0;padding:0}
+.faq-section h2{margin:0;font-size:24px;color:var(--text)}
+.faq-intro{font-size:14px;line-height:1.45}
+.faq-list{margin-top:18px;gap:14px;padding-left:0}
+.faq-item strong{font-size:16px}
+.faq-item p{font-size:14px;line-height:1.5}
 
 .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none}
 .card-peek-carousel{position:relative;display:block}
