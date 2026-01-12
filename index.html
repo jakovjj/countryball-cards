@@ -108,7 +108,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2026011201" />
+  <link rel="preload" as="style" href="styles.css?v=2026011204" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -872,14 +872,14 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2026011201" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
+  <link rel="preload" href="styles.css?v=2026011204" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026011201">
+    <link rel="stylesheet" href="styles.css?v=2026011204">
     <style>html .card-peek-section,html .how-step-flag{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2025122804" as="script">
+  <link rel="preload" href="main.js?v=2026011202" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -974,19 +974,19 @@
               <h4 class="crash-course-title"><span>Crash</span> Course</h4>
               <div class="crash-grid" aria-label="Quick rules overview">
                 <div class="crash-card">
-                  <h4>1. Setup</h4>
+                  <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
                   <p>Both players draw <strong>2 cards</strong>, keep <strong>1</strong>, discard the other (repeat <strong>3</strong>x). Set the market with resource dice, then decide who starts.</p>
                 </div>
                 <div class="crash-card">
-                  <h4>2. Your Turn</h4>
+                  <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
                   <p>Gain <strong>coins</strong> (10x first turn, 5x for the rest of the game), buy/sell resources, use abilities (pay costs), then attack enemies.</p>
                 </div>
                 <div class="crash-card">
-                  <h4>3. Abilities</h4>
+                  <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
                   <p>Some abilities require a die roll. Meet the number shown to succeed; attacks deal damage and can stun.</p>
                 </div>
                 <div class="crash-card">
-                  <h4>4. Win</h4>
+                  <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
                   <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). Last player standing wins.</p>
                 </div>
               </div>
@@ -1242,28 +1242,58 @@
         <h2 id="faqTitle">Frequently Asked Questions</h2>
         <ul class="faq-list">
           <li class="faq-item">
-            <strong>Can I cancel or change my order?</strong>
-            <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-text">Can I cancel or change my order?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
+            </div>
           </li>
           <li class="faq-item">
-            <strong>Do you ship internationally?</strong>
-            <p>We ship to 34 countries. Available destinations and delivery prices show at checkout.</p>
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-text">Do you ship internationally?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>We ship to 34 countries. Available destinations and delivery prices show at checkout.</p>
+            </div>
           </li>
           <li class="faq-item">
-            <strong>How is shipping calculated?</strong>
-            <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-text">How is shipping calculated?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
+            </div>
           </li>
           <li class="faq-item">
-            <strong>Do I pay taxes or import fees on delivery?</strong>
-            <p>We deliver with delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered - nothing due on delivery.</p>
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-text">Do I pay taxes or import fees on delivery?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>We deliver with delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered - nothing due on delivery.</p>
+            </div>
           </li>
           <li class="faq-item">
-            <strong>What payments do you accept?</strong>
-            <p>Most major credit/debit cards are supported. We also accept Apple Pay, Google Pay, Amazon Pay, Link, Samsung Pay and Cash App Pay. Payments are processed securely by Stripe. </p>
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-text">What payments do you accept?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Most major credit/debit cards are supported. We also accept Apple Pay, Google Pay, Amazon Pay, Link, Samsung Pay and Cash App Pay. Payments are processed securely by Stripe.</p>
+            </div>
           </li>
           <li class="faq-item">
-            <strong>Where can I get updates?</strong>
-            <p>You can join the Discord for real-time news, or click “Get Email Updates” for monthly updates.</p>
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-text">Where can I get updates?</span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>You can join the Discord for real-time news, or click “Get Email Updates” for monthly updates.</p>
+            </div>
           </li>
         </ul>
 
@@ -1279,9 +1309,9 @@
                 <span class="btn-label">Email Support</span>
               </span>
             </a>
-            <a class="btn discord-btn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackStoreClick('support_discord')">
+            <a class="btn secondary" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackStoreClick('support_discord')">
               <span class="btn-row">
-                <img src="assets/discord.png" alt="Discord" class="discord-btn-icon" loading="lazy" decoding="async">
+                <img src="assets/discord.png" alt="" aria-hidden="true" class="btn-icon" loading="lazy" decoding="async">
                 <span class="btn-label">Discord Support</span>
               </span>
             </a>
@@ -1503,7 +1533,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2025122804" defer></script>
+  <script src="main.js?v=2026011202" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.

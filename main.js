@@ -531,6 +531,51 @@ function startAutoScroll() {
   }, 4000); // Change slide every 4 seconds
 }
 
+// ===== FAQ ACCORDION (Homepage) =====
+function initFaqAccordion() {
+  const questionButtons = document.querySelectorAll('.faq-section .faq-question');
+  if (!questionButtons.length) {
+    return;
+  }
+
+  questionButtons.forEach(button => {
+    if (!button || button.dataset.faqBound === '1') {
+      return;
+    }
+    button.dataset.faqBound = '1';
+
+    const toggle = () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      const answer = button.nextElementSibling;
+      const toggleEl = button.querySelector('.faq-toggle');
+
+      button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (toggleEl) {
+        toggleEl.textContent = expanded ? '+' : '−';
+      }
+      if (answer) {
+        answer.hidden = expanded;
+      }
+    };
+
+    button.addEventListener('click', toggle);
+
+    // Ensure Space works reliably even if nested elements exist.
+    button.addEventListener('keydown', (event) => {
+      if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault();
+        toggle();
+      }
+    });
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFaqAccordion);
+} else {
+  initFaqAccordion();
+}
+
 function handleUserInteraction() {
   lastUserInteraction = Date.now();
   // Don't need to clear interval, just update timestamp

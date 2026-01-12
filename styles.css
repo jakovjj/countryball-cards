@@ -1813,7 +1813,7 @@ font-size:16px}
   .crash-grid{grid-template-columns:1fr}
 }
 .crash-card{padding:12px 12px 10px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10)}
-.crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text)}
+.crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text);display:flex;align-items:center;gap:6px}
 .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
 .crash-card strong{color:var(--gold)}
 .crash-card::before,
@@ -1844,10 +1844,10 @@ font-size:16px}
 .crash-card h4 img,
 .crash-card h4 svg,
 .game-crash-course .crash-icon{
-  width:25px;
-  height:25px;
-  max-width:25px;
-  max-height:25px;
+  width:18px;
+  height:18px;
+  max-width:18px;
+  max-height:18px;
   object-fit:contain;
 }
 .crash-card > img,
@@ -1876,10 +1876,10 @@ font-size:16px}
   .crash-card h4 img,
   .crash-card h4 svg,
   .game-crash-course .crash-icon{
-    width:28px;
-    height:28px;
-    max-width:28px;
-    max-height:28px;
+    width:18px;
+    height:18px;
+    max-width:18px;
+    max-height:18px;
   }
 }
 .game-crash-course-link{margin:12px 0 0;display:block}
@@ -1907,11 +1907,62 @@ font-size:16px}
 }
 
 .faq-section{margin:32px 0;padding:0}
-.faq-section h2{margin:0;font-size:24px;color:var(--text)}
+.faq-section h2{margin:0;font-size:24px;color:var(--text);text-align:center}
 .faq-intro{font-size:14px;line-height:1.45}
 .faq-list{margin-top:18px;gap:14px;padding-left:0}
-.faq-item strong{font-size:16px}
-.faq-item p{font-size:14px;line-height:1.5}
+
+.game-crash-course .crash-icon{position:relative;top:2px}
+
+/* FAQ accordion */
+.faq-item{
+  margin:0;
+  border-radius:14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.10);
+  overflow:hidden;
+}
+.faq-question{
+  width:100%;
+  appearance:none;
+  border:none;
+  background:transparent;
+  color:var(--text);
+  text-align:left;
+  padding:14px 14px;
+  font:inherit;
+  font-weight:800;
+  letter-spacing:0.2px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+}
+.faq-question:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.faq-question-text{font-size:16px;line-height:1.25}
+.faq-toggle{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:10px;
+  border:1px solid rgba(251,191,36,0.45);
+  color:var(--gold);
+  background:rgba(251,191,36,0.10);
+  font-size:18px;
+  line-height:1;
+  font-weight:900;
+}
+.faq-answer{padding:0 14px 14px}
+.faq-answer p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+
+@media(max-width:768px){
+  .faq-question{padding:12px 12px}
+  .faq-question-text{font-size:16px}
+  .faq-toggle{width:26px;height:26px;border-radius:10px}
+}
 
 .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none}
 .card-peek-carousel{position:relative;display:block}
