@@ -231,56 +231,6 @@
     })();
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=659591973725729&ev=PageView&noscript=1" /></noscript>
-
-  <!-- FAQ structured data to boost eligibility and clarify topic -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is Countryball Cards?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Countryball Cards is a strategic, countryball-themed card game where you build a deck, attack, and combine nation abilities. You can try it today with a free print‑and‑play and join our community for balance feedback."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I try the game?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Download the free print‑and‑play from our Discord server and play with standard card sleeves or paper cutouts. We run public playtests and collect feedback to improve cards before launch."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "When is the Crowdfunding?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We plan a Crowdfunding launch in October 2025 after a short pre‑launch phase in September. Join the Discord or email updates to be notified when it goes live."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What packages are available?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We offer 4 packages: Base Game (25€), 2-Pack (40€), Extended Edition (35€) with mini-expansions, and Founder's Edition (50€) with handdrawn cards and exclusive content. All include free shipping to major markets. Prices displayed in USD for non-Eurozone visitors."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I pay taxes or import fees on delivery?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered - nothing due on delivery."
-        }
-      }
-    ]
-  }
-  </script>
   
   <!-- Critical CSS (above-the-fold) -->
   <style>
@@ -424,6 +374,10 @@
         0 0 0 1px rgba(5,206,120,0.34),
         0 0 24px rgba(5,206,120,0.45),
         0 0 58px rgba(5,206,120,0.22) !important}
+    @keyframes heroCtaPulse{0%{box-shadow:0 0 0 0 rgba(5,206,120,0.22)}70%{box-shadow:0 0 0 14px rgba(5,206,120,0)}100%{box-shadow:0 0 0 0 rgba(5,206,120,0)}}
+    .hero-buy-btn{will-change:box-shadow}
+    .hero-buy-btn:not(:hover):not(:focus-visible){animation:heroCtaPulse 3.2s ease-in-out infinite}
+    @media(prefers-reduced-motion:reduce){.hero-buy-btn{animation:none}}
     .hero-buy-btn img{display:block;width:auto;height:42px;max-width:380px;image-rendering:auto}
     @media(max-width:480px){
       .hero-buy-btn{padding:16px 22px !important}
@@ -681,13 +635,13 @@
     .package-subtitle{margin:0;color:var(--muted)}
     .package-action{display:flex;align-items:center}
     .package-btn{--cta-rgb:255,255,255;position:relative;display:inline-flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;padding:18px 34px;border-radius:16px;font-weight:700;font-size:17px;text-decoration:none;cursor:pointer;min-width:220px;color:var(--text);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);transition:transform 0.25s ease,box-shadow 0.25s ease,filter 0.25s ease;overflow:hidden;text-align:center;isolation:isolate}
-    .package-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,0.12),rgba(255,255,255,0));opacity:0;transition:opacity 0.25s ease;pointer-events:none;z-index:1}
-    .package-btn::after{content:'';position:absolute;inset:auto auto -30% -30%;width:65%;height:220%;background:rgba(255,255,255,0.1);transform:rotate(25deg) translate3d(-30%,0,0);opacity:0;transition:transform 0.35s ease,opacity 0.35s ease;pointer-events:none;z-index:1}
+    .package-btn::before{display:none}
+    .package-btn::after{display:none}
     .package-btn .package-btn-label{display:block;font-size:19px;line-height:1.2;letter-spacing:0.3px;z-index:2}
     .package-btn .package-btn-price{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;padding:4px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);margin-top:4px;z-index:2;box-shadow:inset 0 0 0 1px rgba(251,191,36,0.35)}
     .package-btn:not(.disabled):hover,.package-btn:not(.disabled):focus-visible{transform:translateY(-3px) scale(1.01);box-shadow:0 14px 32px rgba(0,0,0,0.35);color:var(--text)}
-    .package-btn:not(.disabled):hover::before,.package-btn:not(.disabled):focus-visible::before{opacity:1}
-    .package-btn:not(.disabled):hover::after,.package-btn:not(.disabled):focus-visible::after{opacity:1;transform:rotate(25deg) translate3d(180%,0,0)}
+    .package-btn:not(.disabled):hover::before,.package-btn:not(.disabled):focus-visible::before{opacity:0}
+    .package-btn:not(.disabled):hover::after,.package-btn:not(.disabled):focus-visible::after{opacity:0;transform:none}
     .package-btn:focus-visible{outline:2px solid rgba(var(--cta-rgb),0.8);outline-offset:4px}
     .package-btn.disabled{opacity:0.45;cursor:pointer;pointer-events:auto;filter:saturate(0.4);box-shadow:none}
     .package-btn.disabled::before,.package-btn.disabled::after{opacity:0}
@@ -702,7 +656,7 @@
     .package-bar.founders-bar .package-btn .package-btn-price{background:rgba(52,211,153,0.18);color:#ecfdf5;box-shadow:inset 0 0 0 1px rgba(52,211,153,0.35)}
     .package-bar.extended-bar .package-btn.disabled,
     .package-bar.founders-bar .package-btn.disabled{filter:none;opacity:0.75}
-    .package-btn.armed{animation:ctaPulse 2.6s ease-in-out infinite}
+    .package-btn.armed{animation:ctaPulse 3.2s ease-in-out infinite}
 
     .packages-comparison{margin:20px 0 32px;padding:26px 22px;border-radius:20px;background:transparent;border:none}
     .packages-comparison-art{display:block;width:min(720px,92%);height:auto;margin:0 auto 18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,0.35))}
@@ -727,6 +681,8 @@
     .compare-edition-name.edition-founders{color:#34d399;text-shadow:0 0 8px rgba(52,211,153,0.42),0 0 16px rgba(52,211,153,0.18)}
     .compare-edition-price{display:block;margin-top:8px;font-size:16px;color:var(--text);font-weight:900;opacity:0.92}
     .compare-buy-btn{min-width:0;width:100%;padding:14px 16px;border-radius:16px}
+    .compare-buy-btn{will-change:box-shadow}
+    .compare-buy-btn:not(.armed):not(:hover):not(:focus-visible){animation:ctaPulse 3.2s ease-in-out infinite}
     .compare-buy-btn .package-btn-label{font-size:16px}
     .compare-buy-btn .package-btn-price{font-size:12px;margin-top:0}
     .packages-compare-table td{text-align:center}
@@ -774,9 +730,10 @@
 
     .packages-comparison-divider{height:1px;margin:18px 0 16px;border-radius:999px;background:rgba(255,255,255,0.10)}
     .packages-comparison-bottom{display:flex;flex-direction:column;gap:14px}
-    @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.35)}70%{box-shadow:0 0 0 18px rgba(var(--cta-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}}
+    @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.22)}70%{box-shadow:0 0 0 14px rgba(var(--cta-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}}
+    .package-btn-label .geo-click{font-weight:900}
     .preorder-copy-highlight{display:inline-flex;align-items:center;gap:6px;padding:2px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);font-size:0.85em;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;box-shadow:0 4px 18px rgba(251,191,36,0.25);vertical-align:middle}
-    @media(prefers-reduced-motion:reduce){.package-btn{transition:none}.package-btn.armed{animation:none}}
+    @media(prefers-reduced-motion:reduce){.package-btn{transition:none}.package-btn.armed{animation:none}.compare-buy-btn{animation:none}}
     .packages-kickstarter-cta{background:rgba(5,206,120,0.08);border:1px solid rgba(5,206,120,0.4);border-radius:16px;padding:24px;margin:16px 0;display:flex;align-items:center;gap:24px;justify-content:center;flex-wrap:wrap;text-align:left}
     .kickstarter-inline-content{max-width:420px}
     .kickstarter-inline-content p{margin:0 0 12px;color:var(--text)}
@@ -791,6 +748,15 @@
     .kickstarter-inline-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(5,206,120,0.35)}
     .email-updates-section{text-align:center;margin:40px 0;padding:32px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
     .email-updates-section h3{margin-top:0;color:var(--gold)}
+    .email-updates-subcopy{color:var(--muted);margin-bottom:24px;font-size:15px;line-height:1.45}
+    .packages-bottom-cta-subcopy{color:var(--muted);margin-bottom:24px;font-size:15px;line-height:1.45}
+    .packages-bottom-cta .discord-btn{width:auto !important;min-width:0 !important;max-width:none !important}
+    .packages-bottom-cta .packages-support-actions > a.btn{justify-content:center}
+    .packages-bottom-cta .packages-support-actions > a.btn{min-height:44px !important;padding:12px 18px !important;box-sizing:border-box}
+    .packages-bottom-cta .packages-support-actions > a.btn{font-size:16px}
+    .packages-bottom-cta .packages-support-actions > a.btn .btn-label{font-size:16px}
+    .packages-bottom-cta .discord-btn{font-size:16px !important}
+    .packages-bottom-cta .discord-btn .btn-label{font-size:16px !important}
     .email-modal .email-benefits{margin-bottom:18px}
     .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:20px 0 12px;color:#f9fafb;text-align:center;font-size:15px}
     .payment-note span{opacity:0.85}
@@ -819,6 +785,8 @@
       .crash-grid{grid-template-columns:1fr}
     }
     .crash-card{padding:12px 12px 10px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10)}
+    .crash-card h4{display:flex;align-items:center;gap:8px}
+    .crash-card .crash-step-icon{width:18px;height:18px;object-fit:contain;flex:0 0 auto}
     .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text)}
     .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
     .crash-card strong{color:var(--gold)}
@@ -875,8 +843,14 @@
     .faq-intro{margin:8px 0 0;color:var(--muted)}
     .faq-list{margin:28px 0 0;padding-left:0;list-style:none;color:var(--muted);display:flex;flex-direction:column;gap:18px}
     .faq-item{margin:0}
-    .faq-item strong{display:block;margin-bottom:6px;color:var(--text);font-size:19px}
-    .faq-item p{margin:0;color:inherit;line-height:1.5}
+    .faq-item details{border:0;background:transparent;border-radius:0}
+    .faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:0;color:var(--text);font-size:19px;font-weight:700}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary::after{content:'+';flex:0 0 auto;color:var(--gold);font-size:22px;line-height:1}
+    .faq-item details[open] summary::after{content:'–'}
+    .faq-item summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    .faq-item details[open] summary{margin-bottom:6px}
+    .faq-item details > p{margin:0;padding:0;color:var(--muted);line-height:1.5}
     .rules-viewer{margin:64px 0;padding:32px;background:rgba(7,10,18,0.92);border:1px solid rgba(255,255,255,0.08);border-radius:24px;box-shadow:0 25px 60px rgba(0,0,0,0.45)}
     .rules-viewer h3{margin:8px 0 12px;font-size:30px;color:var(--text)}
     .rules-viewer-copy{margin:0;color:var(--muted);font-size:16px;max-width:720px}
@@ -904,6 +878,15 @@
       .contents-image{max-width:100%;height:auto}
       .contents-showcase{margin:24px auto 12px;padding:0}
       .email-updates-section{padding:32px 24px}
+      .email-updates-subcopy{font-size:13px;margin-bottom:18px}
+      .email-updates-section .btn.secondary{font-size:18px}
+      .email-updates-section .btn.secondary .btn-label{font-size:18px}
+      .packages-bottom-cta-subcopy{font-size:13px;margin-bottom:18px}
+      .packages-bottom-cta .packages-support-actions > a.btn{width:100%;max-width:360px;font-size:18px}
+      .packages-bottom-cta .packages-support-actions > a.btn{min-height:48px !important;padding:14px 18px !important}
+      .packages-bottom-cta .packages-support-actions > a.btn .btn-label{font-size:18px}
+      .packages-bottom-cta .discord-btn{font-size:18px !important}
+      .packages-bottom-cta .discord-btn .btn-label{font-size:18px !important}
       .how-it-works{padding:24px}
       .how-it-works-footer{flex-direction:column;align-items:flex-start}
       .how-it-works-footer button{width:100%;justify-content:center}
@@ -912,8 +895,8 @@
       .faq-section h2{font-size:24px}
       .faq-intro{font-size:14px;line-height:1.45}
       .faq-list{margin-top:18px;gap:14px}
-      .faq-item strong{font-size:16px}
-      .faq-item p{font-size:14px;line-height:1.5}
+      .faq-item summary{font-size:16px}
+      .faq-item details > p{font-size:14px;line-height:1.5}
       .rules-viewer{padding:24px;margin:48px 0}
       .rules-frame{height:520px}
       .rules-viewer-actions{width:100%;flex-direction:column}
@@ -1024,19 +1007,19 @@
               <h4 class="crash-course-title"><span>Crash</span> Course</h4>
               <div class="crash-grid" aria-label="Quick rules overview">
                 <div class="crash-card">
-                  <h4>1. Setup</h4>
+                  <h4><img class="crash-step-icon" src="icons/card.png" alt="" loading="lazy" decoding="async">1. Setup</h4>
                   <p>Both players draw <strong>2 cards</strong>, keep <strong>1</strong>, discard the other (repeat <strong>3</strong>x). Set the market with resource dice, then decide who starts.</p>
                 </div>
                 <div class="crash-card">
-                  <h4>2. Your Turn</h4>
+                  <h4><img class="crash-step-icon" src="icons/dice.png" alt="" loading="lazy" decoding="async">2. Your Turn</h4>
                   <p>Gain <strong>coins</strong> (10x first turn, 5x for the rest of the game), buy/sell resources, use abilities (pay costs), then attack enemies.</p>
                 </div>
                 <div class="crash-card">
-                  <h4>3. Abilities</h4>
+                  <h4><img class="crash-step-icon" src="icons/damage_token.png" alt="" loading="lazy" decoding="async">3. Abilities</h4>
                   <p>Some abilities require a die roll. Meet the number shown to succeed; attacks deal damage and can stun.</p>
                 </div>
                 <div class="crash-card">
-                  <h4>4. Win</h4>
+                  <h4><img class="crash-step-icon" src="icons/crown.png" alt="" loading="lazy" decoding="async">4. Win</h4>
                   <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). Last player standing wins.</p>
                 </div>
               </div>
@@ -1256,6 +1239,15 @@
                 </tr>
               </tfoot>
             </table>
+
+            <div class="compare-mobile-picker" aria-label="Select edition to view">
+              <label for="compareEditionSelectBottom">Viewing</label>
+              <select id="compareEditionSelectBottom" class="compare-mobile-select" aria-label="Select edition">
+                <option value="base">Base Edition</option>
+                <option value="extended">Extended Edition</option>
+                <option value="founders">Founder's Edition</option>
+              </select>
+            </div>
           </div>
 
           <div class="packages-comparison-divider" aria-hidden="true"></div>
@@ -1270,7 +1262,7 @@
 
         <div class="email-updates-section" aria-labelledby="emailUpdatesTitle">
           <h3 id="emailUpdatesTitle">Email updates for news & manufacturing</h3>
-          <p style="color:var(--muted);margin-bottom:24px">Get a short note when we share production milestones, shipping windows, or new card reveals. Zero spam, unsubscribe anytime.</p>
+          <p class="email-updates-subcopy">Get a short note when we share production milestones, shipping windows, or new card reveals. Zero spam, unsubscribe anytime.</p>
           <div class="packages-support-actions">
             <button type="button" class="btn secondary" onclick="showEmailModal(); trackEmailSignup();">
               <span class="btn-row">
@@ -1290,38 +1282,49 @@
       <!-- FAQ Section -->
       <section class="faq-section" aria-labelledby="faqTitle" data-scroll-gradient data-bg1="#14120b" data-bg2="#1f1a0d" data-bg3="#2b230f" data-mbg1="#1d1807" data-mbg2="#3d320a" data-mbg3="#5d4c0c">
         <h2 id="faqTitle">Frequently Asked Questions</h2>
-        <p class="faq-intro">Quick answers on gameplay, what's in the box, and how fulfillment works for Countryball Cards.</p>
         <ul class="faq-list">
           <li class="faq-item">
-            <strong>Can I cancel or change my order?</strong>
-            <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
+            <details>
+              <summary>Can I cancel or change my order?</summary>
+              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
+            </details>
           </li>
           <li class="faq-item">
-            <strong>Do you ship internationally?</strong>
-            <p>We ship to 34 countries. Available destinations and prices show at checkout.</p>
+            <details>
+              <summary>Do you ship internationally?</summary>
+              <p>We ship to 34 countries. Available destinations and delivery prices show at checkout.</p>
+            </details>
           </li>
           <li class="faq-item">
-            <strong>How is shipping calculated?</strong>
-            <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
+            <details>
+              <summary>How is shipping calculated?</summary>
+              <p>Shipping is calculated based on destination during checkout so you can see the total before paying.</p>
+            </details>
           </li>
           <li class="faq-item">
-            <strong>Do I pay taxes or import fees on delivery?</strong>
-            <p>Delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered - nothing due on delivery.</p>
+            <details>
+              <summary>Do I pay taxes or import fees on delivery?</summary>
+              <p>We deliver with delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered - nothing due on delivery.</p>
+            </details>
           </li>
           <li class="faq-item">
-            <strong>What payments do you accept?</strong>
-            <p>Most major credit/debit cards are supported. We also accept Apple Pay, Google Pay, Amazon Pay, Link, Samsung Pay and Cash App Pay. Payments are processed securely by Stripe. </p>
+            <details>
+              <summary>What payments do you accept?</summary>
+              <p>Most major credit/debit cards are supported. We also accept Apple Pay, Google Pay, Amazon Pay, Link, Samsung Pay and Cash App Pay. Payments are processed securely by Stripe.</p>
+            </details>
           </li>
           <li class="faq-item">
-            <strong>Where can I get updates?</strong>
-            <p>You can join the Discord for real-time news, or click “Get Email Updates” for monthly updates.</p>
+            <details>
+              <summary>Where can I get updates?</summary>
+              <p>You can join the Discord for real-time news, or click “Get Email Updates” for monthly updates.</p>
+            </details>
           </li>
         </ul>
 
-        <div class="packages-bottom-cta">
+        <div class="support-cta" aria-label="Support">
           <h3>Questions or Need Help?</h3>
-          <p style="color:var(--muted);margin-bottom:24px">Join our community server or reach out directly. We respond within 24 hours.</p>
-          <div class="packages-support-actions">
+          <p class="support-cta-copy">Join our community server or reach out directly. We respond within 24 hours.</p>
+          <div class="support-cta-actions">
             <a class="btn secondary" href="mailto:info@countryballcards.com" onclick="trackStoreClick('support_email')">
               <span class="btn-row">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -1330,9 +1333,9 @@
                 <span class="btn-label">Email Support</span>
               </span>
             </a>
-            <a class="btn discord-btn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackStoreClick('support_discord')">
+            <a class="btn secondary" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackStoreClick('support_discord')">
               <span class="btn-row">
-                <img src="assets/discord.png" alt="Discord" class="discord-btn-icon" loading="lazy" decoding="async">
+                <img src="assets/discord.png" alt="" class="btn-icon" width="20" height="20" loading="lazy" decoding="async" aria-hidden="true">
                 <span class="btn-label">Discord Support</span>
               </span>
             </a>
@@ -1437,21 +1440,6 @@
       </header>
       <div class="email-modal-content">
         <p>Sign up for the Countryball Cards Newsletter!</p>
-        
-        <div class="email-benefits">
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-            <span>Game updates and community news</span>
-          </div>
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-            <span>No spam, unsubscribe anytime</span>
-          </div>
-        </div>
         
         <form id="emailForm" class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST">
           <div class="form-group">
@@ -1809,15 +1797,27 @@
   <script>
     (function() {
       const wrap = document.querySelector('.packages-compare-wrap');
-      const select = document.getElementById('compareEditionSelect');
-      if (!wrap || !select) return;
+      const topSelect = document.getElementById('compareEditionSelect');
+      const bottomSelect = document.getElementById('compareEditionSelectBottom');
+      const selects = [topSelect, bottomSelect].filter(Boolean);
+      if (!wrap || !selects.length) return;
 
-      function applySelection() {
-        wrap.setAttribute('data-selected', select.value);
+      function setSelected(value) {
+        if (!value) return;
+        wrap.setAttribute('data-selected', value);
+        selects.forEach(sel => {
+          if (sel.value !== value) {
+            sel.value = value;
+          }
+        });
       }
 
-      applySelection();
-      select.addEventListener('change', applySelection);
+      const initial = wrap.getAttribute('data-selected') || (selects[0] && selects[0].value) || 'base';
+      setSelected(initial);
+
+      selects.forEach(sel => {
+        sel.addEventListener('change', () => setSelected(sel.value));
+      });
     })();
   </script>
   

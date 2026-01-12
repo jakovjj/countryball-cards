@@ -141,6 +141,41 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font:
 .support-modal-copy{margin:0 0 14px;color:var(--text);font-size:16px;line-height:1.5;font-weight:600}
 .support-modal-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
 .support-modal-actions .btn{flex:1 1 220px;justify-content:center}
+
+/* Support CTA (Questions or Need Help?) */
+.support-cta{text-align:center;margin:40px 0;padding:32px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
+.support-cta h3{margin:0;color:var(--gold)}
+.support-cta-copy{color:var(--muted);margin:12px 0 0;font-size:15px;line-height:1.45}
+.support-cta-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:22px}
+.support-cta-actions .btn{flex:1 1 240px;max-width:360px;min-height:48px;justify-content:center}
+
+@media (max-width: 768px) {
+  .support-cta{margin:28px 0;padding:28px 18px}
+  .support-cta-copy{font-size:13px;margin-top:10px}
+  .support-cta-actions{gap:12px}
+  .support-cta-actions .btn{width:100%;max-width:420px}
+}
+
+@media (max-width: 520px) {
+  .support-cta-actions .btn{
+    font-size:18px;
+    padding:16px 18px;
+    min-height:52px;
+  }
+
+  .support-cta-actions .btn .btn-row{
+    line-height:1;
+  }
+
+  .support-cta-actions .btn .btn-label{
+    line-height:1;
+  }
+
+  .support-cta-actions .btn .btn-icon{
+    width:22px;
+    height:22px;
+  }
+}
 .site-topbar-link:hover{
   opacity: 1;
   color: var(--gold);
