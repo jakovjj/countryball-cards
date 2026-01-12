@@ -60,7 +60,29 @@
 
   // NOTE: Intentionally no page-load-stage tracking.
 
-  // NOTE: Intentionally no campaign-specific outbound click tracking.
+  function initKickstarterClickTracking() {
+    document.addEventListener('click', function(e) {
+      const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+
+      const href = String(a.getAttribute('href') || '');
+      if (!href) return;
+
+      // Track only outbound clicks to Kickstarter.
+      if (href.indexOf('kickstarter.com') === -1) return;
+
+      const text = (a.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+      const classes = (a.className && typeof a.className === 'string') ? a.className.slice(0, 120) : '';
+
+      safeGtagEvent('kickstarter_click', {
+        event_category: 'conversion',
+        link_url: href,
+        link_text: text,
+        link_classes: classes,
+        page_path: location.pathname
+      });
+    }, { capture: true });
+  }
 
   function initTrailerTracking() {
     const iframe = document.getElementById('trailerIframe');
@@ -123,10 +145,12 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       trackBrowserCapabilities();
+      initKickstarterClickTracking();
       initTrailerTracking();
     });
   } else {
     trackBrowserCapabilities();
+    initKickstarterClickTracking();
     initTrailerTracking();
   }
 

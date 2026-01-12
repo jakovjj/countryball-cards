@@ -1,4 +1,4 @@
-:root { --bg:#0f1419; --card:#1a1f2e; --gold:#fbbf24; --text:#f9fafb; --muted:#9ca3af; --accent:#3b82f6; --green:#05ce78; --bg-grad-1:#0f1419; --bg-grad-2:#1e293b; --bg-grad-3:#334155; }
+:root { --bg:#0f1419; --card:#1a1f2e; --gold:#fbbf24; --text:#f9fafb; --muted:#9ca3af; --accent:#3b82f6; --bg-grad-1:#0f1419; --bg-grad-2:#1e293b; --bg-grad-3:#334155; }
 
 @property --bg-grad-1 { syntax: '<color>'; inherits: true; initial-value: #0f1419; }
 @property --bg-grad-2 { syntax: '<color>'; inherits: true; initial-value: #1e293b; }
@@ -39,6 +39,8 @@ body::after {
 .trust-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.15px;opacity:0.92;transition:opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;flex:0 0 auto;white-space:nowrap}
 .trust-pill:hover{opacity:1;transform:translateY(-1px);border-color:rgba(255,255,255,0.18)}
 .trust-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.trust-pill.kickstarter{border-color:rgba(5,206,120,0.35)}
+.trust-pill.kickstarter:hover{border-color:rgba(5,206,120,0.55)}
 .trust-pill-muted{font-weight:700;opacity:0.95}
 @media(max-width:1199.98px){.trust-strip{display:none}}
 
@@ -139,41 +141,6 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font:
 .support-modal-copy{margin:0 0 14px;color:var(--text);font-size:16px;line-height:1.5;font-weight:600}
 .support-modal-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
 .support-modal-actions .btn{flex:1 1 220px;justify-content:center}
-
-/* Support CTA (Questions or Need Help?) */
-.support-cta{text-align:center;margin:40px 0;padding:32px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
-.support-cta h3{margin:0;color:var(--gold)}
-.support-cta-copy{color:var(--muted);margin:12px 0 0;font-size:15px;line-height:1.45}
-.support-cta-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:22px}
-.support-cta-actions .btn{flex:1 1 240px;max-width:360px;min-height:48px;justify-content:center}
-
-@media (max-width: 768px) {
-  .support-cta{margin:28px 0;padding:28px 18px}
-  .support-cta-copy{font-size:13px;margin-top:10px}
-  .support-cta-actions{gap:12px}
-  .support-cta-actions .btn{width:100%;max-width:420px}
-}
-
-@media (max-width: 520px) {
-  .support-cta-actions .btn{
-    font-size:18px;
-    padding:16px 18px;
-    min-height:52px;
-  }
-
-  .support-cta-actions .btn .btn-row{
-    line-height:1;
-  }
-
-  .support-cta-actions .btn .btn-label{
-    line-height:1;
-  }
-
-  .support-cta-actions .btn .btn-icon{
-    width:22px;
-    height:22px;
-  }
-}
 .site-topbar-link:hover{
   opacity: 1;
   color: var(--gold);
@@ -991,7 +958,7 @@ font-size:16px}
 }
 
 .bottom-cta-btn {
-  background: var(--green);
+  background: var(--kickstarter);
   color: white;
   border: none;
   border-radius: 8px;
@@ -1019,7 +986,7 @@ font-size:16px}
 
 @keyframes ctaFlash {
   0%, 100% { 
-    background: var(--green);
+    background: var(--kickstarter);
     transform: scale(1);
   }
   50% { 
@@ -2188,7 +2155,7 @@ a:focus-visible {
 }
 
 .bottom-popup-btn.primary {
-  background: var(--green);
+  background: var(--kickstarter);
   color: white;
   padding: 12px 20px;
   font-size: 14px;

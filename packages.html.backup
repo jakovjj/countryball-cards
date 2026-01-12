@@ -4,30 +4,31 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="referrer" content="no-referrer-when-downgrade" />
-  <title>Game Packages (Backup) - Countryball Cards</title>
-  <meta name="description" content="Backup copy of the packages page. Please use the main site navigation for the current version." />
+  <title>Game Packages - Countryball Cards</title>
+  <meta name="description" content="Choose your perfect Countryball Cards package. From the base game to the premium Founder's Edition with handdrawn cards and exclusive content." />
   <link rel="canonical" href="https://countryballcards.com/packages.html" />
-  <meta name="robots" content="noindex,nofollow" />
+  <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#151515" />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:title" content="Game Packages - Countryball Cards" />
-  <meta property="og:description" content="Backup copy of the packages page. Please use the main site navigation for the current version." />
+  <meta property="og:description" content="Choose your perfect package for Countryball Cards. Kickstarter launching October 1st!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://countryballcards.com/packages.html" />
-  <meta property="og:image" content="https://countryballcards.com/assets/embed.png" />
+  <meta property="og:image" content="https://countryballcards.com/logo.webp" />
   
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Game Packages - Countryball Cards" />
-  <meta name="twitter:description" content="Backup copy of the packages page. Please use the main site navigation for the current version." />
-  <meta name="twitter:image" content="https://countryballcards.com/assets/embed.png" />
+  <meta name="twitter:description" content="Choose your perfect package. Kickstarter launching October 1st!" />
+  <meta name="twitter:image" content="https://countryballcards.com/logo.webp" />
   
   <!-- Favicon -->
-  <link rel="icon" href="/serp.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/serp.png">
-  <link rel="apple-touch-icon" href="/serp.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
   
   <link rel="stylesheet" href="styles.css">
   

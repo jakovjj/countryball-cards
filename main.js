@@ -1,5 +1,6 @@
-// ===== STORE AVAILABILITY BANNER =====
+// ===== KICKSTARTER COUNTDOWN =====
 function initCountdown() {
+  const launchDate = new Date('2025-10-01T20:15:00.000Z');
   const dayEl = document.getElementById('countdownDays');
   const hourEl = document.getElementById('countdownHours');
   const minuteEl = document.getElementById('countdownMinutes');
@@ -12,15 +13,35 @@ function initCountdown() {
     }
   }
 
-  // Countdown-to-launch is retired; keep the banner but mark as available.
-  setValue(dayEl, 0);
-  setValue(hourEl, 0);
-  setValue(minuteEl, 0);
-  setValue(secondEl, 0);
-  if (statusEl) {
-    statusEl.textContent = 'Available Now';
-    statusEl.classList.add('countdown-status--live');
+  function updateCountdown() {
+    const now = Date.now();
+    const timeLeft = launchDate.getTime() - now;
+
+    if (timeLeft <= 0) {
+      setValue(dayEl, 0);
+      setValue(hourEl, 0);
+      setValue(minuteEl, 0);
+      setValue(secondEl, 0);
+      if (statusEl) {
+        statusEl.textContent = 'Launching Soon';
+        statusEl.classList.add('countdown-status--live');
+      }
+      return;
+    }
+
+    const seconds = Math.floor((timeLeft / 1000) % 60);
+    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+
+    setValue(dayEl, days);
+    setValue(hourEl, hours);
+    setValue(minuteEl, minutes);
+    setValue(secondEl, seconds);
   }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 }
 
 const cardData = Array.isArray(window.cardData) ? window.cardData : [];
@@ -237,24 +258,6 @@ function initCardPeekCarousel() {
     return;
   }
 
-  let userInteracted = false;
-  function markUserInteracted() { userInteracted = true; }
-  prevBtn.addEventListener('click', markUserInteracted);
-  nextBtn.addEventListener('click', markUserInteracted);
-  viewport.addEventListener('pointerdown', markUserInteracted, { once: true });
-  viewport.addEventListener('touchstart', markUserInteracted, { once: true, passive: true });
-
-  // Center the carousel by default (show the middle of the track) instead of
-  // starting at the far left.
-  requestAnimationFrame(() => {
-    if (userInteracted) return;
-    if (viewport.scrollLeft > 1) return;
-    const maxScrollLeft = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-    if (maxScrollLeft > 0) {
-      viewport.scrollLeft = Math.round(maxScrollLeft / 2);
-    }
-  });
-
   function scrollAmount() {
     const base = viewport.clientWidth || 300;
     // On <=600px we use snap points; scroll exactly one card per click (no half cards).
@@ -275,27 +278,16 @@ function initCardPeekCarousel() {
   }
 
   function scrollByDirection(direction) {
-    const maxScrollLeft = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
-
-    // Wrap-around behavior: when reaching an edge, loop to the other side.
-    const epsilon = 2; // px tolerance for fractional scrollLeft
-    if (direction > 0 && viewport.scrollLeft >= maxScrollLeft - epsilon) {
-      viewport.scrollTo({ left: 0, behavior: 'smooth' });
-      return;
-    }
-    if (direction < 0 && viewport.scrollLeft <= epsilon) {
-      viewport.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
-      return;
-    }
-
-    viewport.scrollBy({ left: direction * scrollAmount(), behavior: 'smooth' });
+    viewport.scrollBy({
+      left: direction * scrollAmount(),
+      behavior: 'smooth'
+    });
   }
 
   prevBtn.addEventListener('click', () => scrollByDirection(-1));
   nextBtn.addEventListener('click', () => scrollByDirection(1));
 
   viewport.addEventListener('wheel', event => {
-    userInteracted = true;
     if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
       event.preventDefault();
       viewport.scrollBy({ left: event.deltaY, behavior: 'auto' });
@@ -727,7 +719,7 @@ function showEmailModal() {
     
     // Show success message after delay
     setTimeout(() => {
-      showMessage('✓ Success! You\'re subscribed for updates.', 'success');
+      showMessage('✓ Success! You\'ll be notified when we launch!', 'success');
       emailInput.value = '';
       submitBtn.classList.add('success');
       
@@ -961,6 +953,24 @@ function trackDiceClick() {
   }
 }
 
+function trackFreePrintPlayClick() {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'free_print_play_clicked', {
+      event_category: 'navigation',
+      event_label: 'from_homepage',
+      value: 1
+    });
+  }
+  
+  // Track with Reddit Pixel if available
+  if (typeof rdt !== 'undefined') {
+    rdt('track', 'Custom', {
+      customEventName: 'FreePrintPlayClick',
+      content_name: 'Free Print and Play Button'
+    });
+  }
+}
+
 function trackBottomEmailClick() {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'bottom_email_cta_clicked', {
@@ -1003,6 +1013,28 @@ function trackCountryDetection(country) {
       event_category: 'user_data',
       event_label: country,
       value: 1
+    });
+  }
+}
+
+function trackKickstarterClick(source) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'kickstarter_clicked', {
+      event_category: 'conversion',
+      event_label: source,
+      value: 1
+    });
+  }
+  
+  // Track with Reddit Pixel if available
+  if (typeof rdt !== 'undefined') {
+    rdt('track', 'Lead', {
+      event_name: 'KickstarterClick',
+      content_name: 'Kickstarter Campaign',
+      content_category: 'Campaign',
+      content_ids: ['kickstarter_campaign'],
+      content_type: 'campaign',
+      source: source
     });
   }
 }
@@ -1108,269 +1140,6 @@ function trackBottomPopupClick(action) {
     });
   }
 }
-
-function initScrollGradient() {
-  const targets = Array.from(document.querySelectorAll('[data-scroll-gradient]'));
-  if (!targets.length) {
-    return;
-  }
-
-  // Signal that main.js is managing the scroll gradient (so inline fallback can back off).
-  try {
-    document.documentElement.dataset.scrollGradientDriver = 'main';
-  } catch (e) {
-    // ignore
-  }
-
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const root = document.documentElement;
-
-  const isMobileViewport = () => !!(window.matchMedia && window.matchMedia('(max-width: 768px)').matches);
-
-  function clampByte(value) {
-    const n = Math.round(Number(value) || 0);
-    return Math.max(0, Math.min(255, n));
-  }
-
-  function parseColor(input) {
-    const s = String(input || '').trim();
-    if (!s) return null;
-
-    if (s[0] === '#') {
-      const hex = s.slice(1);
-      if (hex.length === 3) {
-        const r = parseInt(hex[0] + hex[0], 16);
-        const g = parseInt(hex[1] + hex[1], 16);
-        const b = parseInt(hex[2] + hex[2], 16);
-        return { r, g, b };
-      }
-      if (hex.length === 6) {
-        const r = parseInt(hex.slice(0, 2), 16);
-        const g = parseInt(hex.slice(2, 4), 16);
-        const b = parseInt(hex.slice(4, 6), 16);
-        return { r, g, b };
-      }
-      return null;
-    }
-
-    const m = s.match(/rgba?\(([^)]+)\)/i);
-    if (m) {
-      const parts = m[1].split(/\s*,\s*|\s+/).filter(Boolean);
-      if (parts.length >= 3) {
-        return {
-          r: clampByte(parts[0]),
-          g: clampByte(parts[1]),
-          b: clampByte(parts[2])
-        };
-      }
-    }
-
-    return null;
-  }
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function lerpColor(a, b, t) {
-    return {
-      r: clampByte(lerp(a.r, b.r, t)),
-      g: clampByte(lerp(a.g, b.g, t)),
-      b: clampByte(lerp(a.b, b.b, t))
-    };
-  }
-
-  function colorToCss(c) {
-    return `rgb(${c.r}, ${c.g}, ${c.b})`;
-  }
-
-  let activeEl = null;
-  let lastRgb = null;
-  let tweenToken = 0;
-
-  function setGradientColors(bg1, bg2, bg3) {
-    root.style.setProperty('--bg-grad-1', bg1);
-    root.style.setProperty('--bg-grad-2', bg2);
-    root.style.setProperty('--bg-grad-3', bg3);
-
-    // Keep transitions smooth: don't overwrite `background` with a new gradient string.
-    // Let CSS use the gradient declared in stylesheet/critical CSS.
-    root.style.removeProperty('background');
-    if (document.body) {
-      document.body.style.removeProperty('background');
-    }
-  }
-
-  function animateGradientTo(target1, target2, target3) {
-    if (prefersReducedMotion || !isMobileViewport()) {
-      setGradientColors(target1, target2, target3);
-      lastRgb = {
-        c1: parseColor(target1),
-        c2: parseColor(target2),
-        c3: parseColor(target3)
-      };
-      return;
-    }
-
-    const computed = window.getComputedStyle ? getComputedStyle(root) : null;
-    const start1 = (lastRgb && lastRgb.c1) || parseColor(root.style.getPropertyValue('--bg-grad-1')) || parseColor(computed && computed.getPropertyValue('--bg-grad-1'));
-    const start2 = (lastRgb && lastRgb.c2) || parseColor(root.style.getPropertyValue('--bg-grad-2')) || parseColor(computed && computed.getPropertyValue('--bg-grad-2'));
-    const start3 = (lastRgb && lastRgb.c3) || parseColor(root.style.getPropertyValue('--bg-grad-3')) || parseColor(computed && computed.getPropertyValue('--bg-grad-3'));
-
-    const end1 = parseColor(target1);
-    const end2 = parseColor(target2);
-    const end3 = parseColor(target3);
-
-    if (!start1 || !start2 || !start3 || !end1 || !end2 || !end3) {
-      setGradientColors(target1, target2, target3);
-      lastRgb = { c1: end1, c2: end2, c3: end3 };
-      return;
-    }
-
-    const myToken = ++tweenToken;
-    const duration = 650;
-    const startTime = performance.now();
-
-    const step = (now) => {
-      if (myToken !== tweenToken) {
-        return;
-      }
-      const t = Math.min(1, (now - startTime) / duration);
-      const eased = t < 0.5 ? (2 * t * t) : (1 - Math.pow(-2 * t + 2, 2) / 2);
-      const c1 = lerpColor(start1, end1, eased);
-      const c2 = lerpColor(start2, end2, eased);
-      const c3 = lerpColor(start3, end3, eased);
-      setGradientColors(colorToCss(c1), colorToCss(c2), colorToCss(c3));
-      lastRgb = { c1, c2, c3 };
-      if (t < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-
-    requestAnimationFrame(step);
-  }
-
-  function applyGradientFrom(el) {
-    if (!el || !el.dataset) {
-      return;
-    }
-
-    if (el === activeEl) {
-      return;
-    }
-
-    const bg1 = el.dataset.bg1;
-    const bg2 = el.dataset.bg2;
-    const bg3 = el.dataset.bg3;
-
-    if (!bg1 || !bg2 || !bg3) {
-      return;
-    }
-
-    activeEl = el;
-    animateGradientTo(bg1, bg2, bg3);
-  }
-
-  // Apply something immediately (first target by default, then observer/scroll will correct it).
-  applyGradientFrom(targets[0]);
-
-  // Lightweight scroll-based updater (4 targets) to ensure mobile browsers update reliably.
-  let rafPending = false;
-  const updateFromScroll = () => {
-    if (rafPending) {
-      return;
-    }
-    rafPending = true;
-    requestAnimationFrame(() => {
-      rafPending = false;
-      const centerY = window.innerHeight * 0.5;
-      let best = null;
-      let bestDist = Infinity;
-      for (const el of targets) {
-        const rect = el.getBoundingClientRect();
-        const elCenter = rect.top + rect.height * 0.5;
-        const dist = Math.abs(elCenter - centerY);
-        if (dist < bestDist) {
-          bestDist = dist;
-          best = el;
-        }
-      }
-      if (!best) {
-        return;
-      }
-
-      if (!activeEl) {
-        applyGradientFrom(best);
-        return;
-      }
-
-      if (best === activeEl) {
-        return;
-      }
-
-      // Small hysteresis to avoid rapid flipping near section boundaries.
-      const hysteresisPx = 28;
-      const activeRect = activeEl.getBoundingClientRect();
-      const activeCenter = activeRect.top + activeRect.height * 0.5;
-      const activeDist = Math.abs(activeCenter - centerY);
-      if (bestDist + hysteresisPx < activeDist) {
-        applyGradientFrom(best);
-      }
-    });
-  };
-  window.addEventListener('scroll', updateFromScroll, { passive: true });
-  window.addEventListener('resize', updateFromScroll);
-  window.addEventListener('orientationchange', updateFromScroll);
-  updateFromScroll();
-
-  if (!('IntersectionObserver' in window)) {
-    return;
-  }
-
-  // Observer: choose the element with the highest intersection ratio.
-  const ratios = new Map();
-  // Note: activeEl is tracked above for scroll-based updates too.
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        ratios.set(entry.target, entry.intersectionRatio);
-      }
-
-      let best = activeEl;
-      let bestRatio = best ? (ratios.get(best) || 0) : 0;
-      for (const el of targets) {
-        const ratio = ratios.get(el) || 0;
-        if (ratio > bestRatio + 0.001) {
-          bestRatio = ratio;
-          best = el;
-        }
-      }
-
-      if (best && best !== activeEl) {
-        applyGradientFrom(best);
-      }
-    },
-    {
-      // Bias activation toward the middle of the viewport.
-      root: null,
-      rootMargin: '-45% 0px -45% 0px',
-      threshold: prefersReducedMotion ? [0, 1] : [0, 0.25, 0.5, 0.75, 1]
-    }
-  );
-
-  for (const el of targets) {
-    observer.observe(el);
-  }
-}
-
-// Kick off scroll-driven background gradient.
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initScrollGradient, { once: true });
-} else {
-  initScrollGradient();
-}
-window.addEventListener('load', initScrollGradient, { once: true });
 
 // Inline Email Form Handler
 document.addEventListener('DOMContentLoaded', function() {
@@ -1605,6 +1374,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 1000);
 });
-
-document.addEventListener('DOMContentLoaded', initScrollGradient);
 

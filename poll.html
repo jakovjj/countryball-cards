@@ -13,7 +13,7 @@
   <title>Community Poll - Countryball Cards</title>
   <meta name="description" content="Help shape the future of Countryball Cards by participating in our community poll. Your feedback matters!" />
   <link rel="canonical" href="https://countryballcards.com/poll.html" />
-  <meta name="robots" content="index,follow,max-image-preview:none" />
+  <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#ffffff" />
   
   <!-- Open Graph / Facebook -->
@@ -21,7 +21,7 @@
   <meta property="og:url" content="https://countryballcards.com/poll.html">
   <meta property="og:title" content="Community Poll - Countryball Cards">
   <meta property="og:description" content="Help shape the future of Countryball Cards by participating in our community poll. Your feedback matters!">
-  <meta property="og:image" content="https://countryballcards.com/assets/embed.png">
+  <meta property="og:image" content="https://countryballcards.com/logo.webp">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="Countryball Cards">
   
@@ -30,12 +30,15 @@
   <meta property="twitter:url" content="https://countryballcards.com/poll.html">
   <meta property="twitter:title" content="Community Poll - Countryball Cards">
   <meta property="twitter:description" content="Help shape the future of Countryball Cards by participating in our community poll. Your feedback matters!">
-  <meta property="twitter:image" content="https://countryballcards.com/assets/embed.png">
+  <meta property="twitter:image" content="https://countryballcards.com/logo.webp">
   
   <!-- Enhanced Favicon Implementation -->
-  <link rel="icon" href="/serp.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/serp.png">
-  <link rel="apple-touch-icon" href="/serp.png">
+  <link rel="icon" sizes="any" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   
   <!-- Structured Data for Poll Page -->
@@ -54,7 +57,7 @@
     "about": {
       "@type": "Product",
       "name": "Countryball Cards",
-      "description": "Strategic, wacky countryballs action card game."
+      "description": "Strategic countryball-themed card game launching on Kickstarter October 1st, 2025"
     },
     "publisher": {
       "@type": "Organization",
@@ -139,8 +142,9 @@
     .discord-invite{background:linear-gradient(135deg,#5865f2,#4752c4);color:white;padding:20px;border-radius:16px;margin:24px 0;text-decoration:none;display:inline-block;transition:all 0.3s ease;box-shadow:0 6px 20px rgba(88,101,242,0.3)}
     .discord-invite:hover{background:linear-gradient(135deg,#4752c4,#3c46a8);transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,101,242,0.4)}
     .discord-logo{width:32px;height:32px;margin-right:12px;vertical-align:middle}
-    .order-invite{background:linear-gradient(135deg,#05ce78,#04b86a);color:white;padding:20px;border-radius:16px;margin:24px 0;text-decoration:none;display:inline-block;transition:all 0.3s ease;box-shadow:0 6px 20px rgba(5,206,120,0.3)}
-    .order-invite:hover{background:linear-gradient(135deg,#04b86a,#039856);transform:translateY(-2px);box-shadow:0 8px 25px rgba(5,206,120,0.4)}
+    .kickstarter-invite{background:linear-gradient(135deg,#05ce78,#04b86a);color:white;padding:20px;border-radius:16px;margin:24px 0;text-decoration:none;display:inline-block;transition:all 0.3s ease;box-shadow:0 6px 20px rgba(5,206,120,0.3)}
+    .kickstarter-invite:hover{background:linear-gradient(135deg,#04b86a,#039856);transform:translateY(-2px);box-shadow:0 8px 25px rgba(5,206,120,0.4)}
+    .kickstarter-logo{width:32px;height:32px;margin-right:12px;vertical-align:middle;object-fit:contain}
     .thank-you-title{font-size:28px;font-weight:700;color:var(--green);margin-bottom:16px}
     .thank-you-text{font-size:18px;color:var(--text);margin-bottom:24px;line-height:1.5}
     .navigation-buttons{margin-top:20px}
@@ -236,7 +240,7 @@
             <div class="answers">
               <button class="answer-button" onclick="answerQuestion(2, 'price', 'Price is too high')">Price is too high</button>
               <button class="answer-button" onclick="answerQuestion(2, 'lack_of_content', 'Not enough content')">Not enough content</button>
-              <button class="answer-button" onclick="answerQuestion(2, 'checkout_trust', 'Don\'t understand/trust ordering online')">Don't understand/trust ordering online</button>
+              <button class="answer-button" onclick="answerQuestion(2, 'kickstarter_trust', 'Don\'t understand/trust Kickstarter')">Don't understand/trust Kickstarter</button>
               <button class="answer-button" onclick="answerQuestion(2, 'wait_time', 'Long wait time to receive it')">Long wait time to receive it</button>
               <button class="answer-button" onclick="answerQuestion(2, 'shipping_cost', 'Expensive shipping')">Expensive shipping</button>
               <button class="answer-button" onclick="showCustomTextInput(2)">Other</button>
@@ -297,8 +301,9 @@
             Join our Discord Community
           </a>
           
-          <a href="index.html#editionComparison" class="order-invite" rel="noopener noreferrer">
-            Order Now
+          <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" class="kickstarter-invite" target="_blank" rel="noopener noreferrer">
+            <img src="assets/ks.png" alt="Kickstarter" class="kickstarter-logo">
+            Kickstarter
           </a>
           
           <div style="margin-top: 24px;">
@@ -320,7 +325,7 @@
 
         <div class="site-footer-cta" aria-label="Email updates">
           <strong>Email updates</strong>
-          <p>Get occasional milestones and restock updates. No spam.</p>
+          <p>Get occasional milestones and launch reminders. No spam.</p>
           <div class="site-footer-cta-row">
             <button type="button" class="btn secondary" onclick="if (typeof showEmailModal==='function'){showEmailModal();} else if (typeof openEmailModal==='function'){openEmailModal();} else {window.location.href='join.html';} if (typeof trackBottomEmailClick==='function'){trackBottomEmailClick();}">
               <span class="btn-row">
@@ -351,7 +356,7 @@
         <div class="site-footer-col">
           <h3>Social</h3>
           <div class="site-footer-social">
-            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener nofollow" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('kickstarter_footer');">
+            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
               <img src="assets/ks.png" alt="" loading="lazy" decoding="async">
               <span>Kickstarter</span>
             </a>
