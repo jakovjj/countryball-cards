@@ -585,7 +585,7 @@
     .country-search:focus{outline:none;border-color:var(--gold)}
     #countryDropdownLabel{display:inline-flex;flex-direction:row;align-items:center;text-align:left;gap:10px;width:100%}
     #countryDropdownLabel .country-option-left{gap:8px}
-    #countryDropdownLabel .zone-label{font-size:12px;color:var(--muted)}
+    #countryDropdownLabel .zone-label{font-size:12px;color:var(--muted);white-space:nowrap;flex:0 0 auto}
     #countryDropdownLabel .zone-label:empty{display:none}
 
     .country-change-btn{flex:0 0 auto;display:none;align-items:center;justify-content:center;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:var(--text);font-weight:700;font-size:14px;cursor:pointer;transition:transform 0.2s ease,background 0.2s ease,border-color 0.2s ease;white-space:nowrap;position:relative;z-index:2}
@@ -595,7 +595,7 @@
     .country-dropdown.has-selection #countrySearchInput{display:none}
     .country-dropdown.has-selection .country-change-btn{display:inline-flex}
     .country-dropdown.has-selection #countryDropdownLabel .country-option-left{font-size:20px;font-weight:800;letter-spacing:0.2px}
-    .country-dropdown.has-selection #countryDropdownLabel .zone-label{font-size:20px;font-weight:400;color:var(--muted)}
+    .country-dropdown.has-selection #countryDropdownLabel .zone-label{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;line-height:1.1}
     .zone-status-message{margin-top:10px;color:var(--muted);font-size:14px}
     .packages-list{display:flex;flex-direction:column;gap:20px;margin:32px 0}
     .package-bar{background:rgba(26,31,46,0.8);border:2px solid rgba(251,191,36,0.3);border-radius:20px;overflow:hidden;transition:all 0.3s ease;position:relative}
@@ -1270,7 +1270,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>We ship to 34 countries. Available destinations and delivery prices show at checkout.</p>
+              <p>We ship to 33 countries. Available destinations and delivery prices show at checkout.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1501,7 +1501,7 @@
                     <path d="M7 10l5 5 5-5z" />
                   </svg>
                 </div>
-                <button type="button" class="country-change-btn" id="countryChangeBtn" aria-label="Change shipping location" onclick="return changeShippingLocation(event)">Change</button>
+
               </div>
               <input type="text" id="countrySearchInput" class="country-search" placeholder="Search country" aria-label="Search country">
             </div>

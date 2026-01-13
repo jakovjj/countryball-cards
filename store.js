@@ -3,7 +3,6 @@
       { code: 'AT', label: 'Austria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'BG', label: 'Bulgaria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'BE', label: 'Belgium', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'BA', label: 'Bosnia and Herzegovina', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'CA', label: 'Canada', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'HR', label: 'Croatia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'CZ', label: 'Czechia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
@@ -62,7 +61,7 @@
     }, {});
 
     const SHIPPING_ZONES = {
-      ZONE_1: ['AT','BA','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB','US'],
+      ZONE_1: ['AT','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB','US'],
       ZONE_2: ['CA','AU','TR','JP']
     };
     const PAYMENT_LINKS = {
