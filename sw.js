@@ -1,5 +1,5 @@
 // Service Worker for Countryball Cards
-const CACHE_NAME = 'countryball-cards-v2025123001'; // Update this version when you make changes
+const CACHE_NAME = 'countryball-cards-v2026011701'; // Update this version when you make changes
 const urlsToCache = [
   '/',
   '/index.html',
@@ -24,6 +24,8 @@ const urlsToCache = [
   '/logo-480.webp',
   '/logo-640.webp',
   '/us.webp',
+  '/serp.ico',
+  '/serp.png',
   '/favicon.ico',
   '/favicon-32x32.png',
   '/favicon-16x16.png',
@@ -52,6 +54,8 @@ self.addEventListener('fetch', function(event) {
   const url = new URL(event.request.url);
   const isSameOrigin = url.origin === self.location.origin;
   const isIconOrManifest = isSameOrigin && (
+    url.pathname === '/serp.ico' ||
+    url.pathname === '/serp.png' ||
     url.pathname === '/favicon.ico' ||
     url.pathname.startsWith('/favicon-') ||
     url.pathname === '/apple-touch-icon.png' ||

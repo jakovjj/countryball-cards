@@ -1,4 +1,4 @@
-// ===== KICKSTARTER COUNTDOWN =====
+// ===== STORE STATUS COUNTDOWN =====
 function initCountdown() {
   const launchDate = new Date('2025-10-01T20:15:00.000Z');
   const dayEl = document.getElementById('countdownDays');
@@ -23,7 +23,7 @@ function initCountdown() {
       setValue(minuteEl, 0);
       setValue(secondEl, 0);
       if (statusEl) {
-        statusEl.textContent = 'Launching Soon';
+        statusEl.textContent = 'Available Now';
         statusEl.classList.add('countdown-status--live');
       }
       return;
