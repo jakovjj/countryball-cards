@@ -1737,6 +1737,7 @@
         lastActiveEl = document.activeElement;
         overlay.hidden = false;
         overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
         if (helpBtn) helpBtn.setAttribute('aria-expanded', 'true');
         // Focus the dialog for accessibility.
         dialog.focus();
@@ -1746,6 +1747,7 @@
         if (!overlay) return;
         overlay.hidden = true;
         overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
         if (helpBtn) helpBtn.setAttribute('aria-expanded', 'false');
         if (lastActiveEl && typeof lastActiveEl.focus === 'function') {
           lastActiveEl.focus();

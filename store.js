@@ -146,6 +146,7 @@
 
       shippingOverlay.hidden = false;
       shippingOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
       updateShippingConfirmState();
 
       // Only attempt to infer the user's country after they explicitly click Buy/Pre-order.
@@ -193,6 +194,7 @@
       }
       shippingOverlay.hidden = true;
       shippingOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
       if (shippingKeyListenerAttached) {
         document.removeEventListener('keydown', handleShippingKeydown);
         shippingKeyListenerAttached = false;
@@ -269,6 +271,7 @@
       preorderScrollY = window.scrollY || window.pageYOffset || 0;
 
       preorderOverlay.hidden = false;
+      document.body.style.overflow = 'hidden';
       preorderOverlay.setAttribute('aria-hidden', 'false');
 
       setTimeout(() => {
@@ -292,6 +295,7 @@
       }
       preorderOverlay.hidden = true;
       preorderOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
       if (preorderKeyListenerAttached) {
         document.removeEventListener('keydown', handlePreorderKeydown);
         preorderKeyListenerAttached = false;
