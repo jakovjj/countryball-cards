@@ -77,8 +77,8 @@
     let selectedZone = null;
     let detectionRunId = 0;
     let suppressAutoDetectSelection = false;
-    const GEO_PROMPT_TEXT = 'Click here to buy';
-    const GEO_PROMPT_HTML = '<span class="geo-click">Click</span> here to buy';
+    const GEO_PROMPT_TEXT = 'Pre-order';
+    const GEO_PROMPT_HTML = 'Pre-order';
     const shippingOverlay = document.getElementById('shippingConfirmOverlay');
     const shippingDialog = shippingOverlay ? shippingOverlay.querySelector('.modal') : null;
     const shippingCloseBtn = document.getElementById('shippingConfirmClose');
@@ -345,7 +345,7 @@
     function forcePackageButtonLabels(html) {
       document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
         if (!label.dataset.defaultLabel) {
-          label.dataset.defaultLabel = label.textContent.trim();
+          label.dataset.defaultLabel = label.innerHTML;
         }
         label.innerHTML = html;
       });
@@ -659,7 +659,6 @@
     function promptForCountrySelection() {
       // Reset label/state first so a missing helper can't prevent visual reset.
       resetCountrySelection();
-      forcePackageButtonLabels(GEO_PROMPT_HTML);
       if (typeof updateZoneStatus === 'function') {
         updateZoneStatus('DEFAULT');
       }
@@ -669,7 +668,7 @@
     function restoreButtonLabels() {
       document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
         if (label.dataset.defaultLabel) {
-          label.textContent = label.dataset.defaultLabel;
+          label.innerHTML = label.dataset.defaultLabel;
         }
       });
     }
@@ -697,9 +696,6 @@
     }
 
     function updateButtonStates(enabled) {
-      // Keep the CTA copy consistent across states.
-      // (We intentionally do not restore the per-edition labels like “Buy Base/Extended”.)
-      forcePackageButtonLabels(GEO_PROMPT_HTML);
       document.querySelectorAll('.package-btn').forEach(btn => {
         if (enabled) {
           const checkoutUrl = btn.dataset.checkoutUrl || '#';
@@ -1014,7 +1010,6 @@
       setupCountryDropdownInteractions();
       setupCountrySearch();
       updateButtonStates(false);
-      forcePackageButtonLabels(GEO_PROMPT_HTML);
       if (typeof updateZoneStatus === 'function') {
         updateZoneStatus('DEFAULT');
       }
