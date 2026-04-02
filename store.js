@@ -1,9 +1,7 @@
 ﻿const COUNTRY_OPTIONS = [
-      { code: 'AU', label: 'Australia', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'AT', label: 'Austria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'BG', label: 'Bulgaria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'BE', label: 'Belgium', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'CA', label: 'Canada', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'HR', label: 'Croatia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'CZ', label: 'Czechia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'DK', label: 'Denmark', flag: '�Y?��Y?�', zone: 'ZONE_1' },
@@ -15,7 +13,6 @@
       { code: 'HU', label: 'Hungary', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'IE', label: 'Ireland', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'IT', label: 'Italy', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'JP', label: 'Japan', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'LV', label: 'Latvia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'LT', label: 'Lithuania', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'LU', label: 'Luxembourg', flag: '�Y?��Y?�', zone: 'ZONE_1' },
@@ -493,6 +490,10 @@
       toggle.setAttribute('aria-expanded', 'false');
       const list = document.getElementById('countryDropdownList');
       if (list) {
+        list.style.position = '';
+        list.style.left = '';
+        list.style.width = '';
+        list.style.zIndex = '';
         list.style.maxHeight = '';
         list.style.top = '';
         list.style.bottom = '';
@@ -507,20 +508,28 @@
       }
       const rect = dropdown.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-      const margin = 12;
+      const margin = 8;
       const spaceBelow = Math.max(0, viewportHeight - rect.bottom - margin);
       const spaceAbove = Math.max(0, rect.top - margin);
       const minHeight = 180;
 
       const openDown = spaceBelow >= minHeight || spaceBelow >= spaceAbove;
+
+      // Use position:fixed so the list is anchored to viewport coordinates and
+      // can never be clipped or displaced by modal overflow, transforms, or animations.
+      list.style.position = 'fixed';
+      list.style.left = rect.left + 'px';
+      list.style.width = rect.width + 'px';
+      list.style.zIndex = '1100';
+
       if (openDown) {
-        list.style.top = 'calc(100% + 8px)';
+        list.style.top = (rect.bottom + margin) + 'px';
         list.style.bottom = 'auto';
-        list.style.maxHeight = `${Math.max(minHeight, spaceBelow)}px`;
+        list.style.maxHeight = spaceBelow + 'px';
       } else {
         list.style.top = 'auto';
-        list.style.bottom = 'calc(100% + 8px)';
-        list.style.maxHeight = `${Math.max(minHeight, spaceAbove)}px`;
+        list.style.bottom = (viewportHeight - rect.top + margin) + 'px';
+        list.style.maxHeight = spaceAbove + 'px';
       }
     }
 

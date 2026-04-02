@@ -269,7 +269,7 @@
     .site-topbar-brand-title{display:block;flex:0 1 auto;max-height:52px;width:auto;max-width:480px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
     .site-topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:14px}
     .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px}
-    button.site-topbar-link{background:transparent;border:none;appearance:none;font:inherit}
+    button.site-topbar-link{background:transparent;border:none;appearance:none;font-family:inherit;font-size:inherit}
     .site-topbar-link-icon{display:block;flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2));width:20px;height:20px}
     .site-topbar-link-icon.reddit-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.22);border-radius:999px;font-size:12px;font-weight:900;letter-spacing:0.2px;line-height:1;color:currentColor}
     .site-topbar-help-icon{display:block;width:22px;height:22px}
@@ -531,15 +531,17 @@
     .hero-video-cta .hero-buy-btn{padding:14px 22px !important;border-radius:16px !important}
     .hero-video-cta .hero-buy-btn img{height:36px;max-width:360px}
 
-    .trust-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 0}
-    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:18px 12px;border-radius:16px;border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);text-decoration:none;color:var(--text);transition:background 0.2s ease,border-color 0.2s ease,transform 0.2s ease}
-    .trust-stat:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.2);transform:translateY(-2px)}
-    .trust-stat:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-    .trust-stat-number{font-size:28px;font-weight:900;color:var(--gold);line-height:1.1}
-    .trust-stat-label{font-size:12px;font-weight:700;color:var(--muted);margin-top:5px;line-height:1.35}
-    @media(max-width:700px){
-      .trust-stats{grid-template-columns:repeat(2,1fr)}
-      .trust-stat-number{font-size:24px}
+    .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:18px auto 4px;width:min(980px,100vw)}
+    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 28px;text-decoration:none;color:inherit;position:relative;flex:1;min-width:0}
+    .trust-stat+.trust-stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);height:36px;width:1px;background:rgba(255,255,255,0.15)}
+    .trust-stat:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+    .trust-stat-number{font-size:26px;font-weight:900;color:var(--gold);line-height:1}
+    .trust-stat-label{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px;letter-spacing:0.4px;text-transform:uppercase}
+    @media(max-width:600px){
+      .trust-stat{padding:6px 4px}
+      .trust-stat+.trust-stat::before{height:24px}
+      .trust-stat-number{font-size:16px}
+      .trust-stat-label{font-size:8.5px;letter-spacing:0}
     }
     .availability-checker{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin:32px 0;text-align:center}
     .availability-checker h3{margin:0 0 8px;color:var(--text);font-size:22px}
@@ -783,6 +785,12 @@
     .card-peek-nav:hover{transform:translateY(-50%) translateY(-1px) scale(1.04);opacity:1}
     .card-peek-nav:active{transform:translateY(-50%) scale(0.98)}
     .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    .card-peek-image{cursor:zoom-in}
+    #cardZoomOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    #cardZoomOverlay.open{display:flex}
+    #cardZoomOverlay img{max-width:min(90vw,520px);max-height:90vh;border-radius:16px;box-shadow:0 8px 60px rgba(0,0,0,0.7);pointer-events:none;user-select:none}
+    #cardZoomClose{position:absolute;top:clamp(12px,3vw,24px);right:clamp(12px,3vw,24px);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,transform 0.15s}
+    #cardZoomClose:hover{background:rgba(255,255,255,0.22);transform:scale(1.08)}
     @media(max-width:600px){
       /* Ensure 3 cards are visible on small screens */
       .card-peek-track{gap:14px}
@@ -929,6 +937,25 @@
             ></iframe>
           </div>
 
+          <div class="trust-stats" aria-label="Community stats">
+            <a class="trust-stat" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
+              <span class="trust-stat-number">$5,000+</span>
+              <span class="trust-stat-label">on Kickstarter</span>
+            </a>
+            <a class="trust-stat" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_discord');">
+              <span class="trust-stat-number">100+</span>
+              <span class="trust-stat-label">Discord Members</span>
+            </a>
+            <a class="trust-stat" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_reddit');">
+              <span class="trust-stat-number">400+</span>
+              <span class="trust-stat-label">Reddit Members</span>
+            </a>
+            <div class="trust-stat">
+              <span class="trust-stat-number">100+</span>
+              <span class="trust-stat-label">Pre-Orders</span>
+            </div>
+          </div>
+
           <div class="hero-video-cta">
             <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('hero_buy_now');">
               <img src="assets/buynow.webp" alt="Buy now" loading="eager" decoding="async">
@@ -1016,7 +1043,7 @@
                 <img class="card-peek-image" src="spain.webp" alt="Spain countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="sweden.webp" alt="Sweden countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="switzerland.webp" alt="Switzerland countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="turkiye.webp" alt="Türkiye countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="turkey.webp" alt="Turkey countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="uk.webp" alt="United Kingdom countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="ukraine.webp" alt="Ukraine countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="us.webp" alt="United States countryball card" loading="lazy" decoding="async">
@@ -1030,24 +1057,6 @@
 
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
-          <div class="trust-stats" aria-label="Community stats">
-            <a class="trust-stat" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
-              <span class="trust-stat-number">$5,000+</span>
-              <span class="trust-stat-label">Raised on Kickstarter</span>
-            </a>
-            <a class="trust-stat" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_discord');">
-              <span class="trust-stat-number">100+</span>
-              <span class="trust-stat-label">Discord Members</span>
-            </a>
-            <a class="trust-stat" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_reddit');">
-              <span class="trust-stat-number">400+</span>
-              <span class="trust-stat-label">Reddit Members</span>
-            </a>
-            <div class="trust-stat">
-              <span class="trust-stat-number">100+</span>
-              <span class="trust-stat-label">Pre-Orders</span>
-            </div>
-          </div>
           <section class="how-it-works" aria-labelledby="howItWorksTitle">
             <div class="how-it-works-header">
               <h2 id="howItWorksTitle">Pre-order in 3 steps</h2>
@@ -1257,7 +1266,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>We ship to 33 countries. Available destinations and delivery prices show at checkout.</p>
+              <p>We ship to 30 countries. Available destinations and delivery prices show at checkout.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1925,6 +1934,11 @@
     })();
   </script>
   
+  <div id="cardZoomOverlay" role="dialog" aria-modal="true" aria-label="Card zoom">
+    <button id="cardZoomClose" aria-label="Close">&times;</button>
+    <img id="cardZoomImg" src="" alt="">
+  </div>
+
   <script>
     // Simple success message handler for backend responses
     document.addEventListener('DOMContentLoaded', function() {
@@ -2024,6 +2038,54 @@
       sendStoreClickToBackend('inline_store', { source });
     }
     
+    // Center card peek carousel on load
+    (function(){
+      function centerPeek() {
+        var win = document.querySelector('.card-peek-window');
+        if (!win) return;
+        var track = document.getElementById('cardPeekTrack');
+        win.scrollLeft = Math.round((track.scrollWidth - win.clientWidth) / 2);
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', centerPeek);
+      } else {
+        centerPeek();
+      }
+    })();
+
+    // Card zoom lightbox
+    (function(){
+      var overlay = document.getElementById('cardZoomOverlay');
+      var zoomImg = document.getElementById('cardZoomImg');
+      var closeBtn = document.getElementById('cardZoomClose');
+      function openZoom(src, alt) {
+        zoomImg.src = src;
+        zoomImg.alt = alt || '';
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+      }
+      function closeZoom() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+      document.getElementById('cardPeekTrack').addEventListener('click', function(e) {
+        var img = e.target.closest('.card-peek-image');
+        if (img) openZoom(img.src, img.alt);
+      });
+      overlay.addEventListener('click', function(e) {
+        if (e.target !== closeBtn) closeZoom();
+      });
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeZoom();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeZoom();
+      });
+    })();
+
     function trackDiscordClick() {
       if (typeof gtag !== 'undefined') {
         gtag('event', 'discord_clicked', {
