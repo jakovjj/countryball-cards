@@ -531,16 +531,15 @@
     .hero-video-cta .hero-buy-btn{padding:14px 22px !important;border-radius:16px !important}
     .hero-video-cta .hero-buy-btn img{height:36px;max-width:360px}
 
-    .trust-strip{display:flex;flex-wrap:nowrap;justify-content:center;gap:10px;margin:14px 0 0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;max-width:100%}
-    .trust-strip::-webkit-scrollbar{display:none}
-    .trust-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.15px;opacity:0.92;transition:opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;flex:0 0 auto;white-space:nowrap}
-    .trust-pill:hover{opacity:1;transform:translateY(-1px);border-color:rgba(255,255,255,0.18)}
-    .trust-pill:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-    .trust-pill.kickstarter{border-color:rgba(5,206,120,0.35)}
-    .trust-pill.kickstarter:hover{border-color:rgba(5,206,120,0.55)}
-    .trust-pill-muted{font-weight:700;opacity:0.95}
-    @media(max-width:1199.98px){
-      .trust-strip{display:none}
+    .trust-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 0}
+    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:18px 12px;border-radius:16px;border:1px solid rgba(255,255,255,0.10);background:rgba(255,255,255,0.04);text-decoration:none;color:var(--text);transition:background 0.2s ease,border-color 0.2s ease,transform 0.2s ease}
+    .trust-stat:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.2);transform:translateY(-2px)}
+    .trust-stat:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+    .trust-stat-number{font-size:28px;font-weight:900;color:var(--gold);line-height:1.1}
+    .trust-stat-label{font-size:12px;font-weight:700;color:var(--muted);margin-top:5px;line-height:1.35}
+    @media(max-width:700px){
+      .trust-stats{grid-template-columns:repeat(2,1fr)}
+      .trust-stat-number{font-size:24px}
     }
     .availability-checker{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;margin:32px 0;text-align:center}
     .availability-checker h3{margin:0 0 8px;color:var(--text);font-size:22px}
@@ -916,13 +915,13 @@
       <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#07152b" data-mbg2="#0a2a55" data-mbg3="#0d3f7f">
         <div class="hero-video" aria-label="Countryball Cards trailer video">
           <div class="video-container" id="trailerContainer">
-            <button class="yt-poster" type="button" aria-label="Play trailer" data-autoplay-src="https://www.youtube.com/embed/OzoUYUa8ASs?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080">
-              <img class="yt-poster-img" src="https://i.ytimg.com/vi/OzoUYUa8ASs/maxresdefault.jpg" srcset="https://i.ytimg.com/vi/OzoUYUa8ASs/maxresdefault.jpg 1280w, https://i.ytimg.com/vi/OzoUYUa8ASs/hqdefault.jpg 480w" sizes="100vw" alt="Countryball Cards trailer thumbnail" loading="eager" decoding="async">
+            <button class="yt-poster" type="button" aria-label="Play trailer" data-autoplay-src="https://www.youtube.com/embed/G7uFkWPeX6s?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080">
+              <img class="yt-poster-img" src="https://i.ytimg.com/vi/G7uFkWPeX6s/maxresdefault.jpg" srcset="https://i.ytimg.com/vi/G7uFkWPeX6s/maxresdefault.jpg 1280w, https://i.ytimg.com/vi/G7uFkWPeX6s/hqdefault.jpg 480w" sizes="100vw" alt="Countryball Cards trailer thumbnail" loading="eager" decoding="async">
               <span class="yt-poster-play" aria-hidden="true"></span>
             </button>
             <iframe
               id="trailerIframe"
-              src="https://www.youtube.com/embed/OzoUYUa8ASs?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080"
+              src="https://www.youtube.com/embed/G7uFkWPeX6s?rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080"
               title="Countryball Cards Trailer"
               loading="lazy"
               allowfullscreen
@@ -1031,13 +1030,23 @@
 
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
           <h3 class="packages-comparison-title">Choose your Edition!</h3>
-          <img src="assets/box_art-720.webp" srcset="assets/box_art-320.webp 320w, assets/box_art-480.webp 480w, assets/box_art-640.webp 640w, assets/box_art-720.webp 720w, assets/box_art-960.webp 960w" sizes="(max-width: 800px) 92vw, 720px" width="1067" height="533" alt="Countryball Cards box art" class="packages-comparison-art" loading="lazy" decoding="async">
-
-          <div class="trust-strip" aria-label="Trust and community links">
-            <a class="trust-pill" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">Successful Kickstarter ($5,000+ Raised)</a>
-            <a class="trust-pill" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_discord');">Community on Discord (100+ Members)</a>
-            <a class="trust-pill" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_reddit');">Community on Reddit (400+ Members)</a>
-            <a class="trust-pill" target="_blank">Over 100 Pre-Orders</a>
+          <div class="trust-stats" aria-label="Community stats">
+            <a class="trust-stat" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
+              <span class="trust-stat-number">$5,000+</span>
+              <span class="trust-stat-label">Raised on Kickstarter</span>
+            </a>
+            <a class="trust-stat" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_discord');">
+              <span class="trust-stat-number">100+</span>
+              <span class="trust-stat-label">Discord Members</span>
+            </a>
+            <a class="trust-stat" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_reddit');">
+              <span class="trust-stat-number">400+</span>
+              <span class="trust-stat-label">Reddit Members</span>
+            </a>
+            <div class="trust-stat">
+              <span class="trust-stat-number">100+</span>
+              <span class="trust-stat-label">Pre-Orders</span>
+            </div>
           </div>
           <section class="how-it-works" aria-labelledby="howItWorksTitle">
             <div class="how-it-works-header">
