@@ -654,6 +654,12 @@
     .packages-compare-table .feature-subtle{color:var(--muted);font-weight:700}
     .packages-compare-table .edition-col{text-align:center;width:18.666%}
     .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:30px;font-weight:700;letter-spacing:0;font-style:normal;text-transform:none;text-shadow:none;text-align:center}
+    .status-banner{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 32px;text-align:center}
+    .status-banner-text{font-size:26px;letter-spacing:0.02em;text-transform:uppercase;color:var(--text);text-decoration:underline;text-decoration-color:rgba(185,207,50,0.45);text-underline-offset:6px;text-decoration-thickness:2px}
+    .status-banner-text strong{font-weight:900}
+    .status-in-production{color:#b9cf32;font-weight:900}
+    .status-available{color:#8a8f9a;text-transform:none;font-size:0.8em}
+    .status-subtitle{margin:10px 0 0;font-size:14px;color:var(--muted);max-width:480px;line-height:1.6}
     .packages-comparison-title::before,.packages-comparison-title::after{display:none}
 
     /* Avoid a brief "unstyled images" flash on reload while the async stylesheet loads */
@@ -1056,7 +1062,10 @@
         <div class="golden-separator"></div>
 
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
-          <h3 class="packages-comparison-title">Choose your Edition!</h3>
+          <div class="status-banner" role="status" aria-label="Project status">
+            <span class="status-banner-text"><strong>Status:</strong> <span class="status-in-production">In Production</span> <span class="status-available">(Available for Pre-orders)</span></span>
+            <p class="status-subtitle">The cards finish printing by April 15th, then set sail, reaching our fulfillment center by June 10th, from where every copy begins its journey to your door.</p>
+          </div>
           <section class="how-it-works" aria-labelledby="howItWorksTitle">
             <div class="how-it-works-header">
               <h2 id="howItWorksTitle">Pre-order in 3 steps</h2>
@@ -1067,7 +1076,7 @@
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.webp" alt="" loading="lazy"></span>
                 <span class="how-step-number">1</span>
                 <h3>Pick an edition</h3>
-                <p>Select a shipping location and lock in the low pre-order price by ordering now. Full refunds available until Feb 2026.</p>
+                <p>Select a shipping location and lock in the low pre-order price by ordering now.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/us.webp" alt="" loading="lazy"></span>
@@ -1078,8 +1087,8 @@
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.webp" alt="" loading="lazy"></span>
                 <span class="how-step-number">3</span>
-                <h3>Ships April/May 2026</h3>
-                <p>Your very own copy of Countryball Cards gets delivered to your doorstep when fulfillment opens April/May 2026.</p>
+                <h3>Ships June 2026</h3>
+                <p>Your very own copy of Countryball Cards gets delivered to your doorstep when fulfillment opens June 2026.</p>
               </article>
             </div>
           </section>
@@ -1159,12 +1168,6 @@
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="feature-col">Alliance Expansion (New Mechanics)</th>
-                  <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
-                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
-                  <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
-                </tr>
-                <tr>
                   <th scope="row" class="feature-col">10 Extra Countryballs + 5 Extra Project Cards</th>
                   <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
@@ -1183,42 +1186,10 @@
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
                 </tr>
               </tbody>
-              <tfoot>
-                <tr>
-                  <th scope="row" class="feature-col feature-subtle">Ready?</th>
-                  <td>
-                    <a href="#" class="package-btn buy-wave base-theme compare-buy-btn" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
-                      <span class="package-btn-label">Buy Base</span>
-                      <span class="package-btn-price">Pre-order • $30</span>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="package-btn buy-wave extended-theme compare-buy-btn" data-package="extended" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Extended Edition', 45)">
-                      <span class="package-btn-label">Buy Extended</span>
-                      <span class="package-btn-price">Pre-order • $45</span>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="#" class="package-btn buy-wave founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
-                      <span class="package-btn-label">Buy Founder's</span>
-                      <span class="package-btn-price">Pre-order • $65</span>
-                    </a>
-                  </td>
-                </tr>
-              </tfoot>
             </table>
 
-            <div class="compare-mobile-picker compare-mobile-picker-bottom" aria-label="Select edition to view">
-              <label for="compareEditionSelectBottom">Viewing</label>
-              <select id="compareEditionSelectBottom" class="compare-mobile-select" aria-label="Select edition">
-                <option value="base">Base Edition</option>
-                <option value="extended">Extended Edition</option>
-                <option value="founders">Founder's Edition</option>
-              </select>
-            </div>
           </div>
 
-          <div class="packages-comparison-divider" aria-hidden="true"></div>
           <div class="packages-comparison-bottom">
             <div class="payment-note">
               <span><b>Payments handled securely by Stripe, Inc.</span>
