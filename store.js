@@ -146,6 +146,7 @@
 
       shippingOverlay.hidden = false;
       shippingOverlay.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       updateShippingConfirmState();
 
@@ -169,7 +170,7 @@
         // immediately after they click the CTA. Instead, let them explicitly choose shipping.
       });
 
-      setTimeout(() => {
+      function focusAfterOpen() {
         const searchInput = document.getElementById('countrySearchInput');
         if (searchInput && !selectedCountry) {
           openCountryDropdown();
@@ -180,7 +181,25 @@
           shippingDialog.focus();
         }
         window.scrollTo(0, shippingScrollY);
-      }, 30);
+      }
+
+      // Wait for the modal entrance animation to finish before opening the dropdown,
+      // so that getBoundingClientRect() in positionCountryDropdownList() reads the
+      // final settled position instead of the mid-animation scaled/translated one.
+      const animDuration = 480; // slightly longer than the 0.45s animation
+      let animSettled = false;
+      const onAnimEnd = () => {
+        if (animSettled) return;
+        animSettled = true;
+        focusAfterOpen();
+      };
+      shippingDialog.addEventListener('animationend', onAnimEnd, { once: true });
+      setTimeout(() => {
+        if (!animSettled) {
+          animSettled = true;
+          focusAfterOpen();
+        }
+      }, animDuration);
 
       if (!shippingKeyListenerAttached) {
         document.addEventListener('keydown', handleShippingKeydown);
@@ -194,6 +213,7 @@
       }
       shippingOverlay.hidden = true;
       shippingOverlay.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       if (shippingKeyListenerAttached) {
         document.removeEventListener('keydown', handleShippingKeydown);
@@ -271,6 +291,7 @@
       preorderScrollY = window.scrollY || window.pageYOffset || 0;
 
       preorderOverlay.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       preorderOverlay.setAttribute('aria-hidden', 'false');
 
@@ -295,6 +316,7 @@
       }
       preorderOverlay.hidden = true;
       preorderOverlay.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       if (preorderKeyListenerAttached) {
         document.removeEventListener('keydown', handlePreorderKeydown);
@@ -511,10 +533,17 @@
         return;
       }
       const rect = dropdown.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      // visualViewport.height is accurate on mobile (excludes browser chrome/keyboard);
+      // window.innerHeight can over-report on iOS Safari.
+      const viewportHeight = (window.visualViewport ? window.visualViewport.height : 0)
+        || window.innerHeight
+        || document.documentElement.clientHeight
+        || 0;
       const margin = 8;
-      const spaceBelow = Math.max(0, viewportHeight - rect.bottom - margin);
-      const spaceAbove = Math.max(0, rect.top - margin);
+      const bottomSafe = 16; // keep the list off the very bottom edge
+      const maxListHeight = Math.floor(viewportHeight * 0.42); // never taller than ~42% of viewport
+      const spaceBelow = Math.min(maxListHeight, Math.max(0, viewportHeight - rect.bottom - margin - bottomSafe));
+      const spaceAbove = Math.min(maxListHeight, Math.max(0, rect.top - margin - bottomSafe));
       const minHeight = 180;
 
       const openDown = spaceBelow >= minHeight || spaceBelow >= spaceAbove;
