@@ -55,66 +55,124 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .dice-header { 
-      display: flex; 
-      align-items: center; 
-      justify-content: space-between; 
-      gap: 12px; 
-      flex-wrap: wrap; 
-    }
-    .dice-title { 
-      margin: 0; 
-      font-size: clamp(28px, 4.5vw, 42px); 
-      letter-spacing: 0.5px; 
-    }
-    .dice-actions { 
-      display: flex; 
-      gap: 10px; 
-      flex-wrap: wrap; 
-    }
-    .dice-actions .btn { 
-      min-width: 160px; 
-    }
-    .dice-sub { 
-      color: var(--muted); 
-      margin: 6px 0 24px; 
+    .dice-header {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+      gap: 10px;
     }
 
-    .dice-content { 
-      max-width: 1000px; 
-      margin: 0 auto; 
+    .dice-logo-link {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 18px;
     }
-    
+
+    .dice-logo-link:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .dice-logo {
+      width: min(100%, 680px);
+      max-height: 220px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 8px;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+    }
+
+    .dice-title {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(32px, 4.8vw, 48px);
+      letter-spacing: 0.6px;
+      line-height: 1.1;
+    }
+
+    .dice-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .dice-actions .btn {
+      min-width: 164px;
+    }
+
+    .dice-sub {
+      color: var(--muted);
+      max-width: 840px;
+      margin: 10px auto 0;
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    .dice-note {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 18px auto 24px;
+      text-align: center;
+      max-width: 980px;
+    }
+
+    .dice-note p {
+      margin: 0;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .dice-note strong {
+      color: #60a5fa;
+    }
+
+    .dice-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
     .dice-section {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(199, 164, 85, 0.3);
-      border-radius: 16px;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(199, 164, 85, 0.35);
+      border-radius: 18px;
       padding: 32px;
       margin: 24px 0;
       text-align: center;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
     }
 
     .dice-section:hover {
-      border-color: rgba(199, 164, 85, 0.5);
+      border-color: rgba(199, 164, 85, 0.55);
       background: rgba(255, 255, 255, 0.08);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
     }
 
     .dice-section h2 {
-      color: #1f2937;
+      color: var(--text);
       margin: 0 0 16px 0;
-      font-size: 28px;
+      font-size: clamp(24px, 3.8vw, 36px);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
     }
 
+    .dice-section-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
     .dice-section p {
-      color: var(--text);
+      color: var(--muted);
       margin: 0 0 24px 0;
       font-size: 16px;
       line-height: 1.5;
@@ -128,16 +186,15 @@
     }
 
     .dice-button {
-      background: #6b7280;
-      border: none;
-      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: var(--text);
       padding: 20px 40px;
       border-radius: 16px;
       font-size: 20px;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 6px 24px rgba(107, 114, 128, 0.4);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
       display: flex;
       align-items: center;
       gap: 12px;
@@ -146,15 +203,25 @@
       font-family: system-ui, Segoe UI, Inter, Arial, sans-serif;
     }
 
+    #attackDiceBtn {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(251, 191, 36, 0.18));
+      border-color: rgba(251, 191, 36, 0.45);
+    }
+
+    #resourceDiceBtn {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.18));
+      border-color: rgba(96, 165, 250, 0.45);
+    }
+
     .dice-button:hover {
-      background: #4b5563;
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px rgba(107, 114, 128, 0.6);
+      filter: brightness(1.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.36);
     }
 
     .dice-button:active {
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(107, 114, 128, 0.4);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
     }
 
     .dice-button.rolling {
@@ -198,13 +265,13 @@
     }
 
     .dice-result h3 {
-      color: #374151;
+      color: var(--text);
       margin: 0 0 12px 0;
       font-size: 20px;
     }
 
     .dice-result p {
-      color: #374151;
+      color: var(--muted);
       margin: 8px 0 0 0;
       font-size: 16px;
       font-weight: 600;
@@ -282,7 +349,7 @@
     }
 
     .resource-die h4 {
-      color: #374151;
+      color: var(--text);
       margin: 0 0 8px 0;
       font-size: 14px;
       text-transform: uppercase;
@@ -293,7 +360,7 @@
       font-size: 24px;
       margin: 0;
       line-height: 1;
-      text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     }
 
     .resource-die .price-container {
@@ -320,21 +387,20 @@
       object-fit: contain;
     }
 
-    /* Price-based color coding for quick identification */
     .resource-die .dice-value[data-value="2"] {
-      color: #22c55e; /* Green - Cheap */
+      color: #22c55e;
     }
 
     .resource-die .dice-value[data-value="3"] {
-      color: #fbbf24; /* Bright Yellow - Medium */
+      color: #fbbf24;
     }
 
     .resource-die .dice-value[data-value="4"] {
-      color: #ea580c; /* Dark Orange - High */
+      color: #ea580c;
     }
 
     .resource-die .dice-value[data-value="5"] {
-      color: #ef4444; /* Red - Expensive */
+      color: #ef4444;
     }
 
     .dice-history {
@@ -348,7 +414,7 @@
     }
 
     .dice-history h3 {
-      color: #374151;
+      color: var(--text);
       margin: 0 0 16px 0;
       font-size: 18px;
       text-align: center;
@@ -367,13 +433,24 @@
     }
 
     .history-type {
-      color: #374151;
+      color: var(--text);
       font-weight: 600;
     }
 
     .history-result {
       color: var(--text);
       font-weight: 700;
+    }
+
+    .history-time {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .dice-empty-history {
+      color: var(--muted);
+      text-align: center;
+      margin: 20px 0;
     }
 
     .clear-history {
@@ -395,32 +472,38 @@
     }
 
     @media (max-width: 719px) {
-      .dice-header { 
-        justify-content: center; 
+      .dice-logo {
+        max-height: 152px;
       }
-      .dice-actions { 
-        width: 100%; 
-        justify-content: center; 
+
+      .dice-title {
+        font-size: clamp(28px, 9vw, 40px);
       }
-      
+
       .dice-section {
         padding: 24px 16px;
         margin: 16px 0;
       }
-      
+
       .dice-button {
         min-width: 180px;
         padding: 16px 32px;
         font-size: 18px;
       }
-      
+
       .resource-dice-container {
         grid-template-columns: repeat(2, 1fr);
       }
-      
+
       .dice-history {
         margin-top: 24px;
         padding: 16px;
+      }
+
+      .history-item {
+        display: grid;
+        gap: 4px;
+        justify-items: center;
       }
     }
   </style>
@@ -429,11 +512,10 @@
   <div class="wrap">
     <div class="frame">
       <header class="dice-header" aria-label="Dice roller header">
-        <h1 class="dice-title">
-          <img src="logo-240.webp" srcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w" sizes="135px" width="1882" height="2500" alt="Countryball Cards" class="logo" style="max-height:180px;margin:0 0 6px 0;" onerror="this.style.display='none'">
-          <span class="visually-hidden">Countryball Cards</span>
-          Dice Roller
-        </h1>
+        <a href="index.html" class="dice-logo-link" aria-label="Go to homepage">
+          <img src="logo-640.webp" srcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" sizes="(max-width: 768px) 80vw, 680px" alt="Countryball Cards" class="dice-logo" onerror="this.style.display='none'">
+        </a>
+        <h1 class="dice-title">Dice Roller</h1>
         <div class="dice-actions">
           <a class="btn secondary" href="index.html" aria-label="Back to Home" onclick="trackBackToHome()">
             <span class="btn-row">
@@ -449,17 +531,15 @@
       <p class="dice-sub">Roll dice for your Countryball Cards game! Use the D20 for attacks and abilities, or roll all 4 resource dice to set market prices.</p>
 
       <!-- Note about physical dice -->
-      <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 16px; margin: 16px 0 24px; text-align: center;">
-        <p style="margin: 0; color: var(--text); font-size: 14px;">
-          <strong style="color: #3b82f6;">📦 Note:</strong> Physical dice are included with the actual game! This digital roller is provided for print-and-play convenience and online playtesting.
-        </p>
+      <div class="dice-note">
+        <p><strong>Note:</strong> Physical dice are included with the actual game. This digital roller is provided for print-and-play convenience and online playtesting.</p>
       </div>
 
       <div class="dice-content">
         <!-- Attack Dice Section -->
         <section class="dice-section">
           <h2>
-            <img src="icons/sword.png" alt="Attack Dice" style="height:28px;vertical-align:middle;margin:0 8px 0 0;">
+            <img src="icons/sword.png" alt="Attack Dice" class="dice-section-icon">
             Attack Dice (D20)
           </h2>
           <p>Roll a 20-sided die for attack abilities and combat resolution. Higher rolls mean better success!</p>
@@ -481,7 +561,7 @@
         <!-- Resource Dice Section -->
         <section class="dice-section">
           <h2>
-            <img src="icons/coin_resource.png" alt="Resource Dice" style="height:28px;vertical-align:middle;margin:0 8px 0 0;">
+            <img src="icons/coin_resource.png" alt="Resource Dice" class="dice-section-icon">
             Resource Dice (4x D6)
           </h2>
           <p>Roll all 4 resource dice to set market prices at the start of the game or when market events occur.</p>
@@ -536,7 +616,7 @@
         <div class="dice-history">
           <h3>Roll History</h3>
           <div id="historyContainer">
-            <p style="color: var(--muted); text-align: center; margin: 20px 0;">No rolls yet. Start rolling dice to see your history!</p>
+            <p class="dice-empty-history">No rolls yet. Start rolling dice to see your history.</p>
           </div>
           <button class="clear-history" id="clearHistoryBtn" onclick="clearHistory()" style="display: none;">
             Clear History
@@ -612,7 +692,7 @@
           </div>
 
           <div class="site-footer-bottom">
-            <span>© 2025 Glare Studios, LLC</span>
+            <span>&copy; 2025 Glare Studios, LLC</span>
             <span>Need help? <a href="mailto:info@countryballcards.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>. Payments accepted: Cards, Apple Pay, Google Pay, Amazon Pay, Cash App Pay, Link, Samsung Pay.</span>
           </div>
         </div>
@@ -646,11 +726,11 @@
         // Add special styling for critical/fumble
         if (roll === 20) {
           value.classList.add('critical');
-          comment.textContent = "🎉 Great Success!";
+          comment.textContent = "Great Success!";
           comment.style.color = "#22c55e";
         } else if (roll === 1) {
           value.classList.add('fumble');
-          comment.textContent = "💀 Critical Fumble!";
+          comment.textContent = "Critical Fumble!";
           comment.style.color = "#ef4444";
         } else if (roll >= 15) {
           comment.textContent = "Excellent roll!";
@@ -750,14 +830,14 @@
       const clearBtn = document.getElementById('clearHistoryBtn');
       
       if (rollHistory.length === 0) {
-        container.innerHTML = '<p style="color: var(--muted); text-align: center; margin: 20px 0;">No rolls yet. Start rolling dice to see your history!</p>';
+        container.innerHTML = '<p class="dice-empty-history">No rolls yet. Start rolling dice to see your history.</p>';
         clearBtn.style.display = 'none';
       } else {
         container.innerHTML = rollHistory.map(item => `
           <div class="history-item">
             <span class="history-type">${item.type}</span>
             <span class="history-result">${item.result}</span>
-            <span style="color: var(--muted); font-size: 12px;">${item.timestamp}</span>
+            <span class="history-time">${item.timestamp}</span>
           </div>
         `).join('');
         clearBtn.style.display = 'block';
