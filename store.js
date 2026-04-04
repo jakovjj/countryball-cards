@@ -77,8 +77,6 @@
     let selectedZone = null;
     let detectionRunId = 0;
     let suppressAutoDetectSelection = false;
-    const GEO_PROMPT_TEXT = 'Pre-order';
-    const GEO_PROMPT_HTML = 'Pre-order';
     const shippingOverlay = document.getElementById('shippingConfirmOverlay');
     const shippingDialog = shippingOverlay ? shippingOverlay.querySelector('.modal') : null;
     const shippingCloseBtn = document.getElementById('shippingConfirmClose');
@@ -363,15 +361,6 @@
     }
     initPreorderModalControls();
     document.addEventListener('DOMContentLoaded', initPreorderModalControls);
-
-    function forcePackageButtonLabels(html) {
-      document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
-        if (!label.dataset.defaultLabel) {
-          label.dataset.defaultLabel = label.innerHTML;
-        }
-        label.innerHTML = html;
-      });
-    }
 
     function setDropdownLabel(primaryText, zoneText = '') {
       const labelEl = document.getElementById('countryDropdownLabel');
@@ -688,18 +677,7 @@
     function promptForCountrySelection() {
       // Reset label/state first so a missing helper can't prevent visual reset.
       resetCountrySelection();
-      if (typeof updateZoneStatus === 'function') {
-        updateZoneStatus('DEFAULT');
-      }
       updateShippingConfirmState();
-    }
-
-    function restoreButtonLabels() {
-      document.querySelectorAll('.package-btn .package-btn-label').forEach(label => {
-        if (label.dataset.defaultLabel) {
-          label.innerHTML = label.dataset.defaultLabel;
-        }
-      });
     }
 
     function updatePaymentLinks(zone) {
@@ -771,9 +749,6 @@
 
       updatePaymentLinks(selectedZone);
       updateButtonStates(true);
-      if (typeof updateZoneStatus === 'function') {
-        updateZoneStatus(selectedZone);
-      }
       updateShippingConfirmState();
     }
 
@@ -1039,9 +1014,6 @@
       setupCountryDropdownInteractions();
       setupCountrySearch();
       updateButtonStates(false);
-      if (typeof updateZoneStatus === 'function') {
-        updateZoneStatus('DEFAULT');
-      }
       setDropdownLabel('Choose a shipping location', '');
       const changeBtn = document.getElementById('countryChangeBtn');
       if (changeBtn) {

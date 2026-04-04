@@ -1829,6 +1829,8 @@
   <script>
     (function() {
       let storeLoadPromise = null;
+      const STORE_SCRIPT_URL = 'store.js?v=2026040501';
+      const STORE_SCRIPT_ID = 'cbc-store-script';
 
       function loadStoreScript() {
         if (storeLoadPromise) {
@@ -1836,11 +1838,26 @@
         }
 
         storeLoadPromise = new Promise((resolve, reject) => {
+          const existing = document.getElementById(STORE_SCRIPT_ID);
+          if (existing) {
+            if (existing.dataset.loaded === 'true') {
+              resolve();
+              return;
+            }
+            existing.addEventListener('load', () => resolve(), { once: true });
+            existing.addEventListener('error', () => reject(new Error(`Failed to load ${STORE_SCRIPT_URL}`)), { once: true });
+            return;
+          }
+
           const s = document.createElement('script');
-          s.src = 'store.js';
+          s.id = STORE_SCRIPT_ID;
+          s.src = STORE_SCRIPT_URL;
           s.async = true;
-          s.onload = () => resolve();
-          s.onerror = () => reject(new Error('Failed to load store.js'));
+          s.onload = () => {
+            s.dataset.loaded = 'true';
+            resolve();
+          };
+          s.onerror = () => reject(new Error(`Failed to load ${STORE_SCRIPT_URL}`));
           document.head.appendChild(s);
         });
 
@@ -1879,33 +1896,12 @@
         return false;
       };
 
-      // Proactively load when the store section is near viewport.
+      // Eagerly load store.js so CTA behavior and modal wiring are ready immediately.
       function kickoff() {
-        const storeSection = document.getElementById('storeSection');
-        if (!storeSection) {
-          return;
-        }
-
-        if ('IntersectionObserver' in window) {
-          const io = new IntersectionObserver(entries => {
-            if (entries.some(entry => entry.isIntersecting)) {
-              io.disconnect();
-              loadStoreScript().catch(() => {});
-            }
-          }, { rootMargin: '200px 0px' });
-          io.observe(storeSection);
-        } else if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => loadStoreScript().catch(() => {}), { timeout: 2500 });
-        } else {
-          setTimeout(() => loadStoreScript().catch(() => {}), 1200);
-        }
+        loadStoreScript().catch(() => {});
       }
 
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', kickoff);
-      } else {
-        kickoff();
-      }
+      kickoff();
     })();
   </script>
   
