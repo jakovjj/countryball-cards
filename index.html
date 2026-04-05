@@ -384,8 +384,9 @@
     .how-it-works-header p{margin:0;color:var(--muted);font-size:16px}
     .how-it-works-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
     .how-step{background:rgba(15,20,25,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px 20px 20px;position:relative;overflow:visible}
-    .how-step-number{width:36px;height:36px;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px}
-    .how-step h3{margin:0 0 8px;font-size:18px;color:var(--text)}
+    .how-step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .how-step-number{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800}
+    .how-step h3{margin:0;font-size:18px;color:var(--text)}
     .how-step p{margin:0;color:var(--muted);line-height:1.4}
     .how-step-flag{position:absolute;top:-16px;right:8px;width:80px;opacity:0.95;filter:drop-shadow(0 6px 15px rgba(0,0,0,0.45))}
     .how-step-flag img{width:100%;height:auto;display:block}
@@ -402,7 +403,7 @@
     .packages-comparison .how-it-works-header p{font-size:14px}
     .packages-comparison .how-it-works-steps{gap:12px;margin:16px 0}
     .packages-comparison .how-step{padding:16px 16px 14px;background:rgba(255,255,255,0.02)}
-    .packages-comparison .how-step-number{width:30px;height:30px;margin-bottom:8px}
+    .packages-comparison .how-step-number{width:30px;height:30px}
     .packages-comparison .how-step h3{margin:0 0 6px;font-size:16px}
     .packages-comparison .how-step p{font-size:13px}
     .packages-comparison .how-step-flag{width:64px;top:-12px;right:6px;opacity:0.85}
@@ -1080,20 +1081,17 @@
             <div class="how-it-works-steps">
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.webp" alt="" loading="lazy"></span>
-                <span class="how-step-number">1</span>
-                <h3>Pick an edition</h3>
+                <div class="how-step-header"><span class="how-step-number">1</span><h3>Pick an edition</h3></div>
                 <p>Select your edition of Countryball Cards, your shipping location, and lock in the low pre-order price <strong>(20% off)</strong> by ordering now.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/us.webp" alt="" loading="lazy"></span>
-                <span class="how-step-number">2</span>
-                <h3>We produce + update</h3>
+                <div class="how-step-header"><span class="how-step-number">2</span><h3>We produce + update</h3></div>
                 <p>Monthly progress updates during manufacturing via Email. <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts" target="_blank" rel="noopener">Click here to see our latest updates</a>.</p>
               </article>
               <article class="how-step">
                 <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.webp" alt="" loading="lazy"></span>
-                <span class="how-step-number">3</span>
-                <h3>Ships June 2026</h3>
+                <div class="how-step-header"><span class="how-step-number">3</span><h3>Ships June 2026</h3></div>
                 <p>Your very own copy of Countryball Cards gets delivered to your doorstep when fulfillment opens June 2026.</p>
               </article>
             </div>
@@ -1454,10 +1452,10 @@
       </header>
       <div class="preorder-modal-body">
         <p class="preorder-modal-copy">We’ll open a secure Stripe checkout so you can finish your pre-order.</p>
-        <p class="preorder-modal-note">Stripe keeps your payment info protected, and you can still back out before completing payment.</p>
+        <p class="preorder-modal-note">Your payment info is protected, and you can still back out before completing payment.</p>
       </div>
       <footer class="preorder-modal-footer">
-        <button type="button" class="preorder-continue-btn" id="preorderContinueBtn">Continue to Secure Checkout</button>
+        <button type="button" class="preorder-continue-btn" id="preorderContinueBtn">Continue to Checkout</button>
         <div class="preorder-paypal-section" id="preorderPaypalSection" hidden>
           <div class="preorder-or-divider"><span>or pay with</span></div>
           <button type="button" class="preorder-paypal-btn" id="preorderPaypalBtn" aria-label="Pay with PayPal">
@@ -1469,42 +1467,6 @@
     </div>
   </div>
 
-  <!-- Shipping Location Modal -->
-  <div class="modal-overlay" id="shippingConfirmOverlay" hidden aria-hidden="true">
-    <div class="modal shipping-modal" role="dialog" aria-modal="true" aria-labelledby="shippingConfirmTitle" tabindex="-1">
-      <header>
-        <h2 id="shippingConfirmTitle">Select shipping country</h2>
-        <button class="modal-close" type="button" id="shippingConfirmClose" aria-label="Close shipping selection">✕</button>
-      </header>
-      <div class="shipping-modal-body">
-        <div class="country-selector-wrapper">
-          <div class="country-dropdown" id="countryDropdown">
-            <div class="country-dropdown-header">
-              <div class="country-dropdown-top">
-                <div class="country-dropdown-toggle" id="countryDropdownToggle" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
-                  <span id="countryDropdownLabel">
-                    <span class="country-option-left">Choose a shipping location</span>
-                    <span class="zone-label"></span>
-                  </span>
-                  <svg class="country-dropdown-chevron" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 10l5 5 5-5z" />
-                  </svg>
-                </div>
-
-              </div>
-              <input type="text" id="countrySearchInput" class="country-search" placeholder="Search country" aria-label="Search country">
-            </div>
-            <ul class="country-dropdown-list" id="countryDropdownList" role="listbox"></ul>
-          </div>
-          <input type="hidden" id="countryAvailabilitySelector" class="country-selector-hidden" value="">
-        </div>
-        <p class="shipping-modal-note">We use your shipping zone to load the correct Stripe checkout.</p>
-      </div>
-      <footer class="shipping-modal-footer">
-        <button type="button" class="shipping-confirm-btn" id="shippingConfirmBtn" disabled aria-disabled="true">Confirm shipping</button>
-      </footer>
-    </div>
-  </div>
 
   <!-- Support / Help Modal -->
   <div class="modal-overlay" id="supportOverlay" hidden aria-hidden="true">

@@ -279,9 +279,9 @@
       const copyEl = preorderDialog.querySelector('.preorder-modal-copy');
       if (copyEl) {
         const basePrice = Number(price);
-        const delivery = getDeliveryAmountForZone(selectedZone);
+        const delivery = getDeliveryAmountForZone(opts.zone || selectedZone || 'ZONE_1');
         const total = (Number.isFinite(basePrice) ? basePrice : 0) + delivery;
-        copyEl.textContent = `Your total will be ${formatUsd(total)}. We'll open a secure Stripe checkout so you can finish your pre-order. You'll receive a receipt after checkout.`;
+        copyEl.textContent = `Your total will be ${formatUsd(total)} (incl. $5.40 shipping). You'll receive a receipt after checkout.`;
       }
 
       const titleEl = document.getElementById('preorderConfirmTitle');
@@ -1021,7 +1021,8 @@
         });
       }
 
-      openShippingConfirmation(pendingShippingIntent, trigger);
+      const checkoutUrl = getCheckoutUrlForPackage('ZONE_1', packageKey);
+      openPreorderConfirmation(packageName, price, checkoutUrl, trigger, { zone: 'ZONE_1', packageKey });
       return false;
     }
 
