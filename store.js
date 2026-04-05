@@ -26,7 +26,6 @@
       { code: 'SI', label: 'Slovenia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'ES', label: 'Spain', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'SE', label: 'Sweden', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'TR', label: 'Turkey', flag: '�Y?��Y?�', zone: 'ZONE_2' },
       { code: 'GB', label: 'United Kingdom', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'US', label: 'United States', flag: '�Y?��Y?�', zone: 'ZONE_1' }
     ].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
@@ -59,7 +58,7 @@
 
     const SHIPPING_ZONES = {
       ZONE_1: ['AT','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB','US'],
-      ZONE_2: ['CA','AU','TR','JP']
+      ZONE_2: []
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
@@ -85,6 +84,15 @@
     const preorderDialog = preorderOverlay ? preorderOverlay.querySelector('.modal') : null;
     const preorderCloseBtn = document.getElementById('preorderConfirmClose');
     const preorderContinueBtn = document.getElementById('preorderContinueBtn');
+    const preorderPaypalBtn = document.getElementById('preorderPaypalBtn');
+    const preorderPaypalSection = document.getElementById('preorderPaypalSection');
+    const PAYPAL_LINKS = {
+      ZONE_1: {
+        base: 'https://www.paypal.com/ncp/payment/E3Z4KXQARU9ZS',
+        extended: 'https://www.paypal.com/ncp/payment/XTWHX2FNMELL2',
+        founders: 'https://www.paypal.com/ncp/payment/W5P57LDF9GJ56'
+      }
+    };
     let pendingPreorder = null;
     let pendingShippingIntent = null;
     let shippingLastFocus = null;
@@ -233,7 +241,7 @@
       const { packageName, price, packageKey, triggerEl } = pendingShippingIntent;
       const checkoutUrl = getCheckoutUrlForPackage(selectedZone, packageKey);
       closeShippingConfirmation({ restoreFocus: false });
-      openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl);
+      openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl, { zone: selectedZone, packageKey });
     }
 
     function initShippingModalControls() {
@@ -259,7 +267,7 @@
     initShippingModalControls();
     document.addEventListener('DOMContentLoaded', initShippingModalControls);
 
-    function openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl) {
+    function openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl, opts = {}) {
       if (!checkoutUrl) {
         return;
       }
@@ -284,7 +292,13 @@
           : 'Ready to order?';
       }
 
-      pendingPreorder = { checkoutUrl };
+      const paypalUrl = opts.zone && opts.packageKey && PAYPAL_LINKS[opts.zone] && PAYPAL_LINKS[opts.zone][opts.packageKey]
+        ? PAYPAL_LINKS[opts.zone][opts.packageKey]
+        : null;
+      if (preorderPaypalSection) {
+        preorderPaypalSection.hidden = !paypalUrl;
+      }
+      pendingPreorder = { checkoutUrl, paypalUrl };
       preorderLastFocus = triggerEl || document.activeElement || null;
       preorderScrollY = window.scrollY || window.pageYOffset || 0;
 
@@ -351,6 +365,14 @@
       }
       if (preorderCloseBtn) {
         preorderCloseBtn.addEventListener('click', () => closePreorderConfirmation());
+      }
+      if (preorderPaypalBtn) {
+        preorderPaypalBtn.addEventListener('click', () => {
+          if (!pendingPreorder || !pendingPreorder.paypalUrl) return;
+          const targetUrl = pendingPreorder.paypalUrl;
+          closePreorderConfirmation({ restoreFocus: false });
+          window.location.href = targetUrl;
+        });
       }
       preorderOverlay.addEventListener('click', event => {
         if (event.target === preorderOverlay) {
