@@ -378,18 +378,17 @@
     .main-logo{display:block;max-height:900px;width:auto;margin:0 auto 24px;transition:transform 0.3s ease;max-width:min(600px,90vw)}
     .main-logo:hover{transform:scale(1.02)}
     .hero-subtitle{font-size:clamp(18px,2.8vw,24px);margin:16px 0 32px 0;color:var(--muted);line-height:1.5}
-    .how-it-works{margin:32px 0 40px;border:1px solid rgba(251,191,36,0.35);border-radius:28px;padding:28px;background:rgba(26,31,46,0.75);box-shadow:0 15px 45px rgba(0,0,0,0.25)}
+    .how-it-works{margin:20px 0 32px;border:1px solid rgba(251,191,36,0.35);border-radius:20px;padding:18px 22px;background:rgba(26,31,46,0.75);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
     .how-it-works-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(251,191,36,0.15);color:var(--gold);font-size:13px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase}
-    .how-it-works-header h2{margin:12px 0 10px;font-size:28px;color:var(--text)}
+    .how-it-works-header h2{margin:0 0 14px;font-size:20px;color:var(--text)}
     .how-it-works-header p{margin:0;color:var(--muted);font-size:16px}
-    .how-it-works-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:22px 0}
-    .how-step{background:rgba(15,20,25,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:24px 20px 20px;position:relative;overflow:visible}
-    .how-step-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-    .how-step-number{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800}
-    .how-step h3{margin:0;font-size:18px;color:var(--text)}
-    .how-step p{margin:0;color:var(--muted);line-height:1.4}
-    .how-step-flag{position:absolute;top:-16px;right:8px;width:80px;opacity:0.95;filter:drop-shadow(0 6px 15px rgba(0,0,0,0.45))}
-    .how-step-flag img{width:100%;height:auto;display:block}
+    .how-it-works-steps{display:flex;align-items:stretch;gap:0;margin:0}
+    .how-step{flex:1;padding:0 18px;border-left:1px solid rgba(255,255,255,0.08)}
+    .how-step:first-child{padding-left:0;border-left:none}
+    .how-step-header{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+    .how-step-number{width:28px;height:28px;flex-shrink:0;border-radius:50%;background:rgba(251,191,36,0.2);color:var(--gold);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+    .how-step h3{margin:0;font-size:15px;color:var(--text);font-weight:700}
+    .how-step p{margin:0;color:var(--muted);line-height:1.4;font-size:13px}
     .how-it-works-footer{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
     .how-it-works-footer button{padding:14px 26px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--gold),#d4b866);color:var(--bg);font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 8px 25px rgba(199,164,85,0.35);transition:transform 0.2s ease,box-shadow 0.2s ease}
     .how-it-works-footer button:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(199,164,85,0.45)}
@@ -402,11 +401,9 @@
     .packages-comparison .how-it-works-header h2{margin:10px 0 8px;font-size:22px}
     .packages-comparison .how-it-works-header p{font-size:14px}
     .packages-comparison .how-it-works-steps{gap:12px;margin:16px 0}
-    .packages-comparison .how-step{padding:16px 16px 14px;background:rgba(255,255,255,0.02)}
-    .packages-comparison .how-step-number{width:30px;height:30px}
-    .packages-comparison .how-step h3{margin:0 0 6px;font-size:16px}
-    .packages-comparison .how-step p{font-size:13px}
-    .packages-comparison .how-step-flag{width:64px;top:-12px;right:6px;opacity:0.85}
+    .packages-comparison .how-step-number{width:26px;height:26px}
+    .packages-comparison .how-step h3{font-size:14px}
+    .packages-comparison .how-step p{font-size:12px}
     .packages-comparison .how-it-works-footer button{padding:12px 18px;font-size:15px;border-radius:12px}
 
     .pre-howitworks-cta{margin:0 0 18px;display:flex;justify-content:center;width:100%}
@@ -667,8 +664,7 @@
     .packages-comparison-title::before,.packages-comparison-title::after{display:none}
 
     /* Avoid a brief "unstyled images" flash on reload while the async stylesheet loads */
-    html:not(.styles-ready) .card-peek-section,
-    html:not(.styles-ready) .how-step-flag{visibility:hidden}
+    html:not(.styles-ready) .card-peek-section{visibility:hidden}
     .compare-edition-name{display:block;font-size:clamp(13px, 1.1vw, 15px);letter-spacing:0.25px;text-transform:uppercase;white-space:nowrap;line-height:1.1;margin:0 0 clamp(10px,1.6vw,14px)}
     .compare-edition-name.edition-base{color:var(--gold);text-shadow:0 0 6px rgba(251,191,36,0.18)}
     .compare-edition-name.edition-extended{color:#b983ff;text-shadow:0 0 6px rgba(185,131,255,0.18)}
@@ -885,7 +881,7 @@
   <link rel="preload" href="styles.css?v=2026011204" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
   <noscript>
     <link rel="stylesheet" href="styles.css?v=2026011204">
-    <style>html .card-peek-section,html .how-step-flag{visibility:visible}</style>
+    <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
@@ -1080,19 +1076,16 @@
             </div>
             <div class="how-it-works-steps">
               <article class="how-step">
-                <span class="how-step-flag" aria-hidden="true"><img src="cb/poland.webp" alt="" loading="lazy"></span>
                 <div class="how-step-header"><span class="how-step-number">1</span><h3>Pick an edition</h3></div>
-                <p>Select your edition of Countryball Cards, your shipping location, and lock in the low pre-order price <strong>(20% off)</strong> by ordering now.</p>
+                <p>Select your edition, shipping location, and lock in the low pre-order price <strong>(20% off)</strong>.</p>
               </article>
               <article class="how-step">
-                <span class="how-step-flag" aria-hidden="true"><img src="cb/us.webp" alt="" loading="lazy"></span>
                 <div class="how-step-header"><span class="how-step-number">2</span><h3>We produce + update</h3></div>
-                <p>Monthly progress updates during manufacturing via Email. <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts" target="_blank" rel="noopener">Click here to see our latest updates</a>.</p>
+                <p>Monthly progress updates during manufacturing via Email. <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards/posts" target="_blank" rel="noopener">See latest updates</a>.</p>
               </article>
               <article class="how-step">
-                <span class="how-step-flag" aria-hidden="true"><img src="cb/uk.webp" alt="" loading="lazy"></span>
                 <div class="how-step-header"><span class="how-step-number">3</span><h3>Ships June 2026</h3></div>
-                <p>Your very own copy of Countryball Cards gets delivered to your doorstep when fulfillment opens June 2026.</p>
+                <p>Your copy gets delivered when fulfillment opens June 2026.</p>
               </article>
             </div>
           </section>
