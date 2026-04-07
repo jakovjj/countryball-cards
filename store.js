@@ -1053,3 +1053,6 @@
     } else {
       initInlineStore();
     }
+
+    window.trackPreOrderClick = trackPreOrderClick;
+    window.changeShippingLocation = changeShippingLocation;
