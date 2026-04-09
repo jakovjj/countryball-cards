@@ -1517,7 +1517,7 @@ font-size:16px}
 .preorder-paypal-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,209,64,0.4);filter:brightness(1.04)}
 .preorder-paypal-btn:active{transform:translateY(0);filter:brightness(0.96)}
 .preorder-paypal-btn:focus-visible{outline:3px solid #FFD140;outline-offset:3px}
-.preorder-paypal-logo{height:26px;display:block}
+.preorder-paypal-logo{height:26px;width:auto;display:block}
 .preorder-paypal-note{margin:10px 0 0;color:rgba(156,163,175,0.5);font-size:12px;line-height:1.4;text-align:center}
 
 /* Shipping selection modal (yellow, lower glow) */
