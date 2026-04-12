@@ -337,7 +337,7 @@
     .countdown-timer.live-cta{font-size:16px;color:rgba(255,255,255,0.9);font-weight:600;display:flex;align-items:center;gap:12px}
     .countdown-number{font-size:28px;font-weight:800;color:var(--text);min-width:40px;display:inline-block}
     .countdown-separator{font-size:24px;font-weight:700;color:var(--text);opacity:0.7}
-    .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:0;position:relative;align-items:center;flex-direction:column;padding:16px 0 28px;z-index:1;overflow-x:hidden;overflow-y:visible;contain:paint}
+    .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:0;position:relative;align-items:center;flex-direction:column;padding:16px 0 28px;z-index:1;overflow:visible;contain:layout style}
     .logo-section::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100vw);max-width:100%;background:radial-gradient(circle at 22% 35%, rgba(251,191,36,0.16) 0%, transparent 52%),radial-gradient(circle at 78% 70%, rgba(59,130,246,0.12) 0%, transparent 56%),linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));opacity:1;filter:none;pointer-events:none;z-index:0;border-radius:28px;-webkit-mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:100% 100%;mask-size:100% 100%}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:18px 32px !important;border-radius:18px !important;position:relative;
@@ -522,12 +522,12 @@
     }
     .hero-video{width:min(980px,92vw);margin:10px auto 0;position:relative;z-index:1}
     .hero-video-cta{margin-top:14px;display:flex;justify-content:center}
-    .hero-video-cta .store-btn{width:calc(100% - 24px) !important;max-width:calc(100% - 24px) !important;min-width:0 !important;margin-left:auto;margin-right:auto}
+    .hero-video-cta .store-btn{width:100% !important;max-width:100% !important;min-width:0 !important}
     .hero-video-cta .hero-buy-btn img{max-width:100%}
-    .hero-video-cta{flex-direction:column;align-items:center;gap:10px}
+    .hero-video-cta{flex-direction:column;align-items:center;gap:10px;padding:0 14px}
     .hero-video-cta .pre-footer-buy-kicker{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:0.2px;text-align:center}
-    .hero-video-cta .hero-buy-btn{padding:14px 22px !important;border-radius:16px !important}
-    .hero-video-cta .hero-buy-btn img{height:36px;max-width:360px}
+    .hero-video-cta .hero-buy-btn{padding:12px 20px !important;border-radius:16px !important}
+    .hero-video-cta .hero-buy-btn img{height:30px;max-width:320px}
 
     .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:18px auto 4px;width:min(980px,100vw)}
     .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 28px;text-decoration:none;color:inherit;position:relative;flex:1;min-width:0}
@@ -619,7 +619,7 @@
     /* Idle border waves to nudge clicks (transparent, edition-colored ripples) */
     .package-btn::before,
     .package-btn::after{content:'';position:absolute;inset:-3px;border-radius:inherit;border:1px solid rgba(var(--cta-rgb),0.38);opacity:0;pointer-events:none;z-index:0;transform:scale(0.985);box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}
-    .package-btn .package-btn-label{display:flex;align-items:center;justify-content:center;gap:9px;font-size:19px;line-height:1.2;letter-spacing:0.3px;z-index:2}
+    .package-btn .package-btn-label{display:flex;align-items:center;justify-content:center;gap:9px;font-size:19px;line-height:1.2;letter-spacing:0.3px;z-index:2;position:relative}
     .package-btn .package-btn-price{display:none}
     .btn-price-hl{color:#90ee90;font-weight:inherit}
     .btn-cart-icon{width:18px;height:18px;flex-shrink:0;opacity:0.9}
