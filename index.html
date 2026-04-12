@@ -746,7 +746,7 @@
     .payment-note span{opacity:0.85}
     .duty-paid-note{margin:0 auto 6px;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-    .game-explainer-grid{margin:0 auto;max-width:1080px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:start}
+    .game-explainer-grid{margin:0 auto;max-width:1080px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:stretch}
     @media(max-width:900px){
       .game-explainer-grid{grid-template-columns:1fr;gap:14px}
     }
@@ -754,25 +754,42 @@
     @media(max-width:900px){
       .game-explainer-left{padding:14px}
     }
-    .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:750}
-    .game-explainer-lede strong{color:var(--gold)}
-    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:10px;text-align:left}
-    .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:12px 12px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
+    .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:500}
+    .game-explainer-lede .lede-emphasis{font-weight:700;color:var(--text)}
+    .game-explainer-lede strong{color:var(--gold);font-weight:800}
+    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:8px;text-align:left}
+    .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:0;border-radius:0;background:transparent;border:none}
     .game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
     .game-explainer-bullets strong{color:var(--text)}
     .game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
-    .game-crash-course{margin:0 auto;text-align:left;padding:14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
+    .game-explainer-left,.game-crash-course{height:100%}
+    .game-crash-course{margin:0 auto;text-align:left;padding:14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column}
     .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text)}
     .crash-course-title span{color:var(--gold)}
     .crash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     @media(max-width:420px){
       .crash-grid{grid-template-columns:1fr}
     }
-    .crash-card{padding:12px 12px 10px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10)}
-    .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text)}
+    .crash-card{padding:0;border-radius:0;background:transparent;border:none}
+    .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text);padding-bottom:5px;border-bottom:1px solid rgba(251,191,36,0.38)}
     .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
     .crash-card strong{color:var(--gold)}
-    .game-crash-course-link{margin:12px 0 0;display:block}
+    .game-crash-course-link{margin-top:auto;padding-top:12px;display:block}
+    @media(max-width:600px){
+      #gameExplainerTitle{font-size:22px;margin-bottom:10px}
+      .game-explainer{margin:20px 0 8px}
+      .game-explainer-grid{gap:10px}
+      .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
+      .game-explainer-lede{font-size:12px;line-height:1.45;margin-bottom:10px}
+      .game-explainer-bullets{gap:6px}
+      .game-explainer-bullets li{font-size:13px;line-height:1.4}
+      .crash-course-title{font-size:16px;margin:0 0 10px}
+      .crash-grid{gap:8px}
+      .crash-card h4{font-size:13px;margin:0 0 4px}
+      .crash-card p{font-size:11.5px;line-height:1.4}
+      .game-crash-course-link{padding-top:8px}
+      .rules-pdf-link{font-size:13px}
+    }
     .rules-pdf-link{color:var(--gold);font-weight:800;text-decoration:underline;text-underline-offset:4px}
     .rules-pdf-link:hover{filter:brightness(1.1)}
     .contents-showcase{text-align:center;margin:32px auto 16px;padding:0;border:none;border-radius:0;background:transparent;box-shadow:none}
@@ -878,6 +895,22 @@
       .rules-frame{height:520px}
       .rules-viewer-actions{width:100%;flex-direction:column}
       .rules-action-btn{width:100%;justify-content:center}
+      .status-banner{margin:0 auto 10px}
+      .status-banner-text{font-size:17px}
+      .status-subtitle{font-size:11px;margin-top:4px;line-height:1.4}
+      .packages-comparison .how-it-works{margin:4px 0 6px;padding:10px 14px}
+      .packages-comparison .how-it-works-header h2{font-size:15px;margin:0 0 8px}
+      .packages-comparison .how-it-works-steps{gap:6px;margin:0}
+      .packages-comparison .how-step-header{padding-top:6px}
+      .packages-comparison .how-step p{font-size:11px;margin-top:2px}
+      .preorder-save-tag{margin:0 auto 14px!important;font-size:13px!important}
+    }
+    @media(max-width:600px){
+      .faq-section{margin:24px 0}
+      .faq-section h2{font-size:21px}
+      .faq-intro{font-size:13px;line-height:1.4}
+      .faq-list{margin-top:12px;gap:10px}
+      .faq-item p{font-size:13px;line-height:1.45}
     }
   </style>
   
@@ -990,12 +1023,12 @@
           <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
           <div class="game-explainer-grid">
             <div class="game-explainer-left">
-              <div class="game-explainer-lede">Countryball Cards is a tabletop card game in which you draft your very own team of countryballs! Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
+              <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a tabletop card game</span> in which you draft your very own team of countryballs! Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
               <ul class="game-explainer-bullets" aria-label="Game highlights">
-                <li><span><strong><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
                 <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
                 <li><span><strong>Win with brains, not luck:</strong> smart decisions with coins + resources decide who snowballs and who gets rolled.</span></li>
                 <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> unique countries. (Even more with the Extended Edition)</span></li>
+                <li><span><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> battles: fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
               </ul>
             </div>
 
@@ -1093,7 +1126,6 @@
               </article>
             </div>
           </section>
-          <p style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;margin:-14px auto 20px;display:flex;align-items:center;justify-content:center;gap:10px;max-width:100%;padding:0 12px;line-height:1.25;text-align:left;"><svg style="width:18px;height:18px;flex-shrink:0;color:var(--gold)" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.37.86.58 1.41.58s1.05-.21 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg><span>Get <span style="color:var(--kickstarter);">20%</span> off by pre-ordering!</span></p>
           <div class="compare-mobile-picker" aria-label="Select edition to view">
             <div class="edition-tab-pill" role="group" aria-label="Select edition">
               <button class="edition-tab active" data-edition="base" type="button">Base</button>
@@ -1101,6 +1133,7 @@
               <button class="edition-tab" data-edition="founders" type="button">Founder's</button>
             </div>
           </div>
+          <p class="preorder-save-tag" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;margin:-14px auto 20px;display:flex;align-items:center;justify-content:center;gap:10px;max-width:100%;padding:0 12px;line-height:1.25;text-align:left;"><svg style="width:18px;height:18px;flex-shrink:0;color:var(--gold)" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.37.86.58 1.41.58s1.05-.21 1.41-.59l7-7c.37-.36.59-.86.59-1.41s-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg><span>Get <span style="color:var(--kickstarter);">20%</span> off by pre-ordering!</span></p>
           <div class="packages-compare-wrap" data-selected="base">
             <div class="compare-mobile-cta" aria-label="Buy selected edition">
               <a href="#" class="package-btn buy-wave base-theme compare-buy-btn compare-mobile-buy" data-edition="base" data-package="base" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Base Game', 30)">
@@ -1229,16 +1262,16 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us and we’ll help. We answer all queries within 24 hours.</p>
+              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us at info@countryballcards.com and we’ll help. We answer all queries within 24 hours except weekends and holidays.</p>
             </div>
           </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">Do you ship internationally?</span>
+              <span class="faq-question-text">Where do you ship?</span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>We ship to 26 countries (Most of the EU, the US and the UK). Shipping is a flat $5.40 to all supported destinations. The supported destinations are: Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Poland, Portugal, Romania,Slovakia, Slovenia, Spain, Sweden, United Kingdom and the United States.</p>
+              <p>We ship to 27 countries (Most of the EU, the US and the UK). The supported destinations are: Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, United Kingdom and the United States.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1247,7 +1280,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Shipping is a flat $5.40 to all supported countries. No surprises at checkout.</p>
+              <p>Shipping is a flat $5.40 to all supported countries.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1256,7 +1289,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>We deliver with delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered - nothing due on delivery.</p>
+              <p>We deliver with delivered duties paid (DDP). Taxes (incl. VAT/sales tax) and import fees are covered so there is nothing due on delivery.</p>
             </div>
           </li>
           <li class="faq-item">

@@ -142,6 +142,13 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font-
 .support-modal-copy{margin:0 0 14px;color:var(--text);font-size:16px;line-height:1.5;font-weight:600}
 .support-modal-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
 .support-modal-actions .btn{flex:1 1 220px;justify-content:center}
+@media (max-width: 600px) {
+  .support-modal{max-width:460px;width:min(92vw,460px)}
+  .support-modal-body{padding-top:2px}
+  .support-modal-copy{margin:0 0 10px;font-size:14px;line-height:1.4}
+  .support-modal-actions{gap:8px}
+  .support-modal-actions .btn{flex:1 1 160px}
+}
 .site-topbar-link:hover{
   opacity: 1;
   color: var(--gold);
@@ -1800,7 +1807,7 @@ font-size:16px}
    mismatch or async stylesheet load timing.
 */
 .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-.game-explainer-grid{margin:0 auto;max-width:1080px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:start}
+.game-explainer-grid{margin:0 auto;max-width:1080px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:stretch}
 @media(max-width:900px){
   .game-explainer-grid{grid-template-columns:1fr;gap:14px}
 }
@@ -1808,23 +1815,25 @@ font-size:16px}
 @media(max-width:900px){
   .game-explainer-left{padding:14px}
 }
-.game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:750}
-.game-explainer-lede strong{color:var(--gold)}
-.game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:10px;text-align:left}
-.game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:12px 12px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
+.game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:500}
+.game-explainer-lede .lede-emphasis{font-weight:700;color:var(--text)}
+.game-explainer-lede strong{color:var(--gold);font-weight:800}
+.game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:8px;text-align:left}
+.game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:0;border-radius:0;background:transparent;border:none}
 .game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
 .game-explainer-bullets strong{color:var(--text)}
 .game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
 
-.game-crash-course{margin:0 auto;text-align:left;padding:14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08)}
+.game-explainer-left,.game-crash-course{height:100%}
+.game-crash-course{margin:0 auto;text-align:left;padding:14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column}
 .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text)}
 .crash-course-title span{color:var(--gold)}
 .crash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media(max-width:420px){
   .crash-grid{grid-template-columns:1fr}
 }
-.crash-card{padding:12px 12px 10px;border-radius:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10)}
-.crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text);display:flex;align-items:center;gap:6px}
+.crash-card{padding:0;border-radius:0;background:transparent;border:none}
+.crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text);display:flex;align-items:center;gap:6px;padding-bottom:5px;border-bottom:1px solid rgba(251,191,36,0.38)}
 .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
 .crash-card strong{color:var(--gold)}
 .crash-card::before,
@@ -1893,7 +1902,22 @@ font-size:16px}
     max-height:18px;
   }
 }
-.game-crash-course-link{margin:12px 0 0;display:block}
+.game-crash-course-link{margin-top:auto;padding-top:12px;display:block}
+@media(max-width:600px){
+  #gameExplainerTitle{font-size:22px;margin-bottom:10px}
+  .game-explainer{margin:20px 0 8px}
+  .game-explainer-grid{gap:10px}
+  .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
+  .game-explainer-lede{font-size:12px;line-height:1.45;margin-bottom:10px}
+  .game-explainer-bullets{gap:6px}
+  .game-explainer-bullets li{font-size:13px;line-height:1.4}
+  .crash-course-title{font-size:16px;margin:0 0 10px}
+  .crash-grid{gap:8px}
+  .crash-card h4{font-size:13px;margin:0 0 4px}
+  .crash-card p{font-size:11.5px;line-height:1.4}
+  .game-crash-course-link{padding-top:8px}
+  .rules-pdf-link{font-size:13px}
+}
 .rules-pdf-link{color:var(--gold);font-weight:800;text-decoration:underline;text-underline-offset:4px}
 .rules-pdf-link:hover{filter:brightness(1.1)}
 
@@ -1956,12 +1980,7 @@ font-size:16px}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:28px;
-  height:28px;
-  border-radius:10px;
-  border:1px solid rgba(251,191,36,0.45);
   color:var(--gold);
-  background:rgba(251,191,36,0.10);
   font-size:18px;
   line-height:1;
   font-weight:900;
@@ -1972,7 +1991,19 @@ font-size:16px}
 @media(max-width:768px){
   .faq-question{padding:12px 12px}
   .faq-question-text{font-size:16px}
-  .faq-toggle{width:26px;height:26px;border-radius:10px}
+  .faq-toggle{}
+}
+@media(max-width:600px){
+  .faq-section{margin:24px 0}
+  .faq-section h2{font-size:21px}
+  .faq-intro{font-size:13px;line-height:1.4}
+  .faq-list{margin-top:12px;gap:10px}
+  .faq-item{border-radius:12px}
+  .faq-question{padding:10px 11px;gap:10px}
+  .faq-question-text{font-size:15px}
+  .faq-toggle{font-size:16px}
+  .faq-answer{padding:0 11px 11px}
+  .faq-answer p{font-size:13px;line-height:1.45}
 }
 
 .card-peek-section{margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none}
@@ -2275,6 +2306,26 @@ a:focus-visible {
 /* Success state for submit button */
 .email-submit-btn.success {
   background: linear-gradient(135deg, #10b981, #059669);
+}
+
+@media (max-width: 600px) {
+  #emailOverlay.modal-overlay,
+  #supportOverlay.modal-overlay{padding:10px}
+  #emailOverlay .modal,
+  #supportOverlay .modal{padding:10px 10px 8px;border-radius:10px;max-height:calc(100vh - 24px)}
+  #emailOverlay .modal h2,
+  #supportOverlay .modal h2{font-size:clamp(18px,5.2vw,22px)}
+
+  .email-modal{max-width:460px;width:min(92vw,460px)}
+  .email-modal-content{margin-bottom:12px}
+  .email-modal-content p{margin:0 0 14px 0;font-size:14px;line-height:1.4}
+  .email-form{margin-bottom:14px}
+  .email-input{padding:12px 14px;font-size:15px}
+  .email-submit-btn{padding:12px 16px;font-size:13px}
+  .email-benefits{gap:6px}
+  .benefit{gap:6px;font-size:13px}
+  .email-modal-footer{padding-top:10px;margin-top:12px}
+  .privacy-text{font-size:11px}
 }
 
 @media (max-width: 480px) {
