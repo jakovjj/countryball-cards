@@ -100,7 +100,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2026011204" />
+  <link rel="preload" as="style" href="styles.css?v=2026011207" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -739,8 +739,8 @@
     }
     .kickstarter-inline-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,var(--kickstarter),#04b86a);color:#fff;text-decoration:none;font-weight:700}
     .kickstarter-inline-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(5,206,120,0.35)}
-    .email-updates-section{text-align:center;margin:40px 0;padding:32px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
-    .email-updates-section h3{margin-top:0;color:var(--gold)}
+    .email-updates-section{text-align:center;margin:24px auto;padding:22px 16px;max-width:680px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
+    .email-updates-section h3{margin:0 0 10px;color:var(--gold)}
     .email-modal .email-benefits{margin-bottom:18px}
     .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:20px 0 12px;color:#f9fafb;text-align:center;font-size:15px}
     .payment-note span{opacity:0.85}
@@ -877,7 +877,7 @@
       .country-dropdown{min-width:0;width:100%}
       .contents-image{max-width:100%;height:auto}
       .contents-showcase{margin:24px auto 12px;padding:0}
-      .email-updates-section{padding:32px 24px}
+      .email-updates-section{padding:18px 12px}
       .how-it-works{padding:16px}
       .how-it-works-steps{flex-direction:column;gap:12px}
       .how-step{padding:0;border-left:none;border-top:1px solid rgba(255,255,255,0.08)}
@@ -916,14 +916,14 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2026011206" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
+  <link rel="preload" href="styles.css?v=2026011207" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026011206">
+    <link rel="stylesheet" href="styles.css?v=2026011207">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026011202" as="script">
+  <link rel="preload" href="main.js?v=2026011203" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -1236,17 +1236,30 @@
 
         <div class="email-updates-section" aria-labelledby="emailUpdatesTitle">
           <h3 id="emailUpdatesTitle">Email updates for news & manufacturing</h3>
-          <p style="color:var(--muted);margin-bottom:24px">Get a short email when we share production milestones, shipping windows, or other important news. Zero spam, unsubscribe anytime.</p>
-          <div class="packages-support-actions">
-            <button type="button" class="btn secondary" onclick="showEmailModal(); trackEmailSignup();">
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          <p class="email-updates-copy">Get a short email when we share production milestones, shipping windows, or other important news. Zero spam, unsubscribe anytime.</p>
+          <form id="updatesEmailForm" class="footer-email-form email-updates-inline-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST" novalidate>
+            <div class="footer-form-group">
+              <label for="updatesEmailInput" class="visually-hidden">Email address</label>
+              <input
+                type="email"
+                id="updatesEmailInput"
+                name="email"
+                placeholder="E-MAIL"
+                required
+                autocomplete="email"
+                class="footer-email-input"
+              >
+              <input type="hidden" name="source" value="homepage_updates_section">
+              <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
+              <button type="submit" class="footer-email-submit" id="updatesEmailSubmitBtn">
+                SUBSCRIBE
+                <svg class="footer-submit-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
                 </svg>
-                <span class="btn-label">Get Email Updates</span>
-              </span>
-            </button>
-          </div>
+              </button>
+            </div>
+            <div class="footer-form-message" id="updatesFormMessage"></div>
+          </form>
         </div>
 
       </section>
@@ -1530,7 +1543,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026011202" defer></script>
+  <script src="main.js?v=2026011203" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.

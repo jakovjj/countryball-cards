@@ -2021,22 +2021,65 @@ font-size:16px}
 
 /* Homepage: keep Email Updates + FAQ looking like mobile on desktop */
 .email-updates-section{
-  margin:32px auto;
-  padding:32px 24px;
-  width:min(100%, 720px);
+  margin:24px auto;
+  padding:22px 16px;
+  width:min(100%, 680px);
   text-align:center;
   background:rgba(255,255,255,0.03);
   border:1px solid rgba(255,255,255,0.08);
   border-radius:16px;
 }
-.email-updates-section h3{margin-top:0;color:var(--gold);font-size:20px}
-.email-updates-section p{font-size:14px;line-height:1.45}
+.email-updates-section h3{margin:0 0 10px;color:var(--gold);font-size:clamp(18px, 3vw, 20px)}
+.email-updates-section p{font-size:13px;line-height:1.4}
+.email-updates-copy{margin:0 auto 12px;max-width:60ch;color:var(--muted)}
+.email-updates-inline-form{
+  margin:0 auto;
+  width:min(100%, 520px);
+}
+.email-updates-inline-form .footer-form-group{
+  min-height:42px;
+}
+.email-updates-inline-form .footer-email-input{
+  padding:10px 12px;
+}
+.email-updates-inline-form .footer-email-submit{
+  padding:10px 14px;
+}
+.email-updates-inline-form .footer-form-message{
+  margin-top:7px;
+  text-align:left;
+}
 .email-updates-section .packages-support-actions{
   display:flex;
   justify-content:center;
   gap:16px;
   flex-wrap:wrap;
   margin-top:24px;
+}
+@media(max-width:600px){
+  .email-updates-section{
+    margin:18px auto;
+    padding:18px 12px;
+    border-radius:14px;
+  }
+  .email-updates-section h3{
+    font-size:clamp(16px, 5.8vw, 20px);
+    margin-bottom:8px;
+  }
+  .email-updates-copy{
+    font-size:12.5px;
+    margin-bottom:10px;
+  }
+  .email-updates-inline-form{
+    width:100%;
+  }
+  .email-updates-inline-form .footer-email-input{
+    padding:9px 11px;
+  }
+  .email-updates-inline-form .footer-email-submit{
+    padding:9px 12px;
+    font-size:11px;
+  }
 }
 
 .faq-section{margin:32px 0;padding:0}

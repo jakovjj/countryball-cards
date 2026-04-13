@@ -1,4 +1,4 @@
-// ===== STORE STATUS COUNTDOWN =====
+﻿// ===== STORE STATUS COUNTDOWN =====
 function initCountdown() {
   const launchDate = new Date('2025-10-01T20:15:00.000Z');
   const dayEl = document.getElementById('countdownDays');
@@ -551,7 +551,7 @@ function initFaqAccordion() {
 
       button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
       if (toggleEl) {
-        toggleEl.textContent = expanded ? '+' : '−';
+        toggleEl.textContent = expanded ? '+' : 'âˆ’';
       }
       if (answer) {
         answer.hidden = expanded;
@@ -764,7 +764,7 @@ function showEmailModal() {
     
     // Show success message after delay
     setTimeout(() => {
-      showMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+      showMessage('âœ“ Success! You\'ll be notified when we launch!', 'success');
       emailInput.value = '';
       submitBtn.classList.add('success');
       
@@ -797,12 +797,12 @@ function showEmailModal() {
   open();
 }
 
-// Footer inline email form
-(function() {
-  const form = document.getElementById('footerEmailForm');
-  const input = document.getElementById('footerEmailInput');
-  const submitBtn = document.getElementById('footerEmailSubmitBtn');
-  const messageEl = document.getElementById('footerFormMessage');
+// Inline email signup forms (footer + updates card)
+function initInlineEmailSignupForm(config) {
+  const form = document.getElementById(config.formId);
+  const input = document.getElementById(config.inputId);
+  const submitBtn = document.getElementById(config.submitBtnId);
+  const messageEl = document.getElementById(config.messageId);
   if (!form || !input || !submitBtn || !messageEl) return;
 
   function validateEmail(email) {
@@ -837,30 +837,49 @@ function showEmailModal() {
 
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
-    iframe.name = 'footerEmailSubmissionFrame';
+    iframe.name = config.framePrefix + '_' + Date.now();
     document.body.appendChild(iframe);
-    form.target = 'footerEmailSubmissionFrame';
+    form.target = iframe.name;
     form.submit();
 
     setTimeout(function() {
-      showMessage('✓ You\'re in! We\'ll keep you updated.', 'success');
+      showMessage(config.successMessage || "You're in! We'll keep you updated.", 'success');
       input.value = '';
       submitBtn.classList.add('success');
       if (typeof gtag !== 'undefined') {
         gtag('event', 'email_signup', {
           event_category: 'conversion',
-          event_label: 'homepage_footer',
+          event_label: config.eventLabel,
           value: 1
         });
       }
       setTimeout(function() {
         if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        form.removeAttribute('target');
         submitBtn.disabled = false;
         submitBtn.classList.remove('success');
       }, 3000);
     }, 1500);
   });
-})();
+}
+
+initInlineEmailSignupForm({
+  formId: 'footerEmailForm',
+  inputId: 'footerEmailInput',
+  submitBtnId: 'footerEmailSubmitBtn',
+  messageId: 'footerFormMessage',
+  framePrefix: 'footerEmailSubmissionFrame',
+  eventLabel: 'homepage_footer'
+});
+
+initInlineEmailSignupForm({
+  formId: 'updatesEmailForm',
+  inputId: 'updatesEmailInput',
+  submitBtnId: 'updatesEmailSubmitBtn',
+  messageId: 'updatesFormMessage',
+  framePrefix: 'updatesEmailSubmissionFrame',
+  eventLabel: 'homepage_updates_section'
+});
 
 // Boot
 initCountdown();
@@ -1280,7 +1299,7 @@ document.addEventListener('DOMContentLoaded', function() {
       inlineSubmitBtn.style.opacity = '0.7';
     } else if (type === 'success') {
       // Success state
-      submitText.textContent = '✓ Sent!';
+      submitText.textContent = 'âœ“ Sent!';
       submitIcon.style.display = 'none';
       inlineSubmitBtn.style.background = 'linear-gradient(135deg, #7ED321, #6BCF0F)';
       inlineSubmitBtn.disabled = true; // Make unclickable
@@ -1340,7 +1359,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show success message after short delay
     setTimeout(() => {
-      showInlineMessage('✓ Success! You\'ll be notified when we launch!', 'success');
+      showInlineMessage('âœ“ Success! You\'ll be notified when we launch!', 'success');
       inlineFormMessage.textContent = ''; // Clear message div
       inlineEmailInput.value = '';
       
@@ -1484,4 +1503,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 1000);
 });
+
 
