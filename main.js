@@ -551,7 +551,7 @@ function initFaqAccordion() {
 
       button.setAttribute('aria-expanded', expanded ? 'false' : 'true');
       if (toggleEl) {
-        toggleEl.textContent = expanded ? '+' : 'âˆ’';
+        toggleEl.textContent = expanded ? '+' : '-';
       }
       if (answer) {
         answer.hidden = expanded;
