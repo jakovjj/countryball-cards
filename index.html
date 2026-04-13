@@ -529,14 +529,15 @@
     .hero-video-cta .hero-buy-btn{padding:12px 20px !important;border-radius:16px !important}
     .hero-video-cta .hero-buy-btn img{height:30px;max-width:320px}
 
-    .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:18px auto 4px;width:min(980px,100vw)}
-    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:10px 28px;text-decoration:none;color:inherit;position:relative;flex:1;min-width:0}
-    .trust-stat+.trust-stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);height:36px;width:1px;background:rgba(255,255,255,0.15)}
+    .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:14px auto 4px;width:min(640px,100vw)}
+    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 32px;text-decoration:none;color:inherit;position:relative;flex:1;min-width:0}
+    .trust-stat+.trust-stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);height:32px;width:1px;background:rgba(255,255,255,0.15)}
+    .trust-stat.trust-stat--kickstarter .trust-stat-number{color:var(--kickstarter)}
     .trust-stat:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
-    .trust-stat-number{font-size:26px;font-weight:900;color:var(--gold);line-height:1}
+    .trust-stat-number{font-size:22px;font-weight:900;color:var(--gold);line-height:1}
     .trust-stat-label{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px;letter-spacing:0.4px;text-transform:uppercase}
     @media(max-width:600px){
-      .trust-stat{padding:6px 4px}
+      .trust-stat{padding:6px 16px}
       .trust-stat+.trust-stat::before{height:24px}
       .trust-stat-number{font-size:16px}
       .trust-stat-label{font-size:8.5px;letter-spacing:0}
@@ -985,18 +986,10 @@
             ></iframe>
           </div>
 
-          <div class="trust-stats" aria-label="Community stats">
-            <a class="trust-stat" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
+          <div class="trust-stats" aria-label="Social proof stats">
+            <a class="trust-stat trust-stat--kickstarter" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
               <span class="trust-stat-number">$5,000+</span>
-              <span class="trust-stat-label">on Kickstarter</span>
-            </a>
-            <a class="trust-stat" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_discord');">
-              <span class="trust-stat-number">100+</span>
-              <span class="trust-stat-label">Discord Members</span>
-            </a>
-            <a class="trust-stat" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_reddit');">
-              <span class="trust-stat-number">400+</span>
-              <span class="trust-stat-label">Reddit Members</span>
+              <span class="trust-stat-label">Raised on Kickstarter</span>
             </a>
             <div class="trust-stat">
               <span class="trust-stat-number">100+</span>
