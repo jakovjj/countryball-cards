@@ -837,7 +837,8 @@
     .shipping-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:20px}
     .shipping-info-card{background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.08)}
     .shipping-info-card h4{margin:0 0 8px;font-size:16px;display:flex;align-items:center;gap:8px}
-    .packages-bottom-cta{text-align:center;margin:40px 0;padding:32px 24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
+    .packages-bottom-cta{text-align:center;margin:24px 0 0}
+    .packages-bottom-cta p{margin:0;color:var(--text)}
     .packages-bottom-cta h3{margin-top:0;color:var(--gold)}
     .packages-support-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:24px}
     .packages-support-actions > a.btn,
@@ -915,9 +916,9 @@
   </style>
   
   <!-- Load non-critical CSS asynchronously -->
-  <link rel="preload" href="styles.css?v=2026011204" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
+  <link rel="preload" href="styles.css?v=2026011206" as="style" onload="this.onload=null;this.rel='stylesheet';document.documentElement.classList.add('styles-ready')">
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026011204">
+    <link rel="stylesheet" href="styles.css?v=2026011206">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -1028,7 +1029,7 @@
                 <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
                 <li><span><strong>Win with brains, not luck:</strong> smart decisions with coins + resources decide who snowballs and who gets rolled.</span></li>
                 <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> unique countries. (Even more with the Extended Edition)</span></li>
-                <li><span><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> battles: fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
+                <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
               </ul>
             </div>
 
@@ -1037,7 +1038,7 @@
               <div class="crash-grid" aria-label="Quick rules overview">
                 <div class="crash-card">
                   <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
-                  <p>Both players draw <strong>2 cards</strong>, keep <strong>1</strong>, discard the other (repeat <strong>3</strong>x). Set the market with resource dice, then decide who starts.</p>
+                  <p>Draft <strong>countryball teams</strong> (3 Countryball Cards each). Set the market with resource dice, then decide who starts.</p>
                 </div>
                 <div class="crash-card">
                   <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
@@ -1045,11 +1046,11 @@
                 </div>
                 <div class="crash-card">
                   <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
-                  <p>Some abilities require a die roll. Meet the number shown to succeed; attacks deal damage and can stun.</p>
+                  <p>Some abilities require a die roll. Meet the number shown to succeed; <strong>attacks deal damage</strong> and can stun.</p>
                 </div>
                 <div class="crash-card">
                   <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
-                  <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). Last player standing wins.</p>
+                  <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). <strong>Last player standing wins.</strong></p>
                 </div>
               </div>
               <div class="game-crash-course-link">
@@ -1258,16 +1259,10 @@
         <ul class="faq-list">
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">Can I cancel or change my order?</span>
-              <span class="faq-toggle" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" hidden>
-              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us at info@countryballcards.com and we’ll help. We answer all queries within 24 hours except weekends and holidays.</p>
-            </div>
-          </li>
-          <li class="faq-item">
-            <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">Where do you ship?</span>
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span class="faq-question-text">Where do you ship?</span>
+              </span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
@@ -1276,7 +1271,10 @@
           </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">How is shipping calculated?</span>
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                <span class="faq-question-text">How is shipping calculated?</span>
+              </span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
@@ -1285,7 +1283,10 @@
           </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">Do I pay taxes or import fees on delivery?</span>
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
+                <span class="faq-question-text">Do I pay taxes or import fees on delivery?</span>
+              </span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
@@ -1294,7 +1295,10 @@
           </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">What payments do you accept?</span>
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                <span class="faq-question-text">What payments do you accept?</span>
+              </span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
@@ -1303,16 +1307,34 @@
           </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">Where can I get updates?</span>
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="faq-question-text">Where can I get updates?</span>
+              </span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>You can join the Discord for real-time news, or click “Get Email Updates” for monthly updates.</p>
+              <p>You can join the Discord for real-time news, or subscribe to our Email Newsletter for monthly updates.</p>
             </div>
           </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-text">Who is making this?</span>
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span class="faq-question-text">Can I cancel or change my order?</span>
+              </span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us at info@countryballcards.com and we'll help. We answer all queries within 24 hours except weekends and holidays.</p>
+            </div>
+          </li>
+          <li class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span class="faq-question-text">Who is making this?</span>
+              </span>
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
@@ -1322,24 +1344,7 @@
         </ul>
 
         <div class="packages-bottom-cta">
-          <h3>Questions or Need Help?</h3>
-          <p style="color:var(--muted);margin-bottom:24px">Join our community server or reach out directly. We respond within 24 hours.</p>
-          <div class="packages-support-actions">
-            <a class="btn secondary" href="mailto:info@countryballcards.com" onclick="trackStoreClick('support_email')">
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-                <span class="btn-label">Email Support</span>
-              </span>
-            </a>
-            <a class="btn secondary" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackStoreClick('support_discord')">
-              <span class="btn-row">
-                <img src="assets/discord.png" alt="" aria-hidden="true" class="btn-icon" loading="lazy" decoding="async">
-                <span class="btn-label">Discord Support</span>
-              </span>
-            </a>
-          </div>
+          <p>Have questions? Email us at <a href="mailto:info@countryballcards.com" onclick="trackStoreClick('support_email')" style="color:var(--gold);text-decoration:underline">info@countryballcards.com</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackStoreClick('support_discord')" style="color:var(--gold);text-decoration:underline">join our Discord</a>. We typically respond within 24 hours.</p>
         </div>
       </section>
 
@@ -1367,17 +1372,30 @@
         <div class="site-footer-cta" aria-label="Email updates">
           <strong>Email updates</strong>
           <p>Get occasional product milestones and progress updates. No spam.</p>
-          <div class="site-footer-cta-row">
-            <button type="button" class="btn secondary" onclick="if (typeof showEmailModal==='function'){showEmailModal();} else if (typeof openEmailModal==='function'){openEmailModal();} else {window.location.href='join.html';} if (typeof trackBottomEmailClick==='function'){trackBottomEmailClick();}">
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <form id="footerEmailForm" class="footer-email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST" novalidate>
+            <div class="footer-form-group">
+              <label for="footerEmailInput" class="visually-hidden">Email address</label>
+              <input
+                type="email"
+                id="footerEmailInput"
+                name="email"
+                placeholder="E-MAIL"
+                required
+                autocomplete="email"
+                class="footer-email-input"
+              >
+              <input type="hidden" name="source" value="homepage_footer">
+              <input type="hidden" name="redirect_url" value="https://countryballcards.com/thanks.html">
+              <button type="submit" class="footer-email-submit" id="footerEmailSubmitBtn">
+                SUBSCRIBE
+                <svg class="footer-submit-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
                 </svg>
-                <span class="btn-label">Get Email Updates</span>
-              </span>
-            </button>
-          </div>
-          <div class="site-footer-cta-note">Unsubscribe anytime. See our <a href="privacy-policy.html">Privacy Policy</a>.</div>
+              </button>
+            </div>
+            <div class="footer-form-message" id="footerFormMessage"></div>
+          </form>
+          <div class="site-footer-cta-note">By signing up to our newsletter, you agree with our <a href="privacy-policy.html">Privacy Policy</a>.</div>
         </div>
       </div>
 
@@ -1506,23 +1524,7 @@
         <button class="modal-close" type="button" id="supportCloseBtn" aria-label="Close support">✕</button>
       </header>
       <div class="support-modal-body">
-        <p class="support-modal-copy">Reach us via email or get fast help in Discord. We should respond within 24 hours.</p>
-        <div class="support-modal-actions">
-          <a class="btn secondary" href="mailto:info@countryballcards.com" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_email_header');">
-            <span class="btn-row">
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-              <span class="btn-label">Email Support</span>
-            </span>
-          </a>
-          <a class="btn discord-btn discord-btn--auto" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_discord_header');">
-            <span class="btn-row">
-              <img src="assets/discord.png" alt="" class="discord-btn-icon" loading="lazy" decoding="async">
-              <span class="btn-label">Discord Support</span>
-            </span>
-          </a>
-        </div>
+        <p class="support-modal-copy">Email us at <a href="mailto:info@countryballcards.com" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_email_header');" style="color:var(--gold);text-decoration:underline">info@countryballcards.com</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_discord_header');" style="color:var(--gold);text-decoration:underline">join our Discord</a>. We typically respond within 24 hours.</p>
       </div>
     </div>
   </div>

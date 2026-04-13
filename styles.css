@@ -1102,6 +1102,94 @@ font-size:16px}
   text-decoration: underline;
 }
 
+/* Footer inline email form */
+.footer-email-form{
+  margin-bottom: 0;
+}
+.footer-form-group{
+  display: flex;
+  gap: 0;
+  width: 100%;
+}
+.footer-email-input{
+  flex: 1;
+  padding: 11px 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.footer-email-input::placeholder{
+  color: var(--muted);
+  opacity: 0.7;
+  font-size: 12px;
+  letter-spacing: 0.8px;
+}
+.footer-email-input:focus{
+  outline: none;
+  border-color: rgba(199,164,85,0.6);
+  background: rgba(255,255,255,0.09);
+}
+.footer-email-submit{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 0 6px 6px 0;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background 0.2s, color 0.2s;
+}
+.footer-submit-icon{
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.footer-email-submit:hover .footer-submit-icon{
+  transform: translateX(2px);
+}
+@media (hover: none) and (pointer: coarse){
+  .footer-email-submit:hover .footer-submit-icon{
+    transform: none;
+  }
+}
+.footer-email-submit:hover{
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
+.footer-email-submit:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.footer-email-submit.success{
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+}
+.footer-form-message{
+  margin-top: 8px;
+  font-size: 12px;
+  min-height: 1em;
+}
+.footer-form-message.error{ color: #f87171; }
+.footer-form-message.success{ color: #34d399; }
+.footer-form-message.info{ color: var(--muted); }
+
 .site-footer-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1179,8 +1267,19 @@ font-size:16px}
 }
 
 @media (max-width: 900px){
-  .site-footer-top{grid-template-columns: 1fr;}
-  .site-footer-cta{justify-self: stretch;}
+  .site-footer-top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .site-footer-top > :first-child{
+    width: 100%;
+  }
+  .site-footer-cta{
+    width: 100%;
+    max-width: 360px;
+    margin-inline: auto;
+  }
   .site-footer-grid{grid-template-columns: 1fr;}
 }
 .hide-text-on-mobile{display:block}
@@ -1478,9 +1577,9 @@ font-size:16px}
 }
 /* Modal (Roadmap) */
 .modal-overlay[hidden]{display:none !important}
-.modal-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:1000;padding:16px}
+.modal-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:1000;padding:16px;overflow-y:auto}
 /* Make modal content scrollable on small screens and keep controls visible */
-.modal{background:var(--card);border:2px solid var(--gold);border-radius:12px;max-width:720px;width:min(100%,720px);color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 4px rgba(199,164,85,0.1);padding:20px 20px 16px;
+.modal{background:var(--card);border:2px solid var(--gold);border-radius:12px;max-width:720px;width:calc(100vw - 32px);box-sizing:border-box;color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,0.5),0 0 0 4px rgba(199,164,85,0.1);padding:20px 20px 16px;
   /* Constrain height and allow internal scroll */
   max-height:min(90vh, calc(100dvh - 32px));
   overflow:auto;
@@ -1493,7 +1592,6 @@ font-size:16px}
 @media (max-width: 768px) {
   .modal {
     max-height: calc(100vh - 40px);
-    margin: 20px 10px;
   }
 }
 .modal header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;
@@ -1556,7 +1654,7 @@ font-size:16px}
   border-top:1px solid rgba(255,255,255,0.06);padding-top:8px}
 .modal .small{font-size:12px;color:var(--muted)}
 @media (max-width:520px){
-  .modal{padding:12px; margin:8px}
+  .modal{padding:12px}
   .roadmap-item{padding:10px}
   
   /* Make mobile modal feel more natural */
@@ -1815,7 +1913,7 @@ font-size:16px}
 @media(max-width:900px){
   .game-explainer-left{padding:14px}
 }
-.game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:500}
+.game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:14.5px;line-height:1.55;font-weight:500}
 .game-explainer-lede .lede-emphasis{font-weight:700;color:var(--text)}
 .game-explainer-lede strong{color:var(--gold);font-weight:800}
 .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:8px;text-align:left}
@@ -1908,7 +2006,7 @@ font-size:16px}
   .game-explainer{margin:20px 0 8px}
   .game-explainer-grid{gap:10px}
   .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
-  .game-explainer-lede{font-size:12px;line-height:1.45;margin-bottom:10px}
+  .game-explainer-lede{font-size:13px;line-height:1.45;margin-bottom:10px}
   .game-explainer-bullets{gap:6px}
   .game-explainer-bullets li{font-size:13px;line-height:1.4}
   .crash-course-title{font-size:16px;margin:0 0 10px}
@@ -1974,6 +2072,8 @@ font-size:16px}
   cursor:pointer;
 }
 .faq-question:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.faq-question-inner{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.faq-icon{flex-shrink:0;color:var(--gold);opacity:0.65;display:block}
 .faq-question-text{font-size:16px;line-height:1.25}
 .faq-toggle{
   flex:0 0 auto;
@@ -2121,7 +2221,6 @@ a:focus-visible {
 /* Email Modal Styles */
 .email-modal {
   max-width: 500px;
-  width: min(100%, 500px);
 }
 
 .email-modal-content {
@@ -2316,7 +2415,7 @@ a:focus-visible {
   #emailOverlay .modal h2,
   #supportOverlay .modal h2{font-size:clamp(18px,5.2vw,22px)}
 
-  .email-modal{max-width:460px;width:min(92vw,460px)}
+  .email-modal{max-width:460px;width:calc(100vw - 20px);margin-inline:auto}
   .email-modal-content{margin-bottom:12px}
   .email-modal-content p{margin:0 0 14px 0;font-size:14px;line-height:1.4}
   .email-form{margin-bottom:14px}
@@ -2331,6 +2430,8 @@ a:focus-visible {
 @media (max-width: 480px) {
   .email-modal {
     max-width: 95%;
+    width: calc(100vw - 20px);
+    margin-inline: auto;
   }
   
   .form-group {

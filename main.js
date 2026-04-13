@@ -797,6 +797,71 @@ function showEmailModal() {
   open();
 }
 
+// Footer inline email form
+(function() {
+  const form = document.getElementById('footerEmailForm');
+  const input = document.getElementById('footerEmailInput');
+  const submitBtn = document.getElementById('footerEmailSubmitBtn');
+  const messageEl = document.getElementById('footerFormMessage');
+  if (!form || !input || !submitBtn || !messageEl) return;
+
+  function validateEmail(email) {
+    if (!email) return false;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email) && email.length >= 5 && email.length <= 254;
+  }
+
+  function showMessage(msg, type) {
+    messageEl.className = 'footer-form-message ' + type;
+    messageEl.textContent = msg;
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const email = input.value.trim();
+    if (!email) {
+      showMessage('Please enter your email address.', 'error');
+      input.focus();
+      return;
+    }
+    if (!validateEmail(email)) {
+      showMessage('Please enter a valid email address.', 'error');
+      input.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    showMessage('Sending...', 'info');
+
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'footerEmailSubmissionFrame';
+    document.body.appendChild(iframe);
+    form.target = 'footerEmailSubmissionFrame';
+    form.submit();
+
+    setTimeout(function() {
+      showMessage('✓ You\'re in! We\'ll keep you updated.', 'success');
+      input.value = '';
+      submitBtn.classList.add('success');
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'email_signup', {
+          event_category: 'conversion',
+          event_label: 'homepage_footer',
+          value: 1
+        });
+      }
+      setTimeout(function() {
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('success');
+      }, 3000);
+    }, 1500);
+  });
+})();
+
 // Boot
 initCountdown();
 
