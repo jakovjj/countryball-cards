@@ -1043,6 +1043,17 @@ font-size:16px}
   padding-bottom: 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+.site-footer-brand{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.site-footer-logo{
+  height: 28px;
+  width: auto;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
 .site-footer-title{
   margin: 0;
   color: var(--text);
