@@ -204,4 +204,49 @@
     if(!window.rdt) return;
     try{ rdt('track','ViewContent',{ content_ids:['debug_test'], content_type:'product', content_name:'Debug Test' }); }catch(_){ }
   },3000);
+
+  // Session duration + scroll depth tracking → admin.countryballcards.com
+  (function() {
+    var host = window.location && window.location.hostname;
+    var isLocal = !host || host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local') ||
+      host.startsWith('192.168.') || host.startsWith('10.') || host.startsWith('172.');
+    if (isLocal) return;
+
+    var ENDPOINT = 'https://admin.countryballcards.com/api/session-stats';
+    var startTime = Date.now();
+    var maxScrollPct = 0;
+    var sent = false;
+
+    function getScrollPct() {
+      var el = document.documentElement;
+      var scrolled = el.scrollTop || document.body.scrollTop || 0;
+      var total = el.scrollHeight - el.clientHeight;
+      if (total <= 0) return 100;
+      return Math.min(100, Math.round((scrolled / total) * 100));
+    }
+
+    window.addEventListener('scroll', function() {
+      var pct = getScrollPct();
+      if (pct > maxScrollPct) maxScrollPct = pct;
+    }, { passive: true });
+
+    function sendStats() {
+      if (sent) return;
+      sent = true;
+      var payload = JSON.stringify({
+        page: location.pathname,
+        timeOnPage: Math.round((Date.now() - startTime) / 1000),
+        maxScrollPct: maxScrollPct,
+        ts: new Date().toISOString()
+      });
+      try {
+        navigator.sendBeacon(ENDPOINT, new Blob([payload], { type: 'application/json' }));
+      } catch (_) { /* sendBeacon unavailable */ }
+    }
+
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') sendStats();
+    });
+    window.addEventListener('pagehide', sendStats);
+  })();
 })();
