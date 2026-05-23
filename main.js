@@ -262,11 +262,12 @@ function decorateProjectCards(track) {
     const projectCard = document.createElement('img');
     projectCard.className = 'project-card-stitch';
     projectCard.src = img.dataset.projectCard;
-    projectCard.alt = img.dataset.projectAlt || '';
-    projectCard.width = 512;
-    projectCard.height = 512;
+    projectCard.alt = '';
+    projectCard.width = 192;
+    projectCard.height = 192;
     projectCard.loading = 'lazy';
     projectCard.decoding = 'async';
+    projectCard.fetchPriority = 'low';
     projectCard.draggable = false;
     projectCard.setAttribute('aria-hidden', 'true');
     wrapper.appendChild(projectCard);
@@ -415,7 +416,8 @@ function initCardPeekCarousel() {
 
     const targetCard = visibleCards().find(card => {
       const image = card.matches?.('img.card-peek-image') ? card : card.querySelector?.('img.card-peek-image');
-      return image && /switzerland\.webp(?:$|\?)/.test(image.getAttribute('src') || '');
+      const source = image?.dataset?.fullSrc || image?.getAttribute('src') || '';
+      return /switzerland\.webp(?:$|\?)/.test(source);
     });
 
     setScrollLeftInstantly(targetCard ? centeredScrollLeft(targetCard) : Math.round(metrics.start));

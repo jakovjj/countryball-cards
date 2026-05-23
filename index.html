@@ -89,6 +89,7 @@
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
+  <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
   <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,9 +99,8 @@
   <link rel="dns-prefetch" href="https://conversions-config.reddit.com">
   
   <!-- Performance hints for critical above-the-fold assets -->
-  <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
-  <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2026052310" />
+  <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
+  <link rel="preload" as="style" href="styles.css?v=2026052311" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -830,9 +830,9 @@
     .card-peek-window::-webkit-scrollbar{display:none}
     .card-peek-track{display:flex;flex-wrap:nowrap;align-items:center;gap:18px;width:max-content;user-select:none;-webkit-user-select:none}
     .card-peek-card{position:relative;flex:0 0 auto;width:var(--card-peek-width);display:block;isolation:isolate;transform:translateZ(0)}
-    .card-peek-image{flex:0 0 auto;width:var(--card-peek-width);max-width:none;height:auto;border-radius:12px;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+    .card-peek-image{flex:0 0 auto;width:var(--card-peek-width);max-width:none;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:12px;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;color:transparent;font-size:0;background:rgba(255,255,255,0.045)}
     .card-peek-card > .card-peek-image{width:100%}
-    .project-card-stitch{position:absolute;right:-7%;bottom:4%;width:43%;height:auto;border-radius:9px;box-shadow:0 7px 16px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.14);transform:rotate(7deg);transform-origin:center;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:2}
+    .project-card-stitch{position:absolute;right:-7%;bottom:4%;width:43%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:9px;box-shadow:0 7px 16px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.14);transform:rotate(7deg);transform-origin:center;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:2;color:transparent;font-size:0;line-height:0;overflow:hidden;background:rgba(255,255,255,0.055)}
     .project-card-stitch::selection{background:transparent}
     .card-peek-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.92;z-index:3;user-select:none;-webkit-user-select:none}
     #cardPeekPrev{left:10px}
@@ -955,15 +955,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052310" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052311" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052310">
+    <link rel="stylesheet" href="styles.css?v=2026052311">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052304" as="script">
+  <link rel="preload" href="main.js?v=2026052311" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -981,8 +981,8 @@
     <div class="site-topbar-inner">
       <nav class="site-topbar-nav" aria-label="Primary">
         <a class="site-topbar-brand" href="https://countryballcards.com/" aria-label="Countryball Cards home">
-          <img class="site-topbar-brand-icon" src="android-chrome-192x192.png" alt="" width="192" height="192" loading="eager" decoding="async" fetchpriority="high">
-          <img class="site-topbar-brand-title" src="assets/title.webp" alt="Countryball Cards" width="671" height="401" loading="eager" decoding="async" fetchpriority="high">
+          <img class="site-topbar-brand-icon" src="assets/site-icon-80.webp" alt="" width="80" height="80" loading="eager" decoding="async" fetchpriority="high">
+          <img class="site-topbar-brand-title" src="assets/title-240.webp" srcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" sizes="120px" alt="Countryball Cards" width="240" height="143" loading="eager" decoding="async" fetchpriority="high">
         </a>
 
         <div class="site-topbar-actions" aria-label="Links">
@@ -1071,36 +1071,36 @@
             <button class="card-peek-nav" type="button" id="cardPeekPrev" aria-label="Show previous cards">&#10094;</button>
             <div class="card-peek-window">
               <div class="card-peek-track" id="cardPeekTrack">
-                <img class="card-peek-image" src="australia.webp" alt="Australia countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="austria.webp" alt="Austria countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="belgium.webp" alt="Belgium countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_belgian_dam.webp" data-project-alt="Belgian Dam project card">
-                <img class="card-peek-image" src="canada.webp" alt="Canada countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="china.webp" alt="China countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_factory.webp" data-project-alt="Factory project card">
-                <img class="card-peek-image" src="croatia.webp" alt="Croatia countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="czechia.webp" alt="Czechia countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="finland.webp" alt="Finland countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="france.webp" alt="France countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="germany.webp" alt="Germany countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="hungary.webp" alt="Hungary countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="india.webp" alt="India countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="italy.webp" alt="Italy countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="japan.webp" alt="Japan countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="mexico.webp" alt="Mexico countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="mongolia.webp" alt="Mongolia countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_mongol_yam.webp" data-project-alt="Mongol Yam project card">
-                <img class="card-peek-image" src="netherlands.webp" alt="Netherlands countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_trading_outpost.webp" data-project-alt="Trading Outpost project card">
-                <img class="card-peek-image" src="norway.webp" alt="Norway countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_norwegian_ship.webp" data-project-alt="Norwegian Ship project card">
-                <img class="card-peek-image" src="poland.webp" alt="Poland countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="portugal.webp" alt="Portugal countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_portuguese_caravel.webp" data-project-alt="Portuguese Caravel project card">
-                <img class="card-peek-image" src="romania.webp" alt="Romania countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_romanian_fort.webp" data-project-alt="Romanian Fort project card">
-                <img class="card-peek-image" src="russia.webp" alt="Russia countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="saudi_arabia.webp" alt="Saudi Arabia countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_oil_rig.webp" data-project-alt="Oil Rig project card">
-                <img class="card-peek-image" src="spain.webp" alt="Spain countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="sweden.webp" alt="Sweden countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="switzerland.webp" alt="Switzerland countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_swiss_bank.webp" data-project-alt="Swiss Bank project card">
-                <img class="card-peek-image" src="turkey.webp" alt="Turkey countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_turkish_cannon.webp" data-project-alt="Turkish Cannon project card">
-                <img class="card-peek-image" src="uk.webp" alt="United Kingdom countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_british_navy.webp" data-project-alt="British Navy project card">
-                <img class="card-peek-image" src="ukraine.webp" alt="Ukraine countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_ukrainian_wheatfield.webp" data-project-alt="Ukrainian Wheatfield project card">
-                <img class="card-peek-image" src="us.webp" alt="United States countryball card" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/australia.webp" data-full-src="australia.webp" alt="Australia countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/austria.webp" data-full-src="austria.webp" alt="Austria countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/belgium.webp" data-full-src="belgium.webp" alt="Belgium countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_belgian_dam.webp">
+                <img class="card-peek-image" src="assets/card-peek/canada.webp" data-full-src="canada.webp" alt="Canada countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/china.webp" data-full-src="china.webp" alt="China countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_factory.webp">
+                <img class="card-peek-image" src="assets/card-peek/croatia.webp" data-full-src="croatia.webp" alt="Croatia countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/czechia.webp" data-full-src="czechia.webp" alt="Czechia countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/finland.webp" data-full-src="finland.webp" alt="Finland countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/france.webp" data-full-src="france.webp" alt="France countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/germany.webp" data-full-src="germany.webp" alt="Germany countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/hungary.webp" data-full-src="hungary.webp" alt="Hungary countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/india.webp" data-full-src="india.webp" alt="India countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/italy.webp" data-full-src="italy.webp" alt="Italy countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/japan.webp" data-full-src="japan.webp" alt="Japan countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/mexico.webp" data-full-src="mexico.webp" alt="Mexico countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/mongolia.webp" data-full-src="mongolia.webp" alt="Mongolia countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_mongol_yam.webp">
+                <img class="card-peek-image" src="assets/card-peek/netherlands.webp" data-full-src="netherlands.webp" alt="Netherlands countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_trading_outpost.webp">
+                <img class="card-peek-image" src="assets/card-peek/norway.webp" data-full-src="norway.webp" alt="Norway countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_norwegian_ship.webp">
+                <img class="card-peek-image" src="assets/card-peek/poland.webp" data-full-src="poland.webp" alt="Poland countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/portugal.webp" data-full-src="portugal.webp" alt="Portugal countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_portuguese_caravel.webp">
+                <img class="card-peek-image" src="assets/card-peek/romania.webp" data-full-src="romania.webp" alt="Romania countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_romanian_fort.webp">
+                <img class="card-peek-image" src="assets/card-peek/russia.webp" data-full-src="russia.webp" alt="Russia countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/saudi_arabia.webp" data-full-src="saudi_arabia.webp" alt="Saudi Arabia countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_oil_rig.webp">
+                <img class="card-peek-image" src="assets/card-peek/spain.webp" data-full-src="spain.webp" alt="Spain countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/sweden.webp" data-full-src="sweden.webp" alt="Sweden countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/switzerland.webp" data-full-src="switzerland.webp" alt="Switzerland countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_swiss_bank.webp">
+                <img class="card-peek-image" src="assets/card-peek/turkey.webp" data-full-src="turkey.webp" alt="Turkey countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_turkish_cannon.webp">
+                <img class="card-peek-image" src="assets/card-peek/uk.webp" data-full-src="uk.webp" alt="United Kingdom countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_british_navy.webp">
+                <img class="card-peek-image" src="assets/card-peek/ukraine.webp" data-full-src="ukraine.webp" alt="Ukraine countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_ukrainian_wheatfield.webp">
+                <img class="card-peek-image" src="assets/card-peek/us.webp" data-full-src="us.webp" alt="United States countryball card" width="400" height="600" loading="lazy" decoding="async">
               </div>
             </div>
             <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#10095;</button>
@@ -1413,7 +1413,7 @@
       <div class="site-footer-top">
         <div>
           <div class="site-footer-brand">
-            <img src="assets/glare.webp" alt="Glare Studios" class="site-footer-logo" width="28" height="28" loading="lazy" decoding="async">
+            <img src="assets/glare-56.webp" alt="" aria-hidden="true" class="site-footer-logo" width="56" height="56" loading="lazy" decoding="async">
             <p class="site-footer-title">Glare Studios, LLC</p>
           </div>
           <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Reach out any time. We typically respond within 24 hours.</p>
@@ -1594,7 +1594,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052304" defer></script>
+  <script src="main.js?v=2026052311" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -2090,7 +2090,7 @@
         if (!win) return;
         var track = document.getElementById('cardPeekTrack');
         if (!track) return;
-        var target = track.querySelector('img.card-peek-image[src^="switzerland.webp"]');
+        var target = track.querySelector('img.card-peek-image[data-full-src^="switzerland.webp"]');
         if (!target) {
           win.scrollLeft = 0;
           return;
@@ -2130,7 +2130,7 @@
       }
       document.getElementById('cardPeekTrack').addEventListener('click', function(e) {
         var img = e.target.closest('.card-peek-image');
-        if (img) openZoom(img.src, img.alt);
+        if (img) openZoom(img.dataset.fullSrc || img.currentSrc || img.src, img.alt);
       });
       overlay.addEventListener('click', function(e) {
         if (e.target !== closeBtn) closeZoom();

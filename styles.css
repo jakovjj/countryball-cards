@@ -2214,9 +2214,9 @@ font-size:16px}
 .card-peek-window::-webkit-scrollbar{display:none}
 .card-peek-track{display:flex;flex-wrap:nowrap;align-items:center;gap:18px;width:max-content;user-select:none;-webkit-user-select:none}
 .card-peek-card{position:relative;flex:0 0 auto;width:var(--card-peek-width);display:block;isolation:isolate;transform:translateZ(0)}
-.card-peek-image{flex:0 0 auto;width:var(--card-peek-width);max-width:none;height:auto;border-radius:12px;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+.card-peek-image{flex:0 0 auto;width:var(--card-peek-width);max-width:none;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:12px;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;color:transparent;font-size:0;background:rgba(255,255,255,0.045)}
 .card-peek-card > .card-peek-image{width:100%}
-.project-card-stitch{position:absolute;right:-7%;bottom:4%;width:43%;height:auto;border-radius:9px;box-shadow:0 7px 16px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.14);transform:rotate(7deg);transform-origin:center;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:2}
+.project-card-stitch{position:absolute;right:-7%;bottom:4%;width:43%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:9px;box-shadow:0 7px 16px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.14);transform:rotate(7deg);transform-origin:center;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:2;color:transparent;font-size:0;line-height:0;overflow:hidden;background:rgba(255,255,255,0.055)}
 .project-card-stitch::selection{background:transparent}
 .card-peek-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.92;z-index:3;user-select:none;-webkit-user-select:none}
 #cardPeekPrev{left:10px}
