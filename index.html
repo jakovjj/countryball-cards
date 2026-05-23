@@ -100,7 +100,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2026052304" />
+  <link rel="preload" as="style" href="styles.css?v=2026052309" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -762,11 +762,15 @@
     .payment-note span{opacity:0.85}
     .duty-paid-note{margin:0 auto 6px;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-    .game-explainer-grid{margin:0 auto;max-width:1080px;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:18px;align-items:stretch}
+    #gameExplainerTitle{scroll-margin-top:130px}
+    .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
+    .game-explainer-photo > img{display:block;width:100%;height:auto;min-height:620px;object-fit:cover}
+    .game-explainer-overlay{position:absolute;inset:18px;z-index:1;display:flex;align-items:center;justify-content:center}
+    .game-explainer-grid{margin:0 auto;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
     @media(max-width:900px){
       .game-explainer-grid{grid-template-columns:1fr;gap:14px}
     }
-    .game-explainer-left{padding:16px 16px 14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);text-align:left}
+    .game-explainer-left{padding:16px 16px 14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);text-align:left;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
     @media(max-width:900px){
       .game-explainer-left{padding:14px}
     }
@@ -778,8 +782,8 @@
     .game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
     .game-explainer-bullets strong{color:var(--text)}
     .game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
-    .game-explainer-left,.game-crash-course{height:100%}
-    .game-crash-course{margin:0 auto;text-align:left;padding:14px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column}
+    .game-explainer-left,.game-crash-course{height:100%;min-height:0}
+    .game-crash-course{margin:0;text-align:left;padding:14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);display:flex;flex-direction:column;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
     .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text)}
     .crash-course-title span{color:var(--gold)}
     .crash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -790,10 +794,13 @@
     .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text);padding-bottom:5px;border-bottom:1px solid rgba(251,191,36,0.38)}
     .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
     .crash-card strong{color:var(--gold)}
-    .game-crash-course-link{margin-top:auto;padding-top:12px;display:block}
+    .game-crash-course-link{margin-top:12px;padding-top:0;display:block}
     @media(max-width:600px){
       #gameExplainerTitle{font-size:22px;margin-bottom:10px}
       .game-explainer{margin:20px 0 8px}
+      .game-explainer-photo{display:flex;flex-direction:column;gap:12px;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
+      .game-explainer-photo > img{order:2;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22)}
+      .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
       .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
       .game-explainer-lede{font-size:12px;line-height:1.45;margin-bottom:10px}
@@ -837,10 +844,10 @@
     #cardZoomOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:clamp(18px,4vw,42px);overflow:hidden;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     #cardZoomOverlay.open{display:flex;animation:inspect-overlay-fade 0.22s ease both}
     .card-zoom-stage{position:relative;display:grid;place-items:center;width:min(94vw,720px);max-height:94vh;isolation:isolate;perspective:1200px;pointer-events:none}
-    .card-zoom-bg{position:absolute;z-index:0;width:min(96vw,700px);max-width:none;max-height:none;aspect-ratio:1;object-fit:contain;border-radius:0;box-shadow:none;opacity:0.55;filter:blur(14px) saturate(1.18) brightness(1.08);transform:scale(1.05);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
+    .card-zoom-bg{position:absolute;z-index:0;width:min(112vw,860px);height:min(92vh,760px);max-width:none;max-height:none;object-fit:cover;border-radius:0;box-shadow:none;opacity:0.38;filter:blur(18px) saturate(1.18) brightness(1.08);transform:scale(1.08);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
     #cardZoomImg{position:relative;z-index:1;max-width:min(88vw,520px);max-height:88vh;border-radius:16px;box-shadow:0 12px 70px rgba(0,0,0,0.72);pointer-events:none;user-select:none;transform-origin:center;will-change:transform,opacity,filter;animation:inspect-card-in 0.44s cubic-bezier(.16,1,.3,1) both}
     @keyframes inspect-overlay-fade{from{opacity:0}to{opacity:1}}
-    @keyframes inspect-bg-pulse{0%,100%{opacity:0.42;transform:scale(0.98);filter:blur(14px) saturate(1.12) brightness(1.04)}50%{opacity:0.68;transform:scale(1.1);filter:blur(18px) saturate(1.24) brightness(1.12)}}
+    @keyframes inspect-bg-pulse{0%,100%{opacity:0.3;transform:scale(1.03);filter:blur(18px) saturate(1.12) brightness(1.04)}50%{opacity:0.45;transform:scale(1.12);filter:blur(22px) saturate(1.24) brightness(1.12)}}
     @keyframes inspect-card-in{0%{opacity:0;transform:translateY(18px) scale(0.94) rotate(calc(var(--card-zoom-tilt, -2deg) * 0.45));filter:blur(2px) brightness(1.12)}58%{opacity:1;transform:translateY(-4px) scale(1.018) rotate(var(--card-zoom-tilt, -2deg));filter:blur(0) brightness(1.04)}100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--card-zoom-tilt, -2deg));filter:none}}
     #cardZoomClose{position:absolute;top:clamp(12px,3vw,24px);right:clamp(12px,3vw,24px);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,transform 0.15s}
     #cardZoomClose:hover{background:rgba(255,255,255,0.22);transform:scale(1.08)}
@@ -948,10 +955,10 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052304" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052309" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052304">
+    <link rel="stylesheet" href="styles.css?v=2026052309">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -1102,42 +1109,47 @@
 
         <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
           <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
-          <div class="game-explainer-grid">
-            <div class="game-explainer-left">
-              <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a tabletop card game</span> in which you draft your very own team of countryballs! Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
-              <ul class="game-explainer-bullets" aria-label="Game highlights">
-                <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
-                <li><span><strong>Win with brains, not luck:</strong> smart decisions with coins + resources decide who snowballs and who gets rolled.</span></li>
-                <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> unique countries. (Even more with the Extended Edition)</span></li>
-                <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
-              </ul>
-            </div>
+          <figure class="game-explainer-photo">
+            <figcaption class="game-explainer-overlay">
+              <div class="game-explainer-grid">
+                <div class="game-explainer-left">
+                  <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a tabletop card game</span> in which you draft your very own team of countryballs! Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
+                  <ul class="game-explainer-bullets" aria-label="Game highlights">
+                    <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
+                    <li><span><strong>Win with brains, not luck:</strong> smart decisions with coins + resources decide who snowballs and who gets rolled.</span></li>
+                    <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> unique countries. (Even more with the Extended Edition)</span></li>
+                    <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
+                  </ul>
+                </div>
 
-            <aside class="game-crash-course" aria-label="Rules crash course">
-              <h4 class="crash-course-title"><span>Crash</span> Course</h4>
-              <div class="crash-grid" aria-label="Quick rules overview">
-                <div class="crash-card">
-                  <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
-                  <p>Draft <strong>countryball teams</strong> (3 Countryball Cards each). Set the market with resource dice, then decide who starts.</p>
-                </div>
-                <div class="crash-card">
-                  <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
-                  <p>Gain <strong>coins</strong> (10x first turn, 5x for the rest of the game), buy/sell resources, use abilities (pay costs), then attack enemies.</p>
-                </div>
-                <div class="crash-card">
-                  <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
-                  <p>Some abilities require a die roll. Meet the number shown to succeed; <strong>attacks deal damage</strong> and can stun.</p>
-                </div>
-                <div class="crash-card">
-                  <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
-                  <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). <strong>Last player standing wins.</strong></p>
-                </div>
+                <aside class="game-crash-course" aria-label="Rules crash course">
+                  <h4 class="crash-course-title"><span>Crash</span> Course</h4>
+                  <div class="crash-grid" aria-label="Quick rules overview">
+                    <div class="crash-card">
+                      <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
+                      <p>Draft <strong>countryball teams</strong> (3 Countryball Cards each). Set the market with resource dice, then decide who starts.</p>
+                    </div>
+                    <div class="crash-card">
+                      <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
+                      <p>Gain <strong>coins</strong> (10x first turn, 5x for the rest of the game), buy/sell resources, use abilities (pay costs), then attack enemies.</p>
+                    </div>
+                    <div class="crash-card">
+                      <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
+                      <p>Some abilities require a die roll. Meet the number shown to succeed; <strong>attacks deal damage</strong> and can stun.</p>
+                    </div>
+                    <div class="crash-card">
+                      <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
+                      <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). <strong>Last player standing wins.</strong></p>
+                    </div>
+                  </div>
+                  <div class="game-crash-course-link">
+                    <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download Full Rules PDF</a>
+                  </div>
+                </aside>
               </div>
-              <div class="game-crash-course-link">
-                <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download Full Rules PDF</a>
-              </div>
-            </aside>
-          </div>
+            </figcaption>
+            <img src="assets/gameplay-table.webp" alt="Countryball Cards being played on a table" width="960" height="549" loading="lazy" decoding="async">
+          </figure>
         </section>
 
         <div class="golden-separator"></div>
@@ -1146,7 +1158,7 @@
           <div class="status-banner" role="status" aria-label="Project status">
             <div class="status-copy">
               <h3 class="status-title">Shipping Soon</h3>
-              <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">The cards are fully manufactured, but still on their way. Pre-order now, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and be among the first to receive them. Shipping early July 2026.</p>
+              <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">The games are fully manufactured, but still on their way. Pre-order now, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and be among the first to receive them. Shipping early July 2026.</p>
             </div>
           </div>
           <p class="choose-edition-label">Choose your Edition!</p>
@@ -2101,10 +2113,23 @@
     (function(){
       var overlay = document.getElementById('cardZoomOverlay');
       var zoomImg = document.getElementById('cardZoomImg');
+      var zoomBg = overlay.querySelector('.card-zoom-bg');
       var closeBtn = document.getElementById('cardZoomClose');
+      function getInspectionBgSrc(src) {
+        try {
+          var imageUrl = new URL(src, window.location.href);
+          var fileName = imageUrl.pathname.split('/').pop();
+          return fileName ? 'bg/' + fileName : 'assets/bg.webp';
+        } catch (error) {
+          return 'assets/bg.webp';
+        }
+      }
       function openZoom(src, alt) {
         var tilt = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2.2);
         zoomImg.style.setProperty('--card-zoom-tilt', tilt.toFixed(2) + 'deg');
+        if (zoomBg) {
+          zoomBg.src = getInspectionBgSrc(src);
+        }
         zoomImg.src = src;
         zoomImg.alt = alt || '';
         overlay.classList.add('open');
