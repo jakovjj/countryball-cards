@@ -100,7 +100,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2026052309" />
+  <link rel="preload" as="style" href="styles.css?v=2026052310" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -844,10 +844,10 @@
     #cardZoomOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:clamp(18px,4vw,42px);overflow:hidden;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
     #cardZoomOverlay.open{display:flex;animation:inspect-overlay-fade 0.22s ease both}
     .card-zoom-stage{position:relative;display:grid;place-items:center;width:min(94vw,720px);max-height:94vh;isolation:isolate;perspective:1200px;pointer-events:none}
-    .card-zoom-bg{position:absolute;z-index:0;width:min(112vw,860px);height:min(92vh,760px);max-width:none;max-height:none;object-fit:cover;border-radius:0;box-shadow:none;opacity:0.38;filter:blur(18px) saturate(1.18) brightness(1.08);transform:scale(1.08);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
+    .card-zoom-bg{position:absolute;z-index:0;width:min(96vw,760px);max-width:none;max-height:none;aspect-ratio:1;object-fit:contain;border-radius:0;box-shadow:none;opacity:0.48;filter:blur(12px) saturate(1.2) brightness(1.08);transform:scale(1.06);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
     #cardZoomImg{position:relative;z-index:1;max-width:min(88vw,520px);max-height:88vh;border-radius:16px;box-shadow:0 12px 70px rgba(0,0,0,0.72);pointer-events:none;user-select:none;transform-origin:center;will-change:transform,opacity,filter;animation:inspect-card-in 0.44s cubic-bezier(.16,1,.3,1) both}
     @keyframes inspect-overlay-fade{from{opacity:0}to{opacity:1}}
-    @keyframes inspect-bg-pulse{0%,100%{opacity:0.3;transform:scale(1.03);filter:blur(18px) saturate(1.12) brightness(1.04)}50%{opacity:0.45;transform:scale(1.12);filter:blur(22px) saturate(1.24) brightness(1.12)}}
+    @keyframes inspect-bg-pulse{0%,100%{opacity:0.4;transform:scale(1.02);filter:blur(12px) saturate(1.12) brightness(1.04)}50%{opacity:0.56;transform:scale(1.1);filter:blur(16px) saturate(1.24) brightness(1.12)}}
     @keyframes inspect-card-in{0%{opacity:0;transform:translateY(18px) scale(0.94) rotate(calc(var(--card-zoom-tilt, -2deg) * 0.45));filter:blur(2px) brightness(1.12)}58%{opacity:1;transform:translateY(-4px) scale(1.018) rotate(var(--card-zoom-tilt, -2deg));filter:blur(0) brightness(1.04)}100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--card-zoom-tilt, -2deg));filter:none}}
     #cardZoomClose{position:absolute;top:clamp(12px,3vw,24px);right:clamp(12px,3vw,24px);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,transform 0.15s}
     #cardZoomClose:hover{background:rgba(255,255,255,0.22);transform:scale(1.08)}
@@ -955,10 +955,10 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052309" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052310" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052309">
+    <link rel="stylesheet" href="styles.css?v=2026052310">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -2113,23 +2113,10 @@
     (function(){
       var overlay = document.getElementById('cardZoomOverlay');
       var zoomImg = document.getElementById('cardZoomImg');
-      var zoomBg = overlay.querySelector('.card-zoom-bg');
       var closeBtn = document.getElementById('cardZoomClose');
-      function getInspectionBgSrc(src) {
-        try {
-          var imageUrl = new URL(src, window.location.href);
-          var fileName = imageUrl.pathname.split('/').pop();
-          return fileName ? 'bg/' + fileName : 'assets/bg.webp';
-        } catch (error) {
-          return 'assets/bg.webp';
-        }
-      }
       function openZoom(src, alt) {
         var tilt = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2.2);
         zoomImg.style.setProperty('--card-zoom-tilt', tilt.toFixed(2) + 'deg');
-        if (zoomBg) {
-          zoomBg.src = getInspectionBgSrc(src);
-        }
         zoomImg.src = src;
         zoomImg.alt = alt || '';
         overlay.classList.add('open');
