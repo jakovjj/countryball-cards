@@ -181,9 +181,9 @@
     }
   </style>
   
-  <!-- Optimized CSS loading -->
-  <link rel="preload" href="styles.css?v=2025092001" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="styles.css?v=2025092001"></noscript>
+  <!-- Load full CSS before first paint to avoid unstyled image flashes -->
+  <link rel="stylesheet" href="styles.css?v=2026052301">
+  <noscript><link rel="stylesheet" href="styles.css?v=2026052301"></noscript>
   
   <!-- Meta Pixel Code -->
   <script>
@@ -355,6 +355,16 @@
             <li><a href="mailto:info@countryballcards.com">info@countryballcards.com</a></li>
             <li><a href="tel:+13026100190">+1 302 610 0190</a></li>
           </ul>
+          <img
+            src="assets/bar.webp"
+            alt=""
+            class="site-footer-bar"
+            width="720"
+            height="118"
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+          >
         </div>
 
         <div class="site-footer-col">
