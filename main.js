@@ -263,6 +263,8 @@ function decorateProjectCards(track) {
     projectCard.className = 'project-card-stitch';
     projectCard.src = img.dataset.projectCard;
     projectCard.alt = img.dataset.projectAlt || '';
+    projectCard.width = 512;
+    projectCard.height = 512;
     projectCard.loading = 'lazy';
     projectCard.decoding = 'async';
     projectCard.draggable = false;
@@ -363,19 +365,14 @@ function initCardPeekCarousel() {
     };
   }
 
-  function centeredScrollLeft(card) {
-    if (!card) {
-      return 0;
-    }
-    const centerInset = Math.max(0, (viewport.clientWidth - card.offsetWidth) / 2);
-    return Math.round(card.offsetLeft - centerInset);
-  }
-
   function setScrollLeftInstantly(value) {
     const previousScrollBehavior = viewport.style.scrollBehavior;
+    const previousScrollSnapType = viewport.style.scrollSnapType;
     viewport.style.scrollBehavior = 'auto';
+    viewport.style.scrollSnapType = 'none';
     viewport.scrollLeft = value;
     viewport.style.scrollBehavior = previousScrollBehavior;
+    viewport.style.scrollSnapType = previousScrollSnapType;
   }
 
   function normalizeLoopPosition() {
@@ -400,6 +397,14 @@ function initCardPeekCarousel() {
     }
 
     return 0;
+  }
+
+  function centeredScrollLeft(card) {
+    if (!card) {
+      return 0;
+    }
+    const centerInset = Math.max(0, (viewport.clientWidth - card.offsetWidth) / 2);
+    return Math.round(card.offsetLeft - centerInset);
   }
 
   function startLoopAtCard() {
@@ -1158,12 +1163,73 @@ function runAfterFirstPaint(fn) {
   }
 }
 
+function initScrollSpawnAnimations() {
+  if (window.__scrollSpawnInitialized) {
+    return;
+  }
+  window.__scrollSpawnInitialized = true;
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sectionSelector = [
+    '.logo-section',
+    '.card-peek-section',
+    '.game-explainer',
+    '.packages-comparison',
+    '.email-updates-section',
+    '.faq-section',
+    'body > .hero-video.hero-video-cta',
+    '.site-footer'
+  ].join(',');
+
+  const sections = Array.from(document.querySelectorAll(sectionSelector));
+
+  sections.forEach(section => {
+    section.classList.add('scroll-spawn-section');
+    section.dataset.spawnAnim = section.matches('.logo-section, .site-footer') ? 'fade' : 'rise';
+    section.style.setProperty('--spawn-delay', '0ms');
+  });
+
+  const reveal = element => {
+    element.classList.add('is-visible');
+  };
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    sections.forEach(reveal);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+      reveal(entry.target);
+      currentObserver.unobserve(entry.target);
+    });
+  }, {
+    rootMargin: '0px 0px -12% 0px',
+    threshold: 0.12
+  });
+
+  sections.forEach(element => {
+    const rect = element.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      reveal(element);
+      return;
+    }
+    observer.observe(element);
+  });
+}
+
+initScrollSpawnAnimations();
+
 runAfterFirstPaint(() => {
   try {
     initializeCarousel();
     updateCarousel();
     startAutoScroll();
     initializeImageQuality();
+    initScrollSpawnAnimations();
     if (supports3DTilt) {
       init3DCardEffects();
     }

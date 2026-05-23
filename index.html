@@ -100,7 +100,7 @@
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="logo-320.webp" type="image/webp" fetchpriority="high" imagesrcset="logo-160.webp 160w, logo-240.webp 240w, logo-320.webp 320w, logo-480.webp 480w, logo-640.webp 640w" imagesizes="(max-width: 480px) 120px, (max-width: 900px) 150px, 360px" />
   <link rel="preload" as="image" href="us.webp" />
-  <link rel="preload" as="style" href="styles.css?v=2026052301" />
+  <link rel="preload" as="style" href="styles.css?v=2026052304" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -667,6 +667,8 @@
     .packages-compare-table .edition-col{text-align:center;width:18.666%}
     .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:30px;font-weight:700;letter-spacing:0;font-style:normal;text-transform:none;text-shadow:none;text-align:center}
     .status-banner{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 32px;text-align:center}
+    .status-copy{display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .status-title{margin:0;color:var(--gold);font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(24px,3.2vw,34px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none}
     .status-banner-text{font-size:26px;letter-spacing:0.02em;text-transform:uppercase;color:var(--text);text-decoration:underline;text-decoration-color:rgba(185,207,50,0.45);text-underline-offset:6px;text-decoration-thickness:2px}
     .status-banner-text strong{font-weight:900}
     .status-in-production{color:#b9cf32;font-weight:900}
@@ -832,9 +834,14 @@
     .card-peek-nav:active{transform:translateY(-50%) scale(0.98)}
     .card-peek-nav:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
     .card-peek-image{cursor:inherit}
-    #cardZoomOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-    #cardZoomOverlay.open{display:flex}
-    #cardZoomOverlay img{max-width:min(90vw,520px);max-height:90vh;border-radius:16px;box-shadow:0 8px 60px rgba(0,0,0,0.7);pointer-events:none;user-select:none}
+    #cardZoomOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;padding:clamp(18px,4vw,42px);overflow:hidden;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    #cardZoomOverlay.open{display:flex;animation:inspect-overlay-fade 0.22s ease both}
+    .card-zoom-stage{position:relative;display:grid;place-items:center;width:min(94vw,720px);max-height:94vh;isolation:isolate;perspective:1200px;pointer-events:none}
+    .card-zoom-bg{position:absolute;z-index:0;width:min(96vw,700px);max-width:none;max-height:none;aspect-ratio:1;object-fit:contain;border-radius:0;box-shadow:none;opacity:0.55;filter:blur(14px) saturate(1.18) brightness(1.08);transform:scale(1.05);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
+    #cardZoomImg{position:relative;z-index:1;max-width:min(88vw,520px);max-height:88vh;border-radius:16px;box-shadow:0 12px 70px rgba(0,0,0,0.72);pointer-events:none;user-select:none;transform-origin:center;will-change:transform,opacity,filter;animation:inspect-card-in 0.44s cubic-bezier(.16,1,.3,1) both}
+    @keyframes inspect-overlay-fade{from{opacity:0}to{opacity:1}}
+    @keyframes inspect-bg-pulse{0%,100%{opacity:0.42;transform:scale(0.98);filter:blur(14px) saturate(1.12) brightness(1.04)}50%{opacity:0.68;transform:scale(1.1);filter:blur(18px) saturate(1.24) brightness(1.12)}}
+    @keyframes inspect-card-in{0%{opacity:0;transform:translateY(18px) scale(0.94) rotate(calc(var(--card-zoom-tilt, -2deg) * 0.45));filter:blur(2px) brightness(1.12)}58%{opacity:1;transform:translateY(-4px) scale(1.018) rotate(var(--card-zoom-tilt, -2deg));filter:blur(0) brightness(1.04)}100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--card-zoom-tilt, -2deg));filter:none}}
     #cardZoomClose{position:absolute;top:clamp(12px,3vw,24px);right:clamp(12px,3vw,24px);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s,transform 0.15s}
     #cardZoomClose:hover{background:rgba(255,255,255,0.22);transform:scale(1.08)}
     @media(max-width:600px){
@@ -842,11 +849,11 @@
       .card-peek-section{--card-peek-width:clamp(136px,44vw,184px);margin:18px auto 24px;padding:8px 0 16px;overflow:hidden}
       .card-peek-track{gap:16px}
       .card-peek-card,
-      .card-peek-image{width:var(--card-peek-width);scroll-snap-align:center}
+      .card-peek-image{width:var(--card-peek-width)}
       .project-card-stitch{right:-9%;bottom:3%;width:46%;border-radius:7px}
 
       /* Let snap points center each card instead of pinning it to the edge */
-      .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2));scroll-snap-type:x mandatory;scroll-padding-inline:calc((100% - var(--card-peek-width)) / 2);-webkit-overflow-scrolling:touch}
+      .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2));-webkit-overflow-scrolling:touch}
 
       /* Slightly smaller buttons on mobile */
       .card-peek-nav{width:36px;height:48px;border-radius:999px;font-size:28px;opacity:0.82;background:rgba(10,13,22,0.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -921,6 +928,7 @@
       .status-banner{margin:0 auto 10px}
       .choose-edition-label{display:block;margin-top:28px}
       .compare-mobile-picker{margin-top:6px}
+      .status-title{font-size:clamp(22px,6.8vw,28px)}
       .status-banner-text{font-size:17px}
       .status-subtitle{font-size:11px;margin-top:4px;line-height:1.4}
       .packages-comparison .how-it-works{margin:4px 0 6px;padding:10px 14px}
@@ -940,15 +948,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052301" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052304" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052301">
+    <link rel="stylesheet" href="styles.css?v=2026052304">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052302" as="script">
+  <link rel="preload" href="main.js?v=2026052304" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -1058,9 +1066,9 @@
               <div class="card-peek-track" id="cardPeekTrack">
                 <img class="card-peek-image" src="australia.webp" alt="Australia countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="austria.webp" alt="Austria countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="belgium.webp" alt="Belgium countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_belgian_dam.png" data-project-alt="Belgian Dam project card">
+                <img class="card-peek-image" src="belgium.webp" alt="Belgium countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_belgian_dam.webp" data-project-alt="Belgian Dam project card">
                 <img class="card-peek-image" src="canada.webp" alt="Canada countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="china.webp" alt="China countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_factory.png" data-project-alt="Factory project card">
+                <img class="card-peek-image" src="china.webp" alt="China countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_factory.webp" data-project-alt="Factory project card">
                 <img class="card-peek-image" src="croatia.webp" alt="Croatia countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="czechia.webp" alt="Czechia countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="finland.webp" alt="Finland countryball card" loading="lazy" decoding="async">
@@ -1071,20 +1079,20 @@
                 <img class="card-peek-image" src="italy.webp" alt="Italy countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="japan.webp" alt="Japan countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="mexico.webp" alt="Mexico countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="mongolia.webp" alt="Mongolia countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_mongol_yam.png" data-project-alt="Mongol Yam project card">
-                <img class="card-peek-image" src="netherlands.webp" alt="Netherlands countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_trading_outpost.png" data-project-alt="Trading Outpost project card">
-                <img class="card-peek-image" src="norway.webp" alt="Norway countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_norwegian_ship.png" data-project-alt="Norwegian Ship project card">
+                <img class="card-peek-image" src="mongolia.webp" alt="Mongolia countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_mongol_yam.webp" data-project-alt="Mongol Yam project card">
+                <img class="card-peek-image" src="netherlands.webp" alt="Netherlands countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_trading_outpost.webp" data-project-alt="Trading Outpost project card">
+                <img class="card-peek-image" src="norway.webp" alt="Norway countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_norwegian_ship.webp" data-project-alt="Norwegian Ship project card">
                 <img class="card-peek-image" src="poland.webp" alt="Poland countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="portugal.webp" alt="Portugal countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_portuguese_caravel.png" data-project-alt="Portuguese Caravel project card">
-                <img class="card-peek-image" src="romania.webp" alt="Romania countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_romanian_fort.png" data-project-alt="Romanian Fort project card">
+                <img class="card-peek-image" src="portugal.webp" alt="Portugal countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_portuguese_caravel.webp" data-project-alt="Portuguese Caravel project card">
+                <img class="card-peek-image" src="romania.webp" alt="Romania countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_romanian_fort.webp" data-project-alt="Romanian Fort project card">
                 <img class="card-peek-image" src="russia.webp" alt="Russia countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="saudi_arabia.webp" alt="Saudi Arabia countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_oil_rig.png" data-project-alt="Oil Rig project card">
+                <img class="card-peek-image" src="saudi_arabia.webp" alt="Saudi Arabia countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_oil_rig.webp" data-project-alt="Oil Rig project card">
                 <img class="card-peek-image" src="spain.webp" alt="Spain countryball card" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="sweden.webp" alt="Sweden countryball card" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="switzerland.webp" alt="Switzerland countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_swiss_bank.png" data-project-alt="Swiss Bank project card">
-                <img class="card-peek-image" src="turkey.webp" alt="Turkey countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_turkish_cannon.png" data-project-alt="Turkish Cannon project card">
-                <img class="card-peek-image" src="uk.webp" alt="United Kingdom countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_british_navy.png" data-project-alt="British Navy project card">
-                <img class="card-peek-image" src="ukraine.webp" alt="Ukraine countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_ukrainian_wheatfield.png" data-project-alt="Ukrainian Wheatfield project card">
+                <img class="card-peek-image" src="switzerland.webp" alt="Switzerland countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_swiss_bank.webp" data-project-alt="Swiss Bank project card">
+                <img class="card-peek-image" src="turkey.webp" alt="Turkey countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_turkish_cannon.webp" data-project-alt="Turkish Cannon project card">
+                <img class="card-peek-image" src="uk.webp" alt="United Kingdom countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_british_navy.webp" data-project-alt="British Navy project card">
+                <img class="card-peek-image" src="ukraine.webp" alt="Ukraine countryball card" loading="lazy" decoding="async" data-project-card="assets/project/special_ukrainian_wheatfield.webp" data-project-alt="Ukrainian Wheatfield project card">
                 <img class="card-peek-image" src="us.webp" alt="United States countryball card" loading="lazy" decoding="async">
               </div>
             </div>
@@ -1136,7 +1144,10 @@
 
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
           <div class="status-banner" role="status" aria-label="Project status">
-            <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">The cards are on their way, but not quite here yet. Pre-order now, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and be among the first to receive them. Shipping early July 2026.</p>
+            <div class="status-copy">
+              <h3 class="status-title">Shipping Soon</h3>
+              <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">The cards are fully manufactured, but still on their way. Pre-order now, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and be among the first to receive them. Shipping early July 2026.</p>
+            </div>
           </div>
           <p class="choose-edition-label">Choose your Edition!</p>
           <div class="compare-mobile-picker" aria-label="Select edition to view">
@@ -1571,7 +1582,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052302" defer></script>
+  <script src="main.js?v=2026052304" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1955,7 +1966,10 @@
   
   <div id="cardZoomOverlay" role="dialog" aria-modal="true" aria-label="Card zoom">
     <button id="cardZoomClose" aria-label="Close">&times;</button>
-    <img id="cardZoomImg" src="" alt="">
+    <div class="card-zoom-stage">
+      <img class="card-zoom-bg" src="assets/bg.webp" alt="" aria-hidden="true" decoding="async">
+      <img id="cardZoomImg" src="" alt="">
+    </div>
   </div>
 
   <script>
@@ -2071,7 +2085,10 @@
         }
         var card = target.closest('.card-peek-card') || target;
         var centerInset = Math.max(0, (win.clientWidth - card.offsetWidth) / 2);
+        var previousSnap = win.style.scrollSnapType;
+        win.style.scrollSnapType = 'none';
         win.scrollLeft = Math.round(card.offsetLeft - centerInset);
+        win.style.scrollSnapType = previousSnap;
       }
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', startPeekAtSwitzerland);
@@ -2086,6 +2103,8 @@
       var zoomImg = document.getElementById('cardZoomImg');
       var closeBtn = document.getElementById('cardZoomClose');
       function openZoom(src, alt) {
+        var tilt = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2.2);
+        zoomImg.style.setProperty('--card-zoom-tilt', tilt.toFixed(2) + 'deg');
         zoomImg.src = src;
         zoomImg.alt = alt || '';
         overlay.classList.add('open');
