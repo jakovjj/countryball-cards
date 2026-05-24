@@ -100,7 +100,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
-  <link rel="preload" as="style" href="styles.css?v=2026052404" />
+  <link rel="preload" as="style" href="styles.css?v=2026052405" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -794,6 +794,7 @@
       .game-explainer{margin:20px 0 8px}
       .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
       .game-explainer-photo > img{order:2;width:100%;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px);transform:none}
+      .gameplay-mobile-zoom{cursor:zoom-in;-webkit-tap-highlight-color:rgba(251,191,36,0.18)}
       .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
       .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
@@ -840,6 +841,8 @@
     .card-zoom-stage{position:relative;display:grid;place-items:center;width:min(94vw,720px);max-height:94vh;isolation:isolate;perspective:1200px;pointer-events:none}
     .card-zoom-bg{position:absolute;z-index:0;width:min(96vw,760px);max-width:none;max-height:none;aspect-ratio:1;object-fit:contain;border-radius:0;box-shadow:none;opacity:0.48;filter:blur(12px) saturate(1.2) brightness(1.08);transform:scale(1.06);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
     #cardZoomImg{position:relative;z-index:1;max-width:min(88vw,520px);max-height:88vh;border-radius:16px;box-shadow:0 12px 70px rgba(0,0,0,0.72);pointer-events:none;user-select:none;transform-origin:center;will-change:transform,opacity,filter;animation:inspect-card-in 0.44s cubic-bezier(.16,1,.3,1) both}
+    #cardZoomOverlay.photo-zoom .card-zoom-stage{width:min(96vw,1200px)}
+    #cardZoomOverlay.photo-zoom #cardZoomImg{max-width:min(94vw,1200px);max-height:84vh;border-radius:12px}
     @keyframes inspect-overlay-fade{from{opacity:0}to{opacity:1}}
     @keyframes inspect-bg-pulse{0%,100%{opacity:0.4;transform:scale(1.02);filter:blur(12px) saturate(1.12) brightness(1.04)}50%{opacity:0.56;transform:scale(1.1);filter:blur(16px) saturate(1.24) brightness(1.12)}}
     @keyframes inspect-card-in{0%{opacity:0;transform:translateY(18px) scale(0.94) rotate(calc(var(--card-zoom-tilt, -2deg) * 0.45));filter:blur(2px) brightness(1.12)}58%{opacity:1;transform:translateY(-4px) scale(1.018) rotate(var(--card-zoom-tilt, -2deg));filter:blur(0) brightness(1.04)}100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--card-zoom-tilt, -2deg));filter:none}}
@@ -949,15 +952,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052404" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052405" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052404">
+    <link rel="stylesheet" href="styles.css?v=2026052405">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052404" as="script">
+  <link rel="preload" href="main.js?v=2026052405" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -1161,7 +1164,7 @@
                 </aside>
               </div>
             </figcaption>
-            <img src="assets/gameplay.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
+            <img class="gameplay-mobile-zoom" src="assets/gameplay.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
           </figure>
         </section>
 
@@ -1607,7 +1610,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052404" defer></script>
+  <script src="main.js?v=2026052405" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1868,7 +1871,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js?v=2026052404';
+        perfScript.src = 'performance-optimized.js?v=2026052405';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }
@@ -2101,24 +2104,36 @@
       var overlay = document.getElementById('cardZoomOverlay');
       var zoomImg = document.getElementById('cardZoomImg');
       var closeBtn = document.getElementById('cardZoomClose');
-      function openZoom(src, alt) {
+      function openZoom(src, alt, mode) {
         var tilt = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2.2);
         zoomImg.style.setProperty('--card-zoom-tilt', tilt.toFixed(2) + 'deg');
         zoomImg.src = src;
         zoomImg.alt = alt || '';
+        overlay.classList.toggle('photo-zoom', mode === 'photo');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
       }
       function closeZoom() {
         overlay.classList.remove('open');
+        overlay.classList.remove('photo-zoom');
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
       }
       document.getElementById('cardPeekTrack').addEventListener('click', function(e) {
         var img = e.target.closest('.card-peek-image');
-        if (img) openZoom(img.dataset.fullSrc || img.currentSrc || img.src, img.alt);
+        if (img) {
+          if (typeof warmCardPeekAroundViewport === 'function') warmCardPeekAroundViewport();
+          openZoom(img.dataset.fullSrc || img.currentSrc || img.src, img.alt);
+        }
       });
+      var gameplayZoomImg = document.querySelector('.gameplay-mobile-zoom');
+      if (gameplayZoomImg) {
+        gameplayZoomImg.addEventListener('click', function() {
+          if (!window.matchMedia || !window.matchMedia('(max-width: 600px)').matches) return;
+          openZoom(gameplayZoomImg.dataset.fullSrc || gameplayZoomImg.currentSrc || gameplayZoomImg.src, gameplayZoomImg.alt, 'photo');
+        });
+      }
       overlay.addEventListener('click', function(e) {
         if (e.target !== closeBtn) closeZoom();
       });

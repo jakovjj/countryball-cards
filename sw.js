@@ -1,14 +1,14 @@
 // Service Worker for Countryball Cards
-const CACHE_NAME = 'countryball-cards-v2026052404'; // Update this version when you make changes
+const CACHE_NAME = 'countryball-cards-v2026052405'; // Update this version when you make changes
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
-  '/styles.css?v=2026052404',
+  '/styles.css?v=2026052405',
   '/main.js',
-  '/main.js?v=2026052404',
+  '/main.js?v=2026052405',
   '/analytics.js',
-  '/store.js?v=2026040501',
+  '/store.js?v=2026040701',
   '/assets/title-240.webp',
   '/assets/title-360.webp',
   '/assets/site-icon-80.webp',
@@ -36,6 +36,10 @@ self.addEventListener('install', function(event) {
 
 // Fetch event - serve from cache when possible with network-first strategy for HTML
 self.addEventListener('fetch', function(event) {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   // Icons/manifests should update quickly; avoid getting stuck in cache
   const url = new URL(event.request.url);
   const isSameOrigin = url.origin === self.location.origin;
@@ -120,6 +124,58 @@ self.addEventListener('fetch', function(event) {
         })
     );
   }
+});
+
+self.addEventListener('message', function(event) {
+  if (!event.data || event.data.type !== 'warm_cache' || !Array.isArray(event.data.urls)) {
+    return;
+  }
+
+  const urls = event.data.urls
+    .map(function(rawUrl) {
+      try {
+        return new URL(rawUrl, self.location.origin);
+      } catch (_) {
+        return null;
+      }
+    })
+    .filter(function(url) {
+      return url && url.origin === self.location.origin;
+    })
+    .slice(0, 24);
+
+  if (!urls.length) {
+    return;
+  }
+
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return Promise.all(urls.map(function(url) {
+        const request = new Request(url.href, {
+          method: 'GET',
+          credentials: 'same-origin',
+          cache: 'force-cache'
+        });
+
+        return cache.match(request).then(function(match) {
+          if (match) {
+            return match;
+          }
+
+          return fetch(request).then(function(response) {
+            if (response && response.status === 200 && response.type === 'basic') {
+              return cache.put(request, response.clone()).then(function() {
+                return response;
+              });
+            }
+            return response;
+          }).catch(function() {
+            return undefined;
+          });
+        });
+      }));
+    })
+  );
 });
 
 // Activate event - clean up old caches

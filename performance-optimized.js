@@ -94,6 +94,11 @@
   
   // Preload next page resources based on user behavior
   function preloadNextResources() {
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (conn && (conn.saveData || ['slow-2g', '2g'].includes(conn.effectiveType))) {
+      return;
+    }
+
     const criticalPages = [
       '/rules.html'
     ];
@@ -109,9 +114,13 @@
   // Initialize optimizations
   function init() {
     optimizeImages();
-    
-    // Preload resources after page is interactive
-    setTimeout(preloadNextResources, 1000);
+
+    // Preload resources only when the browser has breathing room.
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(preloadNextResources, { timeout: 2500 });
+    } else {
+      setTimeout(preloadNextResources, 1200);
+    }
     
     // (GA4) page_timing event removed to reduce event volume
   }
