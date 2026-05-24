@@ -1420,7 +1420,7 @@ font-size:16px}
   .hero-brand-title img{width:clamp(160px,42vw,206px)}
   .hero-brand-art-title{width:min(100%,94vw)}
   .hero-brand-art img{filter:none}
-  .hero-brand-tagline{max-width:100%;font-size:12px;line-height:1.1}
+  .hero-brand-tagline{max-width:100%;font-size:10.5px;line-height:1.15}
   .logo-section>.hero-video-cta{width:100%;box-sizing:border-box;padding:0 12px}
   .logo-section>.hero-video-cta .hero-buy-btn{width:min(100%,280px) !important;max-width:280px !important;padding:13px 16px !important}
   .logo-section>.hero-video-cta .hero-buy-btn img{height:32px;max-width:100%}
