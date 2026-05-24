@@ -1,13 +1,14 @@
 // Service Worker for Countryball Cards
-const CACHE_NAME = 'countryball-cards-v2026052405'; // Update this version when you make changes
+const CACHE_NAME = 'countryball-cards-v2026052406'; // Update this version when you make changes
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
-  '/styles.css?v=2026052405',
+  '/styles.css?v=2026052406',
   '/main.js',
-  '/main.js?v=2026052405',
+  '/main.js?v=2026052406',
   '/analytics.js',
+  '/analytics.js?v=2026052406',
   '/store.js?v=2026040701',
   '/assets/title-240.webp',
   '/assets/title-360.webp',
@@ -21,6 +22,31 @@ const urlsToCache = [
   '/site.webmanifest',
   '/browserconfig.xml'
 ];
+
+function shouldCacheResponse(response) {
+  return response && response.status === 200 && response.type === 'basic';
+}
+
+function fetchAndCache(request) {
+  return fetch(request).then(function(response) {
+    if (shouldCacheResponse(response)) {
+      const responseToCache = response.clone();
+      caches.open(CACHE_NAME).then(function(cache) {
+        cache.put(request, responseToCache);
+      });
+    }
+    return response;
+  });
+}
+
+function staleWhileRevalidate(request) {
+  return caches.match(request).then(function(cachedResponse) {
+    const networkFetch = fetchAndCache(request).catch(function() {
+      return cachedResponse;
+    });
+    return cachedResponse || networkFetch;
+  });
+}
 
 // Install event - cache assets
 self.addEventListener('install', function(event) {
@@ -43,6 +69,14 @@ self.addEventListener('fetch', function(event) {
   // Icons/manifests should update quickly; avoid getting stuck in cache
   const url = new URL(event.request.url);
   const isSameOrigin = url.origin === self.location.origin;
+  if (!isSameOrigin) {
+    return;
+  }
+
+  const isStaticAsset = (
+    ['style', 'script', 'image', 'font'].includes(event.request.destination) ||
+    /\.(css|js|mjs|png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf)$/i.test(url.pathname)
+  );
   const isIconOrManifest = isSameOrigin && (
     url.pathname === '/serp.ico' ||
     url.pathname === '/serp.png' ||
@@ -92,37 +126,12 @@ self.addEventListener('fetch', function(event) {
           return caches.match(event.request);
         })
     );
+  } else if (isStaticAsset) {
+    event.respondWith(staleWhileRevalidate(event.request));
   } else {
-    // For other assets, use cache-first strategy
-    event.respondWith(
-      caches.match(event.request)
-        .then(function(response) {
-          // Return cached version or fetch from network
-          if (response) {
-            return response;
-          }
-          
-          // Clone the request because it's a stream
-          const fetchRequest = event.request.clone();
-          
-          return fetch(fetchRequest).then(function(response) {
-            // Check if valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            
-            // Clone the response because it's a stream
-            const responseToCache = response.clone();
-            
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
-            
-            return response;
-          });
-        })
-    );
+    event.respondWith(fetchAndCache(event.request).catch(function() {
+      return caches.match(event.request);
+    }));
   }
 });
 

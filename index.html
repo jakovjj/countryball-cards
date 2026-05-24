@@ -86,13 +86,13 @@
   </script>
   
   <!-- Performance hints for critical resources -->
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-  <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
   <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-  <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+  <link rel="dns-prefetch" href="https://stats.g.doubleclick.net">
+  <link rel="dns-prefetch" href="https://www.redditstatic.com">
   <link rel="dns-prefetch" href="https://ipapi.co">
   <link rel="dns-prefetch" href="https://discord.com">
   <link rel="dns-prefetch" href="https://pixel-config.reddit.com">
@@ -100,7 +100,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
-  <link rel="preload" as="style" href="styles.css?v=2026052405" />
+  <link rel="preload" as="style" href="styles.css?v=2026052406" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -175,44 +175,12 @@
   }
   </script>
   
-  <!-- Google tag (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M366HCYL8Z"></script>
+  <!-- Lightweight analytics queues; external analytics load after idle/interaction in analytics.js -->
   <script>
-    // Replace G-XXXXXXXXXX with your GA4 Measurement ID
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);} 
-    gtag('js', new Date());
-    gtag('config', 'G-M366HCYL8Z', {
-      transport_type: 'beacon',
-      anonymize_ip: true,
-      allow_google_signals: false,
-      send_page_view: true,
-      page_title: 'Countryball Cards',
-      page_location: 'https://countryballcards.com/',
-      page_path: '/'
-    });
-  </script>
-
-  <!-- Meta Pixel Code -->
-  <script>
-    (function(){
-      var h = window.location && window.location.hostname;
-      var isLocal = !h || h === 'localhost' || h === '127.0.0.1' || h.endsWith('.local') ||
-        h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.');
-      if (isLocal) return;
-
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-
-      fbq('init', '659591973725729');
-      fbq('track', 'PageView');
-    })();
+    window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+    window.fbq = window.fbq || function(){ (window.fbq.queue = window.fbq.queue || []).push(arguments); };
+    window.rdt = window.rdt || function(){ (window.rdt.callQueue = window.rdt.callQueue || []).push(arguments); };
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=659591973725729&ev=PageView&noscript=1" /></noscript>
   
@@ -662,7 +630,7 @@
     .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:30px;font-weight:700;letter-spacing:0;font-style:normal;text-transform:none;text-shadow:none;text-align:center}
     .status-banner{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 32px;text-align:center}
     .status-copy{display:flex;flex-direction:column;align-items:center;justify-content:center}
-    .status-title{margin:0;color:var(--gold);font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(24px,3.2vw,34px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none}
+    .status-title{margin:0;color:var(--gold);font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(22px,2.9vw,30px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none}
     .status-banner-text{font-size:26px;letter-spacing:0.02em;text-transform:uppercase;color:var(--text);text-decoration:underline;text-decoration-color:rgba(185,207,50,0.45);text-underline-offset:6px;text-decoration-thickness:2px}
     .status-banner-text strong{font-weight:900}
     .status-in-production{color:#b9cf32;font-weight:900}
@@ -793,7 +761,9 @@
       #gameExplainerTitle{font-size:22px;margin-bottom:10px}
       .game-explainer{margin:20px 0 8px}
       .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
-      .game-explainer-photo > img{order:2;width:100%;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px);transform:none}
+      .game-explainer-photo > img,.game-explainer-photo > picture{order:2;width:100%;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px);transform:none}
+      .game-explainer-photo > picture{display:block;overflow:hidden}
+      .game-explainer-photo > picture > img{display:block;width:100%;height:auto}
       .gameplay-mobile-zoom{cursor:zoom-in;-webkit-tap-highlight-color:rgba(251,191,36,0.18)}
       .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
@@ -932,7 +902,7 @@
       .status-banner{margin:0 auto 10px}
       .choose-edition-label{display:block;margin-top:28px}
       .compare-mobile-picker{margin-top:6px}
-      .status-title{font-size:clamp(22px,6.8vw,28px)}
+      .status-title{font-size:clamp(20px,6vw,25px)}
       .status-banner-text{font-size:17px}
       .status-subtitle{font-size:11px;margin-top:4px;line-height:1.4}
       .packages-comparison .how-it-works{margin:4px 0 6px;padding:10px 14px}
@@ -952,26 +922,18 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052405" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052406" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052405">
+    <link rel="stylesheet" href="styles.css?v=2026052406">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052405" as="script">
-  <link rel="preload" href="analytics.js" as="script">
+  <link rel="preload" href="main.js?v=2026052406" as="script">
+  <link rel="prefetch" href="analytics.js?v=2026052406" as="script">
 
-  <!-- Reddit Pixel + GA configuration moved to analytics.js -->
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "ws94xql90s");
-  </script>
+  <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
 </head>
 <body>
   <header class="site-topbar" role="banner">
@@ -1164,7 +1126,11 @@
                 </aside>
               </div>
             </figcaption>
-            <img class="gameplay-mobile-zoom" src="assets/gameplay.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
+            <picture class="gameplay-picture">
+              <source type="image/avif" srcset="assets/gameplay-720.avif 720w, assets/gameplay-1080.avif 1080w, assets/gameplay-1440.avif 1440w, assets/gameplay-1920.avif 1920w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
+              <source type="image/webp" srcset="assets/gameplay-480.webp 480w, assets/gameplay-720.webp 720w, assets/gameplay-1080.webp 1080w, assets/gameplay-1440.webp 1440w, assets/gameplay-1920.webp 1920w, assets/gameplay.webp 3840w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
+              <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
+            </picture>
           </figure>
         </section>
 
@@ -1173,7 +1139,7 @@
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
           <div class="status-banner" role="status" aria-label="Project status">
             <div class="status-copy">
-              <h3 class="status-title">Shipping Soon</h3>
+              <h3 class="status-title">LIMITED-TIME 20% OFF!</h3>
               <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">The games are fully manufactured, but still on their way. Pre-order now, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and be among the first to receive them. Shipping early July 2026.</p>
             </div>
           </div>
@@ -1609,8 +1575,8 @@
     </div>
   </div>
 
-  <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052405" defer></script>
+  <script src="analytics.js?v=2026052406" defer></script>
+  <script src="main.js?v=2026052406" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1871,7 +1837,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js?v=2026052405';
+        perfScript.src = 'performance-optimized.js?v=2026052406';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }

@@ -1,19 +1,56 @@
 // Analytics and pixels (Reddit + GA4)
 (function(){
-  // Fallback GA4 loader for pages that don't include it in HTML.
-  // Keeps defaults consistent with pages that inline GA4.
-  (function ensureGA4(){
-    if (typeof window.gtag !== 'undefined') return;
+  var GA4_ID = 'G-M366HCYL8Z';
+  var META_PIXEL_ID = '659591973725729';
+  var REDDIT_PIXEL_ID = 'a2_hgzcstbb8534';
+  var CLARITY_ID = 'ws94xql90s';
 
+  function isLocalHost() {
     var h = window.location && window.location.hostname;
-    var isLocal = !h || h === 'localhost' || h === '127.0.0.1' || h.endsWith('.local') ||
+    return !h || h === 'localhost' || h === '127.0.0.1' || h.endsWith('.local') ||
       h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.');
-    if (isLocal) return;
+  }
 
-    var GA4_ID = 'G-M366HCYL8Z';
+  function isTrackableHost() {
+    var h = window.location && window.location.hostname;
+    return !isLocalHost() && h && h.indexOf('.') > -1;
+  }
 
+  function runWhenIdle(fn, timeout) {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fn, { timeout: timeout || 3000 });
+    } else {
+      setTimeout(fn, Math.min(timeout || 3000, 1200));
+    }
+  }
+
+  function runAfterIdleOrInteraction(fn) {
+    var done = false;
+    var run = function() {
+      if (done) return;
+      done = true;
+      fn();
+    };
+
+    ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function(type) {
+      window.addEventListener(type, run, { once: true, passive: true });
+    });
+
+    runWhenIdle(run, 3000);
+  }
+
+  function ensureQueues() {
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+    window.fbq = window.fbq || function(){ (window.fbq.queue = window.fbq.queue || []).push(arguments); };
+    window.rdt = window.rdt || function(){ (window.rdt.callQueue = window.rdt.callQueue || []).push(arguments); };
+  }
+
+  ensureQueues();
+
+  function loadGA4(){
+    if (!isTrackableHost() || window.__cbcGA4Loaded) return;
+    window.__cbcGA4Loaded = true;
 
     if (!document.querySelector('script[src*="https://www.googletagmanager.com/gtag/js?id=' + GA4_ID + '"]')) {
       var s = document.createElement('script');
@@ -31,7 +68,81 @@
       page_title: document.title,
       page_location: window.location.href
     });
-  })();
+  }
+
+  function loadMetaPixel() {
+    if (!isTrackableHost() || window.__cbcMetaPixelLoaded) return;
+    window.__cbcMetaPixelLoaded = true;
+
+    var queued = (window.fbq && window.fbq.queue) ? window.fbq.queue : [];
+    !function(f,b,e,v,n,t,s) {
+      n=f.fbq=function(){ n.callMethod ?
+        n.callMethod.apply(n,arguments) : n.queue.push(arguments); };
+      if(!f._fbq) f._fbq=n;
+      n.push=n;
+      n.loaded=!0;
+      n.version='2.0';
+      n.queue=queued;
+      t=b.createElement(e);
+      t.async=!0;
+      t.src=v;
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+    window.fbq('init', META_PIXEL_ID);
+    window.fbq('track', 'PageView');
+  }
+
+  function loadRedditPixel() {
+    if (!isTrackableHost() || window.__cbcRedditPixelLoaded) return;
+    window.__cbcRedditPixelLoaded = true;
+
+    var oldQueue = (window.rdt && window.rdt.callQueue) ? window.rdt.callQueue : [];
+    var p = window.rdt = function() {
+      p.sendEvent ? p.sendEvent.apply(p, arguments) : p.callQueue.push(arguments);
+    };
+    p.callQueue = oldQueue;
+
+    var t = document.createElement('script');
+    t.src = 'https://www.redditstatic.com/ads/pixel.js';
+    t.async = true;
+    t.crossOrigin = 'anonymous';
+    t.referrerPolicy = 'no-referrer-when-downgrade';
+    t.onerror = function() {
+      if (!window.rdt.sendEvent) {
+        window.rdt = function(){ /* noop fallback */ };
+        window.rdt.sendEvent = window.rdt;
+      }
+    };
+    (document.getElementsByTagName('script')[0] || document.head).parentNode.insertBefore(t, document.scripts[0]);
+
+    try {
+      window.rdt('init', REDDIT_PIXEL_ID, { optOut: false, useDecimalCurrencyValues: true, debug: false });
+      window.rdt('track', 'PageVisit');
+    } catch (_) { /* ignore */ }
+  }
+
+  function loadClarity() {
+    if (!isTrackableHost() || window.__cbcClarityLoaded) return;
+    window.__cbcClarityLoaded = true;
+
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){ (c[a].q=c[a].q||[]).push(arguments); };
+      t=l.createElement(r);
+      t.async=1;
+      t.src='https://www.clarity.ms/tag/'+i;
+      y=l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t,y);
+    })(window, document, 'clarity', 'script', CLARITY_ID);
+  }
+
+  function loadThirdPartyAnalytics() {
+    loadGA4();
+    loadMetaPixel();
+    loadRedditPixel();
+    loadClarity();
+  }
 
   function safeGtagEvent(eventName, params) {
     if (typeof gtag === 'undefined') return;
@@ -146,64 +257,15 @@
     document.addEventListener('DOMContentLoaded', function() {
       trackBrowserCapabilities();
       initKickstarterClickTracking();
-      initTrailerTracking();
+      runWhenIdle(initTrailerTracking, 3500);
     });
   } else {
     trackBrowserCapabilities();
     initKickstarterClickTracking();
-    initTrailerTracking();
+    runWhenIdle(initTrailerTracking, 3500);
   }
 
-  // GA4 loader remains in HTML head for early init
-
-  // Reddit Pixel bootstrap
-  (function(w,d){
-    if(!w.rdt){
-      var p=w.rdt=function(){
-        p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments);
-      };
-      p.callQueue=[];
-
-      var isValidDomain=function(){
-        var h=w.location.hostname;
-        return h!=='localhost' && h!=='127.0.0.1' && h!=='' && !h.endsWith('.local') &&
-               !h.startsWith('192.168.') && !h.startsWith('10.') && !h.startsWith('172.') &&
-               (w.location.protocol==='https:' || w.location.protocol==='http:');
-      };
-
-      if(isValidDomain()){
-        var t=d.createElement('script');
-        t.src='https://www.redditstatic.com/ads/pixel.js';
-        t.async=true;
-        t.crossOrigin='anonymous';
-        t.referrerPolicy='no-referrer-when-downgrade';
-        t.onerror=function(e){
-          console.warn('Reddit pixel failed to load', e);
-          if(!w.rdt.sendEvent){ w.rdt = function(){ /* noop fallback */ }; w.rdt.sendEvent=w.rdt; }
-        };
-        (d.getElementsByTagName('script')[0]||d.head).parentNode.insertBefore(t,d.scripts[0]);
-      } else {
-        w.rdt=function(){ /* local mock */ }; w.rdt.sendEvent=w.rdt;
-      }
-    }
-  })(window,document);
-
-  // Init after a short delay
-  setTimeout(function(){
-    var h=location.hostname;
-    var ok = h && h.indexOf('.')>-1 && h!=='localhost' && h!=='127.0.0.1' && !h.endsWith('.local');
-    if(!ok) return;
-    try{
-      rdt('init','a2_hgzcstbb8534',{ optOut:false, useDecimalCurrencyValues:true, debug:true });
-      rdt('track','PageVisit');
-    }catch(e){ /* ignore */ }
-  },500);
-
-  // Optional debug after load
-  setTimeout(function(){
-    if(!window.rdt) return;
-    try{ rdt('track','ViewContent',{ content_ids:['debug_test'], content_type:'product', content_name:'Debug Test' }); }catch(_){ }
-  },3000);
+  runAfterIdleOrInteraction(loadThirdPartyAnalytics);
 
   // Session duration + scroll depth tracking → admin.countryballcards.com
   (function() {

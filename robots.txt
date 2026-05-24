@@ -6,6 +6,7 @@ Allow: /
 # Block non-public/admin areas and endpoints.
 Disallow: /backend/
 Disallow: /archive/
+Disallow: /downloads/legacy/
 Disallow: /*.php$
 
 # Preserve access to favicons and touch icons

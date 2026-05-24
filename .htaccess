@@ -4,6 +4,12 @@
 # Enable rewrite engine
 RewriteEngine On
 
+# Keep old public download URLs working after moving large files out of the web root.
+Redirect 301 /countryball_cards.pdf /downloads/legacy/countryball_cards.pdf
+Redirect 301 /countryball_cards2.pdf /downloads/legacy/countryball_cards2.pdf
+Redirect 301 /cb.zip /downloads/legacy/cb.zip
+Redirect 301 /gameplay.png /downloads/legacy/gameplay.png
+
 # Security Headers
 Header always set X-Content-Type-Options nosniff
 Header always set X-Frame-Options DENY  
@@ -29,6 +35,9 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^backend/api/(.*)$ backend/api.php/$1 [QSA,L]
 
+AddType image/webp .webp
+AddType image/avif .avif
+
 # Protect sensitive files
 <Files ".env">
     Order allow,deny
@@ -40,7 +49,7 @@ RewriteRule ^backend/api/(.*)$ backend/api.php/$1 [QSA,L]
     Deny from all
 </Files>
 
-<FilesMatch "\.(json|txt)$">
+<FilesMatch "^(?!robots\.txt$).*\.(json|txt)$">
     <RequireAll>
         Require ip 127.0.0.1
         Require ip ::1
@@ -60,6 +69,7 @@ RewriteRule ^backend/api/(.*)$ backend/api.php/$1 [QSA,L]
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType image/png "access plus 30 days"
     ExpiresByType image/webp "access plus 30 days"
+    ExpiresByType image/avif "access plus 30 days"
     ExpiresByType image/jpeg "access plus 30 days"
     ExpiresByType image/gif "access plus 30 days"
     ExpiresByType image/svg+xml "access plus 30 days"
@@ -111,7 +121,12 @@ RewriteRule ^backend/api/(.*)$ backend/api.php/$1 [QSA,L]
     </FilesMatch>
     
     # Images are stable static assets and also backed by the service worker
-    <FilesMatch "\.(ico|png|jpg|jpeg|gif|webp|svg)$">
+    <FilesMatch "\.(ico|png|jpg|jpeg|gif|webp|avif|svg)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+
+    # Large downloads are versioned by filename and should not re-download often
+    <FilesMatch "\.(pdf|zip)$">
         Header set Cache-Control "max-age=2592000, public"
     </FilesMatch>
     

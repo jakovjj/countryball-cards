@@ -949,11 +949,16 @@ window.warmCardPeekAroundViewport = () => cardPeekWarmup.warmAroundViewport();
   }
 
   // Kick off when the main thread is idle so we don't compete with rendering.
-  const kickoff = () => { try { loadCounts(); } catch (_) { /* noop */ } };
+  const kickoff = () => {
+    if (!canWarmupAssets()) {
+      return;
+    }
+    try { loadCounts(); } catch (_) { /* noop */ }
+  };
   if ('requestIdleCallback' in window) {
-    requestIdleCallback(kickoff, { timeout: 1500 });
+    requestIdleCallback(kickoff, { timeout: 5000 });
   } else {
-    setTimeout(kickoff, 400);
+    setTimeout(kickoff, 2500);
   }
 })();
 
