@@ -387,11 +387,10 @@ function initCardPeekCarousel() {
     const originalScrollLeft = viewport.scrollLeft;
     let nextScrollLeft = originalScrollLeft;
 
-    while (nextScrollLeft < metrics.start - loopBoundaryEpsilon) {
-      nextScrollLeft += metrics.width;
-    }
-    while (nextScrollLeft >= metrics.end - loopBoundaryEpsilon) {
-      nextScrollLeft -= metrics.width;
+    if (nextScrollLeft < metrics.start - loopBoundaryEpsilon) {
+      nextScrollLeft = metrics.end - Math.max(0, metrics.start - nextScrollLeft);
+    } else if (nextScrollLeft >= metrics.end - loopBoundaryEpsilon) {
+      nextScrollLeft = metrics.start + Math.max(0, nextScrollLeft - metrics.end);
     }
 
     if (nextScrollLeft !== originalScrollLeft) {
@@ -449,7 +448,8 @@ function initCardPeekCarousel() {
     const metrics = loopMetrics();
     normalizeLoopPosition();
     if (direction < 0 && metrics && metrics.width > 0 && viewport.scrollLeft <= metrics.start + 1) {
-      setScrollLeftInstantly(metrics.end - 1);
+      setScrollLeftInstantly(metrics.end - scrollAmount());
+      return;
     }
     viewport.scrollBy({
       left: direction * scrollAmount(),
@@ -1818,94 +1818,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Handle resize to show/hide arrow based on screen size
   window.addEventListener('resize', updateArrowVisibility);
-});
-
-// Mobile floating preorder CTA
-document.addEventListener('DOMContentLoaded', function() {
-  const floatingPreorder = document.getElementById('mobileFloatingPreorder');
-  const editionComparison = document.getElementById('editionComparison');
-  const mobileQuery = window.matchMedia('(max-width: 767px)');
-  let ticking = false;
-
-  if (!floatingPreorder || !editionComparison) {
-    return;
-  }
-
-  function isOverlayOpen() {
-    return Array.from(document.querySelectorAll('.modal-overlay')).some(overlay => !overlay.hidden);
-  }
-
-  function isElementMeaningfullyVisible(element) {
-    if (!element || element === floatingPreorder) {
-      return false;
-    }
-
-    const style = window.getComputedStyle(element);
-    if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) {
-      return false;
-    }
-
-    const rect = element.getBoundingClientRect();
-    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-    const viewportHeight = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
-    const visibleWidth = Math.max(0, Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0));
-    const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
-    const visibleArea = visibleWidth * visibleHeight;
-    const elementArea = Math.max(1, rect.width * rect.height);
-
-    return visibleHeight >= 28 && visibleArea >= 600 && visibleArea / elementArea >= 0.16;
-  }
-
-  function hasVisiblePreorderCta() {
-    const preorderCtas = document.querySelectorAll('.hero-buy-btn, .package-btn');
-    return Array.from(preorderCtas).some(isElementMeaningfullyVisible);
-  }
-
-  function updateFloatingPreorder() {
-    ticking = false;
-    const shouldShow = mobileQuery.matches && !isOverlayOpen() && !hasVisiblePreorderCta();
-    floatingPreorder.classList.toggle('is-visible', shouldShow);
-    floatingPreorder.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
-    floatingPreorder.tabIndex = shouldShow ? 0 : -1;
-  }
-
-  function requestUpdate() {
-    if (ticking) {
-      return;
-    }
-    ticking = true;
-    window.requestAnimationFrame(updateFloatingPreorder);
-  }
-
-  floatingPreorder.addEventListener('click', function(event) {
-    event.preventDefault();
-    if (typeof trackStoreClick === 'function') {
-      trackStoreClick('mobile_floating_preorder');
-    }
-    editionComparison.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (window.history && window.history.pushState) {
-      window.history.pushState(null, '', '#editionComparison');
-    }
-  });
-
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate);
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', requestUpdate);
-    window.visualViewport.addEventListener('scroll', requestUpdate);
-  }
-  if (typeof mobileQuery.addEventListener === 'function') {
-    mobileQuery.addEventListener('change', requestUpdate);
-  } else if (typeof mobileQuery.addListener === 'function') {
-    mobileQuery.addListener(requestUpdate);
-  }
-
-  const modalObserver = new MutationObserver(requestUpdate);
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    modalObserver.observe(overlay, { attributes: true, attributeFilter: ['hidden', 'aria-hidden'] });
-  });
-
-  requestUpdate();
 });
 
 // ===== ANALYTICS VERIFICATION =====

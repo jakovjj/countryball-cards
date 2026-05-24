@@ -100,7 +100,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
-  <link rel="preload" as="style" href="styles.css?v=2026052402" />
+  <link rel="preload" as="style" href="styles.css?v=2026052404" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -609,13 +609,6 @@
     @media(max-width:480px){
       .preorder-discount-note{padding:10px 14px;letter-spacing:0.4px}
     }
-    .mobile-floating-preorder{display:none}
-    @media(max-width:767px){
-      .mobile-floating-preorder{position:fixed;left:max(14px,env(safe-area-inset-left));right:max(14px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));z-index:850;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:12px 18px;border-radius:16px;border:1px solid rgba(251,191,36,0.72);background:linear-gradient(135deg,rgba(251,191,36,0.96),rgba(245,158,11,0.96));color:#10131a;text-decoration:none;font-size:17px;font-weight:900;line-height:1;letter-spacing:0;box-shadow:0 14px 34px rgba(0,0,0,0.38),0 0 0 1px rgba(255,255,255,0.16) inset;transform:translateY(calc(100% + 28px));opacity:0;pointer-events:none;transition:transform 0.24s ease,opacity 0.2s ease;box-sizing:border-box}
-      .mobile-floating-preorder.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
-      .mobile-floating-preorder:focus-visible{outline:3px solid rgba(251,191,36,0.45);outline-offset:4px}
-      .mobile-floating-preorder svg{width:20px;height:20px;flex:0 0 auto}
-    }
     .package-header-bar .package-badge{order:1;margin:0}
     .package-header-bar .package-name{order:2}
     .package-header-bar .package-price{order:3}
@@ -956,15 +949,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052402" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052404" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052402">
+    <link rel="stylesheet" href="styles.css?v=2026052404">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052402" as="script">
+  <link rel="preload" href="main.js?v=2026052404" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -1015,12 +1008,6 @@
       </nav>
     </div>
   </header>
-  <a class="mobile-floating-preorder" id="mobileFloatingPreorder" href="#editionComparison" aria-label="Pre-order now" aria-hidden="true" tabindex="-1">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path fill="currentColor" d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2Zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2ZM5.2 4l-.94-2H1v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.13 0-.25-.11-.25-.25l.03-.12L8.1 13H19c.75 0 1.41-.41 1.75-1.03L23 6H5.2Z"/>
-    </svg>
-    <span>Pre-order now</span>
-  </a>
   <div class="wrap">
     <div class="frame">
       <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#07152b" data-mbg2="#0a2a55" data-mbg3="#0d3f7f">
@@ -1620,7 +1607,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052402" defer></script>
+  <script src="main.js?v=2026052404" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1881,7 +1868,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js?v=2026052402';
+        perfScript.src = 'performance-optimized.js?v=2026052404';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }
