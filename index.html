@@ -239,17 +239,17 @@
 
     /* Sticky top header */
     .site-topbar{position:sticky;top:0;z-index:200;background:rgba(26,31,46,0.72);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,0.08)}
-    .site-topbar-inner{max-width:980px;margin:0 auto;padding:22px 28px}
+    .site-topbar-inner{max-width:980px;margin:0 auto;padding:10px 24px}
     .site-topbar-nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .site-topbar-brand{display:inline-flex;align-items:center;gap:14px;color:var(--text);text-decoration:none;font-weight:800;letter-spacing:0.2px;font-size:19px}
-    .site-topbar-brand-icon{display:block;flex:0 0 auto;width:40px;height:40px;border-radius:12px;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
-    .site-topbar-brand-title{display:block;flex:0 1 auto;max-height:52px;width:auto;max-width:480px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
-    .site-topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:14px}
-    .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:16px;padding:12px 14px;border-radius:14px}
+    .site-topbar-brand-icon{display:block;flex:0 0 auto;width:36px;height:36px;border-radius:11px;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
+    .site-topbar-brand-title{display:block;flex:0 1 auto;max-height:46px;width:auto;max-width:420px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(0,0,0,0.25))}
+    .site-topbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+    .site-topbar-link{display:inline-flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700;letter-spacing:0.2px;opacity:0.9;transition:opacity 0.2s ease,color 0.2s ease,transform 0.2s ease;font-size:14px;padding:8px 10px;border-radius:11px}
     button.site-topbar-link{background:transparent;border:none;appearance:none;font-family:inherit;font-size:inherit}
     .site-topbar-link-icon{display:block;flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2));width:20px;height:20px}
     .site-topbar-link-icon.reddit-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.22);border-radius:999px;font-size:12px;font-weight:900;letter-spacing:0.2px;line-height:1;color:currentColor}
-    .site-topbar-help-icon{display:block;width:22px;height:22px}
+    .site-topbar-help-icon{display:block;width:19px;height:19px}
     .site-topbar-link:hover{opacity:1;color:var(--gold);transform:translateY(-1px)}
     .site-topbar-brand:hover{color:var(--gold)}
     .site-topbar-link:focus-visible,.site-topbar-brand:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:10px}
@@ -1024,7 +1024,7 @@
           </a>
           <button class="site-topbar-link site-topbar-help-btn" type="button" id="supportHelpBtn" aria-haspopup="dialog" aria-controls="supportOverlay" aria-expanded="false">
             <svg class="site-topbar-help-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 15a1.25 1.25 0 110 2.5A1.25 1.25 0 0112 17zm1.2-4.9c-.9.52-1.2.86-1.2 1.65v.25h-1.8v-.35c0-1.35.62-2.08 1.76-2.72.86-.5 1.44-.93 1.44-1.7 0-.82-.62-1.35-1.6-1.35-.96 0-1.64.52-1.76 1.46l-1.78-.22C8.52 6.85 9.88 5.6 12 5.6c2.04 0 3.46 1.14 3.46 2.9 0 1.57-1.05 2.34-2.26 3.04z"/>
+              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.1 9a3 3 0 1 1 4.9 2.3c-1 .78-2 1.42-2 2.7M12 17h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
             </svg>
             <span>Help</span>
           </button>
