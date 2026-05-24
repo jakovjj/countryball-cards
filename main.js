@@ -444,7 +444,11 @@ function initCardPeekCarousel() {
   }
 
   function scrollByDirection(direction) {
+    const metrics = loopMetrics();
     normalizeLoopPosition();
+    if (direction < 0 && metrics && metrics.width > 0 && viewport.scrollLeft <= metrics.start + 1) {
+      setScrollLeftInstantly(metrics.end - 1);
+    }
     viewport.scrollBy({
       left: direction * scrollAmount(),
       behavior: 'smooth'

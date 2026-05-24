@@ -95,8 +95,6 @@
   // Preload next page resources based on user behavior
   function preloadNextResources() {
     const criticalPages = [
-      '/join.html',
-      '/packages.html', 
       '/rules.html'
     ];
     

@@ -100,7 +100,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
-  <link rel="preload" as="style" href="styles.css?v=2026052311" />
+  <link rel="preload" as="style" href="styles.css?v=2026052401" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -955,15 +955,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052311" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052401" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052311">
+    <link rel="stylesheet" href="styles.css?v=2026052401">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052311" as="script">
+  <link rel="preload" href="main.js?v=2026052401" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -1105,6 +1105,31 @@
             </div>
             <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#10095;</button>
           </div>
+          <script>
+            (function(){
+              function startCardPeekAtSwitzerland() {
+                var win = document.querySelector('.card-peek-window');
+                var track = document.getElementById('cardPeekTrack');
+                if (!win || !track) return;
+
+                var target = track.querySelector(':scope > img.card-peek-image[data-full-src^="switzerland.webp"]:not([data-card-peek-clone]), :scope > .card-peek-card:not([data-card-peek-clone]) img.card-peek-image[data-full-src^="switzerland.webp"]');
+                if (!target) return;
+
+                var card = target.closest('.card-peek-card') || target;
+                var centerInset = Math.max(0, (win.clientWidth - card.offsetWidth) / 2);
+                var previousScrollBehavior = win.style.scrollBehavior;
+                var previousSnap = win.style.scrollSnapType;
+                win.style.scrollBehavior = 'auto';
+                win.style.scrollSnapType = 'none';
+                win.scrollLeft = Math.round(card.offsetLeft - centerInset);
+                win.style.scrollBehavior = previousScrollBehavior;
+                win.style.scrollSnapType = previousSnap;
+              }
+
+              window.startCardPeekAtSwitzerland = startCardPeekAtSwitzerland;
+              startCardPeekAtSwitzerland();
+            })();
+          </script>
         </section>
 
         <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
@@ -1148,7 +1173,7 @@
                 </aside>
               </div>
             </figcaption>
-            <img src="assets/gameplay-table.webp" alt="Countryball Cards being played on a table" width="960" height="549" loading="lazy" decoding="async">
+            <img src="assets/gameplay.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
           </figure>
         </section>
 
@@ -1594,7 +1619,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052311" defer></script>
+  <script src="main.js?v=2026052401" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1855,7 +1880,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js';
+        perfScript.src = 'performance-optimized.js?v=2026052401';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }
@@ -2083,32 +2108,6 @@
       sendStoreClickToBackend('inline_store', { source });
     }
     
-    // Start card peek carousel at Switzerland on load
-    (function(){
-      function startPeekAtSwitzerland() {
-        var win = document.querySelector('.card-peek-window');
-        if (!win) return;
-        var track = document.getElementById('cardPeekTrack');
-        if (!track) return;
-        var target = track.querySelector('img.card-peek-image[data-full-src^="switzerland.webp"]');
-        if (!target) {
-          win.scrollLeft = 0;
-          return;
-        }
-        var card = target.closest('.card-peek-card') || target;
-        var centerInset = Math.max(0, (win.clientWidth - card.offsetWidth) / 2);
-        var previousSnap = win.style.scrollSnapType;
-        win.style.scrollSnapType = 'none';
-        win.scrollLeft = Math.round(card.offsetLeft - centerInset);
-        win.style.scrollSnapType = previousSnap;
-      }
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startPeekAtSwitzerland);
-      } else {
-        startPeekAtSwitzerland();
-      }
-    })();
-
     // Card zoom lightbox
     (function(){
       var overlay = document.getElementById('cardZoomOverlay');
