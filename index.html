@@ -764,7 +764,7 @@
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
     #gameExplainerTitle{scroll-margin-top:130px}
     .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
-    .game-explainer-photo > img{display:block;width:100%;height:auto;min-height:620px;object-fit:cover}
+    .game-explainer-photo > img{display:block;width:100%;height:auto;min-height:620px;object-fit:cover;transform:scale(1.08);transform-origin:center center}
     .game-explainer-overlay{position:absolute;inset:18px;z-index:1;display:flex;align-items:center;justify-content:center}
     .game-explainer-grid{margin:0 auto;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
     @media(max-width:900px){
@@ -799,7 +799,7 @@
       #gameExplainerTitle{font-size:22px;margin-bottom:10px}
       .game-explainer{margin:20px 0 8px}
       .game-explainer-photo{display:flex;flex-direction:column;gap:12px;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
-      .game-explainer-photo > img{order:2;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22)}
+      .game-explainer-photo > img{order:2;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px)}
       .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
       .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
