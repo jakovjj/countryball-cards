@@ -798,8 +798,8 @@
     @media(max-width:600px){
       #gameExplainerTitle{font-size:22px;margin-bottom:10px}
       .game-explainer{margin:20px 0 8px}
-      .game-explainer-photo{display:flex;flex-direction:column;gap:12px;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
-      .game-explainer-photo > img{order:2;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px)}
+      .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
+      .game-explainer-photo > img{order:2;width:100%;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px);transform:none}
       .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
       .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
@@ -1040,9 +1040,9 @@
           </div>
 
           <div class="trust-stats" aria-label="Social proof stats">
-            <a class="trust-stat trust-stat--kickstarter" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
-              <span class="trust-stat-number"><img class="trust-stat-logo" src="assets/ks.png" alt="" width="24" height="24" loading="lazy" decoding="async">Funded</span>
-              <span class="trust-stat-label">On Kickstarter</span>
+            <a class="trust-stat trust-stat--kickstarter" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" aria-label="Successfully funded on Kickstarter with $6,000+ raised" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
+              <span class="trust-stat-number"><img class="trust-stat-logo" src="assets/ks.png" alt="" width="24" height="24" loading="lazy" decoding="async">$6,000+</span>
+              <span class="trust-stat-label">Raised on Kickstarter</span>
             </a>
             <div class="trust-stat">
               <span class="trust-stat-number">150+</span>
@@ -1138,12 +1138,12 @@
             <figcaption class="game-explainer-overlay">
               <div class="game-explainer-grid">
                 <div class="game-explainer-left">
-                  <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a tabletop card game</span> in which you draft your very own team of countryballs! Build your economy. Unleash ridiculous combos. <strong>Dominate the tabletop</strong>.</div>
+                  <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a chaotic strategy card game</span> where you draft your own countryball team, build an economy with abilities and projects, then unleash ridiculous combos.</div>
                   <ul class="game-explainer-bullets" aria-label="Game highlights">
-                    <li><span><strong>Draft a squad that clicks:</strong> pick countryballs that combo together, or that hard-counter what your opponents are building.</span></li>
-                    <li><span><strong>Win with brains, not luck:</strong> smart decisions with coins + resources decide who snowballs and who gets rolled.</span></li>
-                    <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> unique countries. (Even more with the Extended Edition)</span></li>
-                    <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> fast turns, big swings, and just enough chaos to keep every game fresh.</span></li>
+                    <li><span><strong>Draft a squad that clicks:</strong> Pick countryballs that work well together. Some hit hard, others defend or support.</span></li>
+                    <li><span><strong>Plan your moves:</strong> Spend coins, manage resources, and choose the right moment to strike.</span></li>
+                    <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> countries, with even more in the Extended Edition.</span></li>
+                    <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
                   </ul>
                 </div>
 
@@ -1152,19 +1152,19 @@
                   <div class="crash-grid" aria-label="Quick rules overview">
                     <div class="crash-card">
                       <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
-                      <p>Draft <strong>countryball teams</strong> (3 Countryball Cards each). Set the market with resource dice, then decide who starts.</p>
+                      <p>Draft <strong>3 countryballs</strong> each. Set the market with resource dice, then decide who starts.</p>
                     </div>
                     <div class="crash-card">
                       <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
-                      <p>Gain <strong>coins</strong> (10x first turn, 5x for the rest of the game), buy/sell resources, use abilities (pay costs), then attack enemies.</p>
+                      <p>Gain <strong>coins</strong>: 10 on your first turn, then 5 each turn after. Buy or sell resources, pay costs to use abilities, then attack.</p>
                     </div>
                     <div class="crash-card">
                       <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
-                      <p>Some abilities require a die roll. Meet the number shown to succeed; <strong>attacks deal damage</strong> and can stun.</p>
+                      <p>Some abilities require a die roll. Meet or beat the number shown to succeed. Successful attacks deal <strong>damage</strong>.</p>
                     </div>
                     <div class="crash-card">
                       <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
-                      <p>Eliminate enemy countryballs by dealing damage (each Countryball has 3 hitpoints). <strong>Last player standing wins.</strong></p>
+                      <p>Eliminate enemy countryballs by dealing damage. Each countryball has <strong>3 hit points</strong>. <strong>Last player standing wins.</strong></p>
                     </div>
                   </div>
                   <div class="game-crash-course-link">
