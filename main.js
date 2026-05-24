@@ -305,6 +305,8 @@ function initCardPeekCarousel() {
     return;
   }
 
+  const loopBoundaryEpsilon = 30;
+
   originalCards.forEach(card => {
     card.draggable = false;
     card.querySelectorAll?.('img').forEach(img => {
@@ -385,10 +387,10 @@ function initCardPeekCarousel() {
     const originalScrollLeft = viewport.scrollLeft;
     let nextScrollLeft = originalScrollLeft;
 
-    while (nextScrollLeft < metrics.start) {
+    while (nextScrollLeft < metrics.start - loopBoundaryEpsilon) {
       nextScrollLeft += metrics.width;
     }
-    while (nextScrollLeft >= metrics.end) {
+    while (nextScrollLeft >= metrics.end - loopBoundaryEpsilon) {
       nextScrollLeft -= metrics.width;
     }
 
@@ -454,6 +456,8 @@ function initCardPeekCarousel() {
       behavior: 'smooth'
     });
     window.setTimeout(normalizeLoopPosition, 420);
+    window.setTimeout(normalizeLoopPosition, 900);
+    window.setTimeout(normalizeLoopPosition, 1400);
   }
 
   prevBtn.addEventListener('click', () => scrollByDirection(-1));

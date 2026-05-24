@@ -100,7 +100,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
-  <link rel="preload" as="style" href="styles.css?v=2026052401" />
+  <link rel="preload" as="style" href="styles.css?v=2026052402" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -351,13 +351,15 @@
       -webkit-backdrop-filter:blur(10px);
       transform:translateY(0) scale(1);
       transition:transform 0.2s ease,box-shadow 0.2s ease,background 0.2s ease,filter 0.2s ease}
-    .hero-buy-btn:hover{transform:translateY(-2px) scale(1.02);filter:saturate(1.06) brightness(1.02);
-      background:linear-gradient(135deg, rgba(5,206,120,0.30) 0%, rgba(59,130,246,0.14) 55%, rgba(251,191,36,0.10) 100%) !important;
-      border-color:rgba(5,206,120,0.70) !important;
-      box-shadow:
-        0 0 0 1px rgba(5,206,120,0.34),
-        0 0 24px rgba(5,206,120,0.45),
-        0 0 58px rgba(5,206,120,0.22) !important}
+    @media(hover:hover) and (pointer:fine){
+      .hero-buy-btn:hover{transform:translateY(-2px) scale(1.02);filter:saturate(1.06) brightness(1.02);
+        background:linear-gradient(135deg, rgba(5,206,120,0.30) 0%, rgba(59,130,246,0.14) 55%, rgba(251,191,36,0.10) 100%) !important;
+        border-color:rgba(5,206,120,0.70) !important;
+        box-shadow:
+          0 0 0 1px rgba(5,206,120,0.34),
+          0 0 24px rgba(5,206,120,0.45),
+          0 0 58px rgba(5,206,120,0.22) !important}
+    }
     .hero-buy-btn img{display:block;width:auto;height:42px;max-width:380px;image-rendering:auto}
     @media(max-width:480px){
       .hero-buy-btn{padding:16px 22px !important}
@@ -609,9 +611,8 @@
     }
     .mobile-floating-preorder{display:none}
     @media(max-width:767px){
-      .mobile-floating-preorder{position:fixed;left:max(14px,env(safe-area-inset-left));right:max(14px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));z-index:850;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:12px 18px;border-radius:16px;border:1px solid rgba(251,191,36,0.72);background:linear-gradient(135deg,rgba(251,191,36,0.96),rgba(245,158,11,0.96));color:#10131a;text-decoration:none;font-size:17px;font-weight:900;line-height:1;letter-spacing:0;box-shadow:0 14px 34px rgba(0,0,0,0.38),0 0 0 1px rgba(255,255,255,0.16) inset;transform:translateY(calc(100% + 28px));opacity:0;pointer-events:none;transition:transform 0.24s ease,opacity 0.2s ease,filter 0.2s ease;box-sizing:border-box}
+      .mobile-floating-preorder{position:fixed;left:max(14px,env(safe-area-inset-left));right:max(14px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));z-index:850;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:12px 18px;border-radius:16px;border:1px solid rgba(251,191,36,0.72);background:linear-gradient(135deg,rgba(251,191,36,0.96),rgba(245,158,11,0.96));color:#10131a;text-decoration:none;font-size:17px;font-weight:900;line-height:1;letter-spacing:0;box-shadow:0 14px 34px rgba(0,0,0,0.38),0 0 0 1px rgba(255,255,255,0.16) inset;transform:translateY(calc(100% + 28px));opacity:0;pointer-events:none;transition:transform 0.24s ease,opacity 0.2s ease;box-sizing:border-box}
       .mobile-floating-preorder.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
-      .mobile-floating-preorder:active{filter:brightness(0.96);transform:translateY(1px)}
       .mobile-floating-preorder:focus-visible{outline:3px solid rgba(251,191,36,0.45);outline-offset:4px}
       .mobile-floating-preorder svg{width:20px;height:20px;flex:0 0 auto}
     }
@@ -955,15 +956,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052401" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052402" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052401">
+    <link rel="stylesheet" href="styles.css?v=2026052402">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052401" as="script">
+  <link rel="preload" href="main.js?v=2026052402" as="script">
   <link rel="preload" href="analytics.js" as="script">
 
   <!-- Reddit Pixel + GA configuration moved to analytics.js -->
@@ -1071,6 +1072,11 @@
             <button class="card-peek-nav" type="button" id="cardPeekPrev" aria-label="Show previous cards">&#10094;</button>
             <div class="card-peek-window">
               <div class="card-peek-track" id="cardPeekTrack">
+                <img class="card-peek-image" src="assets/card-peek/switzerland.webp" data-full-src="switzerland.webp" alt="Switzerland countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_swiss_bank.webp">
+                <img class="card-peek-image" src="assets/card-peek/turkey.webp" data-full-src="turkey.webp" alt="Turkey countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_turkish_cannon.webp">
+                <img class="card-peek-image" src="assets/card-peek/uk.webp" data-full-src="uk.webp" alt="United Kingdom countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_british_navy.webp">
+                <img class="card-peek-image" src="assets/card-peek/ukraine.webp" data-full-src="ukraine.webp" alt="Ukraine countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_ukrainian_wheatfield.webp">
+                <img class="card-peek-image" src="assets/card-peek/us.webp" data-full-src="us.webp" alt="United States countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="assets/card-peek/australia.webp" data-full-src="australia.webp" alt="Australia countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="assets/card-peek/austria.webp" data-full-src="austria.webp" alt="Austria countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="assets/card-peek/belgium.webp" data-full-src="belgium.webp" alt="Belgium countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_belgian_dam.webp">
@@ -1096,11 +1102,6 @@
                 <img class="card-peek-image" src="assets/card-peek/saudi_arabia.webp" data-full-src="saudi_arabia.webp" alt="Saudi Arabia countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_oil_rig.webp">
                 <img class="card-peek-image" src="assets/card-peek/spain.webp" data-full-src="spain.webp" alt="Spain countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="assets/card-peek/sweden.webp" data-full-src="sweden.webp" alt="Sweden countryball card" width="400" height="600" loading="lazy" decoding="async">
-                <img class="card-peek-image" src="assets/card-peek/switzerland.webp" data-full-src="switzerland.webp" alt="Switzerland countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_swiss_bank.webp">
-                <img class="card-peek-image" src="assets/card-peek/turkey.webp" data-full-src="turkey.webp" alt="Turkey countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_turkish_cannon.webp">
-                <img class="card-peek-image" src="assets/card-peek/uk.webp" data-full-src="uk.webp" alt="United Kingdom countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_british_navy.webp">
-                <img class="card-peek-image" src="assets/card-peek/ukraine.webp" data-full-src="ukraine.webp" alt="Ukraine countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_ukrainian_wheatfield.webp">
-                <img class="card-peek-image" src="assets/card-peek/us.webp" data-full-src="us.webp" alt="United States countryball card" width="400" height="600" loading="lazy" decoding="async">
               </div>
             </div>
             <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#10095;</button>
@@ -1619,7 +1620,7 @@
   </div>
 
   <script src="analytics.js" defer></script>
-  <script src="main.js?v=2026052401" defer></script>
+  <script src="main.js?v=2026052402" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1880,7 +1881,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js?v=2026052401';
+        perfScript.src = 'performance-optimized.js?v=2026052402';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }
