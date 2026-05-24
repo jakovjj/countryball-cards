@@ -99,8 +99,8 @@
   <link rel="dns-prefetch" href="https://conversions-config.reddit.com">
   
   <!-- Performance hints for critical above-the-fold assets -->
-  <link rel="preload" as="image" href="assets/title-240.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" imagesizes="120px" />
-  <link rel="preload" as="style" href="styles.css?v=2026052409" />
+  <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(86vw, 1080px)" />
+  <link rel="preload" as="style" href="styles.css?v=2026052412" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -316,12 +316,15 @@
     .countdown-separator{font-size:24px;font-weight:700;color:var(--text);opacity:0.7}
     .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:0;position:relative;align-items:center;flex-direction:column;padding:16px 0 28px;z-index:1;overflow:visible;contain:layout style}
     .logo-section::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100vw);max-width:100%;background:radial-gradient(circle at 22% 35%, rgba(251,191,36,0.16) 0%, transparent 52%),radial-gradient(circle at 78% 70%, rgba(59,130,246,0.12) 0%, transparent 56%),linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));opacity:1;filter:none;pointer-events:none;z-index:0;border-radius:28px;-webkit-mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:100% 100%;mask-size:100% 100%}
-    .hero-brand{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(760px,100%);margin:0 auto 18px;position:relative;z-index:1}
-    .hero-brand-lockup{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-width:0;width:100%}
+    .hero-brand{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(1080px,100%);margin:0 auto 16px;position:relative;z-index:1}
+    .hero-brand-lockup{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-width:0;max-width:100%}
     .hero-brand-icon{display:block;width:clamp(130px,18vw,170px);height:clamp(130px,18vw,170px);flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 14px 26px rgba(0,0,0,0.42)) drop-shadow(0 0 12px rgba(251,191,36,0.16))}
     .hero-brand-title{margin:0;line-height:0}
     .hero-brand-title img{display:block;width:clamp(250px,36vw,380px);height:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.45))}
-    .hero-brand-tagline{margin:0;color:rgba(249,250,251,0.82);font-size:clamp(14px,2vw,18px);font-weight:700;letter-spacing:0.15px;line-height:1.35;text-wrap:balance}
+    .hero-brand-art-title{width:min(1080px,100%);margin:0 auto}
+    .hero-brand-art{display:block;width:100%;line-height:0}
+    .hero-brand-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 34px rgba(0,0,0,0.45)) drop-shadow(0 0 18px rgba(251,191,36,0.14))}
+    .hero-brand-tagline{margin:-4px auto 0;color:rgba(249,250,251,0.9);font-size:clamp(15px,2vw,20px);font-weight:800;letter-spacing:0;line-height:1.35;text-wrap:balance;max-width:760px}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:18px 32px !important;border-radius:18px !important;position:relative;
       background:linear-gradient(135deg, rgba(5,206,120,0.22) 0%, rgba(59,130,246,0.12) 55%, rgba(251,191,36,0.08) 100%) !important;
@@ -515,10 +518,18 @@
     .hero-video-cta .hero-buy-btn img{height:30px;max-width:320px}
     @media(max-width:600px){
       .hero-brand{gap:7px;margin:0 auto 14px}
-      .hero-brand-lockup{gap:9px}
-      .hero-brand-icon{width:clamp(96px,30vw,118px);height:clamp(96px,30vw,118px)}
-      .hero-brand-title img{width:clamp(178px,54vw,214px)}
-      .hero-brand-tagline{max-width:300px;font-size:13px}
+      .hero-brand-lockup{gap:9px;transform:translateX(-18px)}
+      .hero-brand-icon{width:clamp(92px,24vw,112px);height:clamp(92px,24vw,112px)}
+      .hero-brand-title img{width:clamp(160px,42vw,206px)}
+      .hero-brand-art-title{width:min(100%,94vw)}
+      .hero-brand-art img{filter:drop-shadow(0 12px 22px rgba(0,0,0,0.42))}
+      .hero-brand-tagline{max-width:340px;font-size:13.5px}
+    }
+    @media(max-width:440px){
+      .hero-brand-lockup{gap:8px;transform:translateX(-18px)}
+      .hero-brand-icon{width:90px;height:90px}
+      .hero-brand-title img{width:150px}
+      .hero-brand-art img{width:100%}
     }
 
     .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:14px auto 4px;width:min(640px,100vw)}
@@ -896,12 +907,12 @@
     html.launch-offer-dismissed .launch-offer-banner{display:none}
     .launch-offer-banner[hidden]{display:none}
     .launch-offer-banner{position:fixed;left:0;right:0;bottom:0;z-index:190;padding:9px 44px 9px 14px;background:rgba(7,10,18,0.94);border-top:1px solid rgba(251,191,36,0.36);box-shadow:0 -12px 28px rgba(0,0,0,0.34);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-    .launch-offer-link{display:flex;align-items:center;justify-content:flex-start;width:min(980px,100%);min-height:42px;margin:0;color:var(--text);text-decoration:none}
-    .launch-offer-copy{display:block;min-width:0;text-align:left;font-size:14px;line-height:1.35;color:rgba(249,250,251,0.84)}
-    .launch-offer-title{display:inline-flex;align-items:center;gap:7px;margin-right:8px;color:var(--gold);font-size:15px;line-height:1.2;font-weight:900;letter-spacing:0.1px;white-space:nowrap}
+    .launch-offer-link{display:flex;align-items:center;justify-content:center;width:min(980px,100%);min-height:36px;margin:0 auto;color:var(--text);text-decoration:none}
+    .launch-offer-copy{display:flex;align-items:center;gap:8px;min-width:0;text-align:left;font-size:13px;line-height:1.25;color:rgba(249,250,251,0.84);white-space:nowrap}
+    .launch-offer-title{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:14px;line-height:1.2;font-weight:900;letter-spacing:0.1px;white-space:nowrap}
     .launch-offer-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;color:var(--gold)}
     .launch-offer-icon svg{width:16px;height:16px}
-    .launch-offer-detail{color:rgba(249,250,251,0.84);font-size:13px;font-weight:700}
+    .launch-offer-detail{color:rgba(249,250,251,0.84);font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis}
     .launch-offer-link:hover .launch-offer-title{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
     .launch-offer-close{position:absolute;right:11px;top:50%;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:transparent;color:rgba(249,250,251,0.62);cursor:pointer;transform:translateY(-50%);transition:background 0.2s ease,color 0.2s ease}
     .launch-offer-close:hover,.launch-offer-close:focus-visible{background:rgba(255,255,255,0.08);color:var(--text)}
@@ -950,11 +961,11 @@
       .packages-comparison .how-step p{font-size:11px;margin-top:2px}
       .preorder-save-tag{margin:0 auto 14px!important;font-size:13px!important}
       .launch-offer-banner{padding:8px 40px 8px 12px}
-      .launch-offer-link{min-height:52px}
-      .launch-offer-copy{text-align:left;font-size:12px;line-height:1.3}
-      .launch-offer-title{display:flex;margin:0 0 2px;font-size:14px}
+      .launch-offer-link{justify-content:flex-start;min-height:42px;margin:0}
+      .launch-offer-copy{gap:6px;font-size:12px;line-height:1.25}
+      .launch-offer-title{font-size:13px}
       .launch-offer-icon svg{width:15px;height:15px}
-      .launch-offer-detail{font-size:12px;line-height:1.3}
+      .launch-offer-detail{font-size:11px;line-height:1.25}
       .launch-offer-close{right:7px;width:28px;height:28px}
     }
     @media(max-width:600px){
@@ -967,10 +978,10 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052409" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026052412" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026052409">
+    <link rel="stylesheet" href="styles.css?v=2026052412">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -1022,14 +1033,35 @@
     <div class="frame">
       <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#07152b" data-mbg2="#0a2a55" data-mbg3="#0d3f7f">
         <div class="hero-brand" aria-label="Countryball Cards">
-          <div class="hero-brand-lockup">
-            <img class="hero-brand-icon" src="assets/cb.webp" alt="" width="1882" height="1882" loading="eager" decoding="async">
-            <h1 class="hero-brand-title">
-              <img src="assets/title-360.webp" srcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" sizes="(max-width: 600px) 52vw, 370px" alt="Countryball Cards" width="360" height="193" loading="eager" decoding="async">
-            </h1>
-          </div>
-          <p class="hero-brand-tagline">A strategic countryball card game where nations collide.</p>
+          <h1 class="hero-brand-title hero-brand-art-title">
+            <picture class="hero-brand-art">
+              <source
+                type="image/webp"
+                srcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w"
+                sizes="(max-width: 600px) 94vw, min(86vw, 1080px)">
+              <img src="assets/top_homepage.webp" alt="Countryball Cards" width="1938" height="742" loading="eager" decoding="async" fetchpriority="high">
+            </picture>
+          </h1>
+          <p class="hero-brand-tagline">Turn your tabletop into an epic battlefield!</p>
         </div>
+
+        <div class="hero-video-cta">
+          <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('hero_buy_now');">
+            <img src="assets/preorder.webp" alt="Pre-order now" width="1254" height="188" loading="eager" decoding="async">
+          </a>
+        </div>
+
+        <div class="trust-stats" aria-label="Social proof stats">
+          <a class="trust-stat trust-stat--kickstarter" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" aria-label="Successfully funded on Kickstarter with $6,000+ raised" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
+            <span class="trust-stat-number"><img class="trust-stat-logo" src="assets/ks.png" alt="" width="24" height="24" loading="lazy" decoding="async">$6,000+</span>
+            <span class="trust-stat-label">Raised on Kickstarter</span>
+          </a>
+          <div class="trust-stat">
+            <span class="trust-stat-number">150+</span>
+            <span class="trust-stat-label">Pre-Orders</span>
+          </div>
+        </div>
+
         <div class="hero-video" aria-label="Countryball Cards trailer video">
           <div class="video-container" id="trailerContainer">
             <button class="yt-poster" type="button" aria-label="Play trailer" data-autoplay-src="https://www.youtube.com/embed/MgB86Vght8I?autoplay=1&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;enablejsapi=1&amp;vq=hd1080">
@@ -1045,24 +1077,6 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             ></iframe>
           </div>
-
-          <div class="trust-stats" aria-label="Social proof stats">
-            <a class="trust-stat trust-stat--kickstarter" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener" aria-label="Successfully funded on Kickstarter with $6,000+ raised" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('trust_kickstarter_editions');">
-              <span class="trust-stat-number"><img class="trust-stat-logo" src="assets/ks.png" alt="" width="24" height="24" loading="lazy" decoding="async">$6,000+</span>
-              <span class="trust-stat-label">Raised on Kickstarter</span>
-            </a>
-            <div class="trust-stat">
-              <span class="trust-stat-number">150+</span>
-              <span class="trust-stat-label">Pre-Orders</span>
-            </div>
-          </div>
-
-          <div class="hero-video-cta">
-            <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('hero_buy_now');">
-              <img src="assets/preorder.webp" alt="Pre-order now" width="1254" height="188" loading="eager" decoding="async">
-            </a>
-          </div>
-
         </div>
       </div>
       <div class="golden-separator logo-separator"></div>
@@ -1559,9 +1573,9 @@
               <path d="M14.5 14.5h.01"/>
             </svg>
           </span>
-          Preorder and save 20%
+          Preorder &amp; save 20%
         </strong>
-        <span class="launch-offer-detail">Get 20% off before shipping begins in July. Limited launch offer.</span>
+        <span class="launch-offer-detail">Launch price until July shipping.</span>
       </span>
     </a>
     <button class="launch-offer-close" type="button" id="launchOfferClose" aria-label="Close launch offer">
