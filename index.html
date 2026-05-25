@@ -321,9 +321,13 @@
     .hero-brand-icon{display:block;width:clamp(130px,18vw,170px);height:clamp(130px,18vw,170px);flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 14px 26px rgba(0,0,0,0.42)) drop-shadow(0 0 12px rgba(251,191,36,0.16))}
     .hero-brand-title{margin:0;line-height:0}
     .hero-brand-title img{display:block;width:clamp(250px,36vw,380px);height:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.45))}
-    .hero-brand-art-title{width:min(780px,100%);margin:0 auto}
-    .hero-brand-art{display:block;width:100%;line-height:0}
-    .hero-brand-art img{display:block;width:100%;height:auto;filter:none}
+    .hero-brand-art-title{width:min(780px,100%);margin:0 auto;position:relative;isolation:isolate}
+    .hero-brand-art-title::before{content:'';position:absolute;inset:-18% -12% -12%;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% 46%, rgba(96,165,250,0.34) 0%, rgba(99,102,241,0.22) 42%, rgba(88,28,135,0.16) 64%, transparent 78%);filter:blur(22px);opacity:0.82;animation:heroGlowPulse 5.8s ease-in-out infinite}
+    .hero-brand-art-title::after{content:'';position:absolute;inset:8% 6% -4%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 52%, rgba(129,140,248,0.14), transparent 66%);filter:blur(28px);opacity:0.58}
+    .hero-brand-art{display:block;width:100%;line-height:0;position:relative;z-index:1;transform-origin:center center}
+    .hero-brand-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.34)) drop-shadow(0 0 22px rgba(96,165,250,0.14));transform-origin:center center;animation:heroArtZoom 7.5s ease-in-out infinite;will-change:transform}
+    @keyframes heroArtZoom{0%,100%{transform:scale(1)}50%{transform:scale(1.022)}}
+    @keyframes heroGlowPulse{0%,100%{opacity:0.66;transform:scale(0.985)}50%{opacity:0.78;transform:scale(1.015)}}
     .hero-brand-tagline{margin:0 auto;color:rgba(249,250,251,0.92);font-family:system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:20px;font-weight:900;letter-spacing:0.1px;line-height:1.2;text-transform:uppercase;white-space:nowrap;max-width:100%}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:18px 32px !important;border-radius:18px !important;position:relative;
@@ -503,6 +507,7 @@
     .video-container:focus-within{outline:2px solid rgba(251,191,36,0.55);outline-offset:4px;border-color:rgba(251,191,36,0.30);box-shadow:0 0 0 1px rgba(251,191,36,0.18),0 26px 80px rgba(0,0,0,0.55)}
 
     @media (prefers-reduced-motion: reduce){
+      .hero-brand-art img,.hero-brand-art-title::before{animation:none}
       .video-container{transition:none}
       .video-container::before,.video-container::after{transition:none}
       .video-container:hover{transform:none}
@@ -522,7 +527,8 @@
       .hero-brand-icon{width:clamp(92px,24vw,112px);height:clamp(92px,24vw,112px)}
       .hero-brand-title img{width:clamp(160px,42vw,206px)}
       .hero-brand-art-title{width:min(100%,94vw)}
-      .hero-brand-art img{filter:none}
+      .hero-brand-art-title::before{inset:-20% -18% -14%;filter:blur(14px)}
+      .hero-brand-art img{filter:drop-shadow(0 12px 20px rgba(0,0,0,0.30)) drop-shadow(0 0 16px rgba(96,165,250,0.12))}
       .hero-brand-tagline{max-width:100%;font-size:10.5px;line-height:1.15}
       .logo-section>.hero-video-cta{width:100%;box-sizing:border-box;padding:0 12px}
       .logo-section>.hero-video-cta .hero-buy-btn{width:min(100%,280px) !important;max-width:280px !important;padding:13px 16px !important}
@@ -827,13 +833,15 @@
     .card-peek-header{text-align:center;margin-bottom:16px}
     .card-peek-header h3{margin:0;font-size:24px;color:var(--text)}
     .card-peek-carousel{position:relative;display:block}
-    .card-peek-window{width:100%;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;scrollbar-width:none;padding:0 12px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+    .card-peek-window{position:relative;z-index:1;width:100%;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;scrollbar-width:none;padding:0 12px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
     .card-peek-window.is-pointer-down{cursor:grabbing}
     .card-peek-window::-webkit-scrollbar{display:none}
     .card-peek-track{display:flex;flex-wrap:nowrap;align-items:center;gap:18px;width:max-content;user-select:none;-webkit-user-select:none}
     .card-peek-card{position:relative;flex:0 0 auto;width:var(--card-peek-width);display:block;isolation:isolate;transform:translateZ(0)}
     .card-peek-image{flex:0 0 auto;width:var(--card-peek-width);max-width:none;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:12px;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;color:transparent;font-size:0;background:rgba(255,255,255,0.045)}
     .card-peek-card > .card-peek-image{width:100%}
+    .card-peek-initial-prev{position:absolute;z-index:0;top:0;left:calc(12px + (var(--card-peek-width) * 0));width:var(--card-peek-width);height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:12px;transform:translateX(calc(-100% - 18px));pointer-events:none;user-select:none;-webkit-user-drag:none;color:transparent;font-size:0;background:rgba(255,255,255,0.045)}
+    .card-peek-carousel:has(.card-peek-track[data-card-peek-loop-ready="1"]) .card-peek-initial-prev{display:none}
     .project-card-stitch{position:absolute;right:-7%;bottom:4%;width:43%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:9px;box-shadow:0 7px 16px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.14);transform:rotate(7deg);transform-origin:center;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:2;color:transparent;font-size:0;line-height:0;overflow:hidden;background:rgba(255,255,255,0.055)}
     .project-card-stitch::selection{background:transparent}
     .card-peek-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.92;z-index:3;user-select:none;-webkit-user-select:none}
@@ -865,6 +873,7 @@
 
       /* Let snap points center each card instead of pinning it to the edge */
       .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2));-webkit-overflow-scrolling:touch}
+      .card-peek-initial-prev{left:max(22px,calc((100% - var(--card-peek-width)) / 2));transform:translateX(calc(-100% - 16px))}
 
       /* Slightly smaller buttons on mobile */
       .card-peek-nav{width:36px;height:48px;border-radius:999px;font-size:28px;opacity:0.82;background:rgba(10,13,22,0.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -1095,7 +1104,6 @@
             <button class="card-peek-nav" type="button" id="cardPeekPrev" aria-label="Show previous cards">&#10094;</button>
             <div class="card-peek-window">
               <div class="card-peek-track" id="cardPeekTrack">
-                <img class="card-peek-image" src="assets/card-peek/sweden.webp" data-full-src="sweden.webp" alt="Sweden countryball card" width="400" height="600" loading="eager" decoding="async" fetchpriority="low">
                 <img class="card-peek-image" src="assets/card-peek/switzerland.webp" data-full-src="switzerland.webp" alt="Switzerland countryball card" width="400" height="600" loading="eager" decoding="async" fetchpriority="low" data-project-card="assets/project/thumbs/special_swiss_bank.webp">
                 <img class="card-peek-image" src="assets/card-peek/turkey.webp" data-full-src="turkey.webp" alt="Turkey countryball card" width="400" height="600" loading="eager" decoding="async" fetchpriority="low" data-project-card="assets/project/thumbs/special_turkish_cannon.webp">
                 <img class="card-peek-image" src="assets/card-peek/uk.webp" data-full-src="uk.webp" alt="United Kingdom countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_british_navy.webp">
@@ -1125,8 +1133,10 @@
                 <img class="card-peek-image" src="assets/card-peek/russia.webp" data-full-src="russia.webp" alt="Russia countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <img class="card-peek-image" src="assets/card-peek/saudi_arabia.webp" data-full-src="saudi_arabia.webp" alt="Saudi Arabia countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_oil_rig.webp">
                 <img class="card-peek-image" src="assets/card-peek/spain.webp" data-full-src="spain.webp" alt="Spain countryball card" width="400" height="600" loading="lazy" decoding="async">
+                <img class="card-peek-image" src="assets/card-peek/sweden.webp" data-full-src="sweden.webp" alt="Sweden countryball card" width="400" height="600" loading="eager" decoding="async" fetchpriority="low">
               </div>
             </div>
+            <img class="card-peek-initial-prev" src="assets/card-peek/sweden.webp" alt="" width="400" height="600" loading="eager" decoding="async" fetchpriority="low" aria-hidden="true">
             <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#10095;</button>
           </div>
           <script>
