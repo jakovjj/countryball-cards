@@ -1002,6 +1002,9 @@
   <link rel="prefetch" href="analytics.js?v=2026052406" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
+
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
   <header class="site-topbar" role="banner">
@@ -1355,6 +1358,7 @@
                 </svg>
               </button>
             </div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" style="margin-top:10px"></div>
             <div class="footer-form-message" id="updatesFormMessage"></div>
           </form>
         </div>
@@ -1506,6 +1510,7 @@
                 </svg>
               </button>
             </div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" style="margin-top:10px"></div>
             <div class="footer-form-message" id="footerFormMessage"></div>
           </form>
           <div class="site-footer-cta-note">By signing up to our newsletter, you agree with our <a href="privacy-policy.html">Privacy Policy</a>.</div>
@@ -1632,6 +1637,7 @@
               </svg>
             </button>
           </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" style="margin-top:10px"></div>
           <div class="form-message" id="formMessage"></div>
         </form>
       </div>
