@@ -2398,22 +2398,23 @@ a:focus-visible {
 
 /* Email Modal Styles */
 .email-modal {
-  max-width: 500px;
+  max-width: 420px;
+  padding: 16px 16px 12px;
 }
 
 .email-modal-content {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .email-modal-content p {
-  margin: 0 0 20px 0;
-  font-size: 16px;
+  margin: 0 0 12px 0;
+  font-size: 15px;
   line-height: 1.5;
   color: var(--muted);
 }
 
 .email-form {
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .form-group {
@@ -2432,11 +2433,11 @@ a:focus-visible {
 
 .email-input {
   flex: 1;
-  padding: 14px 16px;
+  padding: 11px 14px;
   border: none;
   background: var(--bg);
   color: var(--text);
-  font-size: 16px;
+  font-size: 15px;
   outline: none;
   font-family: inherit;
 }
@@ -2446,7 +2447,7 @@ a:focus-visible {
 }
 
 .email-submit-btn {
-  padding: 14px 20px;
+  padding: 11px 16px;
   background: linear-gradient(135deg, var(--gold), #b8973e);
   color: var(--bg);
   border: none;
@@ -2527,8 +2528,8 @@ a:focus-visible {
 
 .email-modal-footer {
   border-top: 1px solid rgba(199, 164, 85, 0.2);
-  padding-top: 12px;
-  margin-top: 16px;
+  padding-top: 10px;
+  margin-top: 10px;
   text-align: center;
 }
 
