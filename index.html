@@ -1005,6 +1005,17 @@
 
   <!-- Cloudflare Turnstile -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script>
+    function onTurnstileSuccess() {
+      document.querySelectorAll('.cf-turnstile').forEach(function(el) {
+        if (el.querySelector('input[name="cf-turnstile-response"]')) {
+          el.style.transition = 'opacity 0.3s ease';
+          el.style.opacity = '0';
+          setTimeout(function() { el.style.display = 'none'; }, 300);
+        }
+      });
+    }
+  </script>
 </head>
 <body>
   <header class="site-topbar" role="banner">
@@ -1358,7 +1369,7 @@
                 </svg>
               </button>
             </div>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" style="margin-top:10px"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" data-callback="onTurnstileSuccess" style="margin-top:10px"></div>
             <div class="footer-form-message" id="updatesFormMessage"></div>
           </form>
         </div>
@@ -1510,7 +1521,7 @@
                 </svg>
               </button>
             </div>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" style="margin-top:10px"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" data-callback="onTurnstileSuccess" style="margin-top:10px"></div>
             <div class="footer-form-message" id="footerFormMessage"></div>
           </form>
           <div class="site-footer-cta-note">By signing up to our newsletter, you agree with our <a href="privacy-policy.html">Privacy Policy</a>.</div>
@@ -1637,7 +1648,7 @@
               </svg>
             </button>
           </div>
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" style="margin-top:10px"></div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADgOblbGPd7fTZxe" data-size="flexible" data-callback="onTurnstileSuccess" style="margin-top:10px"></div>
           <div class="form-message" id="formMessage"></div>
         </form>
       </div>
