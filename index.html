@@ -1216,6 +1216,15 @@
           </div>
           <p class="video-caption">Watch the video to learn more!</p>
         </div>
+
+        <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+          <span class="scroll-hint-label">Scroll down</span>
+          <div class="scroll-hint-chevrons">
+            <svg viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1l10 10L21 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1l10 10L21 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1l10 10L21 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
       </div>
       <div class="golden-separator logo-separator"></div>
 
@@ -1329,7 +1338,7 @@
           <div class="status-banner" role="status" aria-label="Project status">
             <div class="status-banner-inner">
               <div class="status-copy">
-                <h3 class="status-title"><span class="launch-label">Official launch!</span> LIMITED-TIME 20% OFF!</h3>
+                <h3 class="status-title"><span class="launch-label">Available now!</span> LIMITED-TIME 20% OFF!</h3>
                 <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Countryball Cards is officially out! The first copies are going out right now. Order today, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and get your Countryball Cards in 2-10 days!</p>
               </div>
               <img src="poland_happy.png" alt="" class="launch-mascot" aria-hidden="true" loading="lazy">
@@ -2378,6 +2387,19 @@
         });
       }
     }
+  </script>
+  <script>
+    (function(){
+      var hint = document.getElementById('scrollHint');
+      if (!hint) return;
+      var gone = false;
+      function hide(){
+        if (gone) return;
+        gone = true;
+        hint.classList.add('hidden');
+      }
+      window.addEventListener('scroll', hide, {passive:true, once:true});
+    })();
   </script>
 </body>
 </html>
