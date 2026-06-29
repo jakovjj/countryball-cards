@@ -116,7 +116,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026062902" />
+  <link rel="preload" as="style" href="styles.css?v=2026062903" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -918,7 +918,7 @@
     .card-peek-carousel:has(.card-peek-track[data-card-peek-loop-ready="1"]) .card-peek-initial-prev{display:none}
     .project-card-stitch{position:absolute;right:-7%;bottom:4%;width:43%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:9px;box-shadow:0 7px 16px rgba(0,0,0,0.45),0 0 0 1px rgba(255,255,255,0.14);transform:rotate(7deg);transform-origin:center;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:2;color:transparent;font-size:0;line-height:0;overflow:hidden;background:rgba(255,255,255,0.055)}
     .project-card-stitch::selection{background:transparent}
-    .card-peek-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.06);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.92;z-index:3;user-select:none;-webkit-user-select:none}
+    .card-peek-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,0.16);background:rgba(10,13,22,0.42);color:var(--text);display:inline-flex;align-items:center;justify-content:center;font-size:34px;line-height:1;cursor:pointer;transition:transform 0.15s ease,opacity 0.15s ease;opacity:0.94;z-index:3;user-select:none;-webkit-user-select:none}
     #cardPeekPrev{left:10px}
     #cardPeekNext{right:10px}
     .card-peek-nav:hover{transform:translateY(-50%) translateY(-1px) scale(1.04);opacity:1}
@@ -950,7 +950,7 @@
       .card-peek-initial-prev{left:max(22px,calc((100% - var(--card-peek-width)) / 2));transform:translateX(calc(-100% - 16px))}
 
       /* Slightly smaller buttons on mobile */
-      .card-peek-nav{width:36px;height:48px;border-radius:999px;font-size:28px;opacity:0.82;background:rgba(10,13,22,0.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+      .card-peek-nav{width:36px;height:48px;border-radius:999px;font-size:28px;opacity:0.9;background:rgba(10,13,22,0.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
       #cardPeekPrev{left:4px}
       #cardPeekNext{right:4px}
     }
@@ -1064,7 +1064,7 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026062902" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026062903" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
     <link rel="stylesheet" href="styles.css?v=2026062902">
@@ -1072,7 +1072,7 @@
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026052406" as="script">
+  <link rel="preload" href="main.js?v=2026062901" as="script">
   <link rel="prefetch" href="analytics.js?v=2026052406" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->

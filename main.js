@@ -1368,19 +1368,17 @@ function initScrollSpawnAnimations() {
   const sectionSelector = [
     '.logo-section',
     '.card-peek-section',
-    '.game-explainer',
     '.packages-comparison',
     '.email-updates-section',
     '.faq-section',
-    'body > .hero-video.hero-video-cta',
-    '.site-footer'
+    'body > .hero-video.hero-video-cta'
   ].join(',');
 
   const sections = Array.from(document.querySelectorAll(sectionSelector));
 
   sections.forEach(section => {
     section.classList.add('scroll-spawn-section');
-    section.dataset.spawnAnim = section.matches('.logo-section, .site-footer') ? 'fade' : 'rise';
+    section.dataset.spawnAnim = section.matches('.logo-section') ? 'fade' : 'rise';
     section.style.setProperty('--spawn-delay', '0ms');
   });
 
@@ -2027,5 +2025,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 1000);
 });
-
-
