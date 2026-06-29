@@ -747,7 +747,8 @@
     .launch-event-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 18px;background:rgba(52,211,153,0.12);border:1.5px solid rgba(52,211,153,0.55);border-radius:999px;color:#34d399;font-size:clamp(11px,2.5vw,13px);font-weight:800;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:16px;animation:badge-glow 2.4s ease-in-out infinite}
     @keyframes badge-glow{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.28)}50%{box-shadow:0 0 0 8px rgba(52,211,153,0)}}
     .status-banner-inner{display:flex;align-items:center;gap:24px;justify-content:center}
-    .launch-mascot{width:100px;height:auto;flex-shrink:0;filter:drop-shadow(0 4px 22px rgba(251,191,36,0.3));animation:mascot-float 3.2s ease-in-out infinite}
+    .launch-label{color:var(--kickstarter)}
+    .launch-mascot{width:100px;height:auto;flex-shrink:0;filter:drop-shadow(0 4px 22px rgba(5,206,120,0.4));animation:mascot-float 3.2s ease-in-out infinite}
     @keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     @media(max-width:600px){.status-banner-inner{flex-direction:column;gap:10px}.launch-mascot{width:72px}}
     .status-sea-freight-frame{display:inline-block;padding:8px;border:3px solid #78e878;border-radius:40px;background:rgba(120,232,120,0.06);box-shadow:0 0 24px rgba(120,232,120,0.22);margin-bottom:8px;overflow:hidden}
@@ -1258,13 +1259,12 @@
                     <img src="assets/card-peek/finland.webp"     alt="" width="80" height="120" loading="lazy" decoding="async">
                     <img src="assets/card-peek/spain.webp"       alt="" width="80" height="120" loading="lazy" decoding="async">
                   </div>
-                  <p class="card-peek-upsell-label">+ 10 more cards</p>
+                  <p class="card-peek-upsell-teaser">..and more!</p>
                 </div>
               </div>
             </div>
             <button class="card-peek-nav" type="button" id="cardPeekNext" aria-label="Show next cards">&#10095;</button>
           </div>
-          <p class="card-peek-below-teaser">..and more!</p>
           <script>
             (function(){
               var win = document.querySelector('.card-peek-window');

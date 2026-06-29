@@ -2358,7 +2358,7 @@ font-size:16px}
   .card-peek-track{gap:16px}
   .card-peek-card,
   .card-peek-image{width:var(--card-peek-width)}
-  .card-peek-upsell{width:var(--card-peek-width)}
+  .card-peek-upsell{width:calc(var(--card-peek-width) * 1.25)}
   .project-card-stitch{right:-9%;bottom:3%;width:46%;border-radius:7px}
   .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2));-webkit-overflow-scrolling:touch}
   .card-peek-initial-prev{left:max(22px,calc((100% - var(--card-peek-width)) / 2));transform:translateX(calc(-100% - 16px))}
@@ -2368,9 +2368,9 @@ font-size:16px}
 }
 
 /* Card Peek — Extended Edition mystery card */
-.card-peek-upsell{aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 14% 0;background:transparent;border-radius:12px;border:none;overflow:visible;cursor:default;user-select:none;-webkit-user-select:none;position:relative;width:var(--card-peek-width)}
+.card-peek-upsell{aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 10% 0;background:transparent;border-radius:12px;border:none;overflow:visible;cursor:default;user-select:none;-webkit-user-select:none;position:relative;width:calc(var(--card-peek-width) * 1.25)}
 .card-peek-upsell-teaser{position:relative;z-index:10;margin:0;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.9);text-align:center;line-height:1.1;letter-spacing:0.2px}
-.card-peek-upsell-fan{position:absolute;left:0;right:0;top:26%;bottom:16%;overflow:visible}
+.card-peek-upsell-fan{position:absolute;left:0;right:0;top:8%;bottom:22%;overflow:visible}
 .card-peek-more-label{flex:0 0 auto;align-self:center;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.65);white-space:nowrap;padding:0 28px;letter-spacing:0.2px}
 .card-peek-upsell-fan img{position:absolute;width:52%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:5px;bottom:0;left:50%;transform-origin:bottom center;box-shadow:0 3px 10px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06)}
 .card-peek-upsell-fan img:nth-child(1){transform:translateX(-50%) rotate(-24deg);z-index:1;opacity:0.8}
