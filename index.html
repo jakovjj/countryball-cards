@@ -607,10 +607,11 @@
       .hero-brand-art img{width:100%}
     }
 
-    .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:14px auto 4px;width:min(640px,100vw)}
-    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 32px;text-decoration:none;color:inherit;position:relative;flex:1;min-width:0}
+    .trust-stats{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;margin:14px auto 4px;width:min(820px,100vw)}
+    .trust-stat{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 24px;text-decoration:none;color:inherit;position:relative;flex:1;min-width:0}
     .trust-stat+.trust-stat::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);height:32px;width:1px;background:rgba(255,255,255,0.15)}
     .trust-stat.trust-stat--kickstarter .trust-stat-number{color:var(--kickstarter)}
+    .trust-stat.trust-stat--countries .trust-stat-number{color:#2dd4bf}
     .trust-stat:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
     .trust-stat-number{font-size:22px;font-weight:900;color:var(--gold);line-height:1;display:inline-flex;align-items:center;justify-content:center;gap:8px}
     .trust-stat-logo{width:24px;height:24px;display:block;object-fit:contain}
@@ -1197,9 +1198,9 @@
             <span class="trust-stat-number">150+</span>
             <span class="trust-stat-label">Orders</span>
           </div>
-          <div class="trust-stat">
+          <div class="trust-stat trust-stat--countries">
             <span class="trust-stat-number">25+</span>
-            <span class="trust-stat-label">Delivering to 25+ Countries</span>
+            <span class="trust-stat-label">Countries Reached</span>
           </div>
         </div>
 
@@ -1221,14 +1222,6 @@
           <p class="video-caption">Watch the video to learn more!</p>
         </div>
 
-        <div class="scroll-hint" id="scrollHint" aria-hidden="true">
-          <span class="scroll-hint-label">Scroll down</span>
-          <div class="scroll-hint-chevrons">
-            <svg viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1l10 10L21 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1l10 10L21 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <svg viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1l10 10L21 1" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-        </div>
       </div>
       <div class="golden-separator logo-separator"></div>
 
@@ -2402,19 +2395,7 @@
       }
     }
   </script>
-  <script>
-    (function(){
-      var hint = document.getElementById('scrollHint');
-      if (!hint) return;
-      var gone = false;
-      function hide(){
-        if (gone) return;
-        gone = true;
-        hint.classList.add('hidden');
-      }
-      window.addEventListener('scroll', hide, {passive:true, once:true});
-    })();
-  </script>
+
 </body>
 </html>
 
