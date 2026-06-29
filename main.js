@@ -401,36 +401,6 @@ function initCardPeekCarousel() {
     });
   });
 
-  if (track.dataset.cardPeekLoopReady !== '1') {
-    const beforeClones = originalCards.map(card => {
-      const clone = card.cloneNode(true);
-      clone.dataset.cardPeekClone = 'before';
-      clone.setAttribute('aria-hidden', 'true');
-      clone.draggable = false;
-      clone.querySelectorAll?.('img').forEach(img => {
-        img.draggable = false;
-      });
-      return clone;
-    });
-    const afterClones = originalCards.map(card => {
-      const clone = card.cloneNode(true);
-      clone.dataset.cardPeekClone = 'after';
-      clone.setAttribute('aria-hidden', 'true');
-      clone.draggable = false;
-      clone.querySelectorAll?.('img').forEach(img => {
-        img.draggable = false;
-      });
-      return clone;
-    });
-
-    beforeClones.reverse().forEach(clone => {
-      track.insertBefore(clone, track.firstChild);
-    });
-    afterClones.forEach(clone => {
-      track.appendChild(clone);
-    });
-    track.dataset.cardPeekLoopReady = '1';
-  }
 
   function visibleCards() {
     return getCardPeekItems(track);
@@ -496,16 +466,27 @@ function initCardPeekCarousel() {
     return Math.round(card.offsetLeft - centerInset);
   }
 
-  function startLoopAtCard() {
+  function startLoopAtCard(attempt) {
+    attempt = attempt || 0;
     const metrics = loopMetrics();
     if (!metrics || metrics.width <= 0) {
+      // Layout not ready yet (common in Instagram/Facebook in-app browsers).
+      // Retry with increasing delays so the "before" clones are correctly accounted for.
+      if (attempt < 8) {
+        const delay = attempt < 3 ? 0 : (attempt < 6 ? 50 : 150);
+        if (delay === 0) {
+          requestAnimationFrame(function() { startLoopAtCard(attempt + 1); });
+        } else {
+          window.setTimeout(function() { startLoopAtCard(attempt + 1); }, delay);
+        }
+      }
       return;
     }
 
     const targetCard = visibleCards().find(card => {
       const image = card.matches?.('img.card-peek-image') ? card : card.querySelector?.('img.card-peek-image');
       const source = image?.dataset?.fullSrc || image?.getAttribute('src') || '';
-      return /switzerland\.webp(?:$|\?)/.test(source);
+      return /hungary\.webp(?:$|\?)/.test(source);
     });
 
     setScrollLeftInstantly(targetCard ? centeredScrollLeft(targetCard) : Math.round(metrics.start));
@@ -564,6 +545,11 @@ function initCardPeekCarousel() {
     }
   }, { passive: false });
 
+  function updateNavVisibility() {
+    prevBtn.style.display = viewport.scrollLeft <= 2 ? 'none' : '';
+    nextBtn.style.display = viewport.scrollLeft >= viewport.scrollWidth - viewport.clientWidth - 2 ? 'none' : '';
+  }
+
   let scrollRaf = 0;
   viewport.addEventListener('scroll', () => {
     if (scrollRaf) {
@@ -573,6 +559,7 @@ function initCardPeekCarousel() {
       scrollRaf = 0;
       normalizeLoopPosition();
       cardPeekWarmup.warmAroundViewport();
+      updateNavVisibility();
     });
   }, { passive: true });
 
@@ -665,6 +652,7 @@ function initCardPeekCarousel() {
   }, true);
 
   requestAnimationFrame(startLoopAtCard);
+  requestAnimationFrame(updateNavVisibility);
 }
 
 if (document.readyState === 'loading') {

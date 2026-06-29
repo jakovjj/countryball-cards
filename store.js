@@ -156,7 +156,7 @@
       document.body.style.overflow = 'hidden';
       updateShippingConfirmState();
 
-      // Only attempt to infer the user's country after they explicitly click Buy/Pre-order.
+      // Only attempt to infer the user's country after they explicitly click Buy/Order.
       // This avoids triggering the browser geolocation permission prompt during page load.
       const defer = typeof queueMicrotask === 'function'
         ? queueMicrotask
@@ -281,7 +281,7 @@
         const basePrice = Number(price);
         const delivery = getDeliveryAmountForZone(opts.zone || selectedZone || 'ZONE_1');
         const total = (Number.isFinite(basePrice) ? basePrice : 0) + delivery;
-        copyEl.textContent = `Your total will be ${formatUsd(total)} (incl. $5.40 shipping). You'll receive a receipt after checkout.`;
+        copyEl.textContent = `Your total will be ${formatUsd(total)} (incl. $5.40 shipping). Delivery is 2-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
       }
 
       const titleEl = document.getElementById('preorderConfirmTitle');

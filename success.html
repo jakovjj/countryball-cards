@@ -46,7 +46,7 @@
 
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/thanks.webp" fetchpriority="high" />
-  <link rel="preload" as="style" href="styles.css?v=2026052311" />
+  <link rel="preload" as="style" href="styles.css?v=2026062901" />
 
   <!-- Favicon / SERP icon -->
   <link rel="icon" href="/serp.ico" sizes="any">
@@ -178,8 +178,8 @@
   </style>
 
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026052311">
-  <noscript><link rel="stylesheet" href="styles.css?v=2026052311"></noscript>
+  <link rel="stylesheet" href="styles.css?v=2026062901">
+  <noscript><link rel="stylesheet" href="styles.css?v=2026062901"></noscript>
 
   <!-- Success page-only background overrides (must come AFTER styles.css to win on mobile) -->
   <style>
@@ -244,6 +244,10 @@
   </script>
 </head>
 <body>
+  <div class="countryball-silhouette-bg" aria-hidden="true">
+    <span class="countryball-silhouette countryball-silhouette--left"></span>
+    <span class="countryball-silhouette countryball-silhouette--right"></span>
+  </div>
   <header class="site-topbar" role="banner">
     <div class="site-topbar-inner">
       <nav class="site-topbar-nav" aria-label="Primary">

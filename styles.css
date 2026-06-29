@@ -35,6 +35,67 @@ body::after {
   z-index: -1;
 }
 
+.countryball-silhouette-bg{display:none}
+
+@media (min-width:900px){
+  .countryball-silhouette-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    display:block;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .countryball-silhouette{
+    position:absolute;
+    top:clamp(96px,12vh,150px);
+    width:clamp(460px,36vw,720px);
+    height:auto;
+    aspect-ratio:1;
+    background-color:rgba(0,0,0,0.72);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+    opacity:0.28;
+    filter:brightness(0) drop-shadow(0 18px 44px rgba(0,0,0,0.34));
+    mix-blend-mode:multiply;
+    -webkit-mask-position:center;
+    mask-position:center;
+    -webkit-mask-repeat:no-repeat;
+    mask-repeat:no-repeat;
+    -webkit-mask-size:contain;
+    mask-size:contain;
+  }
+  .countryball-silhouette--left{
+    left:clamp(-220px,-7vw,-52px);
+    transform:rotate(8deg) scaleX(-1);
+    background-image:url("cb/poland.png");
+    -webkit-mask-image:url("cb/poland.png");
+    mask-image:url("cb/poland.png");
+  }
+  .countryball-silhouette--right{
+    right:clamp(-230px,-7vw,-58px);
+    transform:rotate(-8deg);
+    background-image:url("cb/us.png");
+    -webkit-mask-image:url("cb/us.png");
+    mask-image:url("cb/us.png");
+  }
+  img.countryball-silhouette{
+    background:none;
+    -webkit-mask-image:none;
+    mask-image:none;
+    object-fit:contain;
+  }
+  body > :not(.countryball-silhouette-bg){
+    position:relative;
+    z-index:1;
+  }
+  .wrap{
+    position:relative;
+    z-index:1;
+  }
+}
+
 .trust-strip{display:flex;flex-wrap:nowrap;justify-content:center;gap:10px;margin:14px 0 0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;max-width:100%}
 .trust-strip::-webkit-scrollbar{display:none}
 .trust-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:var(--text);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:0.15px;opacity:0.92;transition:opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;flex:0 0 auto;white-space:nowrap}
@@ -2297,6 +2358,7 @@ font-size:16px}
   .card-peek-track{gap:16px}
   .card-peek-card,
   .card-peek-image{width:var(--card-peek-width)}
+  .card-peek-upsell{width:var(--card-peek-width)}
   .project-card-stitch{right:-9%;bottom:3%;width:46%;border-radius:7px}
   .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2));-webkit-overflow-scrolling:touch}
   .card-peek-initial-prev{left:max(22px,calc((100% - var(--card-peek-width)) / 2));transform:translateX(calc(-100% - 16px))}
@@ -2304,6 +2366,20 @@ font-size:16px}
   #cardPeekPrev{left:4px}
   #cardPeekNext{right:4px}
 }
+
+/* Card Peek — Extended Edition mystery card */
+.card-peek-upsell{aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 14% 0;background:transparent;border-radius:12px;border:none;overflow:visible;cursor:default;user-select:none;-webkit-user-select:none;position:relative;width:var(--card-peek-width)}
+.card-peek-upsell-teaser{position:relative;z-index:10;margin:0;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.9);text-align:center;line-height:1.1;letter-spacing:0.2px}
+.card-peek-upsell-fan{position:absolute;left:0;right:0;top:26%;bottom:16%;overflow:visible}
+.card-peek-more-label{flex:0 0 auto;align-self:center;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.65);white-space:nowrap;padding:0 28px;letter-spacing:0.2px}
+.card-peek-upsell-fan img{position:absolute;width:52%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:5px;bottom:0;left:50%;transform-origin:bottom center;box-shadow:0 3px 10px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06)}
+.card-peek-upsell-fan img:nth-child(1){transform:translateX(-50%) rotate(-24deg);z-index:1;opacity:0.8}
+.card-peek-upsell-fan img:nth-child(2){transform:translateX(-50%) rotate(-12deg);z-index:2;opacity:0.9}
+.card-peek-upsell-fan img:nth-child(3){transform:translateX(-50%) rotate(0deg);z-index:3}
+.card-peek-upsell-fan img:nth-child(4){transform:translateX(-50%) rotate(12deg);z-index:2;opacity:0.9}
+.card-peek-upsell-fan img:nth-child(5){transform:translateX(-50%) rotate(24deg);z-index:1;opacity:0.8}
+.card-peek-upsell-label{position:relative;z-index:10;margin:0;font-size:clamp(9px,2.4vw,11px);font-weight:700;color:rgba(199,164,85,0.7);text-transform:uppercase;letter-spacing:0.6px;text-align:center;line-height:1}
+.card-peek-below-teaser{text-align:center;margin:10px 0 0;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.9);letter-spacing:0.2px}
 
 /* LOADING AND ERROR STATES */
 .loading:not(.email-submit-btn) {
