@@ -2368,9 +2368,10 @@ font-size:16px}
 }
 
 /* Card Peek — Extended Edition mystery card */
-.card-peek-upsell{aspect-ratio:2/3;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 0 10% 0;background:transparent;border-radius:12px;border:none;overflow:visible;cursor:default;user-select:none;-webkit-user-select:none;position:relative;width:calc(var(--card-peek-width) * 1.25)}
-.card-peek-upsell-teaser{position:relative;z-index:10;margin:0;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.9);text-align:center;line-height:1.1;letter-spacing:0.2px}
-.card-peek-upsell-fan{position:absolute;left:0;right:0;top:8%;bottom:22%;overflow:visible}
+.card-peek-upsell{display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;border:none;overflow:visible;cursor:default;user-select:none;-webkit-user-select:none;position:relative;width:calc(var(--card-peek-width) * 1.25)}
+.card-peek-upsell-fan-wrap{position:relative;width:100%;aspect-ratio:2/3;overflow:visible}
+.card-peek-upsell-teaser{margin:0;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.9);text-align:center;line-height:1.1;letter-spacing:0.2px}
+.card-peek-upsell-fan{position:absolute;inset:0;overflow:visible}
 .card-peek-more-label{flex:0 0 auto;align-self:center;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.65);white-space:nowrap;padding:0 28px;letter-spacing:0.2px}
 .card-peek-upsell-fan img{position:absolute;width:52%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:5px;bottom:0;left:50%;transform-origin:bottom center;box-shadow:0 3px 10px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06)}
 .card-peek-upsell-fan img:nth-child(1){transform:translateX(-50%) rotate(-24deg);z-index:1;opacity:0.8}
@@ -2884,6 +2885,46 @@ a:focus-visible {
   .hero-brand-title img{width:150px}
   .hero-brand-art img{width:100%}
 }
+
+/* Post-carousel scroll foreshadowing */
+.post-carousel-hint{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  padding:20px 0 24px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
+}
+.post-carousel-hint-label{
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:rgba(251,191,36,0.55);
+  transition:color 0.2s ease;
+}
+.post-carousel-hint:hover .post-carousel-hint-label{color:var(--gold)}
+.post-carousel-hint-chevrons{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  animation:scrollBounce 1.6s ease-in-out infinite;
+}
+.post-carousel-hint-chevrons svg{
+  display:block;
+  width:20px;
+  height:13px;
+  color:rgba(251,191,36,0.4);
+  transition:color 0.2s ease;
+}
+.post-carousel-hint-chevrons svg:nth-child(2){
+  opacity:0.5;
+  margin-top:-4px;
+}
+.post-carousel-hint:hover .post-carousel-hint-chevrons svg{color:rgba(251,191,36,0.75)}
 
 /* Scroll-down hint */
 .scroll-hint{
