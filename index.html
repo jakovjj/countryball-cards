@@ -1048,7 +1048,7 @@
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026062901" as="script">
+  <link rel="preload" href="main.js?v=2026070101" as="script">
   <link rel="prefetch" href="analytics.js?v=2026052406" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
@@ -1281,7 +1281,7 @@
                 <img class="card-peek-image" src="assets/card-peek/uk.webp" data-full-src="uk.webp" alt="United Kingdom countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_british_navy.webp">
                 <img class="card-peek-image" src="assets/card-peek/ukraine.webp" data-full-src="ukraine.webp" alt="Ukraine countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_ukrainian_wheatfield.webp">
                 <img class="card-peek-image" src="assets/card-peek/us.webp" data-full-src="us.webp" alt="United States countryball card" width="400" height="600" loading="lazy" decoding="async">
-                <div class="card-peek-card card-peek-upsell" aria-label="and more cards">
+                <div class="card-peek-card card-peek-upsell" id="cardPeekUpsell" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="extendedCardsOverlay" aria-label="See all 10 cards in the Extended Edition">
                   <img class="card-peek-upsell-badge" src="extended_badge.webp" alt="Extended Edition" loading="lazy" decoding="async">
                   <div class="card-peek-upsell-tag">
                     <span class="card-peek-upsell-tag-text">+10 Cards in Extended Edition</span>
@@ -1762,8 +1762,29 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="extendedCardsOverlay" hidden aria-hidden="true">
+    <div class="modal extended-cards-modal" role="dialog" aria-modal="true" aria-labelledby="extendedCardsModalTitle" tabindex="-1">
+      <header>
+        <h2 id="extendedCardsModalTitle">+10 Cards in the Extended Edition</h2>
+        <button class="modal-close" type="button" id="extendedCardsCloseBtn" aria-label="Close">✕</button>
+      </header>
+      <div class="extended-cards-grid" id="extendedCardsGrid">
+        <img class="extended-card-image" src="assets/card-peek/austria.webp" data-full-src="austria.webp" alt="Austria countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/belgium.webp" data-full-src="belgium.webp" alt="Belgium countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/croatia.webp" data-full-src="croatia.webp" alt="Croatia countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/czechia.webp" data-full-src="czechia.webp" alt="Czechia countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/finland.webp" data-full-src="finland.webp" alt="Finland countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/hungary.webp" data-full-src="hungary.webp" alt="Hungary countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/norway.webp" data-full-src="norway.webp" alt="Norway countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/portugal.webp" data-full-src="portugal.webp" alt="Portugal countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/spain.webp" data-full-src="spain.webp" alt="Spain countryball card" width="400" height="600" loading="lazy" decoding="async">
+        <img class="extended-card-image" src="assets/card-peek/switzerland.webp" data-full-src="switzerland.webp" alt="Switzerland countryball card" width="400" height="600" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </div>
+
   <script src="analytics.js?v=2026052406" defer></script>
-  <script src="main.js?v=2026062901" defer></script>
+  <script src="main.js?v=2026070101" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -2267,6 +2288,7 @@
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
       }
+      window.openCardZoom = openZoom;
       function closeZoom() {
         overlay.classList.remove('open');
         overlay.classList.remove('photo-zoom');

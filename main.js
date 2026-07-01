@@ -1138,6 +1138,55 @@ if(redditBtn){
   closeBtn.addEventListener('click', close);
 })();
 
+// Extended cards modal (+10 upsell)
+(function(){
+  const openTrigger=document.getElementById('cardPeekUpsell');
+  const overlay=document.getElementById('extendedCardsOverlay');
+  const dialog=overlay?overlay.querySelector('.modal'):null;
+  const closeBtn=document.getElementById('extendedCardsCloseBtn');
+  const grid=document.getElementById('extendedCardsGrid');
+  if(!openTrigger||!overlay||!dialog||!closeBtn) return;
+  let lastFocus=null;
+  const getFocusable=()=>dialog.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+  function open(){
+    lastFocus=document.activeElement;
+    overlay.hidden=false; overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    if(typeof trackStoreClick==='function') trackStoreClick('extended_cards_upsell');
+    const f=getFocusable(); if(f.length) f[0].focus(); else dialog.focus();
+    document.addEventListener('keydown', onKeyDown);
+    overlay.addEventListener('click', onOverlayClick);
+  }
+  function close(){
+    overlay.hidden=true; overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    document.removeEventListener('keydown', onKeyDown);
+    overlay.removeEventListener('click', onOverlayClick);
+    if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus();
+  }
+  function onOverlayClick(e){ if(e.target===overlay) close(); }
+  function onKeyDown(e){
+    if(e.key==='Escape'){ e.preventDefault(); close(); return; }
+    if(e.key==='Tab'){
+      const f=Array.from(getFocusable()); if(!f.length) return;
+      const first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  }
+  openTrigger.addEventListener('click', open);
+  openTrigger.addEventListener('keydown', function(e){
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); open(); }
+  });
+  closeBtn.addEventListener('click', close);
+  if(grid){
+    grid.addEventListener('click', function(e){
+      const img=e.target.closest('.extended-card-image');
+      if(img && typeof window.openCardZoom==='function') window.openCardZoom(img.dataset.fullSrc || img.currentSrc || img.src, img.alt);
+    });
+  }
+})();
+
 // Email modal
 function showEmailModal() {
   const overlay = document.getElementById('emailOverlay');
