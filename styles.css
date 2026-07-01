@@ -2020,7 +2020,7 @@ font-size:16px}
    mismatch or async stylesheet load timing.
 */
 .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-#gameExplainerTitle{scroll-margin-top:130px}
+#gameExplainerTitle{scroll-margin-top:130px;background:linear-gradient(100deg,#f9fafb 20%,#c3cad4 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
 .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
 .game-explainer-photo > picture{display:block;width:100%;height:100%;overflow:hidden}
 .game-explainer-photo > picture > img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transform-origin:center center}
@@ -2034,16 +2034,16 @@ font-size:16px}
   .game-explainer-left{padding:14px}
 }
 .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:14.5px;line-height:1.55;font-weight:500}
-.game-explainer-lede strong{color:var(--gold);font-weight:800}
-.game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:8px;text-align:left}
+.game-explainer-lede strong{color:var(--text);font-weight:800}
+.game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:13px;text-align:left}
 .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:0;border-radius:0;background:transparent;border:none}
-.game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
-.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-family:'Space Grotesk',system-ui,sans-serif;text-transform:uppercase;font-weight:800;letter-spacing:0.5px;background:linear-gradient(100deg,#ff9d2e 10%,#ffe066 50%,#ff9d2e 90%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 10px rgba(255,157,46,0.32));animation:goldShimmer 4s ease-in-out infinite}
+.game-explainer-bullets .bullet-icon{width:19px;height:19px;max-width:19px;max-height:19px;object-fit:contain;flex:0 0 auto;margin-top:2px}
+.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-weight:800;background:linear-gradient(100deg,#f9fafb 20%,#9ca3af 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
 @keyframes goldShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 @media(prefers-reduced-motion:reduce){
-  .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong,.crash-card h4{animation:none;background-position:50% 50%}
+  .crash-card h4,.game-highlight,#gameExplainerTitle,.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{animation:none;background-position:50% 50%}
 }
-.game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
+.game-highlight{font-weight:800;letter-spacing:0.2px;background:linear-gradient(100deg,#f0b429 25%,#ffe066 50%,#f0b429 75%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 5s ease-in-out infinite}
 
 .game-explainer-left,.game-crash-course{height:100%;min-height:0}
 .game-crash-course{margin:0;text-align:left;padding:14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);display:flex;flex-direction:column;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
@@ -2266,7 +2266,7 @@ font-size:16px}
 
 @media(max-width:768px){
   .faq-question{padding:12px 12px}
-  .faq-question-text{font-size:16px}
+  .faq-question-text{font-size:15px}
   .faq-toggle{}
 }
 @media(max-width:600px){
@@ -2275,11 +2275,16 @@ font-size:16px}
   .faq-intro{font-size:13px;line-height:1.4}
   .faq-list{margin-top:12px;gap:10px}
   .faq-item{border-radius:12px}
-  .faq-question{padding:10px 11px;gap:10px}
-  .faq-question-text{font-size:15px}
+  .faq-question{padding:10px 11px;gap:8px}
+  .faq-question-inner{gap:8px}
+  .faq-icon{width:14px;height:14px}
+  .faq-question-text{font-size:13px}
   .faq-toggle{font-size:16px}
   .faq-answer{padding:0 11px 11px}
   .faq-answer p{font-size:13px;line-height:1.45}
+}
+@media(max-width:380px){
+  .faq-question-text{font-size:12px}
 }
 
 .card-peek-section{--card-peek-width:min(220px,30vw);margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none;user-select:none;-webkit-user-select:none}
@@ -2328,9 +2333,11 @@ font-size:16px}
 
 /* Card Peek — Extended Edition mystery card */
 .card-peek-upsell{display:block;background:transparent;border:none;overflow:visible;cursor:default;user-select:none;-webkit-user-select:none;position:relative;align-self:flex-start;width:calc(var(--card-peek-width) * 1.34);height:calc(var(--card-peek-width) * 1.5 + 34px);margin-left:clamp(34px,5.5vw,64px);transform:scale(0.95);transform-origin:bottom left}
-.card-peek-upsell-badge{position:absolute;z-index:11;top:-6px;right:-4px;color:var(--gold);background:rgba(199,164,85,.16);border:1px solid rgba(199,164,85,.4);border-radius:4px;padding:4px 9px;font-size:clamp(9px,2.2vw,11px);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;transform:rotate(4deg);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.card-peek-upsell-tag{position:absolute;z-index:11;top:auto;bottom:0;left:50%;transform:translateX(-50%);display:flex;align-items:center;white-space:nowrap;background:rgba(15,15,20,0.5);border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:6px 14px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.card-peek-upsell-tag-text{font-size:clamp(7px,1.7vw,9.5px);font-weight:800;text-transform:uppercase;letter-spacing:0.2px;line-height:1.2;white-space:nowrap;background:linear-gradient(100deg,#dcdcdc 0%,#ffffff 22%,#8f8f8f 45%,#ffffff 68%,#c4c4c4 85%,#ffffff 100%);background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.6));animation:silver-shimmer 5.5s linear infinite}
+@keyframes silver-shimmer{0%{background-position:0% center}100%{background-position:250% center}}
+.card-peek-upsell-badge{position:absolute;z-index:12;top:-12px;right:-16px;transform:rotate(10deg);width:clamp(58px,10vw,78px);height:auto;aspect-ratio:1/1;flex:0 0 auto;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}
 .card-peek-upsell-fan-wrap{position:relative;width:100%;height:100%;overflow:visible}
-.card-peek-upsell-teaser{position:absolute;z-index:8;left:50%;bottom:16px;transform:translateX(-50%);margin:0;max-width:92%;font-size:clamp(13px,2.7vw,17px);font-weight:800;background:linear-gradient(90deg,#fde68a,#fbbf24 55%,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;line-height:1.15;letter-spacing:0.2px;white-space:normal;text-shadow:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.65))}
 .card-peek-upsell-fan{position:absolute;inset:0;overflow:visible}
 .card-peek-more-label{flex:0 0 auto;align-self:center;font-size:clamp(13px,3vw,17px);font-weight:800;color:rgba(199,164,85,0.65);white-space:nowrap;padding:0 28px;letter-spacing:0.2px}
 .card-peek-upsell-fan img{position:absolute;width:var(--card-peek-width);height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:5px;bottom:34px;left:50%;transform-origin:bottom center;box-shadow:0 3px 10px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06)}
@@ -2852,20 +2859,31 @@ a:focus-visible {
   flex-direction:column;
   align-items:center;
   gap:6px;
-  padding:20px 0 24px;
+  padding:20px 0 8px;
   text-decoration:none;
   color:inherit;
   cursor:pointer;
 }
+.post-carousel-hint + .golden-separator{margin-top:14px}
 .post-carousel-hint-label{
   font-size:13px;
   font-weight:800;
   letter-spacing:0.1em;
   text-transform:uppercase;
-  color:rgba(251,191,36,0.55);
-  transition:color 0.2s ease;
+  background:linear-gradient(90deg,rgba(251,191,36,0.55) 0%,#fde68a 50%,rgba(251,191,36,0.55) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  transition:filter 0.2s ease;
+  animation:hintShimmer 3.5s ease-in-out infinite;
 }
-.post-carousel-hint:hover .post-carousel-hint-label{color:var(--gold)}
+.post-carousel-hint:hover .post-carousel-hint-label{filter:brightness(1.25)}
+
+@keyframes hintShimmer{
+  0%,100%{background-position:0% center}
+  50%{background-position:100% center}
+}
 .post-carousel-hint-chevrons{
   display:flex;
   flex-direction:column;

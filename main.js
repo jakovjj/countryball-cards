@@ -437,17 +437,20 @@ function initCardPeekCarousel() {
 
   function normalizeLoopPosition() {
     const metrics = loopMetrics();
-    if (!metrics || metrics.width <= 0) {
-      return 0;
-    }
-
     const originalScrollLeft = viewport.scrollLeft;
     let nextScrollLeft = originalScrollLeft;
 
-    if (nextScrollLeft < metrics.start - loopBoundaryEpsilon) {
-      nextScrollLeft = metrics.end - Math.max(0, metrics.start - nextScrollLeft);
-    } else if (nextScrollLeft >= metrics.end - loopBoundaryEpsilon) {
-      nextScrollLeft = metrics.start + Math.max(0, nextScrollLeft - metrics.end);
+    if (metrics && metrics.width > 0) {
+      if (nextScrollLeft < metrics.start - loopBoundaryEpsilon) {
+        nextScrollLeft = metrics.end - Math.max(0, metrics.start - nextScrollLeft);
+      } else if (nextScrollLeft >= metrics.end - loopBoundaryEpsilon) {
+        nextScrollLeft = metrics.start + Math.max(0, nextScrollLeft - metrics.end);
+      }
+    }
+
+    const clampedMin = minScrollLeft();
+    if (nextScrollLeft < clampedMin) {
+      nextScrollLeft = clampedMin;
     }
 
     if (nextScrollLeft !== originalScrollLeft) {
@@ -464,6 +467,15 @@ function initCardPeekCarousel() {
     }
     const centerInset = Math.max(0, (viewport.clientWidth - card.offsetWidth) / 2);
     return Math.round(card.offsetLeft - centerInset);
+  }
+
+  function minScrollLeft() {
+    // Never let the first card sit fully centered/alone (that leaves the 2nd
+    // card barely peeking). The left-most stop is the 2nd card centered, so
+    // the 1st card still peeks in and the deck reads as "all cards in frame".
+    const cards = visibleCards();
+    const boundaryCard = cards.length > 1 ? cards[1] : cards[0];
+    return Math.max(0, centeredScrollLeft(boundaryCard));
   }
 
   function startingCard() {
@@ -523,8 +535,12 @@ function initCardPeekCarousel() {
       setScrollLeftInstantly(metrics.end - scrollAmount());
       return;
     }
-    viewport.scrollBy({
-      left: direction * scrollAmount(),
+    let target = viewport.scrollLeft + direction * scrollAmount();
+    if (direction < 0) {
+      target = Math.max(target, minScrollLeft());
+    }
+    viewport.scrollTo({
+      left: target,
       behavior: 'smooth'
     });
     window.setTimeout(normalizeLoopPosition, 420);
@@ -550,7 +566,7 @@ function initCardPeekCarousel() {
   }, { passive: false });
 
   function updateNavVisibility() {
-    prevBtn.style.display = viewport.scrollLeft <= 2 ? 'none' : '';
+    prevBtn.style.display = viewport.scrollLeft <= minScrollLeft() + 2 ? 'none' : '';
     nextBtn.style.display = viewport.scrollLeft >= viewport.scrollWidth - viewport.clientWidth - 2 ? 'none' : '';
   }
 

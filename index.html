@@ -740,9 +740,9 @@
     @keyframes badge-glow{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.28)}50%{box-shadow:0 0 0 8px rgba(52,211,153,0)}}
     .status-banner-inner{display:flex;align-items:center;gap:24px;justify-content:center}
     .launch-label{background:linear-gradient(to bottom,#ffffff 0%,var(--kickstarter) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--kickstarter)}
-    .launch-mascot{width:100px;height:auto;flex-shrink:0;filter:drop-shadow(0 4px 22px rgba(5,206,120,0.4));animation:mascot-float 3.2s ease-in-out infinite}
+    .launch-mascot{width:220px;height:auto;flex-shrink:0;filter:drop-shadow(0 4px 22px rgba(5,206,120,0.4));animation:mascot-float 3.2s ease-in-out infinite}
     @keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-    @media(max-width:600px){.status-banner-inner{flex-direction:column;gap:10px}.launch-mascot{width:72px}}
+    @media(max-width:600px){.status-banner-inner{flex-direction:column;gap:10px}.launch-mascot{width:160px}}
     .status-sea-freight-frame{display:inline-block;padding:8px;border:3px solid #78e878;border-radius:40px;background:rgba(120,232,120,0.06);box-shadow:0 0 24px rgba(120,232,120,0.22);margin-bottom:8px;overflow:hidden}
     .status-sea-freight-img{width:min(380px,85vw);height:260px;object-fit:cover;object-position:center 40%;border-radius:32px;display:block}
     .packages-comparison-title::before,.packages-comparison-title::after{display:none}
@@ -831,7 +831,7 @@
     .payment-note span{opacity:0.85}
     .duty-paid-note{margin:0 auto 6px;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-    #gameExplainerTitle{scroll-margin-top:130px}
+    #gameExplainerTitle{scroll-margin-top:130px;background:linear-gradient(100deg,#f9fafb 20%,#c3cad4 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
     .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
     .game-explainer-photo > picture{display:block;width:100%;height:100%;overflow:hidden}
     .game-explainer-photo > picture > img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transform-origin:center center}
@@ -845,16 +845,16 @@
       .game-explainer-left{padding:14px}
     }
     .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:500}
-    .game-explainer-lede strong{color:var(--gold);font-weight:800}
-    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:8px;text-align:left}
+    .game-explainer-lede strong{color:var(--text);font-weight:800}
+    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:13px;text-align:left}
     .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:0;border-radius:0;background:transparent;border:none}
-    .game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
-    .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-family:'Space Grotesk',system-ui,sans-serif;text-transform:uppercase;font-weight:800;letter-spacing:0.5px;background:linear-gradient(100deg,#ff9d2e 10%,#ffe066 50%,#ff9d2e 90%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 10px rgba(255,157,46,0.32));animation:goldShimmer 4s ease-in-out infinite}
+    .game-explainer-bullets .bullet-icon{width:19px;height:19px;max-width:19px;max-height:19px;object-fit:contain;flex:0 0 auto;margin-top:2px}
+    .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-weight:800;background:linear-gradient(100deg,#f9fafb 20%,#9ca3af 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
     @keyframes goldShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
     @media(prefers-reduced-motion:reduce){
-      .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong,.crash-card h4{animation:none;background-position:50% 50%}
+      .crash-card h4,.game-highlight,#gameExplainerTitle,.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{animation:none;background-position:50% 50%}
     }
-    .game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
+    .game-highlight{font-weight:800;letter-spacing:0.2px;background:linear-gradient(100deg,#f0b429 25%,#ffe066 50%,#f0b429 75%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 5s ease-in-out infinite}
     .game-explainer-left,.game-crash-course{height:100%;min-height:0}
     .game-crash-course{margin:0;text-align:left;padding:14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);display:flex;flex-direction:column;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
     .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text);text-align:center}
@@ -1172,7 +1172,7 @@
           </a>
           <div class="trust-stat">
             <span class="trust-stat-number">150+</span>
-            <span class="trust-stat-label">Orders</span>
+            <span class="trust-stat-label">Orders Worldwide</span>
           </div>
           <div class="trust-stat trust-stat--countries">
             <span class="trust-stat-number">25+</span>
@@ -1215,10 +1215,10 @@
                 <div class="game-explainer-left">
                   <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a chaotic strategy card game</span> where you draft your own countryball team, build an economy with abilities and projects, then unleash ridiculous combos.</div>
                   <ul class="game-explainer-bullets" aria-label="Game highlights">
-                    <li><span><strong>Draft a squad that clicks:</strong> Pick countryballs that work well together. Some hit hard, others defend or support.</span></li>
-                    <li><span><strong>Plan your moves:</strong> Spend coins, manage resources, and choose the right moment to strike.</span></li>
-                    <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> countries, with even more in the Extended Edition.</span></li>
-                    <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
+                    <li><img class="bullet-icon" src="icons/defensive.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><strong>Draft a squad that clicks:</strong> Pick countryballs that work well together. Some hit hard, others defend or support.</span></li>
+                    <li><img class="bullet-icon" src="icons/economic.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><strong>Plan your moves:</strong> Spend coins, manage resources, and choose the right moment to strike.</span></li>
+                    <li><img class="bullet-icon" src="icons/misc.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> countries, with even more in the Extended Edition.</span></li>
+                    <li><img class="bullet-icon" src="icons/offensive.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
                   </ul>
                 </div>
 
@@ -1282,7 +1282,10 @@
                 <img class="card-peek-image" src="assets/card-peek/ukraine.webp" data-full-src="ukraine.webp" alt="Ukraine countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_ukrainian_wheatfield.webp">
                 <img class="card-peek-image" src="assets/card-peek/us.webp" data-full-src="us.webp" alt="United States countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <div class="card-peek-card card-peek-upsell" aria-label="and more cards">
-                  <span class="card-peek-upsell-badge">Extended Edition</span>
+                  <img class="card-peek-upsell-badge" src="extended_badge.webp" alt="Extended Edition" loading="lazy" decoding="async">
+                  <div class="card-peek-upsell-tag">
+                    <span class="card-peek-upsell-tag-text">+10 Cards in Extended Edition</span>
+                  </div>
                   <div class="card-peek-upsell-fan-wrap">
                     <div class="card-peek-upsell-fan" aria-hidden="true">
                       <img src="assets/card-peek/switzerland.webp" alt="" width="80" height="120" loading="lazy" decoding="async">
@@ -1292,7 +1295,6 @@
                       <img src="assets/card-peek/spain.webp"       alt="" width="80" height="120" loading="lazy" decoding="async">
                     </div>
                   </div>
-                  <p class="card-peek-upsell-teaser">10 more in the Extended Edition!</p>
                 </div>
               </div>
             </div>
@@ -1315,8 +1317,6 @@
           </div>
         </a>
 
-        <div class="golden-separator"></div>
-
         <div class="packages-comparison" id="editionComparison" aria-label="Compare editions" data-scroll-gradient data-bg1="#080611" data-bg2="#0c0720" data-bg3="#11082f" data-mbg1="#0b0516" data-mbg2="#13072a" data-mbg3="#1b093e">
           <div class="status-banner" role="status" aria-label="Project status">
             <div class="status-banner-inner">
@@ -1324,7 +1324,7 @@
                 <h3 class="status-title"><span class="launch-label">Available now!</span> LIMITED-TIME 20% OFF!</h3>
                 <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Order today, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and get your Countryball Cards in 2-10 days!</p>
               </div>
-              <img src="poland_happy.png" alt="" class="launch-mascot" aria-hidden="true" loading="lazy">
+              <img src="assets/box_art.webp" alt="" class="launch-mascot" aria-hidden="true" loading="lazy">
             </div>
           </div>
           <p class="choose-edition-label">Choose your Edition!</p>
@@ -1504,7 +1504,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Shipping is a flat $5.40 to all supported countries. This is a DDP (Delivered Duty Paid) shipment, so all import fees and duties are already included &mdash; there's nothing extra to pay on delivery.</p>
+              <p>Shipping is a flat $5.40 to all supported countries. This is a DDP (Delivered Duty Paid) shipment, so all import fees and duties are already included; there's nothing extra to pay on delivery.</p>
             </div>
           </li>
           <li class="faq-item">
