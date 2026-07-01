@@ -130,8 +130,8 @@
    <meta name="msapplication-TileColor" content="#ffffff">
 
   <!-- Load fonts without blocking first paint -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap"></noscript>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -730,7 +730,7 @@
     .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:30px;font-weight:700;letter-spacing:0;font-style:normal;text-transform:none;text-shadow:none;text-align:center}
     .status-banner{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 32px;text-align:center}
     .status-copy{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-    .status-title{margin:0;color:var(--gold);font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(22px,2.9vw,30px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none}
+    .status-title{margin:0;font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(22px,2.9vw,30px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none;background:linear-gradient(to bottom,#ffffff 0%,var(--gold) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--gold)}
     .status-banner-text{font-size:26px;letter-spacing:0.02em;text-transform:uppercase;color:var(--text);text-decoration:underline;text-decoration-color:rgba(185,207,50,0.45);text-underline-offset:6px;text-decoration-thickness:2px}
     .status-banner-text strong{font-weight:900}
     .status-in-production{color:#b9cf32;font-weight:900}
@@ -739,7 +739,7 @@
     .launch-event-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 18px;background:rgba(52,211,153,0.12);border:1.5px solid rgba(52,211,153,0.55);border-radius:999px;color:#34d399;font-size:clamp(11px,2.5vw,13px);font-weight:800;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:16px;animation:badge-glow 2.4s ease-in-out infinite}
     @keyframes badge-glow{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.28)}50%{box-shadow:0 0 0 8px rgba(52,211,153,0)}}
     .status-banner-inner{display:flex;align-items:center;gap:24px;justify-content:center}
-    .launch-label{color:var(--kickstarter)}
+    .launch-label{background:linear-gradient(to bottom,#ffffff 0%,var(--kickstarter) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--kickstarter)}
     .launch-mascot{width:100px;height:auto;flex-shrink:0;filter:drop-shadow(0 4px 22px rgba(5,206,120,0.4));animation:mascot-float 3.2s ease-in-out infinite}
     @keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     @media(max-width:600px){.status-banner-inner{flex-direction:column;gap:10px}.launch-mascot{width:72px}}
@@ -845,23 +845,30 @@
       .game-explainer-left{padding:14px}
     }
     .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:500}
-    .game-explainer-lede .lede-emphasis{font-weight:700;color:var(--text)}
     .game-explainer-lede strong{color:var(--gold);font-weight:800}
     .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:8px;text-align:left}
     .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:0;border-radius:0;background:transparent;border:none}
     .game-explainer-bullets li::before{content:'✦';color:var(--gold);flex:0 0 auto;line-height:1.2;margin-top:1px}
-    .game-explainer-bullets strong{color:var(--text)}
+    .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-family:'Space Grotesk',system-ui,sans-serif;text-transform:uppercase;font-weight:800;letter-spacing:0.5px;background:linear-gradient(100deg,#ff9d2e 10%,#ffe066 50%,#ff9d2e 90%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 10px rgba(255,157,46,0.32));animation:goldShimmer 4s ease-in-out infinite}
+    @keyframes goldShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    @media(prefers-reduced-motion:reduce){
+      .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong,.crash-card h4{animation:none;background-position:50% 50%}
+    }
     .game-highlight{color:var(--gold);font-weight:900;letter-spacing:0.2px}
     .game-explainer-left,.game-crash-course{height:100%;min-height:0}
     .game-crash-course{margin:0;text-align:left;padding:14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);display:flex;flex-direction:column;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-    .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text)}
+    .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text);text-align:center}
     .crash-course-title span{color:var(--gold)}
     .crash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     @media(max-width:420px){
       .crash-grid{grid-template-columns:1fr}
     }
     .crash-card{padding:0;border-radius:0;background:transparent;border:none}
-    .crash-card h4{margin:0 0 6px;font-size:14px;letter-spacing:0.2px;color:var(--text);padding-bottom:5px;border-bottom:1px solid rgba(251,191,36,0.38)}
+    .crash-card h4{margin:0 0 6px;font-size:14px;font-family:'Space Grotesk',system-ui,sans-serif;text-transform:uppercase;font-weight:800;letter-spacing:0.4px;padding-bottom:5px;border-bottom:1px solid var(--crash-border,rgba(251,191,36,0.38));display:flex;align-items:center;gap:6px;background:linear-gradient(100deg,var(--crash-c1,#ff9d2e) 10%,var(--crash-c2,#ffe066) 50%,var(--crash-c1,#ff9d2e) 90%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 8px var(--crash-glow,rgba(255,157,46,0.3)));animation:goldShimmer 4s ease-in-out infinite}
+    .crash-card.crash-setup h4{--crash-c1:#3fa9ff;--crash-c2:#cfeeff;--crash-glow:rgba(63,169,255,0.35);--crash-border:rgba(63,169,255,0.45)}
+    .crash-card.crash-turn h4{--crash-c1:#39d67a;--crash-c2:#d8ffe9;--crash-glow:rgba(57,214,122,0.35);--crash-border:rgba(57,214,122,0.45)}
+    .crash-card.crash-abilities h4{--crash-c1:#ff5c5c;--crash-c2:#ffdede;--crash-glow:rgba(255,92,92,0.35);--crash-border:rgba(255,92,92,0.45)}
+    .crash-card.crash-win h4{--crash-c1:#b478ff;--crash-c2:#ecdcff;--crash-glow:rgba(180,120,255,0.35);--crash-border:rgba(180,120,255,0.45)}
     .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
     .crash-card strong{color:var(--gold)}
     .game-crash-course-link{margin-top:12px;padding-top:0;display:block}
@@ -952,7 +959,7 @@
     .shipping-info-card{background:rgba(255,255,255,0.04);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.08)}
     .shipping-info-card h4{margin:0 0 8px;font-size:16px;display:flex;align-items:center;gap:8px}
     .packages-bottom-cta{text-align:center;margin:24px 0 0}
-    .packages-bottom-cta p{margin:0;color:var(--text)}
+    .packages-bottom-cta p{margin:0;color:var(--text);font-size:14px;font-weight:400}
     .packages-bottom-cta h3{margin-top:0;color:var(--gold)}
     .packages-support-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:24px}
     .packages-support-actions > a.btn,
@@ -1200,6 +1207,55 @@
 
         <!-- Shipping selection now happens in a modal when you click Order. -->
 
+        <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
+          <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
+          <figure class="game-explainer-photo">
+            <figcaption class="game-explainer-overlay">
+              <div class="game-explainer-grid">
+                <div class="game-explainer-left">
+                  <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a chaotic strategy card game</span> where you draft your own countryball team, build an economy with abilities and projects, then unleash ridiculous combos.</div>
+                  <ul class="game-explainer-bullets" aria-label="Game highlights">
+                    <li><span><strong>Draft a squad that clicks:</strong> Pick countryballs that work well together. Some hit hard, others defend or support.</span></li>
+                    <li><span><strong>Plan your moves:</strong> Spend coins, manage resources, and choose the right moment to strike.</span></li>
+                    <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> countries, with even more in the Extended Edition.</span></li>
+                    <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
+                  </ul>
+                </div>
+
+                <aside class="game-crash-course" aria-label="Rules crash course">
+                  <h4 class="crash-course-title"><span>Crash</span> Course</h4>
+                  <div class="crash-grid" aria-label="Quick rules overview">
+                    <div class="crash-card crash-setup">
+                      <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
+                      <p>Draft <strong>3 countryballs</strong> each. Set the market with resource dice, then decide who starts.</p>
+                    </div>
+                    <div class="crash-card crash-turn">
+                      <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
+                      <p>Gain <strong>coins</strong>: 10 on your first turn, then 5 each turn after. Buy or sell resources, pay costs to use abilities, then attack.</p>
+                    </div>
+                    <div class="crash-card crash-abilities">
+                      <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
+                      <p>Some abilities require a die roll. Meet or beat the number shown to succeed. Successful attacks deal <strong>damage</strong>.</p>
+                    </div>
+                    <div class="crash-card crash-win">
+                      <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
+                      <p>Eliminate enemy countryballs by dealing damage. Each countryball has <strong>3 hit points</strong>. <strong>Last player standing wins.</strong></p>
+                    </div>
+                  </div>
+                  <div class="game-crash-course-link">
+                    <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download Full Rules PDF</a>
+                  </div>
+                </aside>
+              </div>
+            </figcaption>
+            <picture class="gameplay-picture">
+              <source type="image/avif" srcset="assets/gameplay-720.avif 720w, assets/gameplay-1080.avif 1080w, assets/gameplay-1440.avif 1440w, assets/gameplay-1920.avif 1920w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
+              <source type="image/webp" srcset="assets/gameplay-480.webp 480w, assets/gameplay-720.webp 720w, assets/gameplay-1080.webp 1080w, assets/gameplay-1440.webp 1440w, assets/gameplay-1920.webp 1920w, assets/gameplay.webp 3840w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
+              <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
+            </picture>
+          </figure>
+        </section>
+
         <section class="card-peek-section" aria-labelledby="cardPeekTitle">
           <div class="card-peek-carousel" role="region" aria-live="polite">
             <button class="card-peek-nav" type="button" id="cardPeekPrev" aria-label="Show previous cards">&#10094;</button>
@@ -1226,6 +1282,7 @@
                 <img class="card-peek-image" src="assets/card-peek/ukraine.webp" data-full-src="ukraine.webp" alt="Ukraine countryball card" width="400" height="600" loading="lazy" decoding="async" data-project-card="assets/project/thumbs/special_ukrainian_wheatfield.webp">
                 <img class="card-peek-image" src="assets/card-peek/us.webp" data-full-src="us.webp" alt="United States countryball card" width="400" height="600" loading="lazy" decoding="async">
                 <div class="card-peek-card card-peek-upsell" aria-label="and more cards">
+                  <span class="card-peek-upsell-badge">Extended Edition</span>
                   <div class="card-peek-upsell-fan-wrap">
                     <div class="card-peek-upsell-fan" aria-hidden="true">
                       <img src="assets/card-peek/switzerland.webp" alt="" width="80" height="120" loading="lazy" decoding="async">
@@ -1235,7 +1292,7 @@
                       <img src="assets/card-peek/spain.webp"       alt="" width="80" height="120" loading="lazy" decoding="async">
                     </div>
                   </div>
-                  <p class="card-peek-upsell-teaser">...and more!</p>
+                  <p class="card-peek-upsell-teaser">10 more in the Extended Edition!</p>
                 </div>
               </div>
             </div>
@@ -1248,55 +1305,6 @@
               window.startCardPeekAtHungary = function(){};
             })();
           </script>
-        </section>
-
-        <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
-          <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
-          <figure class="game-explainer-photo">
-            <figcaption class="game-explainer-overlay">
-              <div class="game-explainer-grid">
-                <div class="game-explainer-left">
-                  <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a chaotic strategy card game</span> where you draft your own countryball team, build an economy with abilities and projects, then unleash ridiculous combos.</div>
-                  <ul class="game-explainer-bullets" aria-label="Game highlights">
-                    <li><span><strong>Draft a squad that clicks:</strong> Pick countryballs that work well together. Some hit hard, others defend or support.</span></li>
-                    <li><span><strong>Plan your moves:</strong> Spend coins, manage resources, and choose the right moment to strike.</span></li>
-                    <li><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> countries, with even more in the Extended Edition.</span></li>
-                    <li><span><span class="game-highlight">1v1</span> <strong>and</strong> <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
-                  </ul>
-                </div>
-
-                <aside class="game-crash-course" aria-label="Rules crash course">
-                  <h4 class="crash-course-title"><span>Crash</span> Course</h4>
-                  <div class="crash-grid" aria-label="Quick rules overview">
-                    <div class="crash-card">
-                      <h4><img class="crash-icon" src="icons/card.png" alt="" aria-hidden="true" loading="lazy" decoding="async">1. Setup</h4>
-                      <p>Draft <strong>3 countryballs</strong> each. Set the market with resource dice, then decide who starts.</p>
-                    </div>
-                    <div class="crash-card">
-                      <h4><img class="crash-icon" src="icons/dice.png" alt="" aria-hidden="true" loading="lazy" decoding="async">2. Your Turn</h4>
-                      <p>Gain <strong>coins</strong>: 10 on your first turn, then 5 each turn after. Buy or sell resources, pay costs to use abilities, then attack.</p>
-                    </div>
-                    <div class="crash-card">
-                      <h4><img class="crash-icon" src="icons/damage_token.png" alt="" aria-hidden="true" loading="lazy" decoding="async">3. Abilities</h4>
-                      <p>Some abilities require a die roll. Meet or beat the number shown to succeed. Successful attacks deal <strong>damage</strong>.</p>
-                    </div>
-                    <div class="crash-card">
-                      <h4><img class="crash-icon" src="icons/crown.png" alt="" aria-hidden="true" loading="lazy" decoding="async">4. Win</h4>
-                      <p>Eliminate enemy countryballs by dealing damage. Each countryball has <strong>3 hit points</strong>. <strong>Last player standing wins.</strong></p>
-                    </div>
-                  </div>
-                  <div class="game-crash-course-link">
-                    <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download Full Rules PDF</a>
-                  </div>
-                </aside>
-              </div>
-            </figcaption>
-            <picture class="gameplay-picture">
-              <source type="image/avif" srcset="assets/gameplay-720.avif 720w, assets/gameplay-1080.avif 1080w, assets/gameplay-1440.avif 1440w, assets/gameplay-1920.avif 1920w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
-              <source type="image/webp" srcset="assets/gameplay-480.webp 480w, assets/gameplay-720.webp 720w, assets/gameplay-1080.webp 1080w, assets/gameplay-1440.webp 1440w, assets/gameplay-1920.webp 1920w, assets/gameplay.webp 3840w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
-              <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
-            </picture>
-          </figure>
         </section>
 
         <a href="#editionComparison" class="post-carousel-hint" aria-label="See editions and buy" onclick="if(typeof trackStoreClick==='function')trackStoreClick('post_carousel_scroll_hint');">
@@ -1314,7 +1322,7 @@
             <div class="status-banner-inner">
               <div class="status-copy">
                 <h3 class="status-title"><span class="launch-label">Available now!</span> LIMITED-TIME 20% OFF!</h3>
-                <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Countryball Cards is officially out! The first copies are going out right now. Order today, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and get your Countryball Cards in 2-10 days!</p>
+                <p class="status-subtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Order today, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and get your Countryball Cards in 2-10 days!</p>
               </div>
               <img src="poland_happy.png" alt="" class="launch-mascot" aria-hidden="true" loading="lazy">
             </div>
@@ -1496,7 +1504,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Shipping is a flat $5.40 to all supported countries.</p>
+              <p>Shipping is a flat $5.40 to all supported countries. This is a DDP (Delivered Duty Paid) shipment, so all import fees and duties are already included &mdash; there's nothing extra to pay on delivery.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1533,18 +1541,6 @@
             </button>
             <div class="faq-answer" hidden>
               <p>You can join the Discord for real-time news, or subscribe to our Email Newsletter for release and delivery updates.</p>
-            </div>
-          </li>
-          <li class="faq-item">
-            <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-inner">
-                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                <span class="faq-question-text">Can I cancel or change my order?</span>
-              </span>
-              <span class="faq-toggle" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" hidden>
-              <p>Yes. You can request a refund any time before we ship. If you need to change your order details, email us at info@countryballcards.com and we'll help. We answer all queries within 24 hours except weekends and holidays.</p>
             </div>
           </li>
           <li class="faq-item">

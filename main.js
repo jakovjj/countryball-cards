@@ -466,12 +466,22 @@ function initCardPeekCarousel() {
     return Math.round(card.offsetLeft - centerInset);
   }
 
+  function startingCard() {
+    const cards = visibleCards();
+    if (!cards.length) {
+      return null;
+    }
+    // On narrow phones only ~1 card fits, so centering the very first card leaves
+    // an empty gap beside it. Start on the 2nd card instead so the 1st still peeks in.
+    const isMobile = window.matchMedia && window.matchMedia('(max-width: 600px)').matches;
+    return (isMobile && cards[1]) ? cards[1] : cards[0];
+  }
+
   function startLoopAtCard(attempt) {
     attempt = attempt || 0;
-    const metrics = loopMetrics();
-    if (!metrics || metrics.width <= 0) {
-      // Layout not ready yet (common in Instagram/Facebook in-app browsers).
-      // Retry with increasing delays so the "before" clones are correctly accounted for.
+    const card = startingCard();
+    if (!card || !card.offsetWidth) {
+      // Layout not ready yet (common in Instagram/Facebook in-app browsers). Retry.
       if (attempt < 8) {
         const delay = attempt < 3 ? 0 : (attempt < 6 ? 50 : 150);
         if (delay === 0) {
@@ -483,13 +493,7 @@ function initCardPeekCarousel() {
       return;
     }
 
-    const targetCard = visibleCards().find(card => {
-      const image = card.matches?.('img.card-peek-image') ? card : card.querySelector?.('img.card-peek-image');
-      const source = image?.dataset?.fullSrc || image?.getAttribute('src') || '';
-      return /hungary\.webp(?:$|\?)/.test(source);
-    });
-
-    setScrollLeftInstantly(targetCard ? centeredScrollLeft(targetCard) : Math.round(metrics.start));
+    setScrollLeftInstantly(centeredScrollLeft(card));
     normalizeLoopPosition();
   }
 
@@ -1358,71 +1362,12 @@ function runAfterFirstPaint(fn) {
   }
 }
 
-function initScrollSpawnAnimations() {
-  if (window.__scrollSpawnInitialized) {
-    return;
-  }
-  window.__scrollSpawnInitialized = true;
-
-  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const sectionSelector = [
-    '.logo-section',
-    '.card-peek-section',
-    '.packages-comparison',
-    '.email-updates-section',
-    '.faq-section',
-    'body > .hero-video.hero-video-cta'
-  ].join(',');
-
-  const sections = Array.from(document.querySelectorAll(sectionSelector));
-
-  sections.forEach(section => {
-    section.classList.add('scroll-spawn-section');
-    section.dataset.spawnAnim = section.matches('.logo-section') ? 'fade' : 'rise';
-    section.style.setProperty('--spawn-delay', '0ms');
-  });
-
-  const reveal = element => {
-    element.classList.add('is-visible');
-  };
-
-  if (reduceMotion || !('IntersectionObserver' in window)) {
-    sections.forEach(reveal);
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) {
-        return;
-      }
-      reveal(entry.target);
-      currentObserver.unobserve(entry.target);
-    });
-  }, {
-    rootMargin: '0px 0px -12% 0px',
-    threshold: 0.12
-  });
-
-  sections.forEach(element => {
-    const rect = element.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
-      reveal(element);
-      return;
-    }
-    observer.observe(element);
-  });
-}
-
-initScrollSpawnAnimations();
-
 runAfterFirstPaint(() => {
   try {
     initializeCarousel();
     updateCarousel();
     startAutoScroll();
     initializeImageQuality();
-    initScrollSpawnAnimations();
     if (supports3DTilt) {
       init3DCardEffects();
     }
@@ -1686,108 +1631,6 @@ function trackKickstarterClick(source) {
       content_ids: ['kickstarter_campaign'],
       content_type: 'campaign',
       source: source
-    });
-  }
-}
-
-// ===== BOTTOM POPUP FUNCTIONALITY =====
-function showBottomPopup() {
-  const popup = document.getElementById('bottomPopup');
-  if (!popup) {
-    console.log('Bottom popup element not found');
-    return;
-  }
-  
-  // Check if user has already dismissed or signed up
-  const dismissed = localStorage.getItem('bottom_popup_dismissed');
-  const emails = JSON.parse(localStorage.getItem('countryball_emails') || '[]');
-  
-  console.log('Bottom popup check:', { dismissed, emailCount: emails.length });
-  
-  if (dismissed || emails.length > 0) {
-    console.log('Bottom popup blocked - user already dismissed or signed up');
-    return;
-  }
-  
-  console.log('Showing bottom popup');
-  popup.hidden = false;
-  popup.classList.add('show');
-  
-  // Track popup show
-  trackBottomPopupShow();
-}
-
-function dismissBottomPopup() {
-  const popup = document.getElementById('bottomPopup');
-  if (!popup) return;
-  
-  popup.classList.add('hide');
-  setTimeout(() => {
-    popup.hidden = true;
-    popup.classList.remove('show', 'hide');
-  }, 300);
-  
-  // Remember that user dismissed it
-  localStorage.setItem('bottom_popup_dismissed', 'true');
-}
-
-// Debug function to reset popup state (for testing)
-function resetBottomPopup() {
-  localStorage.removeItem('bottom_popup_dismissed');
-  localStorage.removeItem('countryball_emails');
-  console.log('Bottom popup state reset - refresh page to test');
-}
-
-// Make reset function available globally for testing
-window.resetBottomPopup = resetBottomPopup;
-
-// Show bottom popup after user has been on page for 10 seconds
-setTimeout(() => {
-  // Only show if user hasn't scrolled much (still at top)
-  if (window.pageYOffset < 200) {
-    showBottomPopup();
-  }
-}, 10000);
-
-// Show bottom popup when user scrolls to 70% of page
-function checkScrollForPopup() {
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = (scrollTop / documentHeight) * 100;
-  
-  if (scrollPercent >= 70) {
-    showBottomPopup();
-    window.removeEventListener('scroll', checkScrollForPopup);
-  }
-}
-
-window.addEventListener('scroll', checkScrollForPopup, { passive: true });
-
-function trackBottomPopupShow() {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'bottom_popup_shown', {
-      event_category: 'engagement',
-      event_label: 'email_signup_popup',
-      value: 1
-    });
-    
-    // Additional GA4 event for popup frequency tracking
-    gtag('event', 'popup_display', {
-      event_category: 'conversion_funnel',
-      event_label: 'bottom_email_popup',
-      popup_type: 'bottom_signup',
-      popup_trigger: 'timer_or_scroll',
-      value: 1
-    });
-  }
-}
-
-function trackBottomPopupClick(action) {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'bottom_popup_clicked', {
-      event_category: 'engagement',
-      event_label: action,
-      value: 1
     });
   }
 }
