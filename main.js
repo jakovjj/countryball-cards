@@ -470,12 +470,10 @@ function initCardPeekCarousel() {
   }
 
   function minScrollLeft() {
-    // Never let the first card sit fully centered/alone (that leaves the 2nd
-    // card barely peeking). The left-most stop is the 2nd card centered, so
-    // the 1st card still peeks in and the deck reads as "all cards in frame".
+    // The left-most stop is the 1st card centered, so users can always
+    // scroll all the way back to see the very first card in the deck.
     const cards = visibleCards();
-    const boundaryCard = cards.length > 1 ? cards[1] : cards[0];
-    return Math.max(0, centeredScrollLeft(boundaryCard));
+    return Math.max(0, centeredScrollLeft(cards[0]));
   }
 
   function startingCard() {
