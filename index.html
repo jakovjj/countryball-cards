@@ -244,15 +244,6 @@
     window.fbq = window.fbq || function(){ (window.fbq.queue = window.fbq.queue || []).push(arguments); };
     window.rdt = window.rdt || function(){ (window.rdt.callQueue = window.rdt.callQueue || []).push(arguments); };
   </script>
-  <script>
-    (function() {
-      try {
-        if (window.localStorage && localStorage.getItem('launchOfferDismissed') === '1') {
-          document.documentElement.classList.add('launch-offer-dismissed');
-        }
-      } catch (error) {}
-    })();
-  </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=659591973725729&ev=PageView&noscript=1" /></noscript>
   
   <!-- Critical CSS (above-the-fold) -->
@@ -263,7 +254,7 @@
     :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;--bg-grad-1:#0f1419;--bg-grad-2:#1e293b;--bg-grad-3:#334155;color-scheme:dark}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
     *{box-sizing:border-box;max-width:100%}
-    body{margin:0;padding-bottom:92px;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
+    body{margin:0;padding-bottom:0;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
     
     /* Background overlay patterns */
     body::before {
@@ -989,23 +980,8 @@
     .rules-frame{width:100%;height:720px;border:none;display:block;background:#060910}
     .rules-viewer-note{margin:16px 0 0;font-size:13px;color:var(--muted)}
     .rules-viewer-note a{color:var(--gold)}
-    html.launch-offer-dismissed body{padding-bottom:0}
-    html.launch-offer-dismissed .launch-offer-banner{display:none}
-    .launch-offer-banner[hidden]{display:none}
-    .launch-offer-banner{position:fixed;left:0;right:0;bottom:0;z-index:190;padding:9px 44px 9px 14px;background:rgba(7,10,18,0.94);border-top:1px solid rgba(251,191,36,0.36);box-shadow:0 -12px 28px rgba(0,0,0,0.34);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-    .launch-offer-link{display:flex;align-items:center;justify-content:center;width:min(980px,100%);min-height:36px;margin:0 auto;color:var(--text);text-decoration:none}
-    .launch-offer-copy{display:flex;align-items:center;gap:8px;min-width:0;text-align:left;font-size:13px;line-height:1.25;color:rgba(249,250,251,0.84);white-space:nowrap}
-    .launch-offer-title{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:14px;line-height:1.2;font-weight:900;letter-spacing:0.1px;white-space:nowrap}
-    .launch-offer-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;color:var(--gold)}
-    .launch-offer-icon svg{width:16px;height:16px}
-    .launch-offer-detail{color:rgba(249,250,251,0.84);font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis}
-    .launch-offer-link:hover .launch-offer-title{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-    .launch-offer-close{position:absolute;right:11px;top:50%;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border:0;border-radius:8px;background:transparent;color:rgba(249,250,251,0.62);cursor:pointer;transform:translateY(-50%);transition:background 0.2s ease,color 0.2s ease}
-    .launch-offer-close:hover,.launch-offer-close:focus-visible{background:rgba(255,255,255,0.08);color:var(--text)}
-    .launch-offer-close svg{width:15px;height:15px}
-
     @media(max-width:768px){
-      body{padding-bottom:128px}
+      body{padding-bottom:0}
       .video-container{max-width:100%}
       .packages-hero .sub{font-size:16px}
       .packages-comparison-title{font-size:24px}
@@ -1046,13 +1022,6 @@
       .packages-comparison .how-step-header{padding-top:6px}
       .packages-comparison .how-step p{font-size:11px;margin-top:2px}
       .preorder-save-tag{margin:0 auto 14px!important;font-size:13px!important}
-      .launch-offer-banner{padding:8px 40px 8px 12px}
-      .launch-offer-link{justify-content:flex-start;min-height:42px;margin:0}
-      .launch-offer-copy{gap:6px;font-size:12px;line-height:1.25}
-      .launch-offer-title{font-size:13px}
-      .launch-offer-icon svg{width:15px;height:15px}
-      .launch-offer-detail{font-size:11px;line-height:1.25}
-      .launch-offer-close{right:7px;width:28px;height:28px}
     }
     @media(max-width:600px){
       .faq-section{margin:24px 0}
@@ -1713,31 +1682,6 @@
     </div>
   </footer>
 
-  <aside class="launch-offer-banner" aria-label="Limited launch offer">
-    <a class="launch-offer-link" href="#editionComparison" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('launch_offer_banner');">
-      <span class="launch-offer-copy">
-        <strong class="launch-offer-title">
-          <span class="launch-offer-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-              <path d="M20.59 13.41 13.41 20.59a2 2 0 0 1-2.82 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/>
-              <circle cx="7" cy="7" r="1.4"/>
-              <path d="M9 15 15 9"/>
-              <path d="M9.5 9.5h.01"/>
-              <path d="M14.5 14.5h.01"/>
-            </svg>
-          </span>
-          Order &amp; save 20%
-        </strong>
-        <span class="launch-offer-detail">Launch price during the direct release.</span>
-      </span>
-    </a>
-    <button class="launch-offer-close" type="button" id="launchOfferClose" aria-label="Close launch offer">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" focusable="false">
-        <path d="M6 6l12 12M18 6 6 18"/>
-      </svg>
-    </button>
-  </aside>
-
   <!-- Card Viewer Modal -->
 
 
@@ -1826,23 +1770,6 @@
   <script src="main.js?v=2026062901" defer></script>
 
   <script>
-    (function() {
-      const banner = document.querySelector('.launch-offer-banner');
-      const closeBtn = document.getElementById('launchOfferClose');
-      if (!banner || !closeBtn) return;
-
-      closeBtn.addEventListener('click', function() {
-        banner.hidden = true;
-        document.documentElement.classList.add('launch-offer-dismissed');
-        try {
-          localStorage.setItem('launchOfferDismissed', '1');
-        } catch (error) {}
-        if (typeof trackStoreClick === 'function') {
-          trackStoreClick('launch_offer_dismissed');
-        }
-      });
-    })();
-
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
     (function() {
       const targets = Array.from(document.querySelectorAll('[data-scroll-gradient]'));
