@@ -254,8 +254,9 @@
     :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;--bg-grad-1:#0f1419;--bg-grad-2:#1e293b;--bg-grad-3:#334155;color-scheme:dark}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
     *{box-sizing:border-box;max-width:100%}
-    body{margin:0;padding-bottom:0;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
-    
+    body{margin:0;padding-bottom:0;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease;user-select:none;-webkit-user-select:none}
+    input,textarea{user-select:text;-webkit-user-select:text}
+
     /* Background overlay patterns */
     body::before {
       content: '';
