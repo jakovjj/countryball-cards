@@ -4,7 +4,7 @@
   <title>Purchase Successful | Countryball Cards</title>
   <link rel="canonical" href="https://countryballcards.com/success.html" />
   <meta name="title" content="Purchase Successful | Countryball Cards" />
-  <meta name="description" content="Thanks for your purchase! Join our Discord for fast updates or sign up for email milestones." />
+  <meta name="description" content="Thanks for your purchase! You'll get a confirmation email soon. Join our Discord for updates and support." />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Countryball Cards">
   <meta name="format-detection" content="telephone=no, email=no">
@@ -27,7 +27,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://countryballcards.com/success.html">
   <meta property="og:title" content="Purchase Successful | Countryball Cards">
-  <meta property="og:description" content="Thanks for your purchase! Join our Discord for fast updates or sign up for email milestones.">
+  <meta property="og:description" content="Thanks for your purchase! You'll get a confirmation email soon. Join our Discord for updates and support.">
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Countryball Cards">
 
@@ -35,7 +35,7 @@
   <meta property="twitter:card" content="summary">
   <meta property="twitter:url" content="https://countryballcards.com/success.html">
   <meta property="twitter:title" content="Purchase Successful | Countryball Cards">
-  <meta property="twitter:description" content="Thanks for your purchase! Join our Discord for fast updates or sign up for email milestones.">
+  <meta property="twitter:description" content="Thanks for your purchase! You'll get a confirmation email soon. Join our Discord for updates and support.">
 
   <!-- Performance hints for critical resources -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -127,7 +127,11 @@
     @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
     h1{font-size:clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
     .logo-section{display:flex;justify-content:center;text-align:center;margin-bottom:0;position:relative;align-items:center;flex-direction:column;padding:16px 0 28px;z-index:1;overflow-x:hidden;overflow-y:visible;contain:paint}
-    .logo-section::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100vw);max-width:100%;background:url('assets/background.webp') center top/cover no-repeat;opacity:0.40;filter:blur(0.5px);pointer-events:none;z-index:0;border-radius:28px;-webkit-mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);mask-image:radial-gradient(closest-side, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:100% 100%;mask-size:100% 100%}
+    .logo-section::before{content:'';position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100vw);max-width:100%;background:
+      radial-gradient(circle at 50% 45%, rgba(5,206,120,0.28) 0%, rgba(16,185,129,0.14) 42%, transparent 72%),
+      radial-gradient(circle at 32% 30%, rgba(251,191,36,0.08) 0%, transparent 45%),
+      radial-gradient(circle at 68% 62%, rgba(34,197,94,0.10) 0%, transparent 48%);
+      pointer-events:none;z-index:0;border-radius:28px}
     .logo{height:clamp(220px, 32vw, 340px);width:auto;margin:8px auto 6px;display:block;filter:none;transition:none;position:relative;z-index:1}
     /* Success page does not show the Buy Now CTA */
     .cta,.cta-section{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:32px 0}
@@ -307,7 +311,7 @@
 
         <div class="packages-bottom-cta" aria-label="Next steps">
           <h3>What’s next?</h3>
-          <p style="color:var(--muted);margin-bottom:24px">Join Discord for the fastest updates + support, or get email milestones for production and shipping.</p>
+          <p style="color:var(--muted);margin-bottom:24px">You&rsquo;ll get a confirmation email soon. In the meantime, join Discord for the fastest updates + support.</p>
           <div class="packages-support-actions">
             <a class="btn discord-btn" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
               <span class="btn-row">
@@ -315,14 +319,6 @@
                 <span class="btn-label">Join Discord</span>
               </span>
             </a>
-            <button type="button" class="btn secondary" onclick="showEmailModal();">
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-                <span class="btn-label">Get Email Updates</span>
-              </span>
-            </button>
           </div>
           <p style="color:var(--muted);margin-top:18px;font-size:14px">Need help? <a href="mailto:info@countryballcards.com" style="color:var(--gold)">Email support</a>.</p>
         </div>
@@ -337,25 +333,13 @@
     <div class="site-footer-inner">
       <div class="site-footer-top">
         <div>
-          <p class="site-footer-title">Glare Studios, LLC</p>
+          <div class="site-footer-brand">
+            <img src="assets/glare-56.webp" alt="" aria-hidden="true" class="site-footer-logo" width="56" height="56" loading="lazy" decoding="async">
+            <p class="site-footer-title">Glare Studios, LLC</p>
+          </div>
           <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Reach out any time. We typically respond within 24 hours.</p>
         </div>
 
-        <div class="site-footer-cta" aria-label="Email updates">
-          <strong>Email updates</strong>
-          <p>Get occasional product milestones and progress updates. No spam.</p>
-          <div class="site-footer-cta-row">
-            <button type="button" class="btn secondary" onclick="if (typeof showEmailModal==='function'){showEmailModal();} else if (typeof openEmailModal==='function'){openEmailModal();} else {window.location.href='join.html';} if (typeof trackBottomEmailClick==='function'){trackBottomEmailClick();}">
-              <span class="btn-row">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
-                </svg>
-                <span class="btn-label">Get Email Updates</span>
-              </span>
-            </button>
-          </div>
-          <div class="site-footer-cta-note">Unsubscribe anytime. See our <a href="privacy-policy.html">Privacy Policy</a>.</div>
-        </div>
       </div>
 
       <div class="site-footer-grid">
@@ -396,6 +380,10 @@
               <img src="assets/reddit.png" alt="" loading="lazy" decoding="async">
               <span>Reddit</span>
             </a>
+            <a href="https://www.instagram.com/countryball_cards" target="_blank" rel="noopener">
+              <img src="assets/instagram.png" alt="" loading="lazy" decoding="async">
+              <span>Instagram</span>
+            </a>
           </div>
         </div>
 
@@ -409,52 +397,11 @@
       </div>
 
       <div class="site-footer-bottom">
-        <span>© 2025 Glare Studios, LLC</span>
-        <span>Need help? <a href="mailto:info@countryballcards.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>. Payments accepted: Cards, Apple Pay, Google Pay, Amazon Pay, Cash App Pay, Link, Samsung Pay.</span>
+        <span>© 2025–2026 Glare Studios, LLC</span>
+        <span>Need help? <a href="mailto:info@countryballcards.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
       </div>
     </div>
   </footer>
-
-  <!-- Email Signup Modal (same markup as index.html; source/redirect tailored) -->
-  <div class="modal-overlay" id="emailOverlay" hidden aria-hidden="true">
-    <div class="modal email-modal" role="dialog" aria-modal="true" aria-labelledby="emailModalTitle" tabindex="-1">
-      <header>
-        <h2 id="emailModalTitle">📧 Get Updates</h2>
-        <button class="modal-close" type="button" id="emailCloseBtn" aria-label="Close email signup">✕</button>
-      </header>
-      <div class="email-modal-content">
-        <p>Sign up for the Countryball Cards Newsletter!</p>
-
-        <div class="email-benefits">
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            <span>Game updates and community news</span>
-          </div>
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            <span>No spam, unsubscribe anytime</span>
-          </div>
-        </div>
-
-        <form id="emailForm" class="email-form" action="https://admin.countryballcards.com/countryball_cards/backend/subscribe.php" method="POST">
-          <div class="form-group">
-            <label for="emailInput" class="visually-hidden">Email address</label>
-            <input type="email" id="emailInput" name="email" placeholder="📧 Your Email address" required autocomplete="email" class="email-input">
-            <input type="hidden" name="source" value="purchase_success">
-            <input type="hidden" name="redirect_url" value="https://countryballcards.com/success.html">
-            <button type="submit" class="email-submit-btn" id="emailSubmitBtn">
-              <span class="submit-text">Get Updates</span>
-              <svg class="submit-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/></svg>
-            </button>
-          </div>
-          <div class="form-message" id="formMessage"></div>
-        </form>
-      </div>
-      <footer class="email-modal-footer">
-        <span class="privacy-text">We respect your privacy. See our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.</span>
-      </footer>
-    </div>
-  </div>
 
   <!-- Support / Help Modal (same as index.html) -->
   <div class="modal-overlay" id="supportOverlay" hidden aria-hidden="true">
@@ -550,29 +497,6 @@
       }
     }
 
-    function trackEmailSignup() {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'email_signup_clicked', {
-          event_category: 'conversion',
-          event_label: 'success_page',
-          value: 1
-        });
-      }
-    }
-
-    function trackBottomEmailClick() {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'bottom_email_cta_clicked', {
-          event_category: 'conversion',
-          event_label: 'success_page_footer',
-          value: 1
-        });
-      }
-      if (typeof rdt !== 'undefined') {
-        rdt('track', 'Lead');
-      }
-    }
-
     // Support modal wiring (copied from index.html)
     (function() {
       const helpBtn = document.getElementById('supportHelpBtn');
@@ -617,132 +541,6 @@
         }
       });
     })();
-
-    // Email modal (safe standalone implementation; avoids requiring main.js)
-    function ensureEmailModalHandlers() {
-      if (window.__cbcEmailModalReady) return;
-      window.__cbcEmailModalReady = true;
-
-      const overlay = document.getElementById('emailOverlay');
-      const closeBtn = document.getElementById('emailCloseBtn');
-      const emailForm = document.getElementById('emailForm');
-      const emailInput = document.getElementById('emailInput');
-      const submitBtn = document.getElementById('emailSubmitBtn');
-      const formMessage = document.getElementById('formMessage');
-
-      if (!overlay || !emailForm || !emailInput || !submitBtn || !formMessage) {
-        return;
-      }
-
-      let lastFocus = null;
-
-      function close() {
-        overlay.hidden = true;
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        emailForm.reset();
-        formMessage.className = 'form-message';
-        formMessage.textContent = '';
-        submitBtn.className = 'email-submit-btn';
-        submitBtn.disabled = false;
-        if (lastFocus && typeof lastFocus.focus === 'function') {
-          lastFocus.focus();
-        }
-      }
-
-      function onOverlayClick(e) {
-        if (e.target === overlay) close();
-      }
-
-      function onKeyDown(e) {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          close();
-        }
-      }
-
-      function validateEmail(email) {
-        if (!email) return false;
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email) && email.length >= 5 && email.length <= 254;
-      }
-
-      function showMessage(message, type) {
-        formMessage.className = `form-message ${type}`;
-        formMessage.textContent = message;
-      }
-
-      function handleSubmit(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const email = emailInput.value.trim();
-        if (!email) {
-          showMessage('Please enter your email address.', 'error');
-          emailInput.focus();
-          return false;
-        }
-        if (!validateEmail(email)) {
-          showMessage('Please enter a valid email address.', 'error');
-          emailInput.focus();
-          return false;
-        }
-
-        submitBtn.disabled = true;
-        showMessage('Sending...', 'info');
-
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.name = 'successEmailSubmissionFrame';
-        document.body.appendChild(iframe);
-
-        emailForm.target = 'successEmailSubmissionFrame';
-        emailForm.submit();
-
-        setTimeout(function(){
-          showMessage('✓ Success! You\'re subscribed.', 'success');
-          emailInput.value = '';
-          submitBtn.classList.add('success');
-
-          if (typeof gtag !== 'undefined') {
-            gtag('event', 'email_signup', {
-              event_category: 'conversion',
-              event_label: 'purchase_success',
-              value: 1
-            });
-          }
-
-          setTimeout(function(){
-            if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-            close();
-          }, 2000);
-        }, 1500);
-
-        return false;
-      }
-
-      overlay.addEventListener('click', onOverlayClick);
-      document.addEventListener('keydown', onKeyDown);
-      closeBtn.addEventListener('click', function(){ close(); });
-      emailForm.addEventListener('submit', handleSubmit);
-
-      window.__cbcCloseEmailModal = close;
-      window.__cbcEmailModalOpen = function(){
-        lastFocus = document.activeElement;
-        overlay.hidden = false;
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        trackEmailSignup();
-        setTimeout(function(){ emailInput.focus(); }, 100);
-      };
-    }
-
-    function showEmailModal() {
-      ensureEmailModalHandlers();
-      if (typeof window.__cbcEmailModalOpen === 'function') {
-        window.__cbcEmailModalOpen();
-      }
-    }
 
     function parsePurchaseParams() {
       try {
