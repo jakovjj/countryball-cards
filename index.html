@@ -116,7 +116,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026070217" />
+  <link rel="preload" as="style" href="styles.css?v=2026070218" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -980,8 +980,9 @@
     .packages-support-actions > a.btn,
     .packages-support-actions > button.btn{flex:1 1 240px;max-width:360px}
     .discord-btn-icon{width:22px;height:22px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2))}
-    .more-info-section{margin:48px 0;padding:0}
-    .more-info-section img{display:block;width:100%;max-width:980px;height:auto;border-radius:14px;margin:0 auto}
+    .more-info-section{margin:48px 0;padding:0;text-align:center}
+    .more-info-section picture{display:block;max-width:980px;margin:0 auto}
+    .more-info-section img{display:block;width:100%;height:auto;border-radius:14px;margin:0 auto}
     .faq-section{margin:48px 0;padding:0}
     .faq-section h2{margin:0;font-size:30px;color:var(--text)}
     .faq-intro{margin:8px 0 0;color:var(--muted)}
@@ -1057,16 +1058,16 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026070217" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026070218" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026070217">
+    <link rel="stylesheet" href="styles.css?v=2026070218">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026070202" as="script">
-  <link rel="prefetch" href="analytics.js?v=2026052406" as="script">
+  <link rel="preload" href="main.js?v=2026070218" as="script">
+  <link rel="prefetch" href="analytics.js?v=2026070218" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
 
@@ -1764,8 +1765,8 @@
     </div>
   </div>
 
-  <script src="analytics.js?v=2026052406" defer></script>
-  <script src="main.js?v=2026070202" defer></script>
+  <script src="analytics.js?v=2026070218" defer></script>
+  <script src="main.js?v=2026070218" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -2027,7 +2028,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js?v=2026052406';
+        perfScript.src = 'performance-optimized.js?v=2026070218';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }
@@ -2072,7 +2073,7 @@
   <script>
     (function() {
       let storeLoadPromise = null;
-      const STORE_SCRIPT_URL = 'store.js?v=2026040701';
+      const STORE_SCRIPT_URL = 'store.js?v=2026070218';
       const STORE_SCRIPT_ID = 'cbc-store-script';
 
       function loadStoreScript() {
