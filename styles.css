@@ -4,7 +4,7 @@
 @property --bg-grad-2 { syntax: '<color>'; inherits: true; initial-value: #1e293b; }
 @property --bg-grad-3 { syntax: '<color>'; inherits: true; initial-value: #334155; }
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;overflow-x:hidden;overflow-x:clip;width:100%;max-width:100%;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
-*{box-sizing:border-box;max-width:100%}
+*{box-sizing:border-box;max-width:100%;-webkit-tap-highlight-color:transparent}
 body{margin:0;padding-bottom:0;min-height:100dvh;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;overflow-x:clip;position:relative;width:100%;max-width:100%;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease;user-select:none;-webkit-user-select:none}
 input,textarea{user-select:text;-webkit-user-select:text}
 
@@ -1214,6 +1214,7 @@ font-size:16px}
 }
 .footer-email-input{
   flex: 1;
+  min-width: 0;
   padding: 11px 14px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.18);
@@ -1251,6 +1252,7 @@ font-size:16px}
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
+  flex-shrink: 0;
   transition: background 0.2s, color 0.2s;
 }
 .footer-submit-icon{
@@ -2136,13 +2138,14 @@ font-size:16px}
   }
 }
 .game-crash-course-link{margin-top:12px;padding-top:0;display:block}
+.gameplay-picture-mobile{display:none}
 @media(max-width:600px){
   #gameExplainerTitle{font-size:22px;margin-bottom:10px}
   .game-explainer{margin:20px 0 8px}
   .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;aspect-ratio:auto;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
-  .game-explainer-photo > img,.game-explainer-photo > picture{order:2;width:100%;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px);transform:none}
-  .game-explainer-photo > picture{display:block;overflow:hidden}
-  .game-explainer-photo > picture > img{display:block;width:100%;height:auto;object-fit:contain;transform:none}
+  .game-explainer-photo > picture.gameplay-picture{display:none}
+  .gameplay-picture-mobile{display:block;width:100%;overflow:hidden;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22)}
+  .gameplay-picture-mobile img{display:block;width:100%;height:auto;object-fit:contain}
   .gameplay-mobile-zoom{cursor:zoom-in;-webkit-tap-highlight-color:rgba(251,191,36,0.18)}
   .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
   .game-explainer-grid{gap:10px}
@@ -2295,9 +2298,9 @@ font-size:16px}
   .faq-question-text{font-size:12px}
 }
 
-.card-peek-section{--card-peek-width:min(220px,30vw);margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none;user-select:none;-webkit-user-select:none}
+.card-peek-section{--card-peek-width:min(195px,26vw);margin:20px auto 8px;padding:14px;border-radius:18px;background:transparent;border:none;user-select:none;-webkit-user-select:none}
 .card-peek-carousel{position:relative;display:block}
-.card-peek-window{position:relative;z-index:1;width:100%;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;scrollbar-width:none;padding:0 12px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.card-peek-window{position:relative;z-index:1;width:100%;overflow-x:auto;overflow-y:visible;scroll-behavior:smooth;scrollbar-width:none;padding:0 12px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-overflow-scrolling:touch;will-change:scroll-position}
 .card-peek-window.is-pointer-down{cursor:grabbing}
 .card-peek-window::-webkit-scrollbar{display:none}
 .card-peek-track{display:flex;flex-wrap:nowrap;align-items:center;gap:18px;width:max-content;user-select:none;-webkit-user-select:none}
@@ -2326,13 +2329,13 @@ font-size:16px}
 @keyframes inspect-bg-pulse{0%,100%{opacity:0.4;transform:scale(1.02);filter:blur(12px) saturate(1.12) brightness(1.04)}50%{opacity:0.56;transform:scale(1.1);filter:blur(16px) saturate(1.24) brightness(1.12)}}
 @keyframes inspect-card-in{0%{opacity:0;transform:translateY(18px) scale(0.94) rotate(calc(var(--card-zoom-tilt, -2deg) * 0.45));filter:blur(2px) brightness(1.12)}58%{opacity:1;transform:translateY(-4px) scale(1.018) rotate(var(--card-zoom-tilt, -2deg));filter:blur(0) brightness(1.04)}100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--card-zoom-tilt, -2deg));filter:none}}
 @media(max-width:600px){
-  .card-peek-section{--card-peek-width:clamp(136px,44vw,184px);margin:18px auto 24px;padding:8px 0 16px;overflow:hidden}
+  .card-peek-section{--card-peek-width:clamp(122px,40vw,164px);margin:14px auto 4px;padding:6px 0 12px;overflow:hidden}
   .card-peek-track{gap:16px}
   .card-peek-card,
   .card-peek-image{width:var(--card-peek-width)}
   .card-peek-upsell{width:calc(var(--card-peek-width) * 1.25)}
   .project-card-stitch{right:-9%;bottom:3%;width:46%;border-radius:7px}
-  .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2));-webkit-overflow-scrolling:touch}
+  .card-peek-window{padding-inline:max(22px,calc((100% - var(--card-peek-width)) / 2))}
   .card-peek-initial-prev{left:max(22px,calc((100% - var(--card-peek-width)) / 2));transform:translateX(calc(-100% - 16px))}
   .card-peek-nav{width:36px;height:48px;border-radius:999px;font-size:28px;opacity:0.9;background:rgba(10,13,22,0.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
   #cardPeekPrev{left:4px}
@@ -2342,8 +2345,8 @@ font-size:16px}
 /* Card Peek — Extended Edition mystery card */
 .card-peek-upsell{display:block;background:transparent;border:none;overflow:visible;cursor:pointer;user-select:none;-webkit-user-select:none;position:relative;align-self:flex-start;width:calc(var(--card-peek-width) * 1.34);height:calc(var(--card-peek-width) * 1.5 + 34px);margin-left:clamp(34px,5.5vw,64px);transform:scale(0.95);transform-origin:bottom left}
 .card-peek-upsell:focus-visible{outline:2px solid #c084fc;outline-offset:4px;border-radius:8px}
-.card-peek-upsell-tag{position:absolute;z-index:11;top:auto;bottom:0;left:50%;transform:translateX(-50%);display:flex;align-items:center;white-space:nowrap;background:rgba(15,15,20,0.5);border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:6px 14px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.card-peek-upsell-tag-text{font-size:clamp(7px,1.7vw,9.5px);font-weight:800;text-transform:uppercase;letter-spacing:0.2px;line-height:1.2;white-space:nowrap;background:linear-gradient(100deg,#dcdcdc 0%,#ffffff 22%,#8f8f8f 45%,#ffffff 68%,#c4c4c4 85%,#ffffff 100%);background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.6));animation:silver-shimmer 5.5s linear infinite}
+.card-peek-upsell-tag{position:absolute;z-index:11;top:auto;bottom:0;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;box-sizing:border-box;max-width:calc(100% - 4px);background:rgba(15,15,20,0.5);border:1px solid rgba(255,255,255,0.25);border-radius:7px;padding:6px 10px;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.card-peek-upsell-tag-text{font-size:clamp(7px,1.7vw,9.5px);font-weight:800;text-transform:uppercase;letter-spacing:0.2px;line-height:1.2;white-space:normal;text-align:center;background:linear-gradient(100deg,#dcdcdc 0%,#ffffff 22%,#8f8f8f 45%,#ffffff 68%,#c4c4c4 85%,#ffffff 100%);background-size:250% auto;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.6));animation:silver-shimmer 5.5s linear infinite}
 @keyframes silver-shimmer{0%{background-position:0% center}100%{background-position:250% center}}
 .card-peek-upsell-badge{position:absolute;z-index:12;top:-12px;right:-16px;transform:rotate(10deg);width:clamp(58px,10vw,78px);height:auto;aspect-ratio:1/1;flex:0 0 auto;filter:drop-shadow(0 2px 5px rgba(0,0,0,.4))}
 .card-peek-upsell-fan-wrap{position:relative;width:100%;height:100%;overflow:visible}
@@ -2868,7 +2871,7 @@ a:focus-visible {
   flex-direction:column;
   align-items:center;
   gap:6px;
-  padding:20px 0 8px;
+  padding:6px 0 8px;
   text-decoration:none;
   color:inherit;
   cursor:pointer;

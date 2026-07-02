@@ -46,7 +46,7 @@
 
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/thanks.webp" fetchpriority="high" />
-  <link rel="preload" as="style" href="styles.css?v=2026062901" />
+  <link rel="preload" as="style" href="styles.css?v=2026070202" />
 
   <!-- Favicon / SERP icon -->
   <link rel="icon" href="/serp.ico" sizes="any">
@@ -78,7 +78,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
     :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;color-scheme:dark}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
-    *{box-sizing:border-box;max-width:100%}
+    *{box-sizing:border-box;max-width:100%;-webkit-tap-highlight-color:transparent}
     body{margin:0;min-height:100dvh;background:
       radial-gradient(circle at 18% 18%, rgba(5,206,120,0.18) 0%, transparent 55%),
       radial-gradient(circle at 82% 18%, rgba(16,185,129,0.14) 0%, transparent 58%),
@@ -178,8 +178,8 @@
   </style>
 
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026062901">
-  <noscript><link rel="stylesheet" href="styles.css?v=2026062901"></noscript>
+  <link rel="stylesheet" href="styles.css?v=2026070202">
+  <noscript><link rel="stylesheet" href="styles.css?v=2026070202"></noscript>
 
   <!-- Success page-only background overrides (must come AFTER styles.css to win on mobile) -->
   <style>

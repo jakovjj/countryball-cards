@@ -116,7 +116,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026070201" />
+  <link rel="preload" as="style" href="styles.css?v=2026070202" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -253,7 +253,7 @@
     @property --bg-grad-3 { syntax: '<color>'; inherits: true; initial-value: #334155; }
     :root{--bg:#0f1419;--card:#1a1f2e;--gold:#fbbf24;--text:#f9fafb;--muted:#9ca3af;--accent:#3b82f6;--kickstarter:#05ce78;--bg-grad-1:#0f1419;--bg-grad-2:#1e293b;--bg-grad-3:#334155;color-scheme:dark}
     html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;background:linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 25%, var(--bg-grad-3) 50%, var(--bg-grad-2) 75%, var(--bg-grad-1) 100%);background-attachment:fixed;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease}
-    *{box-sizing:border-box;max-width:100%}
+    *{box-sizing:border-box;max-width:100%;-webkit-tap-highlight-color:transparent}
     body{margin:0;padding-bottom:0;background:transparent;background-attachment:fixed;color:var(--text);font:16px/1.4 system-ui,Segoe UI,Inter,Arial;overflow-x:hidden;width:100%;max-width:100%;position:relative;transition:--bg-grad-1 800ms ease, --bg-grad-2 800ms ease, --bg-grad-3 800ms ease;user-select:none;-webkit-user-select:none}
     input,textarea{user-select:text;-webkit-user-select:text}
 
@@ -873,13 +873,14 @@
     .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
     .crash-card strong{color:var(--gold)}
     .game-crash-course-link{margin-top:12px;padding-top:0;display:block}
+    .gameplay-picture-mobile{display:none}
     @media(max-width:600px){
       #gameExplainerTitle{font-size:22px;margin-bottom:10px}
       .game-explainer{margin:20px 0 8px}
       .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;aspect-ratio:auto;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
-      .game-explainer-photo > img,.game-explainer-photo > picture{order:2;width:100%;min-height:0;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22);clip-path:inset(0 round 12px);transform:none}
-      .game-explainer-photo > picture{display:block;overflow:hidden}
-      .game-explainer-photo > picture > img{display:block;width:100%;height:auto;object-fit:contain;transform:none}
+      .game-explainer-photo > picture.gameplay-picture{display:none}
+      .gameplay-picture-mobile{display:block;width:100%;overflow:hidden;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22)}
+      .gameplay-picture-mobile img{display:block;width:100%;height:auto;object-fit:contain}
       .gameplay-mobile-zoom{cursor:zoom-in;-webkit-tap-highlight-color:rgba(251,191,36,0.18)}
       .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
@@ -902,7 +903,7 @@
     @media(min-width:900px){
       .contents-image{max-width:880px}
     }
-    .card-peek-section{--card-peek-width:min(220px,30vw);margin:28px auto 32px;padding:18px;border-radius:18px;background:transparent;border:none;user-select:none;-webkit-user-select:none}
+    .card-peek-section{--card-peek-width:min(220px,30vw);margin:28px auto 8px;padding:18px;border-radius:18px;background:transparent;border:none;user-select:none;-webkit-user-select:none}
     .card-peek-header{text-align:center;margin-bottom:16px}
     .card-peek-header h3{margin:0;font-size:24px;color:var(--text)}
     .card-peek-carousel{position:relative;display:block}
@@ -938,7 +939,7 @@
     #cardZoomClose:hover{background:rgba(255,255,255,0.22);transform:scale(1.08)}
     @media(max-width:600px){
       /* Larger centered cards on phones with side cards as clear previews */
-      .card-peek-section{--card-peek-width:clamp(136px,44vw,184px);margin:18px auto 24px;padding:8px 0 16px;overflow:hidden}
+      .card-peek-section{--card-peek-width:clamp(136px,44vw,184px);margin:18px auto 4px;padding:8px 0 16px;overflow:hidden}
       .card-peek-track{gap:16px}
       .card-peek-card,
       .card-peek-image{width:var(--card-peek-width)}
@@ -1041,15 +1042,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026070201" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026070202" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026070201">
+    <link rel="stylesheet" href="styles.css?v=2026070202">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026070200" as="script">
+  <link rel="preload" href="main.js?v=2026070202" as="script">
   <link rel="prefetch" href="analytics.js?v=2026052406" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
@@ -1222,6 +1223,12 @@
                     <li><img class="bullet-icon" src="icons/offensive.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
                   </ul>
                 </div>
+
+                <picture class="gameplay-picture-mobile">
+                  <source type="image/avif" srcset="assets/gameplay-720.avif 720w, assets/gameplay-1080.avif 1080w, assets/gameplay-1440.avif 1440w, assets/gameplay-1920.avif 1920w" sizes="100vw">
+                  <source type="image/webp" srcset="assets/gameplay-480.webp 480w, assets/gameplay-720.webp 720w, assets/gameplay-1080.webp 1080w, assets/gameplay-1440.webp 1440w, assets/gameplay-1920.webp 1920w, assets/gameplay.webp 3840w" sizes="100vw">
+                  <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
+                </picture>
 
                 <aside class="game-crash-course" aria-label="Rules crash course">
                   <h4 class="crash-course-title"><span>Crash</span> Course</h4>
@@ -1785,7 +1792,7 @@
   </div>
 
   <script src="analytics.js?v=2026052406" defer></script>
-  <script src="main.js?v=2026070200" defer></script>
+  <script src="main.js?v=2026070202" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -2296,13 +2303,6 @@
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
       }
-      document.getElementById('cardPeekTrack').addEventListener('click', function(e) {
-        var img = e.target.closest('.card-peek-image');
-        if (img) {
-          if (typeof warmCardPeekAroundViewport === 'function') warmCardPeekAroundViewport();
-          openZoom(img.dataset.fullSrc || img.currentSrc || img.src, img.alt);
-        }
-      });
       var gameplayZoomImg = document.querySelector('.gameplay-mobile-zoom');
       if (gameplayZoomImg) {
         gameplayZoomImg.addEventListener('click', function() {

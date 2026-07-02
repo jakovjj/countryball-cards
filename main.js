@@ -392,8 +392,6 @@ function initCardPeekCarousel() {
     return;
   }
 
-  const loopBoundaryEpsilon = 30;
-
   originalCards.forEach(card => {
     card.draggable = false;
     card.querySelectorAll?.('img').forEach(img => {
@@ -406,25 +404,6 @@ function initCardPeekCarousel() {
     return getCardPeekItems(track);
   }
 
-  function loopMetrics() {
-    const originals = visibleCards();
-    const allCards = getCardPeekItems(track, true);
-    const firstOriginal = originals[0];
-    const firstAfterClone = allCards[originals.length * 2];
-
-    if (!firstOriginal || !firstAfterClone) {
-      return null;
-    }
-
-    const centerInset = Math.max(0, (viewport.clientWidth - firstOriginal.offsetWidth) / 2);
-
-    return {
-      start: firstOriginal.offsetLeft - centerInset,
-      end: firstAfterClone.offsetLeft - centerInset,
-      width: firstAfterClone.offsetLeft - firstOriginal.offsetLeft
-    };
-  }
-
   function setScrollLeftInstantly(value) {
     const previousScrollBehavior = viewport.style.scrollBehavior;
     const previousScrollSnapType = viewport.style.scrollSnapType;
@@ -435,30 +414,14 @@ function initCardPeekCarousel() {
     viewport.style.scrollSnapType = previousScrollSnapType;
   }
 
-  function normalizeLoopPosition() {
-    const metrics = loopMetrics();
-    const originalScrollLeft = viewport.scrollLeft;
-    let nextScrollLeft = originalScrollLeft;
+  // Clamps scrollLeft to the left-most stop (1st card centered). Cached
+  // since it only depends on layout that changes on resize, not on every
+  // drag/scroll frame -- recomputing it per pointermove was forcing a
+  // synchronous layout on every frame and was the main source of drag jank.
+  let cachedMinScrollLeft = null;
 
-    if (metrics && metrics.width > 0) {
-      if (nextScrollLeft < metrics.start - loopBoundaryEpsilon) {
-        nextScrollLeft = metrics.end - Math.max(0, metrics.start - nextScrollLeft);
-      } else if (nextScrollLeft >= metrics.end - loopBoundaryEpsilon) {
-        nextScrollLeft = metrics.start + Math.max(0, nextScrollLeft - metrics.end);
-      }
-    }
-
-    const clampedMin = minScrollLeft();
-    if (nextScrollLeft < clampedMin) {
-      nextScrollLeft = clampedMin;
-    }
-
-    if (nextScrollLeft !== originalScrollLeft) {
-      setScrollLeftInstantly(nextScrollLeft);
-      return nextScrollLeft - originalScrollLeft;
-    }
-
-    return 0;
+  function invalidateMinScrollLeft() {
+    cachedMinScrollLeft = null;
   }
 
   function centeredScrollLeft(card) {
@@ -470,10 +433,22 @@ function initCardPeekCarousel() {
   }
 
   function minScrollLeft() {
-    // The left-most stop is the 1st card centered, so users can always
-    // scroll all the way back to see the very first card in the deck.
-    const cards = visibleCards();
-    return Math.max(0, centeredScrollLeft(cards[0]));
+    if (cachedMinScrollLeft === null) {
+      cachedMinScrollLeft = Math.max(0, centeredScrollLeft(visibleCards()[0]));
+    }
+    return cachedMinScrollLeft;
+  }
+
+  function normalizeLoopPosition() {
+    const originalScrollLeft = viewport.scrollLeft;
+    const clampedMin = minScrollLeft();
+
+    if (originalScrollLeft < clampedMin) {
+      setScrollLeftInstantly(clampedMin);
+      return clampedMin - originalScrollLeft;
+    }
+
+    return 0;
   }
 
   function startingCard() {
@@ -527,12 +502,7 @@ function initCardPeekCarousel() {
   }
 
   function scrollByDirection(direction) {
-    const metrics = loopMetrics();
     normalizeLoopPosition();
-    if (direction < 0 && metrics && metrics.width > 0 && viewport.scrollLeft <= metrics.start + 1) {
-      setScrollLeftInstantly(metrics.end - scrollAmount());
-      return;
-    }
     let target = viewport.scrollLeft + direction * scrollAmount();
     if (direction < 0) {
       target = Math.max(target, minScrollLeft());
@@ -587,6 +557,17 @@ function initCardPeekCarousel() {
   let startScrollLeft = 0;
   let isDragging = false;
   let suppressClick = false;
+  let pendingDeltaX = 0;
+  let dragRaf = 0;
+
+  // Applying the scroll write + clamp once per animation frame (instead of
+  // once per raw pointermove, which can fire far faster than the display
+  // refresh rate) is what makes the drag feel smooth instead of janky.
+  function applyDragFrame() {
+    dragRaf = 0;
+    setScrollLeftInstantly(startScrollLeft - pendingDeltaX);
+    startScrollLeft += normalizeLoopPosition();
+  }
 
   viewport.addEventListener('pointerdown', event => {
     if (event.button !== undefined && event.button !== 0) {
@@ -624,13 +605,20 @@ function initCardPeekCarousel() {
     }
 
     event.preventDefault();
-    setScrollLeftInstantly(startScrollLeft - deltaX);
-    startScrollLeft += normalizeLoopPosition();
+    pendingDeltaX = deltaX;
+    if (!dragRaf) {
+      dragRaf = requestAnimationFrame(applyDragFrame);
+    }
   }, { passive: false });
 
   function endDrag(event) {
     if (pointerId !== event.pointerId) {
       return;
+    }
+
+    if (dragRaf) {
+      cancelAnimationFrame(dragRaf);
+      applyDragFrame();
     }
 
     if (isDragging) {
@@ -660,6 +648,7 @@ function initCardPeekCarousel() {
 
   viewport.addEventListener('dragstart', event => event.preventDefault());
   viewport.addEventListener('selectstart', event => event.preventDefault());
+  window.addEventListener('resize', invalidateMinScrollLeft);
   track.addEventListener('click', event => {
     if (!suppressClick) {
       return;
