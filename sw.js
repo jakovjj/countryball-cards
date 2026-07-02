@@ -1,15 +1,15 @@
 // Service Worker for Countryball Cards
-const CACHE_NAME = 'countryball-cards-v2026070217'; // Update this version when you make changes
+const CACHE_NAME = 'countryball-cards-v2026070218'; // Update this version when you make changes
 const urlsToCache = [
   '/',
   '/index.html',
   '/styles.css',
-  '/styles.css?v=2026070217',
+  '/styles.css?v=2026070218',
   '/main.js',
-  '/main.js?v=2026070202',
+  '/main.js?v=2026070218',
   '/analytics.js',
-  '/analytics.js?v=2026052406',
-  '/store.js?v=2026040701',
+  '/analytics.js?v=2026070218',
+  '/store.js?v=2026070218',
   '/assets/title-240.webp',
   '/assets/title-360.webp',
   '/assets/top_homepage-640.webp',
