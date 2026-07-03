@@ -116,7 +116,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026070218" />
+  <link rel="preload" as="style" href="styles.css?v=2026070314" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -376,12 +376,12 @@
     .hero-brand-title{margin:0;line-height:0}
     .hero-brand-title img{display:block;width:clamp(250px,36vw,380px);height:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.45))}
     .hero-brand-art-title{width:min(780px,100%);margin:0 auto;position:relative;isolation:isolate}
-    .hero-brand-art-title::before{content:'';position:absolute;inset:-18% -12% -12%;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% 46%, rgba(96,165,250,0.34) 0%, rgba(99,102,241,0.22) 42%, rgba(88,28,135,0.16) 64%, transparent 78%);filter:blur(22px);opacity:0.82;animation:heroGlowPulse 5.8s ease-in-out infinite}
+    .hero-brand-art-title::before{content:'';position:absolute;inset:-18% -12% -12%;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 50% 46%, rgba(96,165,250,0.34) 0%, rgba(99,102,241,0.22) 42%, rgba(88,28,135,0.16) 64%, transparent 78%);filter:blur(22px);opacity:0.82;animation:heroGlowPulse 6.5s linear infinite;will-change:opacity}
     .hero-brand-art-title::after{content:'';position:absolute;inset:8% 6% -4%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 52%, rgba(129,140,248,0.14), transparent 66%);filter:blur(28px);opacity:0.58}
-    .hero-brand-art{display:block;width:100%;line-height:0;position:relative;z-index:1;transform-origin:center center}
-    .hero-brand-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.34)) drop-shadow(0 0 22px rgba(96,165,250,0.14));transform-origin:center center;animation:heroArtZoom 7.5s ease-in-out infinite;will-change:transform}
-    @keyframes heroArtZoom{0%,100%{transform:scale(1)}50%{transform:scale(1.022)}}
-    @keyframes heroGlowPulse{0%,100%{opacity:0.66;transform:scale(0.985)}50%{opacity:0.78;transform:scale(1.015)}}
+    .hero-brand-art{display:block;width:100%;line-height:0;position:relative;z-index:1;transform-origin:center center;animation:heroArtZoom 6.5s linear infinite;will-change:transform}
+    .hero-brand-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.34)) drop-shadow(0 0 22px rgba(96,165,250,0.14))}
+    @keyframes heroArtZoom{0%{transform:translate3d(0,0,0) scale3d(1,1,1);animation-timing-function:cubic-bezier(0.37,0,0.63,1)}42%{transform:translate3d(0,-4px,0) scale3d(1.032,1.032,1);animation-timing-function:cubic-bezier(0.37,0,0.63,1)}100%{transform:translate3d(0,0,0) scale3d(1,1,1)}}
+    @keyframes heroGlowPulse{0%{opacity:0.66;animation-timing-function:cubic-bezier(0.37,0,0.63,1)}42%{opacity:0.8;animation-timing-function:cubic-bezier(0.37,0,0.63,1)}100%{opacity:0.66}}
     .hero-brand-tagline{margin:0 auto;color:rgba(249,250,251,0.92);font-family:system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:20px;font-weight:900;letter-spacing:0.1px;line-height:1.2;text-transform:uppercase;white-space:nowrap;max-width:100%}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:22px 56px !important;border-radius:18px !important;position:relative;
@@ -562,7 +562,7 @@
     .video-container:focus-within{outline:2px solid rgba(251,191,36,0.55);outline-offset:4px;border-color:rgba(251,191,36,0.30);box-shadow:0 0 0 1px rgba(251,191,36,0.18),0 26px 80px rgba(0,0,0,0.55)}
 
     @media (prefers-reduced-motion: reduce){
-      .hero-brand-art img,.hero-brand-art-title::before{animation:none}
+      .hero-brand-art,.hero-brand-art-title::before{animation:none}
       .video-container{transition:none}
       .video-container::before,.video-container::after{transition:none}
       .video-container:hover{transform:none}
@@ -1058,16 +1058,16 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026070218" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026070314" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026070218">
+    <link rel="stylesheet" href="styles.css?v=2026070314">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026070218" as="script">
-  <link rel="prefetch" href="analytics.js?v=2026070218" as="script">
+  <link rel="preload" href="main.js?v=2026070301" as="script">
+  <link rel="prefetch" href="analytics.js?v=2026070301" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
 
@@ -1151,12 +1151,6 @@
             <img class="site-topbar-link-icon" src="assets/reddit.png" alt="" width="18" height="18" loading="lazy" decoding="async">
             <span>Reddit</span>
           </a>
-          <button class="site-topbar-link site-topbar-help-btn" type="button" id="supportHelpBtn" aria-haspopup="dialog" aria-controls="supportOverlay" aria-expanded="false">
-            <svg class="site-topbar-help-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9.1 9a3 3 0 1 1 4.9 2.3c-1 .78-2 1.42-2 2.7M12 17h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-            </svg>
-            <span>Help</span>
-          </button>
         </div>
       </nav>
     </div>
@@ -1765,8 +1759,8 @@
     </div>
   </div>
 
-  <script src="analytics.js?v=2026070218" defer></script>
-  <script src="main.js?v=2026070218" defer></script>
+  <script src="analytics.js?v=2026070301" defer></script>
+  <script src="main.js?v=2026070301" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -2028,7 +2022,7 @@
     (function() {
       function loadPerfScript() {
         const perfScript = document.createElement('script');
-        perfScript.src = 'performance-optimized.js?v=2026070218';
+        perfScript.src = 'performance-optimized.js?v=2026070301';
         perfScript.async = true;
         document.head.appendChild(perfScript);
       }
@@ -2073,7 +2067,7 @@
   <script>
     (function() {
       let storeLoadPromise = null;
-      const STORE_SCRIPT_URL = 'store.js?v=2026070218';
+      const STORE_SCRIPT_URL = 'store.js?v=2026070301';
       const STORE_SCRIPT_ID = 'cbc-store-script';
 
       function loadStoreScript() {
