@@ -1073,6 +1073,7 @@ if(discordBtn){
     e.preventDefault();
     try{ if(window.rdt) rdt('track','Lead',{event_name:'DiscordJoin',content_name:'Discord Community',content_category:'Community',content_ids:['discord_join'],content_type:'community'}); }catch(_){ }
     try{ if(window.rdt) rdt('track','Custom',{customEventName:'DiscordJoin',content_name:'Discord Community'}); }catch(_){ }
+    try{ if(typeof fbq==='function') fbq('track','Lead',{content_name:'Discord Community',content_category:'Community'}); }catch(_){ }
     setTimeout(()=>window.open('https://discord.gg/GVkrHXvzf8','_blank'),400);
   });
 }
@@ -1082,6 +1083,7 @@ if(redditBtn){
     e.preventDefault();
     try{ if(window.rdt) rdt('track','Lead',{event_name:'RedditJoin',content_name:'Reddit Community',content_category:'Community',content_ids:['reddit_join'],content_type:'community'}); }catch(_){ }
     try{ if(window.rdt) rdt('track','Custom',{customEventName:'RedditJoin',content_name:'Reddit Community'}); }catch(_){ }
+    try{ if(typeof fbq==='function') fbq('track','Lead',{content_name:'Reddit Community',content_category:'Community'}); }catch(_){ }
     setTimeout(()=>window.open('https://reddit.com/r/countryball_cards','_blank'),400);
   });
 }

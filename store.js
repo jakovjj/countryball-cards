@@ -276,12 +276,14 @@
         return;
       }
 
+      const zone = opts.zone || selectedZone || 'ZONE_1';
+      const basePrice = Number(price);
+      const delivery = getDeliveryAmountForZone(zone);
+      const orderTotal = (Number.isFinite(basePrice) ? basePrice : 0) + delivery;
+
       const copyEl = preorderDialog.querySelector('.preorder-modal-copy');
       if (copyEl) {
-        const basePrice = Number(price);
-        const delivery = getDeliveryAmountForZone(opts.zone || selectedZone || 'ZONE_1');
-        const total = (Number.isFinite(basePrice) ? basePrice : 0) + delivery;
-        copyEl.textContent = `Your total will be ${formatUsd(total)} (incl. $5.40 shipping). Delivery is 2-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
+        copyEl.textContent = `Your total will be ${formatUsd(orderTotal)} (incl. $5.40 shipping). Delivery is 2-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
       }
 
       const titleEl = document.getElementById('preorderConfirmTitle');
@@ -298,7 +300,15 @@
       if (preorderPaypalSection) {
         preorderPaypalSection.hidden = !paypalUrl;
       }
-      pendingPreorder = { checkoutUrl, paypalUrl };
+      pendingPreorder = {
+        checkoutUrl,
+        paypalUrl,
+        packageName,
+        packageKey: opts.packageKey || null,
+        price: Number.isFinite(basePrice) ? basePrice : null,
+        total: orderTotal,
+        zone
+      };
       preorderLastFocus = triggerEl || document.activeElement || null;
       preorderScrollY = window.scrollY || window.pageYOffset || 0;
 
@@ -343,12 +353,29 @@
       preorderLastFocus = null;
     }
 
+    // Persist order details for the success page so the Meta/GA purchase
+    // events can include package + value even if the redirect URL lacks them.
+    function saveCheckoutIntent(order) {
+      if (!order) return;
+      try {
+        sessionStorage.setItem('__cbc_checkout_intent', JSON.stringify({
+          packageName: order.packageName || null,
+          packageKey: order.packageKey || null,
+          price: order.price != null ? Number(order.price) : null,
+          total: order.total != null ? Number(order.total) : null,
+          zone: order.zone || null,
+          ts: Date.now()
+        }));
+      } catch (_) { /* sessionStorage unavailable */ }
+    }
+
     function confirmPreorderCheckout() {
       if (!pendingPreorder || !pendingPreorder.checkoutUrl) {
         closePreorderConfirmation();
         return;
       }
       const targetUrl = pendingPreorder.checkoutUrl;
+      saveCheckoutIntent(pendingPreorder);
       closePreorderConfirmation({ restoreFocus: false });
       window.location.href = targetUrl;
     }
@@ -370,6 +397,7 @@
         preorderPaypalBtn.addEventListener('click', () => {
           if (!pendingPreorder || !pendingPreorder.paypalUrl) return;
           const targetUrl = pendingPreorder.paypalUrl;
+          saveCheckoutIntent(pendingPreorder);
           closePreorderConfirmation({ restoreFocus: false });
           window.location.href = targetUrl;
         });
@@ -1010,6 +1038,19 @@
             quantity: 1
           }]
         });
+      }
+
+      if (typeof fbq === 'function') {
+        try {
+          fbq('track', 'InitiateCheckout', {
+            value: price,
+            currency: 'USD',
+            content_name: packageName,
+            content_ids: [packageKey || packageName.toLowerCase().replace(/ /g, '_')],
+            content_type: 'product',
+            num_items: 1
+          });
+        } catch (_) { /* noop */ }
       }
 
       if (typeof rdt !== 'undefined') {

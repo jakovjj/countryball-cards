@@ -171,6 +171,32 @@
 
   // NOTE: Intentionally no page-load-stage tracking.
 
+  // Meta ViewContent: fire once when the editions/pricing section becomes visible.
+  function initEditionViewTracking() {
+    if (!isTrackableHost()) return;
+    var section = document.getElementById('editionComparison');
+    if (!section || !('IntersectionObserver' in window)) return;
+
+    var fired = false;
+    var io = new IntersectionObserver(function(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (fired || !entries[i].isIntersecting) continue;
+        fired = true;
+        io.disconnect();
+        try {
+          window.fbq('track', 'ViewContent', {
+            content_name: 'Edition Comparison',
+            content_category: 'Editions',
+            content_ids: ['base', 'extended', 'founders'],
+            content_type: 'product',
+            currency: 'USD'
+          });
+        } catch (_) { /* noop */ }
+      }
+    }, { threshold: 0.3 });
+    io.observe(section);
+  }
+
   function initKickstarterClickTracking() {
     document.addEventListener('click', function(e) {
       const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
@@ -257,11 +283,13 @@
     document.addEventListener('DOMContentLoaded', function() {
       trackBrowserCapabilities();
       initKickstarterClickTracking();
+      initEditionViewTracking();
       runWhenIdle(initTrailerTracking, 3500);
     });
   } else {
     trackBrowserCapabilities();
     initKickstarterClickTracking();
+    initEditionViewTracking();
     runWhenIdle(initTrailerTracking, 3500);
   }
 

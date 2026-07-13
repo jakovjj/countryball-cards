@@ -537,13 +537,15 @@
         const p = new URLSearchParams(window.location.search);
         const valueRaw = p.get('value') || p.get('amount') || p.get('total');
         const currency = (p.get('currency') || 'USD').toUpperCase();
+        const pkgRaw = p.get('package') || p.get('edition') || p.get('item');
+        const packageKey = pkgRaw ? pkgRaw.toLowerCase().replace(/[^a-z0-9_-]/g, '') : null;
         const value = valueRaw ? Number(valueRaw) : null;
         if (Number.isFinite(value) && value >= 0) {
-          return { value: Math.round(value * 100) / 100, currency };
+          return { value: Math.round(value * 100) / 100, currency, packageKey };
         }
-        return { value: null, currency };
+        return { value: null, currency, packageKey };
       } catch (_) {
-        return { value: null, currency: 'USD' };
+        return { value: null, currency: 'USD', packageKey: null };
       }
     }
 
@@ -675,12 +677,32 @@
         if (typeof fbq === 'function') {
           const sentKey = '__cbc_meta_purchase_sent';
           if (!sessionStorage.getItem(sentKey)) {
-            const payload = {};
+            // Checkout details saved by store.js before the Stripe/PayPal redirect
+            // (same tab), used as fallback when the redirect URL has no params.
+            let intent = null;
+            try { intent = JSON.parse(sessionStorage.getItem('__cbc_checkout_intent') || 'null'); } catch (_) { intent = null; }
+
+            const payload = {
+              content_type: 'product',
+              num_items: 1
+            };
+
+            const packageKey = (params && params.packageKey) || (intent && intent.packageKey) || null;
+            if (packageKey) payload.content_ids = [packageKey];
+            if (intent && intent.packageName) payload.content_name = intent.packageName;
+
             if (params && params.value != null) {
               payload.value = params.value;
               payload.currency = params.currency || 'USD';
+            } else if (intent && Number.isFinite(Number(intent.total))) {
+              // Total shown at checkout (package price + shipping).
+              payload.value = Number(intent.total);
+              payload.currency = 'USD';
             }
-            fbq('track', 'Purchase', payload);
+
+            // Event id lets a future Conversions API setup deduplicate this event.
+            const eventId = 'purchase_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+            fbq('track', 'Purchase', payload, { eventID: eventId });
             sessionStorage.setItem(sentKey, '1');
           }
         }
