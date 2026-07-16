@@ -986,9 +986,20 @@
     .packages-support-actions > a.btn,
     .packages-support-actions > button.btn{flex:1 1 240px;max-width:360px}
     .discord-btn-icon{width:22px;height:22px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2))}
-    .more-info-section{margin:48px 0;padding:0;text-align:center}
-    .more-info-section picture{display:block;max-width:980px;margin:0 auto}
-    .more-info-section img{display:block;width:100%;height:auto;margin:0 auto;-webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent),linear-gradient(to bottom,transparent,#000 7%,#000 93%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent),linear-gradient(to bottom,transparent,#000 7%,#000 93%,transparent);mask-composite:intersect}
+    .more-info-section{margin:48px auto;padding:0 16px;max-width:980px;text-align:center}
+    .more-info-photo{overflow:hidden;border:2px solid var(--gold);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,0.35)}
+    .more-info-photo img{display:block;width:100%;height:auto;aspect-ratio:15/7;object-fit:cover;object-position:center bottom}
+    .more-info-stats{list-style:none;display:flex;gap:14px;margin:16px 0 0;padding:0}
+    .more-info-stats li{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(251,191,36,0.28);border-radius:14px}
+    .more-info-stats svg{color:var(--gold);margin-bottom:4px}
+    .more-info-stats .stat-value{font-size:22px;font-weight:800;color:var(--text);line-height:1.1}
+    .more-info-stats .stat-label{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted)}
+    @media (max-width:600px){
+      .more-info-stats{gap:8px}
+      .more-info-stats li{padding:12px 6px}
+      .more-info-stats .stat-value{font-size:17px}
+      .more-info-stats .stat-label{font-size:10px}
+    }
     .faq-section{margin:48px 0;padding:0}
     .faq-section h2{margin:0;font-size:30px;color:var(--text)}
     .faq-intro{margin:8px 0 0;color:var(--muted)}
@@ -1526,10 +1537,26 @@
 
       <!-- More Info -->
       <section class="more-info-section" aria-label="Player count, game length, and age rating">
-        <picture>
-          <source type="image/webp" srcset="assets/more_info-640.webp 640w, assets/more_info-960.webp 960w, assets/more_info-1440.webp 1440w, assets/more_info.webp 1838w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
-          <img src="assets/more_info-1440.webp" alt="Countryball Cards played on a table: 2 or 4 players, 20-40 minutes per game, ages 12 and up" width="1838" height="1167" loading="lazy" decoding="async">
-        </picture>
+        <div class="more-info-photo">
+          <img src="assets/gameplay-table.webp" alt="Countryball Cards being played on a wooden table" width="960" height="549" loading="lazy" decoding="async">
+        </div>
+        <ul class="more-info-stats">
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span class="stat-value">2 or 4</span>
+            <span class="stat-label">Players</span>
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span class="stat-value">20&ndash;40</span>
+            <span class="stat-label">Minutes</span>
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span class="stat-value">12+</span>
+            <span class="stat-label">Ages</span>
+          </li>
+        </ul>
       </section>
 
       <div class="golden-separator"></div>
