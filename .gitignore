@@ -1,0 +1,5 @@
+# Server-side secrets and runtime data — never commit
+omnifill-key.txt
+founders-stock-cache.json
+emails.csv
+.venv/

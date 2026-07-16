@@ -721,6 +721,7 @@
     .package-bar.extended-bar .package-btn.disabled,
     .package-bar.founders-bar .package-btn.disabled{filter:none;opacity:0.75}
     .package-btn.armed{animation:ctaPulse 2.6s ease-in-out infinite}
+    .founders-stock-badge{position:absolute;top:-11px;right:14px;z-index:3;padding:3px 10px;border-radius:999px;background:#0f1419;border:1px solid rgba(52,211,153,0.7);color:#34d399;font-size:11px;font-weight:700;letter-spacing:0.3px;line-height:1.2;white-space:nowrap;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,0.35)}
 
     .packages-comparison{margin:20px 0 32px;padding:26px 22px;border-radius:20px;background:transparent;border:none}
     .packages-comparison-art{display:block;width:min(720px,92%);height:auto;margin:0 auto 18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,0.35))}
@@ -1428,6 +1429,7 @@
                 <span class="btn-shipping-note">+ $5.40 shipping</span>
               </a>
               <a href="#" class="package-btn buy-wave founders-theme compare-buy-btn compare-mobile-buy" data-edition="founders" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
+                <span class="founders-stock-badge"><span class="founders-stock-count">44</span>/100 left</span>
                 <span class="package-btn-label"><svg class="btn-cart-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5.21 4l-.94-2H1v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.13 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03L23 6H5.21z"/></svg><span>Buy now for <del style="opacity:0.5;font-size:0.8em;font-weight:600;margin-right:6px;">$81</del><span class="btn-price-hl">$65</span></span></span>
                 <span class="btn-shipping-note">+ $5.40 shipping</span>
               </a>
@@ -1453,6 +1455,7 @@
                   <th scope="col" class="edition-col">
                     <span class="compare-edition-name edition-founders">Founder's Edition</span>
                     <a href="#" class="package-btn buy-wave founders-theme compare-buy-btn" data-package="founders" aria-disabled="false" onclick="return trackPreOrderClick(event, 'Founders Edition', 65)">
+                      <span class="founders-stock-badge"><span class="founders-stock-count">44</span>/100 left</span>
                       <span class="package-btn-label"><svg class="btn-cart-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM5.21 4l-.94-2H1v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.13 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03L23 6H5.21z"/></svg><span>Buy now for <del style="opacity:0.5;font-size:0.8em;font-weight:600;margin-right:6px;">$81</del><span class="btn-price-hl">$65</span></span></span>
                       <span class="btn-shipping-note">+ $5.40 shipping</span>
                     </a>
@@ -2313,6 +2316,23 @@
         });
       }
     }
+  </script>
+
+  <script>
+    // Live Founder's Edition stock counter; the badge ships with the last
+    // known count so nothing shifts if this request fails.
+    (function () {
+      var counters = document.querySelectorAll('.founders-stock-count');
+      if (!counters.length || !window.fetch) return;
+      fetch('founders-stock.php', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) {
+          if (!data || typeof data.remaining !== 'number') return;
+          var n = Math.max(0, Math.min(100, Math.round(data.remaining)));
+          for (var i = 0; i < counters.length; i++) counters[i].textContent = n;
+        })
+        .catch(function () {});
+    })();
   </script>
 
 </body>
