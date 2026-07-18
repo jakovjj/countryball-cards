@@ -66,8 +66,8 @@
     "offers": {
       "@type": "AggregateOffer",
       "availability": "https://schema.org/InStock",
-      "priceRange": "€34-69",
-      "priceCurrency": "EUR",
+      "priceRange": "$30-$65",
+      "priceCurrency": "USD",
       "validFrom": "2025-10-01",
       "shippingDetails": {
         "@type": "OfferShippingDetails",
@@ -79,20 +79,13 @@
           "@type": "ShippingDeliveryTime",
           "transitTime": {
             "@type": "QuantitativeValue",
-            "minValue": 2,
+            "minValue": 4,
             "maxValue": 10,
             "unitCode": "DAY"
           }
         }
       },
       "url": "https://countryballcards.com/#editionComparison"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "150",
-      "bestRating": "5",
-      "worstRating": "1"
     },
     "manufacturer": {
       "@type": "Organization",
@@ -121,7 +114,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026070314" />
+  <link rel="preload" as="style" href="styles.css?v=2026071810" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -199,7 +192,7 @@
               "@type": "ShippingDeliveryTime",
               "transitTime": {
                 "@type": "QuantitativeValue",
-                "minValue": 2,
+                "minValue": 4,
                 "maxValue": 10,
                 "unitCode": "DAY"
               }
@@ -217,7 +210,7 @@
             "name": "How long does delivery take?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Orders are delivered in 2-10 days from Brno, Czechia. The exact delivery time depends on the destination country and local carrier handling."
+              "text": "Orders are delivered in 4-10 days from Brno, Czechia. The exact delivery time depends on the destination country and local carrier handling."
             }
           },
           {
@@ -387,7 +380,7 @@
     .hero-brand-art img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,0.34)) drop-shadow(0 0 22px rgba(96,165,250,0.14))}
     @keyframes heroArtZoom{0%{transform:translate3d(0,0,0) scale3d(1,1,1);animation-timing-function:cubic-bezier(0.37,0,0.63,1)}42%{transform:translate3d(0,-4px,0) scale3d(1.032,1.032,1);animation-timing-function:cubic-bezier(0.37,0,0.63,1)}100%{transform:translate3d(0,0,0) scale3d(1,1,1)}}
     @keyframes heroGlowPulse{0%{opacity:0.66;animation-timing-function:cubic-bezier(0.37,0,0.63,1)}42%{opacity:0.8;animation-timing-function:cubic-bezier(0.37,0,0.63,1)}100%{opacity:0.66}}
-    .hero-brand-tagline{margin:0 auto;color:rgba(249,250,251,0.92);font-family:system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:20px;font-weight:900;letter-spacing:0.1px;line-height:1.2;text-transform:uppercase;white-space:nowrap;max-width:100%}
+    .hero-brand-tagline{margin:0 auto;color:rgba(249,250,251,0.92);font-family:system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:clamp(13px,2.4vw,20px);font-weight:900;letter-spacing:0.1px;line-height:1.2;text-transform:uppercase;white-space:nowrap;max-width:100%}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:22px 56px !important;border-radius:18px !important;position:relative;
       background:linear-gradient(135deg, rgba(5,206,120,0.22) 0%, rgba(59,130,246,0.12) 55%, rgba(251,191,36,0.08) 100%) !important;
@@ -542,7 +535,7 @@
     
     /* Storefront Section */
     #storeSection,#editionComparison{scroll-margin-top:90px}
-    .store-section{margin:40px 0 48px 0}
+    .store-section{margin:40px 0 12px 0}
     .packages-hero{text-align:center;margin-bottom:24px}
     .packages-hero h1{font-size:clamp(32px,5.2vw,54px);margin:0;color:var(--text);background:linear-gradient(120deg,#fff7d6,#fde68a,#bae6fd);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 6px 18px rgba(0,0,0,0.35)}
     .packages-hero .sub{color:var(--muted);font-size:18px;margin:12px auto 0;max-width:640px}
@@ -581,6 +574,9 @@
     .hero-video-cta .pre-footer-buy-kicker{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:0.2px;text-align:center}
     .hero-video-cta .hero-buy-btn{padding:19px 48px !important;border-radius:17px !important}
     .hero-video-cta .hero-buy-btn img{height:50px;max-width:460px}
+    .hero-stock-note{margin:0;display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;letter-spacing:0.3px;color:rgba(249,250,251,0.78)}
+    .hero-stock-truck{width:17px;height:17px;flex-shrink:0;color:#4ade80;filter:drop-shadow(0 0 5px rgba(74,222,128,0.85));animation:stockPulse 2.2s ease-in-out infinite}
+    @keyframes stockPulse{0%,100%{opacity:1}50%{opacity:0.45}}
     @media(max-width:600px){
       .hero-brand{gap:7px;margin:0 auto 14px}
       .hero-brand-lockup{gap:9px;transform:translateX(-18px)}
@@ -589,10 +585,11 @@
       .hero-brand-art-title{width:min(100%,94vw)}
       .hero-brand-art-title::before{inset:-20% -18% -14%;filter:blur(14px)}
       .hero-brand-art img{filter:drop-shadow(0 12px 20px rgba(0,0,0,0.30)) drop-shadow(0 0 16px rgba(96,165,250,0.12))}
-      .hero-brand-tagline{max-width:100%;font-size:10.5px;line-height:1.15}
+      .hero-brand-tagline{max-width:100%;font-size:clamp(8px,2.35vw,10.5px);line-height:1.15}
       .logo-section>.hero-video-cta{width:100%;box-sizing:border-box;padding:0 12px}
       .logo-section>.hero-video-cta .hero-buy-btn{width:min(100%,280px) !important;max-width:280px !important;padding:13px 16px !important}
       .logo-section>.hero-video-cta .hero-buy-btn img{height:32px;max-width:100%}
+      .hero-stock-note{font-size:12px}
       .pre-footer-buy{width:min(300px,84vw);padding:0;margin-top:8px}
       .pre-footer-buy .hero-buy-btn{width:100% !important;max-width:100% !important;padding:13px 20px !important;border-radius:15px !important}
       .pre-footer-buy .hero-buy-btn img{height:34px;max-width:100%}
@@ -723,7 +720,7 @@
     .package-btn.armed{animation:ctaPulse 2.6s ease-in-out infinite}
     .founders-stock-badge{position:absolute;top:-11px;right:14px;z-index:3;padding:3px 10px;border-radius:999px;background:#0f1419;border:1px solid rgba(52,211,153,0.7);color:#34d399;font-size:11px;font-weight:700;letter-spacing:0.3px;line-height:1.2;white-space:nowrap;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,0.35)}
 
-    .packages-comparison{margin:20px 0 32px;padding:26px 22px;border-radius:20px;background:transparent;border:none}
+    .packages-comparison{margin:20px 0 8px;padding:26px 22px 12px;border-radius:20px;background:transparent;border:none}
     .packages-comparison-art{display:block;width:min(720px,92%);height:auto;margin:0 auto 18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,0.35))}
     .packages-compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
     .packages-compare-table{width:100%;min-width:820px;border-collapse:separate;border-spacing:0}
@@ -827,7 +824,7 @@
     }
 
     .packages-comparison-divider{height:1px;margin:18px 0 16px;border-radius:999px;background:rgba(255,255,255,0.10)}
-    .packages-comparison-bottom{display:flex;flex-direction:column;gap:14px}
+    .packages-comparison-bottom{display:flex;flex-direction:column;gap:6px}
     @keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.35)}70%{box-shadow:0 0 0 18px rgba(var(--cta-rgb),0)}100%{box-shadow:0 0 0 0 rgba(var(--cta-rgb),0)}}
     @keyframes packageBtnBorderWave{0%{opacity:0;transform:scale(0.985);box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.22),0 0 14px rgba(var(--cta-rgb),0.08)}18%{opacity:1}65%{opacity:0;transform:scale(1.065);box-shadow:0 0 0 14px rgba(var(--cta-rgb),0),0 0 26px rgba(var(--cta-rgb),0)}100%{opacity:0;transform:scale(0.985);box-shadow:0 0 0 0 rgba(var(--cta-rgb),0.0),0 0 14px rgba(var(--cta-rgb),0.0)}}
     .preorder-copy-highlight{display:inline-flex;align-items:center;gap:6px;padding:2px 12px;border-radius:999px;background:rgba(251,191,36,0.18);color:var(--gold);font-size:0.85em;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;box-shadow:0 4px 18px rgba(251,191,36,0.25);vertical-align:middle}
@@ -847,9 +844,9 @@
     .email-updates-section{text-align:center;margin:24px auto;padding:22px 16px;max-width:680px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px}
     .email-updates-section h3{margin:0 0 10px;color:var(--gold)}
     .email-modal .email-benefits{margin-bottom:18px}
-    .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:20px 0 12px;color:#f9fafb;text-align:center;font-size:15px}
+    .payment-note{display:flex;align-items:center;gap:14px;justify-content:center;margin:8px 0 0;color:#f9fafb;text-align:center;font-size:15px}
     .payment-note span{opacity:0.85}
-    .duty-paid-note{margin:0 auto 6px;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
+    .duty-paid-note{margin:0 auto;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
     #gameExplainerTitle{scroll-margin-top:130px;background:linear-gradient(100deg,#f9fafb 20%,#c3cad4 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
     .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
@@ -1064,10 +1061,10 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026070314" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026071810" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026070314">
+    <link rel="stylesheet" href="styles.css?v=2026071810">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -1174,7 +1171,7 @@
               <img src="assets/top_homepage.webp" alt="Countryball Cards" width="1938" height="742" loading="eager" decoding="async" fetchpriority="high">
             </picture>
           </h1>
-          <p class="hero-brand-tagline">Turn your tabletop into an epic battlefield!</p>
+          <p class="hero-brand-tagline">Draft your countryballs, build your economy, execute attacks!</p>
         </div>
 
         <div class="all-cards-showcase" aria-label="All countryball cards">
@@ -1192,6 +1189,7 @@
           <a class="btn primary store-btn hero-buy-btn" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('hero_buy_now');">
             <img src="assets/buynow.webp" alt="Buy now" width="1254" height="188" loading="eager" decoding="async">
           </a>
+          <p class="hero-stock-note"><svg class="hero-stock-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>In stock &middot; Ships in 4-10 days</p>
         </div>
 
         <div class="trust-stats" aria-label="Social proof stats">
@@ -1380,8 +1378,15 @@
           </div>
           <script>
             (function(){
-              // Cosmetic World Cup countdown: runs until midnight ET after the 2026 final (Jul 19),
-              // then the banner reverts to the plain 20%-off wording with no explanation.
+              // LIMITED-TIME DISCOUNT TEMPLATE
+              // The promo banner + countdown above runs until DEAL_END. After that the
+              // banner switches to plain in-stock wording, all "20% off" copy goes away,
+              // and the crossed-out <del> compare-at prices are removed from the buy
+              // buttons, leaving the regular prices ($30/$45/$65).
+              // To run the next promo: set a new DEAL_END, update the #dealTitle /
+              // #dealSubtitle markup above, and put <del>$OLD</del> back in front of
+              // each button's .btn-price-hl price (6 buttons: 3 mobile + 3 table).
+              // Current promo: World Cup 20% off, ends midnight ET after the Jul 19 final.
               var DEAL_END = Date.UTC(2026, 6, 20, 4, 0, 0);
               var box = document.getElementById('wcCountdown');
               var title = document.getElementById('dealTitle');
@@ -1390,11 +1395,23 @@
                   m = document.getElementById('wcMins'), s = document.getElementById('wcSecs');
               var timer = null;
               function pad(n){ return (n < 10 ? '0' : '') + n; }
+              function stripCompareAtPrices(){
+                document.querySelectorAll('.package-btn-label del').forEach(function(el){
+                  if (el.parentNode) el.parentNode.removeChild(el);
+                });
+              }
               function revert(){
                 if (timer) clearInterval(timer);
                 if (box && box.parentNode) box.parentNode.removeChild(box);
-                if (title) title.innerHTML = '<span class="launch-label">Available now!</span> LIMITED-TIME 20% OFF!';
-                if (sub) sub.innerHTML = 'Order today, lock in <strong style="color:var(--kickstarter);">20% off</strong>, and get your Countryball Cards in 2-10 days!';
+                if (title) title.innerHTML = '<span class="launch-label">In stock!</span> AVAILABLE NOW!';
+                if (sub) sub.innerHTML = 'Order today and get your Countryball Cards in 4-10 days!';
+                // The buy buttons sit below this script, so wait for the DOM when
+                // reverting during initial page load.
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', stripCompareAtPrices);
+                } else {
+                  stripCompareAtPrices();
+                }
               }
               function tick(){
                 var left = DEAL_END - Date.now();
@@ -1561,7 +1578,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Orders are delivered in 2-10 days from Brno, Czechia. The exact delivery time depends on your destination country and local carrier handling.</p>
+              <p>Orders are delivered in 4-10 days from Brno, Czechia. The exact delivery time depends on your destination country and local carrier handling.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1609,7 +1626,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Countryball Cards is made by a small US indie firm, Glare Studios LLC, manufactured by WingoGames and fulfilled by ShipSpot.</p>
+              <p>Countryball Cards is made by a small indie firm, Glare Studios LLC. Its owner is Jakov Jandrić, from Zagreb, Croatia. Manufactured by WingoGames and fulfilled by ShipSpot in Czechia.</p>
             </div>
           </li>
         </ul>
@@ -2311,11 +2328,7 @@
       }
       
       if (typeof rdt !== 'undefined') {
-        rdt('track', 'ViewContent', {
-          content_type: 'social_link',
-          content_name: 'discord',
-          value: 1
-        });
+        rdt('track', 'Custom', { customEventName: 'DiscordJoin' });
       }
     }
   </script>

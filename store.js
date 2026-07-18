@@ -283,7 +283,7 @@
 
       const copyEl = preorderDialog.querySelector('.preorder-modal-copy');
       if (copyEl) {
-        copyEl.textContent = `Your total will be ${formatUsd(orderTotal)} (incl. $5.40 shipping). Delivery is 2-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
+        copyEl.textContent = `Your total will be ${formatUsd(orderTotal)} (incl. $5.40 shipping). Delivery is 4-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
       }
 
       const titleEl = document.getElementById('preorderConfirmTitle');
@@ -1054,11 +1054,16 @@
       }
 
       if (typeof rdt !== 'undefined') {
-        rdt('track', 'Purchase', {
+        // Checkout opened, not a completed sale; Purchase fires on success.html.
+        rdt('track', 'AddToCart', {
           value: price,
           currency: 'USD',
-          content_name: packageName,
-          content_type: 'product'
+          itemCount: 1,
+          products: [{
+            id: packageKey || packageName.toLowerCase().replace(/ /g, '_'),
+            name: packageName,
+            category: 'edition'
+          }]
         });
       }
 

@@ -46,7 +46,7 @@
 
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/thanks.webp" fetchpriority="high" />
-  <link rel="preload" as="style" href="styles.css?v=2026070314" />
+  <link rel="preload" as="style" href="styles.css?v=2026071810" />
 
   <!-- Favicon / SERP icon -->
   <link rel="icon" href="/serp.ico" sizes="any">
@@ -178,8 +178,8 @@
   </style>
 
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026070314">
-  <noscript><link rel="stylesheet" href="styles.css?v=2026070314"></noscript>
+  <link rel="stylesheet" href="styles.css?v=2026071810">
+  <noscript><link rel="stylesheet" href="styles.css?v=2026071810"></noscript>
 
   <!-- Success page-only background overrides (must come AFTER styles.css to win on mobile) -->
   <style>
@@ -469,11 +469,7 @@
         });
       }
       if (typeof rdt !== 'undefined') {
-        rdt('track', 'ViewContent', {
-          content_type: 'social_link',
-          content_name: 'discord',
-          value: 1
-        });
+        rdt('track', 'Custom', { customEventName: 'DiscordJoin' });
       }
     }
 
@@ -704,6 +700,44 @@
             const eventId = 'purchase_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
             fbq('track', 'Purchase', payload, { eventID: eventId });
             sessionStorage.setItem(sentKey, '1');
+          }
+        }
+      } catch (_) {
+        // ignore
+      }
+
+      // Reddit Ads: send a Purchase event on the success page.
+      // Same refresh guard pattern as the Meta event above.
+      try {
+        if (typeof rdt !== 'undefined') {
+          const rdtSentKey = '__cbc_rdt_purchase_sent';
+          if (!sessionStorage.getItem(rdtSentKey)) {
+            let intent = null;
+            try { intent = JSON.parse(sessionStorage.getItem('__cbc_checkout_intent') || 'null'); } catch (_) { intent = null; }
+
+            const payload = { itemCount: 1 };
+
+            const packageKey = (params && params.packageKey) || (intent && intent.packageKey) || null;
+            if (packageKey) {
+              payload.products = [{
+                id: packageKey,
+                name: (intent && intent.packageName) || packageKey,
+                category: 'edition'
+              }];
+            }
+
+            if (params && params.value != null) {
+              payload.value = params.value;
+              payload.currency = params.currency || 'USD';
+            } else if (intent && Number.isFinite(Number(intent.total))) {
+              payload.value = Number(intent.total);
+              payload.currency = 'USD';
+            }
+
+            // conversionId lets a future Conversions API setup deduplicate this event.
+            payload.conversionId = 'purchase_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+            rdt('track', 'Purchase', payload);
+            sessionStorage.setItem(rdtSentKey, '1');
           }
         }
       } catch (_) {

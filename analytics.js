@@ -171,7 +171,7 @@
 
   // NOTE: Intentionally no page-load-stage tracking.
 
-  // Meta ViewContent: fire once when the editions/pricing section becomes visible.
+  // Meta + Reddit ViewContent: fire once when the editions/pricing section becomes visible.
   function initEditionViewTracking() {
     if (!isTrackableHost()) return;
     var section = document.getElementById('editionComparison');
@@ -190,6 +190,15 @@
             content_ids: ['base', 'extended', 'founders'],
             content_type: 'product',
             currency: 'USD'
+          });
+        } catch (_) { /* noop */ }
+        try {
+          window.rdt('track', 'ViewContent', {
+            products: [
+              { id: 'base', name: 'Base Edition', category: 'edition' },
+              { id: 'extended', name: 'Extended Edition', category: 'edition' },
+              { id: 'founders', name: "Founder's Edition", category: 'edition' }
+            ]
           });
         } catch (_) { /* noop */ }
       }
