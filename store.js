@@ -62,14 +62,14 @@
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
-        BASE_GAME: 'https://buy.stripe.com/eVq7sL1AVdTKalE8Tvcwg02',
-        EXTENDED_EDITION: 'https://buy.stripe.com/4gM4gzdjDbLCeBU2v7cwg04',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/fZufZha7r4ja51kc5Hcwg03'
+        BASE_GAME: 'https://buy.stripe.com/7sYeVd1AVcPG51k4Dfcwg0i',
+        EXTENDED_EDITION: 'https://buy.stripe.com/fZu8wPenH7vmfFY0mZcwg0h',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/eVq8wPdjD2b2gK2glXcwg0g'
       },
       ZONE_2: {
-        BASE_GAME: 'https://buy.stripe.com/5kQ28renH8zq79s6Lncwg05',
-        EXTENDED_EDITION: 'https://buy.stripe.com/7sY00j93n4ja3Xg3zbcwg06',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/aFafZhbbv16Y0L4c5Hcwg07'
+        BASE_GAME: 'https://buy.stripe.com/7sYeVd1AVcPG51k4Dfcwg0i',
+        EXTENDED_EDITION: 'https://buy.stripe.com/fZu8wPenH7vmfFY0mZcwg0h',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/eVq8wPdjD2b2gK2glXcwg0g'
       }
     };
     let selectedCountry = null;
