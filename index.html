@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <title>Countryball Cards | Strategy Card Game</title>
@@ -114,7 +114,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026071810" />
+  <link rel="preload" as="style" href="styles.css?v=2026072220" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -381,6 +381,7 @@
     @keyframes heroArtZoom{0%{transform:translate3d(0,0,0) scale3d(1,1,1);animation-timing-function:cubic-bezier(0.37,0,0.63,1)}42%{transform:translate3d(0,-4px,0) scale3d(1.032,1.032,1);animation-timing-function:cubic-bezier(0.37,0,0.63,1)}100%{transform:translate3d(0,0,0) scale3d(1,1,1)}}
     @keyframes heroGlowPulse{0%{opacity:0.66;animation-timing-function:cubic-bezier(0.37,0,0.63,1)}42%{opacity:0.8;animation-timing-function:cubic-bezier(0.37,0,0.63,1)}100%{opacity:0.66}}
     .hero-brand-tagline{margin:0 auto;color:rgba(249,250,251,0.92);font-family:system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:clamp(13px,2.4vw,20px);font-weight:900;letter-spacing:0.1px;line-height:1.2;text-transform:uppercase;white-space:nowrap;max-width:100%}
+    .hero-brand-eyebrow{margin:-3px auto 0;color:rgba(209,213,219,0.82);font-family:system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:clamp(11px,1.55vw,14px);font-weight:700;letter-spacing:0;line-height:1.35;text-align:center;max-width:min(92vw,640px)}
     .logo{max-height:320px;width:auto;margin:8px auto 6px;display:block;filter:none;transition:all 0.3s ease;position:relative;z-index:1}
     .hero-buy-btn{width:auto !important;min-width:0 !important;max-width:none !important;padding:22px 56px !important;border-radius:18px !important;position:relative;
       background:linear-gradient(135deg, rgba(5,206,120,0.22) 0%, rgba(59,130,246,0.12) 55%, rgba(251,191,36,0.08) 100%) !important;
@@ -586,6 +587,7 @@
       .hero-brand-art-title::before{inset:-20% -18% -14%;filter:blur(14px)}
       .hero-brand-art img{filter:drop-shadow(0 12px 20px rgba(0,0,0,0.30)) drop-shadow(0 0 16px rgba(96,165,250,0.12))}
       .hero-brand-tagline{max-width:100%;font-size:clamp(8px,2.35vw,10.5px);line-height:1.15}
+      .hero-brand-eyebrow{margin-top:-2px;font-size:clamp(10px,2.8vw,12px);line-height:1.25;max-width:86vw}
       .logo-section>.hero-video-cta{width:100%;box-sizing:border-box;padding:0 12px}
       .logo-section>.hero-video-cta .hero-buy-btn{width:min(100%,280px) !important;max-width:280px !important;padding:13px 16px !important}
       .logo-section>.hero-video-cta .hero-buy-btn img{height:32px;max-width:100%}
@@ -729,7 +731,9 @@
     .packages-comparison-title{position:relative;display:block;width:100%;margin:0 auto 16px;padding:0;color:var(--text);font-size:30px;font-weight:700;letter-spacing:0;font-style:normal;text-transform:none;text-shadow:none;text-align:center}
     .status-banner{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 32px;text-align:center}
     .status-copy{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-    .status-title{margin:0;font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(22px,2.9vw,30px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none;background:linear-gradient(to bottom,#ffffff 0%,var(--gold) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--gold)}
+    .status-title{margin:0;font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:clamp(22px,2.9vw,30px);font-weight:800;line-height:1.05;letter-spacing:0.03em;text-transform:uppercase;text-shadow:none;color:var(--gold)}
+    .status-title-part{display:inline-block;background:linear-gradient(to bottom,#ffffff 0%,var(--gold) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--gold)}
+    .status-title-part--battle{background:linear-gradient(to bottom,#ffffff 0%,var(--kickstarter) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--kickstarter)}
     .status-banner-text{font-size:26px;letter-spacing:0.02em;text-transform:uppercase;color:var(--text);text-decoration:underline;text-decoration-color:rgba(185,207,50,0.45);text-underline-offset:6px;text-decoration-thickness:2px}
     .status-banner-text strong{font-weight:900}
     .status-in-production{color:#b9cf32;font-weight:900}
@@ -967,9 +971,6 @@
     .packages-support-actions > a.btn,
     .packages-support-actions > button.btn{flex:1 1 240px;max-width:360px}
     .discord-btn-icon{width:22px;height:22px;object-fit:contain;filter:drop-shadow(0 0 6px rgba(0,0,0,0.2))}
-    .more-info-section{margin:48px auto;padding:0 16px;max-width:980px;text-align:center}
-    .more-info-photo{overflow:hidden;border:2px solid var(--gold);border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,0.35)}
-    .more-info-photo img{display:block;width:100%;height:auto}
     .faq-section{margin:48px 0;padding:0}
     .faq-section h2{margin:0;font-size:30px;color:var(--text)}
     .faq-intro{margin:8px 0 0;color:var(--muted)}
@@ -1025,7 +1026,8 @@
       .status-banner{margin:0 auto 10px}
       .choose-edition-label{display:block;margin-top:28px}
       .compare-mobile-picker{margin-top:6px}
-      .status-title{font-size:clamp(20px,6vw,25px)}
+      .status-title{font-size:clamp(20px,6vw,25px);letter-spacing:0.02em}
+      .status-title-part{display:block}
       .status-banner-text{font-size:17px}
       .status-subtitle{font-size:11px;margin-top:4px;line-height:1.4}
       .packages-comparison .how-it-works{margin:4px 0 6px;padding:10px 14px}
@@ -1045,10 +1047,10 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026071810" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026072220" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026071810">
+    <link rel="stylesheet" href="styles.css?v=2026072220">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -1111,37 +1113,7 @@
     <img class="countryball-silhouette countryball-silhouette--left" src="cb/poland.png" alt="" width="1024" height="1024" loading="eager" decoding="async">
     <img class="countryball-silhouette countryball-silhouette--right" src="cb/us.png" alt="" width="1024" height="1024" loading="eager" decoding="async">
   </div>
-  <header class="site-topbar" role="banner">
-    <div class="site-topbar-inner">
-      <nav class="site-topbar-nav" aria-label="Primary">
-        <a class="site-topbar-brand" href="https://countryballcards.com/" aria-label="Countryball Cards home">
-          <img class="site-topbar-brand-icon" src="assets/site-icon-80.webp" alt="" width="80" height="80" loading="eager" decoding="async" fetchpriority="high">
-          <img class="site-topbar-brand-title" src="assets/title-240.webp" srcset="assets/title-240.webp 240w, assets/title-360.webp 360w, assets/title.webp 671w" sizes="120px" alt="Countryball Cards" width="240" height="143" loading="eager" decoding="async" fetchpriority="high">
-        </a>
-
-        <div class="site-topbar-actions" aria-label="Links">
-          <a class="site-topbar-link" href="#editionComparison" aria-label="Buy now" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('header_buy_now');">
-            <svg class="site-topbar-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 6h15l-2 8H8L6 6Zm0 0L5 3H2m6 16a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm10 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/>
-            </svg>
-            <span>Buy Now</span>
-          </a>
-          <a class="site-topbar-link" href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
-            <img class="site-topbar-link-icon" src="assets/ks.png" alt="" width="18" height="18" loading="lazy" decoding="async">
-            <span>Kickstarter</span>
-          </a>
-          <a class="site-topbar-link" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="trackDiscordClick()">
-            <img class="site-topbar-link-icon" src="assets/discord.png" alt="" width="18" height="18" loading="lazy" decoding="async">
-            <span>Discord</span>
-          </a>
-          <a class="site-topbar-link" href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('reddit_header');">
-            <img class="site-topbar-link-icon" src="assets/reddit.png" alt="" width="18" height="18" loading="lazy" decoding="async">
-            <span>Reddit</span>
-          </a>
-        </div>
-      </nav>
-    </div>
-  </header>
+  <script src="js/site-header.js?v=2026072202"></script>
   <div class="wrap">
     <div class="frame">
       <div class="logo-section" aria-label="Countryball Cards trailer" data-scroll-gradient data-bg1="#0b1220" data-bg2="#0d1b33" data-bg3="#11244a" data-mbg1="#07152b" data-mbg2="#0a2a55" data-mbg3="#0d3f7f">
@@ -1156,6 +1128,7 @@
             </picture>
           </h1>
           <p class="hero-brand-tagline">Draft your countryballs, build your economy, execute attacks!</p>
+          <p class="hero-brand-eyebrow">Strategic 1v1 or 2v2 game | 20-40 minute games | For ages 12 and up</p>
         </div>
 
         <div class="all-cards-showcase" aria-label="All countryball cards">
@@ -1338,8 +1311,8 @@
           <div class="status-banner" role="status" aria-label="Project status">
             <div class="status-banner-inner">
               <div class="status-copy">
-                <h3 class="status-title" id="dealTitle"><span class="launch-label">In stock!</span> AVAILABLE NOW!</h3>
-                <p class="status-subtitle" id="dealSubtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Order today and get your Countryball Cards in 4-10 days!</p>
+                <h3 class="status-title" id="dealTitle"><span class="status-title-part status-title-part--battle">The Battle Starts</span> <span class="status-title-part">With Your Box!</span></h3>
+                <p class="status-subtitle" id="dealSubtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Choose your edition and join the tabletop countryball fun!</p>
               </div>
               <div class="launch-mascot-wrap">
                 <img src="assets/box_single.webp" alt="" class="launch-mascot" aria-hidden="true" loading="lazy">
@@ -1462,34 +1435,10 @@
 
       <div class="golden-separator"></div>
 
-      <!-- More Info -->
-      <section class="more-info-section" aria-label="Player count, game length, and age rating">
-        <div class="more-info-photo">
-          <picture>
-            <source type="image/webp" srcset="assets/more_info-640.webp 640w, assets/more_info-960.webp 960w, assets/more_info-1440.webp 1440w, assets/more_info.webp 1838w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
-            <img src="assets/more_info-1440.webp" alt="Countryball Cards played on a table: 2 or 4 players, 20-40 minutes per game, ages 12 and up" width="1838" height="1167" loading="lazy" decoding="async">
-          </picture>
-        </div>
-      </section>
-
-      <div class="golden-separator"></div>
-
       <!-- FAQ Section -->
       <section class="faq-section" aria-labelledby="faqTitle" data-scroll-gradient data-bg1="#14120b" data-bg2="#1f1a0d" data-bg3="#2b230f" data-mbg1="#1d1807" data-mbg2="#3d320a" data-mbg3="#5d4c0c">
         <h2 id="faqTitle">Frequently Asked Questions</h2>
         <ul class="faq-list">
-          <li class="faq-item">
-            <button class="faq-question" type="button" aria-expanded="false">
-              <span class="faq-question-inner">
-                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <span class="faq-question-text">Where do you ship?</span>
-              </span>
-              <span class="faq-toggle" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-answer" hidden>
-              <p>We ship to 27 countries (Most of the EU, the US and the UK). The supported destinations are: Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, United Kingdom and the United States.</p>
-            </div>
-          </li>
           <li class="faq-item">
             <button class="faq-question" type="button" aria-expanded="false">
               <span class="faq-question-inner">
@@ -1500,6 +1449,18 @@
             </button>
             <div class="faq-answer" hidden>
               <p>Orders are delivered in 4-10 days from Brno, Czechia. The exact delivery time depends on your destination country and local carrier handling.</p>
+            </div>
+          </li>
+          <li class="faq-item">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span class="faq-question-inner">
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span class="faq-question-text">Where do you ship?</span>
+              </span>
+              <span class="faq-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>We ship to 27 countries (Most of the EU, the US and the UK). The supported destinations are: Austria, Belgium, Bulgaria, Croatia, Czechia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, United Kingdom and the United States.</p>
             </div>
           </li>
           <li class="faq-item">
@@ -1547,7 +1508,7 @@
               <span class="faq-toggle" aria-hidden="true">+</span>
             </button>
             <div class="faq-answer" hidden>
-              <p>Countryball Cards is made by a small indie firm, Glare Studios LLC. Its owner is Jakov Jandrić, from Zagreb, Croatia. Manufactured by WingoGames and fulfilled by ShipSpot in Czechia.</p>
+              <p>Countryball Cards is made by a small indie firm, Glare Studios LLC. Its owner is Jakov Jandric, from Zagreb, Croatia. Manufactured by WingoGames and fulfilled by ShipSpot in Czechia.</p>
             </div>
           </li>
         </ul>
@@ -1570,79 +1531,7 @@
     </a>
   </div>
 
-  <footer class="site-footer" role="contentinfo" aria-label="Site footer">
-    <div class="site-footer-inner">
-      <div class="site-footer-top">
-        <div>
-          <div class="site-footer-brand">
-            <img src="assets/glare-56.webp" alt="" aria-hidden="true" class="site-footer-logo" width="56" height="56" loading="lazy" decoding="async">
-            <p class="site-footer-title">Glare Studios, LLC</p>
-          </div>
-          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Reach out any time. We typically respond within 24 hours.</p>
-        </div>
-
-      </div>
-
-      <div class="site-footer-grid">
-        <div class="site-footer-col">
-          <h3>Reach out</h3>
-          <div class="site-footer-meta">
-            131 Continental Dr<br>
-            Newark, DE, US
-          </div>
-          <ul class="site-footer-list" style="margin-top:10px">
-            <li><a href="mailto:info@countryballcards.com">info@countryballcards.com</a></li>
-            <li><a href="tel:+13026100190">+1 302 610 0190</a></li>
-          </ul>
-          <img
-            src="assets/bar.webp"
-            alt=""
-            class="site-footer-bar"
-            width="720"
-            height="118"
-            loading="lazy"
-            decoding="async"
-            aria-hidden="true"
-          >
-        </div>
-
-        <div class="site-footer-col">
-          <h3>Social</h3>
-          <div class="site-footer-social">
-            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
-              <img src="assets/ks.png" alt="" loading="lazy" decoding="async">
-              <span>Kickstarter</span>
-            </a>
-            <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackDiscordClick==='function') trackDiscordClick();">
-              <img src="assets/discord.png" alt="" loading="lazy" decoding="async">
-              <span>Discord</span>
-            </a>
-            <a href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackRedditClick==='function') trackRedditClick();">
-              <img src="assets/reddit.png" alt="" loading="lazy" decoding="async">
-              <span>Reddit</span>
-            </a>
-            <a href="https://www.instagram.com/countryball_cards" target="_blank" rel="noopener">
-              <img src="assets/instagram.png" alt="" loading="lazy" decoding="async">
-              <span>Instagram</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="site-footer-col">
-          <h3>Info</h3>
-          <ul class="site-footer-list">
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="site-footer-bottom">
-        <span>© 2025–2026 Glare Studios, LLC</span>
-        <span>Need help? <a href="mailto:info@countryballcards.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
-      </div>
-    </div>
-  </footer>
+  <script src="js/site-footer.js"></script>
 
   <!-- Card Viewer Modal -->
 
@@ -1653,10 +1542,10 @@
     <div class="modal preorder-modal" role="dialog" aria-modal="true" aria-labelledby="preorderConfirmTitle" tabindex="-1">
       <header>
         <h2 id="preorderConfirmTitle">Ready to order?</h2>
-        <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">✕</button>
+        <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">?</button>
       </header>
       <div class="preorder-modal-body">
-        <p class="preorder-modal-copy">We’ll open a secure Stripe checkout so you can finish your order.</p>
+        <p class="preorder-modal-copy">We�ll open a secure Stripe checkout so you can finish your order.</p>
         <p class="preorder-modal-note">Your payment info is protected, and you can still back out before completing payment.</p>
       </div>
       <footer class="preorder-modal-footer">
@@ -1666,7 +1555,7 @@
           <button type="button" class="preorder-paypal-btn" id="preorderPaypalBtn" aria-label="Pay with PayPal">
             <img src="assets/PayPal.svg" alt="PayPal" class="preorder-paypal-logo">
           </button>
-          <p class="preorder-paypal-note">You’ll be redirected to PayPal to complete your purchase securely.</p>
+          <p class="preorder-paypal-note">You�ll be redirected to PayPal to complete your purchase securely.</p>
         </div>
       </footer>
     </div>
@@ -1678,7 +1567,7 @@
     <div class="modal support-modal" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle" tabindex="-1">
       <header>
         <h2 id="supportModalTitle">Need help?</h2>
-        <button class="modal-close" type="button" id="supportCloseBtn" aria-label="Close support">✕</button>
+        <button class="modal-close" type="button" id="supportCloseBtn" aria-label="Close support">?</button>
       </header>
       <div class="support-modal-body">
         <p class="support-modal-copy">Email us at <a href="mailto:info@countryballcards.com" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_email_header');" style="color:var(--gold);text-decoration:underline">info@countryballcards.com</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_discord_header');" style="color:var(--gold);text-decoration:underline">join our Discord</a>. We typically respond within 24 hours.</p>
@@ -1690,7 +1579,7 @@
     <div class="modal extended-cards-modal" role="dialog" aria-modal="true" aria-labelledby="extendedCardsModalTitle" tabindex="-1">
       <header>
         <h2 id="extendedCardsModalTitle">+10 Cards in the Extended Edition</h2>
-        <button class="modal-close" type="button" id="extendedCardsCloseBtn" aria-label="Close">✕</button>
+        <button class="modal-close" type="button" id="extendedCardsCloseBtn" aria-label="Close">?</button>
       </header>
       <div class="extended-cards-grid" id="extendedCardsGrid">
         <img class="extended-card-image" src="assets/card-peek/austria.webp" data-full-src="austria.webp" alt="Austria countryball card" width="400" height="600" loading="lazy" decoding="async">
@@ -2126,10 +2015,10 @@
         
         if (status === 'success') {
           notification.style.backgroundColor = '#4CAF50';
-          notification.innerHTML = '✅ ' + decodeURIComponent(message);
+          notification.innerHTML = '? ' + decodeURIComponent(message);
         } else {
           notification.style.backgroundColor = '#f44336';
-          notification.innerHTML = '❌ ' + decodeURIComponent(message);
+          notification.innerHTML = '? ' + decodeURIComponent(message);
         }
         
         document.body.appendChild(notification);

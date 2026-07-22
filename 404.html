@@ -4,42 +4,35 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>404 - Page Not Found | Countryball Cards - Strategic Card Game</title>
-  <meta name="description" content="The page you're looking for doesn't exist. Explore Countryball Cards - the strategic trading card game featuring nations as countryballs. Find rules, packages, and gameplay guides." />
+  <meta name="description" content="The page you're looking for doesn't exist. Explore Countryball Cards - the strategic card game featuring nations as countryballs." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="canonical" href="https://countryballcards.com/" />
-  
-  <!-- Open Graph / Facebook -->
+
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://countryballcards.com/404.html">
   <meta property="og:title" content="404 - Page Not Found | Countryball Cards">
-  <meta property="og:description" content="The page you're looking for doesn't exist. Explore Countryball Cards - the strategic trading card game featuring nations as countryballs.">
+  <meta property="og:description" content="The page you're looking for doesn't exist. Explore Countryball Cards - the strategic card game featuring nations as countryballs.">
   <meta property="og:site_name" content="Countryball Cards">
-  
-  <!-- Twitter -->
+
   <meta property="twitter:card" content="summary">
   <meta property="twitter:url" content="https://countryballcards.com/404.html">
   <meta property="twitter:title" content="404 - Page Not Found | Countryball Cards">
-  <meta property="twitter:description" content="The page you're looking for doesn't exist. Explore Countryball Cards - the strategic trading card game featuring nations as countryballs.">
-  
-  <!-- Favicon / SERP icon -->
+  <meta property="twitter:description" content="The page you're looking for doesn't exist. Explore Countryball Cards - the strategic card game featuring nations as countryballs.">
+
   <link rel="icon" href="/serp.ico" sizes="any">
   <link rel="icon" type="image/png" href="/serp.png">
   <link rel="shortcut icon" href="/serp.ico">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="shortcut icon" href="/serp.ico">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-config" content="/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
-  
-  <!-- Performance hints -->
+
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="dns-prefetch" href="https://discord.com">
-  <link rel="preload" as="style" href="styles.css?v=2026071810">
-  
-  <link rel="stylesheet" href="styles.css?v=2026071810" />
-  
-  <!-- Structured Data for Error Page -->
+  <link rel="preload" as="style" href="styles.css?v=2026072220">
+  <link rel="stylesheet" href="styles.css?v=2026072220" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -47,95 +40,107 @@
     "name": "404 - Page Not Found",
     "description": "The page you're looking for doesn't exist. Explore Countryball Cards strategic card game.",
     "url": "https://countryballcards.com/404.html",
-    "mainEntity": {
-      "@type": "Game",
+    "isPartOf": {
+      "@type": "WebSite",
       "name": "Countryball Cards",
-      "description": "Strategic trading card game featuring nations as countryballs",
-      "url": "https://countryballcards.com",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Countryball Cards",
-        "url": "https://countryballcards.com"
-      }
-    },
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://countryballcards.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "404 Error",
-          "item": "https://countryballcards.com/404.html"
-        }
-      ]
+      "url": "https://countryballcards.com"
     }
   }
   </script>
+
   <style>
-    .error-page {
-      text-align: center;
-      padding: 4rem 2rem;
-      min-height: 60vh;
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+    }
+
+    body > .wrap {
+      flex: 1 0 auto;
+      display: flex;
+      width: 100%;
+    }
+
+    body > .wrap > .frame {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
     }
-    
-    .error-code {
-      font-size: 8rem;
-      font-weight: 900;
-      color: var(--gold);
-      line-height: 1;
-      margin: 0;
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+
+    .not-found-page {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: clamp(16px, 3vw, 40px) 0;
+      text-align: center;
     }
-    
-    .error-message {
-      font-size: 1.5rem;
-      margin: 1rem 0 2rem;
-      color: var(--muted);
-    }
-    
-    .error-card {
-      width: 120px;
-      height: 168px;
-      background: var(--card);
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      margin: 2rem auto;
+
+    .not-found-brand {
+      width: min(540px, 88vw);
+      margin: 0 auto 10px;
       position: relative;
-      transform: rotate(-5deg);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      isolation: isolate;
     }
-    
-    .error-card::before {
-      content: "?";
+
+    .not-found-brand::before {
+      content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 4rem;
-      color: var(--gold);
-      font-weight: bold;
+      inset: -18% -12% -10%;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 46%, rgba(96,165,250,0.34), rgba(99,102,241,0.18) 48%, transparent 76%);
+      filter: blur(20px);
+      opacity: 0.72;
     }
-    
-    @media (max-width: 768px) {
-      .error-code {
-        font-size: 6rem;
-      }
-      .error-message {
-        font-size: 1.2rem;
-      }
+
+    .not-found-brand img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,0.34)) drop-shadow(0 0 22px rgba(96,165,250,0.14));
+    }
+
+    .error-code {
+      margin: 0;
+      color: var(--gold);
+      font-size: clamp(60px, 10vw, 110px);
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+
+    .not-found-message {
+      margin: 10px auto 0;
+      max-width: 560px;
+      color: var(--text);
+      font-size: clamp(18px, 2.6vw, 26px);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .error-copy {
+      max-width: 520px;
+      margin: 8px auto 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .not-found-home {
+      display: inline-block;
+      margin-top: 22px;
+      color: var(--gold);
+      font-size: 17px;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .not-found-home:hover {
+      color: #d4b866;
     }
   </style>
-  <!-- Microsoft Clarity -->
+
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -146,97 +151,34 @@
 </head>
 <body>
   <div class="countryball-silhouette-bg" aria-hidden="true">
-    <span class="countryball-silhouette countryball-silhouette--left"></span>
-    <span class="countryball-silhouette countryball-silhouette--right"></span>
+    <img class="countryball-silhouette countryball-silhouette--left" src="cb/poland.png" alt="" width="1024" height="1024" loading="eager" decoding="async">
+    <img class="countryball-silhouette countryball-silhouette--right" src="cb/us.png" alt="" width="1024" height="1024" loading="eager" decoding="async">
   </div>
+
+  <script src="js/site-header.js"></script>
+
   <div class="wrap">
     <div class="frame">
-      <div class="error-page">
-        <h1 class="error-code">404</h1>
-        <div class="error-card"></div>
-        <h2 class="error-message">This card doesn't exist in our deck!</h2>
-        <p style="color: var(--muted); margin-bottom: 2rem;">
-          The page you're looking for seems to have wandered off to another country.
-        </p>
-        
-        <div class="cta">
-          <a class="btn primary cta-primary" href="index.html" onclick="window.location.href='index.html'; return false;">
-            <span class="btn-row">
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              </svg>
-              <span class="btn-label">Return Home</span>
-            </span>
-          </a>
+      <main class="not-found-page" aria-labelledby="notFoundTitle">
+        <div class="not-found-brand" aria-label="Countryball Cards">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w"
+              sizes="(max-width: 600px) 88vw, 540px">
+            <img src="assets/top_homepage.webp" alt="Countryball Cards" width="1938" height="742" loading="eager" decoding="async" fetchpriority="high">
+          </picture>
         </div>
-      </div>
+
+        <h1 class="error-code">404</h1>
+        <h2 class="not-found-message" id="notFoundTitle">This card is missing from the deck.</h2>
+        <p class="error-copy">The page you were looking for is not here, but the game is still on the table.</p>
+
+        <a class="not-found-home" href="index.html">Return Home</a>
+      </main>
     </div>
   </div>
 
-  <footer class="site-footer" role="contentinfo" aria-label="Site footer">
-    <div class="site-footer-inner">
-      <div class="site-footer-top">
-        <div>
-          <p class="site-footer-title">Glare Studios, LLC</p>
-          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Questions about the game or your order? Reach out any time.</p>
-        </div>
-      </div>
-
-      <div class="site-footer-grid">
-        <div class="site-footer-col">
-          <h3>Reach out</h3>
-          <div class="site-footer-meta">
-            131 Continental Dr<br>
-            Newark, DE, US
-          </div>
-          <ul class="site-footer-list" style="margin-top:10px">
-            <li><a href="mailto:info@countryballcards.com">info@countryballcards.com</a></li>
-            <li><a href="tel:+13026100190">+1 302 610 0190</a></li>
-          </ul>
-          <img
-            src="assets/bar.webp"
-            alt=""
-            class="site-footer-bar"
-            width="720"
-            height="118"
-            loading="lazy"
-            decoding="async"
-            aria-hidden="true"
-          >
-        </div>
-
-        <div class="site-footer-col">
-          <h3>Social</h3>
-          <div class="site-footer-social">
-            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
-              <img src="assets/ks.png" alt="" loading="lazy" decoding="async">
-              <span>Kickstarter</span>
-            </a>
-            <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackDiscordClick==='function') trackDiscordClick();">
-              <img src="assets/discord.png" alt="" loading="lazy" decoding="async">
-              <span>Discord</span>
-            </a>
-            <a href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener" onclick="if (typeof trackRedditClick==='function') trackRedditClick();">
-              <img src="assets/reddit.png" alt="" loading="lazy" decoding="async">
-              <span>Reddit</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="site-footer-col">
-          <h3>Info</h3>
-          <ul class="site-footer-list">
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="site-footer-bottom">
-        <span>© 2025 Glare Studios, LLC</span>
-        <span>Need help? <a href="mailto:info@countryballcards.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>. Payments accepted: Cards, Apple Pay, Google Pay, Amazon Pay, Cash App Pay, Link, Samsung Pay.</span>
-      </div>
-    </div>
-  </footer>
+  <script src="js/site-footer.js"></script>
 </body>
 </html>
