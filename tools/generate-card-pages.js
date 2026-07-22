@@ -233,7 +233,7 @@ function renderAbilities(card) {
 
 function pageHtml(card) {
   const name = escapeHtml(card.name);
-  const about = escapeHtml(card.about);
+  const metaDescription = `View the ${name} countryball card with larger art, ability descriptions, costs, dice requirements, and links back to the Countryball Cards gallery.`;
   const image = `../${card.image}`;
   const canonical = `${siteUrl}/cards/${card.id}.html`;
 
@@ -243,7 +243,7 @@ function pageHtml(card) {
   <title>${name} Card | Countryball Cards</title>
   <link rel="canonical" href="${canonical}" />
   <meta name="title" content="${name} Card | Countryball Cards" />
-  <meta name="description" content="View the ${name} countryball card with larger art, ability descriptions, costs, dice requirements, and links back to the Countryball Cards gallery." />
+  <meta name="description" content="${metaDescription}" />
   <meta name="theme-color" content="#151515" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
@@ -251,7 +251,7 @@ function pageHtml(card) {
   <meta property="og:type" content="article">
   <meta property="og:url" content="${canonical}">
   <meta property="og:title" content="${name} Card | Countryball Cards">
-  <meta property="og:description" content="${about}">
+  <meta property="og:description" content="${metaDescription}">
   <meta property="og:image" content="${siteUrl}/${card.image}">
 
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
