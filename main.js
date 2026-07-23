@@ -122,6 +122,50 @@ function warmResourcesInServiceWorker(urls) {
   }
 }
 
+function initComponentShowcase() {
+  const showcase = document.querySelector('.component-showcase');
+  const stage = document.querySelector('.component-box-stage');
+  const items = document.getElementById('componentShowcaseItems');
+
+  if (!showcase || !stage) {
+    return;
+  }
+
+  const openShowcase = () => {
+    if (showcase.classList.contains('is-open') || showcase.classList.contains('is-shaking')) {
+      return;
+    }
+
+    [
+      'components/showcase/cards_main.png',
+      'components/showcase/project_cards.png',
+      'components/showcase/extended_opp.png',
+      'components/showcase/coins.png',
+      'components/showcase/resource_dice.png',
+      'components/showcase/combat_die.png'
+    ].forEach((url) => warmResource(url, { decode: true }));
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const openDelay = prefersReducedMotion ? 0 : 300;
+    showcase.classList.add('is-shaking');
+
+    window.setTimeout(() => {
+      showcase.classList.remove('is-shaking');
+      showcase.classList.add('is-open');
+      stage.setAttribute('aria-expanded', 'true');
+      if (items) {
+        items.setAttribute('aria-hidden', 'false');
+      }
+
+      requestAnimationFrame(() => {
+        showcase.classList.add('is-unpacked');
+      });
+    }, openDelay);
+  };
+
+  stage.addEventListener('click', openShowcase);
+}
+
 function initializeCarousel() {
   heroCarouselEl = document.querySelector('.carousel') || heroCarouselEl;
   heroTrack = document.querySelector('.carousel-track') || heroTrack;
@@ -1149,6 +1193,75 @@ if(redditBtn){
   }
 })();
 
+// Pricing table detail buttons
+(function(){
+  const triggers=document.querySelectorAll('.compare-info-btn[data-package-detail]');
+  const overlay=document.getElementById('packageDetailOverlay');
+  const dialog=overlay?overlay.querySelector('.modal'):null;
+  const closeBtn=document.getElementById('packageDetailCloseBtn');
+  const bodyEl=document.getElementById('packageDetailBody');
+  if(!triggers.length||!overlay||!dialog||!closeBtn||!bodyEl) return;
+
+  const details={
+    extended:{
+      html:'<img class="package-detail-image" src="components/showcase/extended_opp.png" alt="Extended Edition extra countryball cards preview" width="760" height="461" loading="lazy" decoding="async"><p>The 10 extra Countryballs are Switzerland, Spain, Croatia, Czechia, Hungary, Finland, Belgium, Norway, Austria, and Portugal. The Extended Edition also adds 5 extra Project Cards for more deck variety.</p>'
+    },
+    certificate:{
+      html:"<p>Each Founder&apos;s Edition includes a numbered holographic certificate. You will receive a random number between 1 and 100. No future Founder&apos;s Certificate will ever be made, so this numbered run stays limited to the original 100.</p>"
+    },
+    holographic:{
+      html:'<p>The set of 5 holographic Countryball Cards contains the beta, early holographic versions of the 5 most popular cards: USA, France, Poland, Germany, and Netherlands.</p>'
+    }
+  };
+
+  let lastFocus=null;
+  const getFocusable=()=>dialog.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+
+  function open(key){
+    const detail=details[key];
+    if(!detail) return;
+    lastFocus=document.activeElement;
+    bodyEl.innerHTML=detail.html;
+    overlay.hidden=false;
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    if(typeof trackStoreClick==='function') trackStoreClick('pricing_detail_'+key);
+    const f=getFocusable();
+    if(f.length) f[0].focus(); else dialog.focus();
+    document.addEventListener('keydown', onKeyDown);
+    overlay.addEventListener('click', onOverlayClick);
+  }
+
+  function close(){
+    overlay.hidden=true;
+    overlay.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    document.removeEventListener('keydown', onKeyDown);
+    overlay.removeEventListener('click', onOverlayClick);
+    if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus();
+  }
+
+  function onOverlayClick(e){ if(e.target===overlay) close(); }
+  function onKeyDown(e){
+    if(e.key==='Escape'){ e.preventDefault(); close(); return; }
+    if(e.key==='Tab'){
+      const f=Array.from(getFocusable()); if(!f.length) return;
+      const first=f[0], last=f[f.length-1];
+      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    }
+  }
+
+  triggers.forEach(trigger=>{
+    trigger.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      open(trigger.dataset.packageDetail);
+    });
+  });
+  closeBtn.addEventListener('click', close);
+})();
+
 // Boot
 initCountdown();
 
@@ -1166,6 +1279,7 @@ function runAfterFirstPaint(fn) {
 runAfterFirstPaint(() => {
   try {
     initializeCarousel();
+    initComponentShowcase();
     updateCarousel();
     startAutoScroll();
     initializeImageQuality();

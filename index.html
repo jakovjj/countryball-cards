@@ -1,4 +1,4 @@
-<!doctype html>
+ï»¿<!doctype html>
 <html lang="en">
 <head>
   <title>Countryball Cards | Strategy Card Game</title>
@@ -114,7 +114,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026072220" />
+  <link rel="preload" as="style" href="styles.css?v=2026072312" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -128,8 +128,8 @@
    <meta name="msapplication-TileColor" content="#ffffff">
 
   <!-- Load fonts without blocking first paint -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@900&family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@900&family=Space+Grotesk:ital,wght@0,500;0,700;1,700&display=swap"></noscript>
   
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -743,11 +743,7 @@
     @keyframes badge-glow{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,0.28)}50%{box-shadow:0 0 0 8px rgba(52,211,153,0)}}
     .status-banner-inner{display:flex;align-items:center;gap:24px;justify-content:center}
     .launch-label{background:linear-gradient(to bottom,#ffffff 0%,var(--kickstarter) 85%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--kickstarter)}
-    .launch-mascot{width:150px;height:auto;flex-shrink:0;filter:drop-shadow(0 4px 22px rgba(5,206,120,0.4));animation:mascot-float 3.2s ease-in-out infinite}
-    @keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-    .launch-mascot-wrap{position:relative;display:inline-flex;flex-shrink:0}
-    .edition-sticker{display:none;position:absolute;top:-10px;right:-12px;width:48px;height:48px;pointer-events:none;transform:rotate(12deg);filter:drop-shadow(0 4px 10px rgba(0,0,0,0.45));z-index:2}
-    @media(max-width:600px){.status-banner-inner{flex-direction:column;gap:10px}.launch-mascot{width:110px}.edition-sticker.active{display:block}}
+    @media(max-width:600px){.status-banner-inner{flex-direction:column;gap:10px}}
     .status-sea-freight-frame{display:inline-block;padding:8px;border:3px solid #78e878;border-radius:40px;background:rgba(120,232,120,0.06);box-shadow:0 0 24px rgba(120,232,120,0.22);margin-bottom:8px;overflow:hidden}
     .status-sea-freight-img{width:min(380px,85vw);height:260px;object-fit:cover;object-position:center 40%;border-radius:32px;display:block}
     .packages-comparison-title::before,.packages-comparison-title::after{display:none}
@@ -836,7 +832,6 @@
     .payment-note span{opacity:0.85}
     .duty-paid-note{margin:0 auto;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-    #gameExplainerTitle{scroll-margin-top:130px;background:linear-gradient(100deg,#f9fafb 20%,#c3cad4 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
     .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
     .game-explainer-photo > picture{display:block;width:100%;height:100%;overflow:hidden}
     .game-explainer-photo > picture > img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transform-origin:center center}
@@ -857,7 +852,7 @@
     .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-weight:800;background:linear-gradient(100deg,#f9fafb 20%,#9ca3af 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
     @keyframes goldShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
     @media(prefers-reduced-motion:reduce){
-      .crash-card h4,.game-highlight,#gameExplainerTitle,.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{animation:none;background-position:50% 50%}
+      .crash-card h4,.game-highlight,.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{animation:none;background-position:50% 50%}
     }
     .game-highlight{font-weight:800;letter-spacing:0.2px;background:linear-gradient(100deg,#f0b429 25%,#ffe066 50%,#f0b429 75%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 5s ease-in-out infinite}
     .game-explainer-left,.game-crash-course{height:100%;min-height:0}
@@ -879,7 +874,6 @@
     .game-crash-course-link{margin-top:12px;padding-top:0;display:block}
     .gameplay-picture-mobile{display:none}
     @media(max-width:600px){
-      #gameExplainerTitle{font-size:22px;margin-bottom:10px}
       .game-explainer{margin:20px 0 8px}
       .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;aspect-ratio:auto;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
       .game-explainer-photo > picture.gameplay-picture{display:none}
@@ -1047,15 +1041,15 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026072220" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026072312" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026072220">
+    <link rel="stylesheet" href="styles.css?v=2026072312">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026071620" as="script">
+  <link rel="preload" href="main.js?v=2026072312" as="script">
   <link rel="prefetch" href="analytics.js?v=2026070301" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
@@ -1181,7 +1175,6 @@
           </div>
           <p class="video-caption">Watch the video to learn more!</p>
         </div>
-
       </div>
       <div class="golden-separator logo-separator"></div>
 
@@ -1191,8 +1184,7 @@
 
         <!-- Shipping selection now happens in a modal when you click Order. -->
 
-        <section class="game-explainer" aria-labelledby="gameExplainerTitle" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
-          <h3 class="packages-comparison-title" id="gameExplainerTitle">What's Countryball Cards?</h3>
+        <section class="game-explainer" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
           <figure class="game-explainer-photo">
             <figcaption class="game-explainer-overlay">
               <div class="game-explainer-grid">
@@ -1244,6 +1236,25 @@
               <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
             </picture>
           </figure>
+        </section>
+
+        <section class="component-showcase" aria-labelledby="componentShowcaseTitle" data-scroll-gradient data-bg1="#10140d" data-bg2="#18200f" data-bg3="#252f12" data-mbg1="#0c1209" data-mbg2="#17210d" data-mbg3="#27350f">
+          <div class="component-showcase-header">
+            <h3 class="component-showcase-title" id="componentShowcaseTitle">TAP TO OPEN THE BOX</h3>
+          </div>
+          <button class="component-box-stage" type="button" aria-label="Open the Countryball Cards box" aria-expanded="false" aria-controls="componentShowcaseItems">
+            <span class="component-box-glow" aria-hidden="true"></span>
+            <img class="component-box component-box-closed" src="components/showcase/closed_box.png" alt="Closed Countryball Cards box" width="1200" height="806" loading="lazy" decoding="async">
+            <img class="component-box component-box-open" src="components/showcase/box_open.png" alt="Open Countryball Cards box" width="1200" height="771" loading="lazy" decoding="async">
+          </button>
+          <div class="component-items" id="componentShowcaseItems" aria-hidden="true">
+            <img class="component-piece component-piece-cards" src="components/showcase/cards_main.png" alt="Countryball Cards deck" width="1300" height="663" loading="lazy" decoding="async">
+            <img class="component-piece component-piece-projects" src="components/showcase/project_cards.png" alt="Project cards" width="760" height="687" loading="lazy" decoding="async">
+            <img class="component-piece component-piece-extended" src="components/showcase/extended_opp.png" alt="Extended opponent cards" width="760" height="461" loading="lazy" decoding="async">
+            <img class="component-piece component-piece-coins" src="components/showcase/coins.png" alt="Coin tokens" width="520" height="250" loading="lazy" decoding="async">
+            <img class="component-piece component-piece-resource" src="components/showcase/resource_dice.png" alt="Resource dice" width="360" height="295" loading="lazy" decoding="async">
+            <img class="component-piece component-piece-combat" src="components/showcase/combat_die.png" alt="Combat die" width="178" height="180" loading="lazy" decoding="async">
+          </div>
         </section>
 
         <section class="card-peek-section" aria-labelledby="cardPeekTitle" style="display:none">
@@ -1312,12 +1323,7 @@
             <div class="status-banner-inner">
               <div class="status-copy">
                 <h3 class="status-title" id="dealTitle"><span class="status-title-part status-title-part--battle">The Battle Starts</span> <span class="status-title-part">With Your Box!</span></h3>
-                <p class="status-subtitle" id="dealSubtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Choose your edition and join the tabletop countryball fun!</p>
-              </div>
-              <div class="launch-mascot-wrap">
-                <img src="assets/box_single.webp" alt="" class="launch-mascot" aria-hidden="true" loading="lazy">
-                <img src="extended_badge.webp" alt="" class="edition-sticker edition-sticker-extended" aria-hidden="true" loading="lazy">
-                <img src="founders_badge.webp" alt="" class="edition-sticker edition-sticker-founders" aria-hidden="true" loading="lazy">
+                <p class="status-subtitle" id="dealSubtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Choose your edition and join the tabletop countryball fun! Arrives within 10 days.</p>
               </div>
             </div>
           </div>
@@ -1399,19 +1405,19 @@
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="feature-col">10 Extra Countryballs + 5 Extra Project Cards</th>
+                  <th scope="row" class="feature-col"><span class="compare-feature-label">10 Extra Countryballs + 5 Extra Project Cards <button class="compare-info-btn" type="button" data-package-detail="extended" aria-haspopup="dialog" aria-controls="packageDetailOverlay" aria-label="What is included in the extra Countryballs and Project Cards?">?</button></span></th>
                   <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="feature-col">Numbered holographic Founder's Certificate</th>
+                  <th scope="row" class="feature-col"><span class="compare-feature-label">Numbered holographic Founder's Certificate <button class="compare-info-btn" type="button" data-package-detail="certificate" aria-haspopup="dialog" aria-controls="packageDetailOverlay" aria-label="What makes the Founder's Certificate special?">?</button></span></th>
                   <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
                   <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="feature-col">Set of 5 holographic Countryball Cards</th>
+                  <th scope="row" class="feature-col"><span class="compare-feature-label">Set of 5 holographic Countryball Cards <button class="compare-info-btn" type="button" data-package-detail="holographic" aria-haspopup="dialog" aria-controls="packageDetailOverlay" aria-label="Which holographic Countryball Cards are included?">?</button></span></th>
                   <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
                   <td><span class="compare-icon compare-no" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg></span><span class="visually-hidden">Not included</span></td>
                   <td><span class="compare-icon compare-yes" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span><span class="visually-hidden">Included</span></td>
@@ -1545,7 +1551,7 @@
         <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">?</button>
       </header>
       <div class="preorder-modal-body">
-        <p class="preorder-modal-copy">We’ll open a secure Stripe checkout so you can finish your order.</p>
+        <p class="preorder-modal-copy">Weâ€™ll open a secure Stripe checkout so you can finish your order.</p>
         <p class="preorder-modal-note">Your payment info is protected, and you can still back out before completing payment.</p>
       </div>
       <footer class="preorder-modal-footer">
@@ -1555,7 +1561,7 @@
           <button type="button" class="preorder-paypal-btn" id="preorderPaypalBtn" aria-label="Pay with PayPal">
             <img src="assets/PayPal.svg" alt="PayPal" class="preorder-paypal-logo">
           </button>
-          <p class="preorder-paypal-note">You’ll be redirected to PayPal to complete your purchase securely.</p>
+          <p class="preorder-paypal-note">Youâ€™ll be redirected to PayPal to complete your purchase securely.</p>
         </div>
       </footer>
     </div>
@@ -1596,8 +1602,17 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="packageDetailOverlay" hidden aria-hidden="true">
+    <div class="modal package-detail-modal" role="dialog" aria-modal="true" aria-labelledby="packageDetailTitle" tabindex="-1">
+      <header>
+        <h2 id="packageDetailTitle" class="visually-hidden">Edition detail</h2>
+        <button class="modal-close" type="button" id="packageDetailCloseBtn" aria-label="Close">&times;</button>
+      </header>
+      <div class="package-detail-body" id="packageDetailBody"></div>
+    </div>
+  </div>
   <script src="analytics.js?v=2026070301" defer></script>
-  <script src="main.js?v=2026071620" defer></script>
+  <script src="main.js?v=2026072312" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -1845,7 +1860,6 @@
       function applySelection(value) {
         wrap.setAttribute('data-selected', value);
         tabs.forEach(t => t.classList.toggle('active', t.dataset.edition === value));
-        document.querySelectorAll('.edition-sticker').forEach(s => s.classList.toggle('active', s.classList.contains('edition-sticker-' + value)));
       }
 
       applySelection('base');
