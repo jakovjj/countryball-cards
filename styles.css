@@ -1093,8 +1093,13 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font-
   }
   .card-page-hero{
     grid-template-columns:minmax(124px, 45%) minmax(0, 1fr);
+    align-items:center;
     gap:12px;
     padding:8px 0 22px;
+  }
+  .card-page-art{
+    justify-self:center;
+    margin-top:clamp(10px, 3vw, 16px);
   }
   .card-page-atlas-link{
     margin-bottom:10px;
@@ -1166,6 +1171,9 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font-
   }
   .card-page-title-row .tier-badge{
     --tier-size:26px;
+  }
+  .card-page-art{
+    margin-top:8px;
   }
   .ability-card h3{
     font-size:16px;
@@ -3353,7 +3361,7 @@ font-size:16px}
   .component-items{
     width:min(98vw,560px);
     min-height:230px;
-    margin:-276px auto 0;
+    margin:-230px auto 0;
   }
   .component-piece-cards{top:30px;width:82vw;max-width:430px}
   .component-piece-projects{left:1%;top:84px;width:32vw;max-width:160px}
