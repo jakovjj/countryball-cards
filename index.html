@@ -114,7 +114,7 @@
   
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/top_homepage-960.webp" type="image/webp" fetchpriority="high" imagesrcset="assets/top_homepage-640.webp 640w, assets/top_homepage-960.webp 960w, assets/top_homepage-1440.webp 1440w, assets/top_homepage.webp 1938w" imagesizes="(max-width: 600px) 94vw, min(74vw, 780px)" />
-  <link rel="preload" as="style" href="styles.css?v=2026072312" />
+  <link rel="preload" as="style" href="styles.css?v=2026072313" />
   
   <!-- Enhanced Favicon Implementation for Better SERP Visibility -->
   <!-- Google requires at least 48x48; provide a 192x192 PNG too -->
@@ -1020,8 +1020,8 @@
       .status-banner{margin:0 auto 10px}
       .choose-edition-label{display:block;margin-top:28px}
       .compare-mobile-picker{margin-top:6px}
-      .status-title{font-size:clamp(20px,6vw,25px);letter-spacing:0.02em}
-      .status-title-part{display:block}
+      .status-title{font-size:clamp(18px,5.4vw,25px);letter-spacing:0.02em;white-space:nowrap}
+      .status-title-part{display:inline-block}
       .status-banner-text{font-size:17px}
       .status-subtitle{font-size:11px;margin-top:4px;line-height:1.4}
       .packages-comparison .how-it-works{margin:4px 0 6px;padding:10px 14px}
@@ -1041,10 +1041,10 @@
   </style>
   
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026072312" onload="document.documentElement.classList.add('styles-ready')">
+  <link rel="stylesheet" href="styles.css?v=2026072313" onload="document.documentElement.classList.add('styles-ready')">
   <script>document.documentElement.classList.add('styles-ready');</script>
   <noscript>
-    <link rel="stylesheet" href="styles.css?v=2026072312">
+    <link rel="stylesheet" href="styles.css?v=2026072313">
     <style>html .card-peek-section{visibility:visible}</style>
   </noscript>
 
@@ -1322,7 +1322,7 @@
           <div class="status-banner" role="status" aria-label="Project status">
             <div class="status-banner-inner">
               <div class="status-copy">
-                <h3 class="status-title" id="dealTitle"><span class="status-title-part status-title-part--battle">The Battle Starts</span> <span class="status-title-part">With Your Box!</span></h3>
+                <h3 class="status-title" id="dealTitle"><span class="status-title-part status-title-part--battle">Let's Get You</span> <span class="status-title-part">a Box!</span></h3>
                 <p class="status-subtitle" id="dealSubtitle" style="color:#ffffff;font-size:clamp(15px,3.8vw,17px);font-weight:600;letter-spacing:0.1px;">Choose your edition and join the tabletop countryball fun! Arrives within 10 days.</p>
               </div>
             </div>
