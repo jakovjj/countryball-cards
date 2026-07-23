@@ -1350,6 +1350,8 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 }
 
 .golden-separator.logo-separator{margin:18px auto 10px}
+.logo-section::after{content:'';position:absolute;inset:0;left:50%;width:min(1280px,100vw);transform:translateX(-50%);background:url('assets/all_cards.webp') center 18% / min(1200px,96vw) auto no-repeat;opacity:0.08;filter:saturate(1.08) contrast(1.05);mix-blend-mode:screen;pointer-events:none;z-index:0}
+.logo-section>*{position:relative;z-index:1}
 .hero-brand{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(780px,100%);margin:0 auto 16px;position:relative;z-index:1}
 .hero-brand-lockup{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-width:0;max-width:100%}
 .hero-brand-icon{display:block;width:clamp(130px,18vw,170px);height:clamp(130px,18vw,170px);flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 14px 26px rgba(0,0,0,0.42)) drop-shadow(0 0 12px rgba(251,191,36,0.16))}
@@ -1366,9 +1368,6 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 .hero-stock-note{margin:0;display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:700;letter-spacing:0.3px;color:rgba(249,250,251,0.78)}
 .hero-stock-truck{width:17px;height:17px;flex-shrink:0;color:#4ade80;filter:drop-shadow(0 0 5px rgba(74,222,128,0.85));animation:stockPulse 2.2s ease-in-out infinite}
 @keyframes stockPulse{0%,100%{opacity:1}50%{opacity:0.45}}
-.all-cards-showcase{width:min(1200px,90vw);margin:18px auto 20px;position:relative;isolation:isolate;line-height:0}
-.all-cards-showcase::before{content:'';position:absolute;inset:-16% -6%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 50%, rgba(251,191,36,0.22) 0%, rgba(96,165,250,0.12) 45%, transparent 74%);filter:blur(24px);opacity:0.75}
-.all-cards-showcase-img{display:block;width:100%;height:auto;border-radius:10px;filter:drop-shadow(0 10px 22px rgba(0,0,0,0.32))}
 .sub{color:var(--muted);margin:0 0 18px}
 .badges{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 22px}
 .badge{color:var(--gold);background:rgba(199,164,85,.15);
