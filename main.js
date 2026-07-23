@@ -125,6 +125,7 @@ function warmResourcesInServiceWorker(urls) {
 function initComponentShowcase() {
   const showcase = document.querySelector('.component-showcase');
   const stage = document.querySelector('.component-box-stage');
+  const title = document.getElementById('componentShowcaseTitle');
   const items = document.getElementById('componentShowcaseItems');
 
   if (!showcase || !stage) {
@@ -152,6 +153,9 @@ function initComponentShowcase() {
     window.setTimeout(() => {
       showcase.classList.remove('is-shaking');
       showcase.classList.add('is-open');
+      if (title) {
+        title.textContent = "what's inside";
+      }
       stage.setAttribute('aria-expanded', 'true');
       if (items) {
         items.setAttribute('aria-hidden', 'false');

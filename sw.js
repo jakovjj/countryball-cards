@@ -6,7 +6,7 @@ const urlsToCache = [
   '/styles.css',
   '/styles.css?v=2026072313',
   '/main.js',
-  '/main.js?v=2026072312',
+  '/main.js?v=2026072313',
   '/analytics.js',
   '/analytics.js?v=2026070301',
   '/store.js?v=2026070301',

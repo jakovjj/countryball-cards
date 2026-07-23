@@ -727,6 +727,7 @@
     .packages-compare-table th.feature-col{padding-left:8px;padding-right:8px}
     .packages-compare-table thead th{border-bottom:1px solid rgba(255,255,255,0.12)}
     .packages-compare-table th{font-weight:800}
+    .packages-compare-table tbody .feature-col{text-align:left;width:38%;font-family:'Segoe UI',Inter,system-ui,sans-serif;font-size:14px;line-height:1.25;font-weight:850;font-style:normal;text-transform:uppercase;letter-spacing:0.01em;color:#f8fafc;-webkit-text-fill-color:currentColor;text-shadow:0 -1px 0 rgba(255,255,255,0.26),1px 1px 0 rgba(91,123,255,0.12),0 0 8px rgba(251,191,36,0.07);transform:none;transform-origin:left center}
     .packages-compare-table .feature-col{text-align:left;color:var(--text);font-weight:800;width:38%;font-size:15px;line-height:1.35}
     .packages-compare-table .feature-subtle{color:var(--muted);font-weight:700}
     .packages-compare-table .edition-col{text-align:center;width:18.666%}
@@ -791,9 +792,14 @@
       .compare-mobile-cta{display:flex}
       .packages-comparison-title{display:block;width:100%;text-align:center}
       .packages-compare-wrap{overflow-x:visible;-webkit-overflow-scrolling:auto}
-      .packages-compare-table{min-width:0;table-layout:fixed}
+      .packages-compare-table{display:block;width:100%;min-width:0;table-layout:auto}
+      .packages-compare-table tbody{display:block;width:100%}
       .packages-compare-table th,.packages-compare-table td{padding:10px 8px}
       .packages-compare-table .feature-col{width:auto;font-size:14px}
+      .packages-compare-table tbody tr{display:grid;width:100%;grid-template-columns:minmax(0,1fr) 36px;align-items:center;column-gap:8px;border-bottom:1px solid rgba(255,255,255,0.08)}
+      .packages-compare-table tbody tr th,
+      .packages-compare-table tbody tr td{border-bottom:none}
+      .packages-compare-table tbody .feature-col{display:block;grid-column:1;width:auto;min-width:0;font-size:13px;line-height:1.22;letter-spacing:0}
 
       .packages-compare-table thead,
       .packages-compare-table tfoot{display:none}
@@ -803,10 +809,10 @@
       .packages-compare-wrap[data-selected='extended'] .compare-mobile-buy[data-edition='extended']{display:inline-flex}
       .packages-compare-wrap[data-selected='founders'] .compare-mobile-buy[data-edition='founders']{display:inline-flex}
 
-      .packages-compare-table tbody td{display:none;width:84px}
-      .packages-compare-wrap[data-selected='base'] .packages-compare-table tbody tr td:nth-child(2){display:table-cell}
-      .packages-compare-wrap[data-selected='extended'] .packages-compare-table tbody tr td:nth-child(3){display:table-cell}
-      .packages-compare-wrap[data-selected='founders'] .packages-compare-table tbody tr td:nth-child(4){display:table-cell}
+      .packages-compare-table tbody td{display:none;width:auto;padding-left:0;padding-right:0}
+      .packages-compare-wrap[data-selected='base'] .packages-compare-table tbody tr td:nth-child(2){display:flex;grid-column:2;justify-content:center}
+      .packages-compare-wrap[data-selected='extended'] .packages-compare-table tbody tr td:nth-child(3){display:flex;grid-column:2;justify-content:center}
+      .packages-compare-wrap[data-selected='founders'] .packages-compare-table tbody tr td:nth-child(4){display:flex;grid-column:2;justify-content:center}
     }
 
     .packages-comparison-divider{height:1px;margin:18px 0 16px;border-radius:999px;background:rgba(255,255,255,0.10)}
@@ -834,31 +840,38 @@
     .payment-note span{opacity:0.85}
     .duty-paid-note{margin:0 auto;max-width:920px;color:var(--muted);text-align:center;font-size:14px;line-height:1.45}
     .game-explainer{margin:28px 0 10px;padding:0;text-align:center}
-    .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:2px solid var(--gold);background:#081918;box-shadow:0 14px 34px rgba(0,0,0,0.24)}
-    .game-explainer-photo > picture{display:block;width:100%;height:100%;overflow:hidden}
-    .game-explainer-photo > picture > img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transform-origin:center center}
-    .game-explainer-overlay{position:absolute;inset:18px;z-index:1;display:flex;align-items:center;justify-content:center}
+    .game-explainer-photo{position:relative;margin:0 auto;max-width:1080px}
+    .game-explainer-overlay{position:relative;display:flex;align-items:center;justify-content:center}
     .game-explainer-grid{margin:0 auto;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+    .game-explainer-grid--rules-only{grid-template-columns:minmax(0,640px);justify-content:center}
     @media(max-width:900px){
       .game-explainer-grid{grid-template-columns:1fr;gap:14px}
     }
-    .game-explainer-left{padding:16px 16px 14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);text-align:left;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+    .game-explainer-left{padding:0;text-align:left;background:transparent;border:0;border-radius:0;box-shadow:none}
     @media(max-width:900px){
-      .game-explainer-left{padding:14px}
+      .game-explainer-left{padding:0}
     }
     .game-explainer-lede{margin:0 0 12px;max-width:none;color:var(--text);font-size:13px;line-height:1.55;font-weight:500}
     .game-explainer-lede strong{color:var(--text);font-weight:800}
-    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:13px;text-align:left}
-    .game-explainer-bullets li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px;line-height:1.5;padding:0;border-radius:0;background:transparent;border:none}
-    .game-explainer-bullets .bullet-icon{width:19px;height:19px;max-width:19px;max-height:19px;object-fit:contain;flex:0 0 auto;margin-top:2px}
-    .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-weight:800;background:linear-gradient(100deg,#f9fafb 20%,#9ca3af 50%,#f9fafb 80%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 6s ease-in-out infinite}
+    .game-explainer-bullets{list-style:none;margin:0;max-width:none;padding:0;display:grid;gap:0;text-align:left}
+    .game-explainer-bullets li{position:relative;display:flex;gap:14px;align-items:flex-start;color:#edf6f7;font-size:17px;line-height:1.55;padding:10px 0;border-radius:0;background:transparent;border:none;text-shadow:0 2px 8px rgba(0,0,0,0.78);opacity:0;transform:translateX(-26px);animation:bulletSlideIn 680ms cubic-bezier(.2,.8,.2,1) forwards}
+    .game-explainer-bullets li + li{border-top:1px solid rgba(251,191,36,0.24)}
+    .game-explainer-bullets li::after{content:"";position:absolute;left:31px;right:12%;top:-1px;height:1px;background:linear-gradient(90deg,rgba(251,191,36,0.34),rgba(251,191,36,0));pointer-events:none}
+    .game-explainer-bullets li:nth-child(2){animation-delay:120ms}
+    .game-explainer-bullets li:nth-child(3){animation-delay:240ms}
+    .game-explainer-bullets li:nth-child(4){animation-delay:360ms}
+    .game-explainer-bullets .bullet-icon{width:22px;height:22px;max-width:22px;max-height:22px;object-fit:contain;flex:0 0 auto;margin-top:3px;filter:drop-shadow(0 0 8px rgba(251,191,36,0.38)) drop-shadow(0 2px 5px rgba(0,0,0,0.55))}
+    .game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{font-weight:800;background:none;-webkit-background-clip:initial;background-clip:initial;-webkit-text-fill-color:currentColor;color:#ffffff;animation:none}
     @keyframes goldShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
     @media(prefers-reduced-motion:reduce){
       .crash-card h4,.game-highlight,.game-explainer-lede .lede-emphasis,.game-explainer-bullets strong{animation:none;background-position:50% 50%}
+      .game-explainer-bullets li{animation:none;opacity:1;transform:none}
     }
-    .game-highlight{font-weight:800;letter-spacing:0.2px;background:linear-gradient(100deg,#f0b429 25%,#ffe066 50%,#f0b429 75%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:goldShimmer 5s ease-in-out infinite}
+    .game-highlight{font-weight:800;letter-spacing:0.2px;background:none;-webkit-background-clip:initial;background-clip:initial;-webkit-text-fill-color:currentColor;color:var(--gold);animation:none}
+    @keyframes bulletSlideIn{to{opacity:1;transform:translateX(0)}}
     .game-explainer-left,.game-crash-course{height:100%;min-height:0}
     .game-crash-course{margin:0;text-align:left;padding:14px;border-radius:18px;background:rgba(8,24,24,0.88);border:1px solid rgba(255,255,255,0.14);display:flex;flex-direction:column;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+    .game-crash-course[hidden]{display:none}
     .crash-course-title{margin:2px 0 12px;font-size:18px;line-height:1.2;font-weight:900;letter-spacing:0.3px;color:var(--text);text-align:center}
     .crash-course-title span{color:var(--gold)}
     .crash-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
@@ -873,29 +886,26 @@
     .crash-card.crash-win h4{--crash-c1:#b478ff;--crash-c2:#ecdcff;--crash-glow:rgba(180,120,255,0.35);--crash-border:rgba(180,120,255,0.45)}
     .crash-card p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.45}
     .crash-card strong{color:var(--gold)}
-    .game-crash-course-link{margin-top:12px;padding-top:0;display:block}
-    .gameplay-picture-mobile{display:none}
+    .game-crash-course-link{margin-top:16px;padding-top:0;display:block;text-align:center}
     @media(max-width:600px){
       .game-explainer{margin:20px 0 8px}
-      .game-explainer-photo{display:flex;flex-direction:column;align-items:center;gap:12px;aspect-ratio:auto;border:0;border-radius:0;overflow:visible;background:transparent;box-shadow:none}
-      .game-explainer-photo > picture.gameplay-picture{display:none}
-      .gameplay-picture-mobile{display:block;width:100%;overflow:hidden;border:2px solid var(--gold);border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,0.22)}
-      .gameplay-picture-mobile img{display:block;width:100%;height:auto;object-fit:contain}
-      .gameplay-mobile-zoom{cursor:zoom-in;-webkit-tap-highlight-color:rgba(251,191,36,0.18)}
-      .game-explainer-overlay{position:relative;inset:auto;order:1;display:block;padding:0;background:transparent}
+      .game-explainer-photo{display:block}
+      .game-explainer-overlay{display:block;padding:0;background:transparent}
       .game-explainer-grid{gap:10px}
-      .game-explainer-left,.game-crash-course{padding:11px 11px 10px;border-radius:14px}
+      .game-explainer-left{padding:0;border-radius:0}
+      .game-crash-course{padding:11px 11px 10px;border-radius:14px}
       .game-explainer-lede{font-size:12px;line-height:1.45;margin-bottom:10px}
-      .game-explainer-bullets{gap:6px}
-      .game-explainer-bullets li{font-size:13px;line-height:1.4}
+      .game-explainer-bullets{width:100%;gap:0}
+      .game-explainer-bullets li{font-size:13.5px;line-height:1.45;padding:7px 0}
+      .game-explainer-bullets .bullet-icon{width:19px;height:19px;max-width:19px;max-height:19px}
       .crash-course-title{font-size:16px;margin:0 0 10px}
       .crash-grid{gap:8px}
       .crash-card h4{font-size:13px;margin:0 0 4px}
       .crash-card p{font-size:11.5px;line-height:1.4}
-      .game-crash-course-link{padding-top:8px}
+      .game-crash-course-link{margin-top:12px;padding-top:8px}
       .rules-pdf-link{font-size:13px}
     }
-    .rules-pdf-link{color:var(--gold);font-weight:800;text-decoration:underline;text-underline-offset:4px}
+    .rules-pdf-link{color:var(--gold);font-size:14px;font-weight:400;text-decoration:underline;text-underline-offset:4px;opacity:0.82}
     .rules-pdf-link:hover{filter:brightness(1.1)}
     .contents-showcase{text-align:center;margin:32px auto 16px;padding:0;border:none;border-radius:0;background:transparent;box-shadow:none}
     .contents-subtitle{display:none}
@@ -930,8 +940,6 @@
     .card-zoom-stage{position:relative;display:grid;place-items:center;width:min(94vw,720px);max-height:94vh;isolation:isolate;perspective:1200px;pointer-events:none}
     .card-zoom-bg{position:absolute;z-index:0;width:min(96vw,760px);max-width:none;max-height:none;aspect-ratio:1;object-fit:contain;border-radius:0;box-shadow:none;opacity:0.48;filter:blur(12px) saturate(1.2) brightness(1.08);transform:scale(1.06);animation:inspect-bg-pulse 3.2s ease-in-out infinite;pointer-events:none;user-select:none}
     #cardZoomImg{position:relative;z-index:1;max-width:min(88vw,520px);max-height:88vh;border-radius:16px;box-shadow:0 12px 70px rgba(0,0,0,0.72);pointer-events:none;user-select:none;transform-origin:center;will-change:transform,opacity,filter;animation:inspect-card-in 0.44s cubic-bezier(.16,1,.3,1) both}
-    #cardZoomOverlay.photo-zoom .card-zoom-stage{width:min(96vw,1200px)}
-    #cardZoomOverlay.photo-zoom #cardZoomImg{max-width:min(94vw,1200px);max-height:84vh;border-radius:12px}
     @keyframes inspect-overlay-fade{from{opacity:0}to{opacity:1}}
     @keyframes inspect-bg-pulse{0%,100%{opacity:0.4;transform:scale(1.02);filter:blur(12px) saturate(1.12) brightness(1.04)}50%{opacity:0.56;transform:scale(1.1);filter:blur(16px) saturate(1.24) brightness(1.12)}}
     @keyframes inspect-card-in{0%{opacity:0;transform:translateY(18px) scale(0.94) rotate(calc(var(--card-zoom-tilt, -2deg) * 0.45));filter:blur(2px) brightness(1.12)}58%{opacity:1;transform:translateY(-4px) scale(1.018) rotate(var(--card-zoom-tilt, -2deg));filter:blur(0) brightness(1.04)}100%{opacity:1;transform:translateY(0) scale(1) rotate(var(--card-zoom-tilt, -2deg));filter:none}}
@@ -1051,7 +1059,7 @@
   </noscript>
 
   <!-- Preload critical JavaScript -->
-  <link rel="preload" href="main.js?v=2026072312" as="script">
+  <link rel="preload" href="main.js?v=2026072313" as="script">
   <link rel="prefetch" href="analytics.js?v=2026070301" as="script">
 
   <!-- Third-party analytics loaders moved to analytics.js and delayed until idle/interaction. -->
@@ -1178,24 +1186,20 @@
         <section class="game-explainer" data-scroll-gradient data-bg1="#0b1416" data-bg2="#0c1f22" data-bg3="#0d2b2a" data-mbg1="#061a14" data-mbg2="#0a3a2a" data-mbg3="#0c5a34">
           <figure class="game-explainer-photo">
             <figcaption class="game-explainer-overlay">
-              <div class="game-explainer-grid">
+              <div class="game-explainer-grid game-explainer-grid--rules-only">
                 <div class="game-explainer-left">
-                  <div class="game-explainer-lede"><span class="lede-emphasis">Countryball Cards is a chaotic strategy card game</span> where you draft your own countryball team, build an economy with abilities and projects, then unleash ridiculous combos.</div>
                   <ul class="game-explainer-bullets" aria-label="Game highlights">
                     <li><img class="bullet-icon" src="icons/defensive.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><strong>Draft a squad that clicks:</strong> Pick countryballs that work well together. Some hit hard, others defend or support.</span></li>
                     <li><img class="bullet-icon" src="icons/economic.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><strong>Plan your moves:</strong> Spend coins, manage resources, and choose the right moment to strike.</span></li>
                     <li><img class="bullet-icon" src="icons/misc.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><strong>Huge replay value:</strong> <span class="game-highlight">40+</span> unique abilities across <span class="game-highlight">20</span> countries, with even more in the Extended Edition.</span></li>
                     <li><img class="bullet-icon" src="icons/offensive.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span><span class="game-highlight">1v1</span> and <span class="game-highlight">2v2</span> <strong>battles:</strong> Duel a friend or team up for a bigger fight.</span></li>
                   </ul>
+                  <div class="game-crash-course-link">
+                    <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download Full Rules PDF</a>
+                  </div>
                 </div>
 
-                <picture class="gameplay-picture-mobile">
-                  <source type="image/avif" srcset="assets/gameplay-720.avif 720w, assets/gameplay-1080.avif 1080w, assets/gameplay-1440.avif 1440w, assets/gameplay-1920.avif 1920w" sizes="100vw">
-                  <source type="image/webp" srcset="assets/gameplay-480.webp 480w, assets/gameplay-720.webp 720w, assets/gameplay-1080.webp 1080w, assets/gameplay-1440.webp 1440w, assets/gameplay-1920.webp 1920w, assets/gameplay.webp 3840w" sizes="100vw">
-                  <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
-                </picture>
-
-                <aside class="game-crash-course" aria-label="Rules crash course">
+                <aside class="game-crash-course" aria-label="Rules crash course" hidden>
                   <h4 class="crash-course-title"><span>Crash</span> Course</h4>
                   <div class="crash-grid" aria-label="Quick rules overview">
                     <div class="crash-card crash-setup">
@@ -1215,17 +1219,9 @@
                       <p>Eliminate enemy countryballs by dealing damage. Each countryball has <strong>3 hit points</strong>. <strong>Last player standing wins.</strong></p>
                     </div>
                   </div>
-                  <div class="game-crash-course-link">
-                    <a class="rules-pdf-link" href="rules.pdf" download aria-label="Download the full rules PDF">Download Full Rules PDF</a>
-                  </div>
                 </aside>
               </div>
             </figcaption>
-            <picture class="gameplay-picture">
-              <source type="image/avif" srcset="assets/gameplay-720.avif 720w, assets/gameplay-1080.avif 1080w, assets/gameplay-1440.avif 1440w, assets/gameplay-1920.avif 1920w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
-              <source type="image/webp" srcset="assets/gameplay-480.webp 480w, assets/gameplay-720.webp 720w, assets/gameplay-1080.webp 1080w, assets/gameplay-1440.webp 1440w, assets/gameplay-1920.webp 1920w, assets/gameplay.webp 3840w" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 92vw, 980px">
-              <img class="gameplay-mobile-zoom" src="assets/gameplay-1080.webp" alt="Countryball Cards being played on a table" width="3840" height="2160" loading="lazy" decoding="async">
-            </picture>
           </figure>
         </section>
 
@@ -1539,7 +1535,7 @@
     <div class="modal preorder-modal" role="dialog" aria-modal="true" aria-labelledby="preorderConfirmTitle" tabindex="-1">
       <header>
         <h2 id="preorderConfirmTitle">Ready to order?</h2>
-        <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">?</button>
+        <button class="modal-close preorder-close" type="button" id="preorderConfirmClose" aria-label="Cancel checkout">&times;</button>
       </header>
       <div class="preorder-modal-body">
         <p class="preorder-modal-copy">We’ll open a secure Stripe checkout so you can finish your order.</p>
@@ -1564,7 +1560,7 @@
     <div class="modal support-modal" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle" tabindex="-1">
       <header>
         <h2 id="supportModalTitle">Need help?</h2>
-        <button class="modal-close" type="button" id="supportCloseBtn" aria-label="Close support">?</button>
+        <button class="modal-close" type="button" id="supportCloseBtn" aria-label="Close support">&times;</button>
       </header>
       <div class="support-modal-body">
         <p class="support-modal-copy">Email us at <a href="mailto:info@countryballcards.com" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_email_header');" style="color:var(--gold);text-decoration:underline">info@countryballcards.com</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_discord_header');" style="color:var(--gold);text-decoration:underline">join our Discord</a>. We typically respond within 24 hours.</p>
@@ -1576,7 +1572,7 @@
     <div class="modal extended-cards-modal" role="dialog" aria-modal="true" aria-labelledby="extendedCardsModalTitle" tabindex="-1">
       <header>
         <h2 id="extendedCardsModalTitle">+10 Cards in the Extended Edition</h2>
-        <button class="modal-close" type="button" id="extendedCardsCloseBtn" aria-label="Close">?</button>
+        <button class="modal-close" type="button" id="extendedCardsCloseBtn" aria-label="Close">&times;</button>
       </header>
       <div class="extended-cards-grid" id="extendedCardsGrid">
         <img class="extended-card-image" src="assets/card-peek/austria.webp" data-full-src="austria.webp" alt="Austria countryball card" width="400" height="600" loading="lazy" decoding="async">
@@ -1603,7 +1599,7 @@
     </div>
   </div>
   <script src="analytics.js?v=2026070301" defer></script>
-  <script src="main.js?v=2026072312" defer></script>
+  <script src="main.js?v=2026072313" defer></script>
 
   <script>
     // Fallback: ensure scroll gradient works even if main.js is cached/stale on mobile.
@@ -2097,12 +2093,11 @@
       var overlay = document.getElementById('cardZoomOverlay');
       var zoomImg = document.getElementById('cardZoomImg');
       var closeBtn = document.getElementById('cardZoomClose');
-      function openZoom(src, alt, mode) {
+      function openZoom(src, alt) {
         var tilt = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2.2);
         zoomImg.style.setProperty('--card-zoom-tilt', tilt.toFixed(2) + 'deg');
         zoomImg.src = src;
         zoomImg.alt = alt || '';
-        overlay.classList.toggle('photo-zoom', mode === 'photo');
         overlay.classList.add('open');
         document.body.style.overflow = 'hidden';
         document.documentElement.style.overflow = 'hidden';
@@ -2110,16 +2105,8 @@
       window.openCardZoom = openZoom;
       function closeZoom() {
         overlay.classList.remove('open');
-        overlay.classList.remove('photo-zoom');
         document.body.style.overflow = '';
         document.documentElement.style.overflow = '';
-      }
-      var gameplayZoomImg = document.querySelector('.gameplay-mobile-zoom');
-      if (gameplayZoomImg) {
-        gameplayZoomImg.addEventListener('click', function() {
-          if (!window.matchMedia || !window.matchMedia('(max-width: 600px)').matches) return;
-          openZoom(gameplayZoomImg.dataset.fullSrc || gameplayZoomImg.currentSrc || gameplayZoomImg.src, gameplayZoomImg.alt, 'photo');
-        });
       }
       overlay.addEventListener('click', function(e) {
         if (e.target !== closeBtn) closeZoom();
