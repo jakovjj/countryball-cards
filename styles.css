@@ -729,6 +729,45 @@ button.site-topbar-link{background:transparent;border:none;appearance:none;font-
   -webkit-user-drag:none;
   pointer-events:none;
 }
+.type-tooltip{
+  position:absolute;
+  top:64px;
+  left:10px;
+  right:10px;
+  z-index:4;
+  display:block;
+  padding:9px 10px;
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:7px;
+  background:rgba(9, 13, 22, 0.94);
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.35;
+  text-align:left;
+  box-shadow:0 14px 28px rgba(0,0,0,0.34);
+  opacity:0;
+  transform:translateY(-4px);
+  transition:opacity 0.16s ease, transform 0.16s ease;
+  pointer-events:none;
+}
+.type-tooltip::before{
+  content:'';
+  position:absolute;
+  top:-6px;
+  left:18px;
+  width:10px;
+  height:10px;
+  border-left:1px solid rgba(255,255,255,0.16);
+  border-top:1px solid rgba(255,255,255,0.16);
+  background:inherit;
+  transform:rotate(45deg);
+}
+.type-badge:hover + .type-tooltip,
+.gallery-card:focus-visible .type-tooltip{
+  opacity:1;
+  transform:translateY(0);
+}
 .type-badge-economic{
   --type-main:#d59b2f;
   --type-deep:#7a4a12;

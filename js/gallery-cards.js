@@ -73,6 +73,13 @@ const countryballCardTypeIcons = {
   misc: 'misc'
 };
 
+const countryballCardTypeTooltips = {
+  attack: 'This is an Attack card that focuses on dealing damage.',
+  defense: 'This is a Defense card that focuses on protecting and healing the team.',
+  economic: 'This is an Economy card that focuses on maximizing your number of coins and resources.',
+  misc: 'This is a Misc (uncategorized) card.'
+};
+
 window.countryballGalleryCards = [
   ['australia', 'Australia'],
   ['austria', 'Austria'],
@@ -113,6 +120,7 @@ window.countryballGalleryCards = [
     tier: countryballCardTiers[id] || 'D',
     type: countryballCardTypes[id] || 'misc',
     typeLabel: countryballCardTypeLabels[countryballCardTypes[id]] || countryballCardTypeLabels.misc,
-    typeIcon: countryballCardTypeIcons[countryballCardTypes[id]] || countryballCardTypeIcons.misc
+    typeIcon: countryballCardTypeIcons[countryballCardTypes[id]] || countryballCardTypeIcons.misc,
+    typeTooltip: countryballCardTypeTooltips[countryballCardTypes[id]] || countryballCardTypeTooltips.misc
   };
 });

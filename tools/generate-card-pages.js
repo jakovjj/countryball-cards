@@ -262,7 +262,7 @@ function pageHtml(card) {
 
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=2026072219">
+  <link rel="stylesheet" href="../styles.css?v=2026072416">
 </head>
 <body class="gallery-page card-detail-page">
   <div class="countryball-silhouette-bg" aria-hidden="true">
