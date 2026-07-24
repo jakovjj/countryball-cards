@@ -185,6 +185,12 @@ const costIconMap = {
   oil: 'oil_resource.png'
 };
 
+function typeIconName(type) {
+  if (type === 'attack') return 'offensive';
+  if (type === 'defense') return 'defensive';
+  return type || 'misc';
+}
+
 function parseCostToken(token) {
   const match = token.trim().match(/^(\d+)X\s+(.+)$/i);
   if (!match) return null;
@@ -284,7 +290,10 @@ function pageHtml(card) {
             <span class="tier-badge tier-badge-${String(card.tier).toLowerCase()}" aria-hidden="true">
               <span>${card.tier}</span>
             </span>
-            <span class="sr-only">${card.tier} tier</span>
+            <span class="type-badge type-badge-${card.type}" aria-hidden="true">
+              <img src="../icons/${typeIconName(card.type)}.png" alt="" width="32" height="32" loading="lazy" decoding="async">
+            </span>
+            <span class="sr-only">${card.tier} tier, ${escapeHtml(card.typeLabel)} type</span>
           </div>
           ${renderAbilities(card)}
         </div>

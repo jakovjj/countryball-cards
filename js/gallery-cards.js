@@ -31,6 +31,48 @@ const countryballCardTiers = {
   us: 'B'
 };
 
+const countryballCardTypes = {
+  australia: 'economic',
+  belgium: 'defense',
+  canada: 'defense',
+  china: 'economic',
+  croatia: 'economic',
+  czechia: 'economic',
+  france: 'defense',
+  hungary: 'defense',
+  india: 'economic',
+  italy: 'economic',
+  japan: 'attack',
+  mongolia: 'economic',
+  netherlands: 'economic',
+  norway: 'attack',
+  portugal: 'economic',
+  romania: 'defense',
+  russia: 'attack',
+  saudi_arabia: 'economic',
+  spain: 'economic',
+  sweden: 'economic',
+  switzerland: 'economic',
+  turkey: 'attack',
+  uk: 'defense',
+  ukraine: 'economic',
+  us: 'attack'
+};
+
+const countryballCardTypeLabels = {
+  attack: 'Attack',
+  defense: 'Defense',
+  economic: 'Economic',
+  misc: 'Misc'
+};
+
+const countryballCardTypeIcons = {
+  attack: 'offensive',
+  defense: 'defensive',
+  economic: 'economic',
+  misc: 'misc'
+};
+
 window.countryballGalleryCards = [
   ['australia', 'Australia'],
   ['austria', 'Austria'],
@@ -68,6 +110,9 @@ window.countryballGalleryCards = [
     name,
     image: `assets/card-peek/${id}.webp`,
     page: `cards/${id}.html`,
-    tier: countryballCardTiers[id] || 'D'
+    tier: countryballCardTiers[id] || 'D',
+    type: countryballCardTypes[id] || 'misc',
+    typeLabel: countryballCardTypeLabels[countryballCardTypes[id]] || countryballCardTypeLabels.misc,
+    typeIcon: countryballCardTypeIcons[countryballCardTypes[id]] || countryballCardTypeIcons.misc
   };
 });

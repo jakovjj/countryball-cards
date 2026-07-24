@@ -17,7 +17,7 @@
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css?v=2026072409">
+  <link rel="stylesheet" href="styles.css?v=2026072415">
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -145,6 +145,9 @@
           <img src="${card.image}" alt="${card.name} countryball card" width="400" height="600" loading="lazy" decoding="async" draggable="false" oncontextmenu="return false">
           <span class="tier-badge tier-badge-${card.tier.toLowerCase()}" aria-label="${card.tier} tier">
             <span>${card.tier}</span>
+          </span>
+          <span class="type-badge type-badge-${card.type}" aria-label="${card.typeLabel} card type">
+            <img src="icons/${card.typeIcon}.png" alt="" aria-hidden="true" width="32" height="32" loading="lazy" decoding="async">
           </span>
         </span>
         <span class="gallery-card-footer">
