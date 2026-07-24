@@ -1075,6 +1075,147 @@ if (document.readyState === 'loading') {
   initFaqAccordion();
 }
 
+// ===== REVIEWS CAROUSEL (Homepage) =====
+function initReviewsCarousel() {
+  const carousel = document.querySelector('[data-reviews-carousel]');
+  if (!carousel || carousel.dataset.reviewsBound === '1') {
+    return;
+  }
+
+  const viewport = carousel.querySelector('.reviews-viewport');
+  const cards = Array.from(carousel.querySelectorAll('.review-card'));
+  const prevButton = carousel.querySelector('[data-reviews-prev]');
+  const nextButton = carousel.querySelector('[data-reviews-next]');
+  const dotsWrap = carousel.querySelector('[data-reviews-dots]');
+
+  if (!viewport || cards.length < 2 || !dotsWrap) {
+    return;
+  }
+
+  carousel.dataset.reviewsBound = '1';
+  let activeIndex = 0;
+  let autoTimer = null;
+  let userPausedUntil = 0;
+
+  const getCardGap = () => {
+    const track = carousel.querySelector('.reviews-track');
+    const styles = track ? window.getComputedStyle(track) : null;
+    return styles ? parseFloat(styles.columnGap || styles.gap || '0') || 0 : 0;
+  };
+
+  const getStepSize = () => (cards[0] ? cards[0].getBoundingClientRect().width + getCardGap() : viewport.clientWidth);
+  const getMaxIndex = () => {
+    const stepSize = getStepSize();
+    if (stepSize <= 0) {
+      return 0;
+    }
+    return Math.max(0, Math.ceil((viewport.scrollWidth - viewport.clientWidth) / stepSize));
+  };
+  const clampIndex = (index) => Math.max(0, Math.min(getMaxIndex(), index));
+  const rebuildDots = () => {
+    const pageCount = getMaxIndex() + 1;
+    dotsWrap.innerHTML = '';
+    for (let index = 0; index < pageCount; index += 1) {
+      const dot = document.createElement('button');
+      dot.className = 'reviews-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Show reviews page ${index + 1}`);
+      dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+      dot.addEventListener('click', () => {
+        noteUserInteraction();
+        goToReview(index);
+      });
+      dotsWrap.appendChild(dot);
+    }
+  };
+
+  const setActiveDot = () => {
+    const stepSize = getStepSize();
+    const nextIndex = stepSize > 0 ? clampIndex(Math.round(viewport.scrollLeft / stepSize)) : 0;
+    activeIndex = nextIndex;
+    Array.from(dotsWrap.children).forEach((dot, index) => {
+      dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+    });
+  };
+
+  const goToReview = (index, behavior = 'smooth') => {
+    activeIndex = clampIndex(index);
+    const targetCard = cards[activeIndex];
+    if (!targetCard) {
+      return;
+    }
+    const track = carousel.querySelector('.reviews-track');
+    const trackStart = track ? track.offsetLeft : 0;
+    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const targetLeft = Math.max(0, targetCard.offsetLeft - trackStart);
+    viewport.scrollTo({ left: Math.min(targetLeft, maxScroll), behavior });
+    setActiveDot();
+  };
+
+  const noteUserInteraction = () => {
+    userPausedUntil = Date.now() + 10000;
+  };
+
+  rebuildDots();
+  goToReview(0, 'auto');
+
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      noteUserInteraction();
+      goToReview(activeIndex <= 0 ? getMaxIndex() : activeIndex - 1);
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      noteUserInteraction();
+      goToReview(activeIndex >= getMaxIndex() ? 0 : activeIndex + 1);
+    });
+  }
+
+  viewport.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+      return;
+    }
+    event.preventDefault();
+    noteUserInteraction();
+    goToReview(activeIndex + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+
+  viewport.addEventListener('scroll', () => {
+    window.requestAnimationFrame(setActiveDot);
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    window.requestAnimationFrame(() => {
+      activeIndex = clampIndex(activeIndex);
+      rebuildDots();
+      goToReview(activeIndex, 'auto');
+    });
+  });
+
+  autoTimer = window.setInterval(() => {
+    if (document.hidden || Date.now() < userPausedUntil) {
+      return;
+    }
+    goToReview(activeIndex >= getMaxIndex() ? 0 : activeIndex + 1);
+  }, 5500);
+
+  carousel.addEventListener('pointerdown', noteUserInteraction, { passive: true });
+  carousel.addEventListener('focusin', noteUserInteraction);
+  window.addEventListener('beforeunload', () => {
+    if (autoTimer) {
+      window.clearInterval(autoTimer);
+    }
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initReviewsCarousel);
+} else {
+  initReviewsCarousel();
+}
+
 function handleUserInteraction() {
   lastUserInteraction = Date.now();
   // Don't need to clear interval, just update timestamp

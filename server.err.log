@@ -1,17 +1,162 @@
-Traceback (most recent call last):
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\runpy.py", line 193, in _run_module_as_main
-    return _run_code(code, main_globals, None,
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\runpy.py", line 86, in _run_code
-    exec(code, run_globals)
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\http\server.py", line 92, in <module>
-    import email.utils
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\email\utils.py", line 40, in <module>
-    from email.charset import Charset
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\email\charset.py", line 14, in <module>
-    import email.base64mime
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\email\base64mime.py", line 37, in <module>
-    from base64 import b64encode
-  File "C:\Programs\msys2-mingw64-9\lib\python3.8\base64.py", line 11, in <module>
-    import binascii
-ImportError: DLL load failed while importing binascii: The volume does not contain a recognized file system.
-Please make sure that all required file system drivers are loaded and that the volume is not corrupted.
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET / HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/top_homepage-960.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /styles.css?v=2026072418 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /main.js?v=2026072410 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /cb/poland.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /cb/us.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /js/site-header.js?v=2026072202 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/buynow.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /js/site-footer.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/card-peek/australia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/card-peek/canada.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /analytics.js?v=2026070301 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/PayPal.svg HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/bg.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/title-240.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/site-icon-80.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/all_cards.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/ks.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /icons/defensive.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/photo1.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/photo2.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /icons/misc.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /icons/economic.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/photo3.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/photo4.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /icons/offensive.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /components/showcase/closed_box.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /components/showcase/box_open.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /assets/group.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:41] "GET /store.js?v=2026070301 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] code 404, message File not found
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /founders-stock.php HTTP/1.1" 404 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/glare-56.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/discord.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/reddit.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/instagram.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/bar.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /performance-optimized.js?v=2026070301 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /rules.html HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /sw.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /index.html HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /styles.css HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /styles.css?v=2026072416 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /main.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /analytics.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /main.js?v=2026072409 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/title-360.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/top_homepage-640.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/top_homepage-1440.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /assets/top_homepage.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /serp.ico HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /favicon.ico HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /favicon-32x32.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /favicon-16x16.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /site.webmanifest HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:42] "GET /browserconfig.xml HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /australia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /canada.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/us.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /us.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /china.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/china.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/ukraine.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/france.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /ukraine.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /france.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/germany.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/uk.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /uk.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:43] "GET /assets/card-peek/india.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/italy.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/japan.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/mongolia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/mexico.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/netherlands.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/poland.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/romania.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/russia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/saudi_arabia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/sweden.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:44] "GET /assets/card-peek/turkey.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET / HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/top_homepage-640.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /styles.css?v=2026072418 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /main.js?v=2026072410 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /cb/poland.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /cb/us.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /js/site-header.js?v=2026072202 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/buynow.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/card-peek/australia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/card-peek/canada.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /js/site-footer.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /analytics.js?v=2026070301 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/PayPal.svg HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/site-icon-80.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/title-240.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/bg.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/all_cards.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /store.js?v=2026070301 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] code 404, message File not found
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /founders-stock.php HTTP/1.1" 404 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/ks.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/photo1.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /icons/defensive.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/photo2.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /icons/economic.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /icons/misc.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/photo3.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /icons/offensive.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/photo4.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /components/showcase/closed_box.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /components/showcase/box_open.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/group.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/glare-56.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /performance-optimized.js?v=2026070301 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /rules.html HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/discord.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/instagram.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/reddit.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:51] "GET /assets/bar.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /sw.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /australia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /canada.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /index.html HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /styles.css HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /styles.css?v=2026072416 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /main.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /main.js?v=2026072409 HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/china.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /china.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/us.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /analytics.js HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /us.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/title-360.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/top_homepage-960.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/ukraine.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/top_homepage-1440.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /france.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /ukraine.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/france.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/top_homepage.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/uk.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /uk.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/germany.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/india.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /serp.ico HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /favicon.ico HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/italy.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/japan.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/mexico.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/mongolia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /favicon-32x32.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /favicon-16x16.png HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/romania.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /browserconfig.xml HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /site.webmanifest HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/russia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/poland.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/netherlands.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/saudi_arabia.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/turkey.webp HTTP/1.1" 200 -
+::ffff:127.0.0.1 - - [24/Jul/2026 17:53:54] "GET /assets/card-peek/sweden.webp HTTP/1.1" 200 -
