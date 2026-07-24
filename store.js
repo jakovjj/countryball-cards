@@ -26,7 +26,6 @@
       { code: 'SI', label: 'Slovenia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'ES', label: 'Spain', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'SE', label: 'Sweden', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'GB', label: 'United Kingdom', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'US', label: 'United States', flag: '�Y?��Y?�', zone: 'ZONE_1' }
     ].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
 
@@ -57,7 +56,7 @@
     }, {});
 
     const SHIPPING_ZONES = {
-      ZONE_1: ['AT','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','GB','US'],
+      ZONE_1: ['AT','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','US'],
       ZONE_2: []
     };
     const PAYMENT_LINKS = {

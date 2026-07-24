@@ -1350,9 +1350,11 @@ h1{font-size: clamp(34px,5.2vw,56px);letter-spacing:1px;margin:8px 0 6px}
 }
 
 .golden-separator.logo-separator{margin:18px auto 10px}
-.logo-section::after{content:'';position:absolute;inset:0;left:50%;width:min(1280px,100vw);transform:translateX(-50%);background:url('assets/all_cards.webp') center 18% / min(1200px,96vw) auto no-repeat;opacity:0.08;filter:saturate(1.08) contrast(1.05);mix-blend-mode:screen;pointer-events:none;z-index:0}
+.logo-section::after{display:none}
 .logo-section>*{position:relative;z-index:1}
 .hero-brand{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(780px,100%);margin:0 auto 16px;position:relative;z-index:1}
+.hero-brand::before{content:'';position:absolute;top:clamp(68px,19vw,150px);left:50%;width:min(1280px,100vw);height:min(262px,24vw);transform:translate(-50%,-50%);background:url('assets/all_cards.webp') center center / min(1200px,96vw) auto no-repeat;opacity:0.08;filter:saturate(1.08) contrast(1.05);mix-blend-mode:screen;pointer-events:none;z-index:0}
+.hero-brand>*{position:relative;z-index:1}
 .hero-brand-lockup{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-width:0;max-width:100%}
 .hero-brand-icon{display:block;width:clamp(130px,18vw,170px);height:clamp(130px,18vw,170px);flex:0 0 auto;object-fit:contain;filter:drop-shadow(0 14px 26px rgba(0,0,0,0.42)) drop-shadow(0 0 12px rgba(251,191,36,0.16))}
 .hero-brand-title{margin:0;line-height:0}
@@ -2719,19 +2721,21 @@ font-size:16px}
 @media(max-width:960px){
   .compare-info-btn{width:18px;height:18px;min-width:18px;min-height:18px;margin-left:5px;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,0.18)}
 }
-.package-detail-modal{position:relative;max-width:680px;width:min(94vw,680px);padding:16px;border-color:rgba(251,191,36,0.52);box-shadow:0 18px 48px rgba(251,191,36,0.12),0 0 0 4px rgba(251,191,36,0.06)}
-.package-detail-modal header{position:absolute;top:12px;right:12px;z-index:4;margin:0;padding:0;border:0;background:transparent}
-.package-detail-modal .modal-close{width:28px;height:28px;min-width:28px;min-height:28px;padding:0;background:rgba(10,13,22,0.88);border:1px solid rgba(251,191,36,0.35);border-radius:999px;color:rgba(255,255,255,0.86);font-size:20px;font-weight:500;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,0.28)}
-.package-detail-modal .modal-close:hover,.package-detail-modal .modal-close:focus-visible{background:rgba(251,191,36,0.18);border-color:rgba(251,191,36,0.75);color:#fff}
-.package-detail-modal .modal-close:focus-visible{outline:2px solid rgba(251,191,36,0.75);outline-offset:3px}
-.package-detail-body{display:grid;gap:14px;color:var(--text)}
-.package-detail-body p{margin:0;padding-right:40px;color:var(--text);font-size:15px;line-height:1.55;font-weight:650}
-.package-detail-image{display:block;width:100%;height:auto;max-height:300px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,0.03)}
+.package-detail-tooltip[hidden]{display:none !important}
+.package-detail-tooltip{position:fixed;z-index:1200;width:min(360px,calc(100vw - 20px));padding:12px;border:1px solid rgba(251,191,36,0.55);border-radius:8px;background:rgba(12,15,24,0.98);box-shadow:0 16px 34px rgba(0,0,0,0.46),0 0 0 3px rgba(251,191,36,0.08);color:var(--text);transform-origin:var(--tooltip-arrow-left,50%) top;animation:package-tooltip-in 0.16s ease-out}
+.package-detail-tooltip::before{content:"";position:absolute;top:-7px;left:calc(var(--tooltip-arrow-left,50%) - 7px);width:14px;height:14px;background:rgba(12,15,24,0.98);border-left:1px solid rgba(251,191,36,0.55);border-top:1px solid rgba(251,191,36,0.55);transform:rotate(45deg)}
+.package-detail-tooltip[data-placement="top"]{transform-origin:var(--tooltip-arrow-left,50%) bottom}
+.package-detail-tooltip[data-placement="top"]::before{top:auto;bottom:-7px;border:0;border-right:1px solid rgba(251,191,36,0.55);border-bottom:1px solid rgba(251,191,36,0.55)}
+.package-detail-tooltip p{position:relative;z-index:1;margin:0;color:var(--text);font-size:14px;line-height:1.45;font-weight:650}
+.package-detail-image{position:relative;z-index:1;display:block;width:100%;height:auto;max-height:150px;object-fit:contain;border-radius:6px;background:rgba(255,255,255,0.03);cursor:zoom-in;margin-bottom:10px}
+@keyframes package-tooltip-in{
+  from{opacity:0;transform:translateY(-3px) scale(0.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
 @media(max-width:600px){
-  .package-detail-modal header{top:10px;right:10px}
-  .package-detail-modal{padding:14px}
-  .package-detail-modal .modal-close{width:26px;height:26px;min-width:26px;min-height:26px;font-size:18px}
-  .package-detail-body p{padding-right:34px}
+  .package-detail-tooltip{width:min(300px,calc(100vw - 20px));padding:10px}
+  .package-detail-tooltip p{font-size:13px;line-height:1.4}
+  .package-detail-image{max-height:118px}
 }
 
 /* Shipping selection modal (yellow, lower glow) */

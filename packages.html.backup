@@ -1023,7 +1023,7 @@
           </div>
           <div class="shipping-zone">
             <h4 class="shipping-price" data-eur="4" data-usd="5">+€4 SHIPPING</h4>
-            <p>Other European countries: AL, BA, CH, ME, MK, NO, RS, UA, UK</p>
+            <p>Other European countries: AL, BA, CH, ME, MK, NO, RS, UA</p>
           </div>
           <div class="shipping-zone">
             <h4 class="shipping-price" data-eur="12" data-usd="14">+€12 SHIPPING</h4>
@@ -1184,7 +1184,6 @@
       'NO': { cost: '+€4', flag: '�🇴', name: 'Norway' },
       'RS': { cost: '+€4', flag: '🇷🇸', name: 'Serbia' },
       'UA': { cost: '+€4', flag: '��', name: 'Ukraine' },
-      'GB': { cost: '+€4', flag: '🇬🇧', name: 'United Kingdom' },
       
       // Popular countries with +€12 shipping
       'AU': { cost: '+€12', flag: '🇦🇺', name: 'Australia' },
@@ -1394,13 +1393,13 @@
         console.log(`Refreshed for test country: ${window.testCountry}`);
       } else {
         console.log('Set window.testCountry first! Example: window.updateCountry("US")');
-        console.log('Available countries: US, DE, CA, AU, JP, GB, FR, IT, ES, NL, CH, NO, etc.');
+        console.log('Available countries: US, DE, CA, AU, JP, FR, IT, ES, NL, CH, NO, etc.');
       }
     };
     
     // Debug function to test different countries quickly
     window.testShipping = function() {
-      const testCountries = ['US', 'DE', 'CA', 'AU', 'JP', 'GB', 'FR', 'NO', 'CH', 'UA', 'CN', 'BR'];
+      const testCountries = ['US', 'DE', 'CA', 'AU', 'JP', 'FR', 'NO', 'CH', 'UA', 'CN', 'BR'];
       let index = 0;
       
       function cycleCountry() {

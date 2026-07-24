@@ -1197,14 +1197,10 @@ if(redditBtn){
   }
 })();
 
-// Pricing table detail buttons
+// Pricing table detail tooltips
 (function(){
   const triggers=document.querySelectorAll('.compare-info-btn[data-package-detail]');
-  const overlay=document.getElementById('packageDetailOverlay');
-  const dialog=overlay?overlay.querySelector('.modal'):null;
-  const closeBtn=document.getElementById('packageDetailCloseBtn');
-  const bodyEl=document.getElementById('packageDetailBody');
-  if(!triggers.length||!overlay||!dialog||!closeBtn||!bodyEl) return;
+  if(!triggers.length) return;
 
   const details={
     extended:{
@@ -1218,52 +1214,122 @@ if(redditBtn){
     }
   };
 
-  let lastFocus=null;
-  const getFocusable=()=>dialog.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+  const tooltip=document.createElement('div');
+  tooltip.id='packageDetailTooltip';
+  tooltip.className='package-detail-tooltip';
+  tooltip.setAttribute('role','tooltip');
+  tooltip.hidden=true;
+  tooltip.style.position='fixed';
+  tooltip.style.zIndex='1200';
+  document.body.appendChild(tooltip);
 
-  function open(key){
+  let activeTrigger=null;
+  let closeTimer=0;
+  let pinned=false;
+
+  function placeTooltip(){
+    if(!activeTrigger||tooltip.hidden) return;
+    const rect=activeTrigger.getBoundingClientRect();
+    const tooltipRect=tooltip.getBoundingClientRect();
+    const gap=12;
+    const margin=10;
+    let top=rect.bottom+gap;
+    let left=rect.left+(rect.width/2)-(tooltipRect.width/2);
+    let placement='bottom';
+
+    if(top+tooltipRect.height>window.innerHeight-margin&&rect.top-tooltipRect.height-gap>margin){
+      top=rect.top-tooltipRect.height-gap;
+      placement='top';
+    }
+
+    left=Math.max(margin,Math.min(left,window.innerWidth-tooltipRect.width-margin));
+    tooltip.style.left=left+'px';
+    tooltip.style.top=top+'px';
+    tooltip.style.position='fixed';
+    tooltip.style.zIndex='1200';
+    tooltip.style.setProperty('--tooltip-arrow-left',(rect.left+(rect.width/2)-left)+'px');
+    tooltip.dataset.placement=placement;
+  }
+
+  function open(trigger, pin){
+    const key=trigger.dataset.packageDetail;
     const detail=details[key];
     if(!detail) return;
-    lastFocus=document.activeElement;
-    bodyEl.innerHTML=detail.html;
-    overlay.hidden=false;
-    overlay.setAttribute('aria-hidden','false');
-    document.body.style.overflow='hidden';
-    if(typeof trackStoreClick==='function') trackStoreClick('pricing_detail_'+key);
-    const f=getFocusable();
-    if(f.length) f[0].focus(); else dialog.focus();
-    document.addEventListener('keydown', onKeyDown);
-    overlay.addEventListener('click', onOverlayClick);
-  }
-
-  function close(){
-    overlay.hidden=true;
-    overlay.setAttribute('aria-hidden','true');
-    document.body.style.overflow='';
-    document.removeEventListener('keydown', onKeyDown);
-    overlay.removeEventListener('click', onOverlayClick);
-    if(lastFocus && typeof lastFocus.focus==='function') lastFocus.focus();
-  }
-
-  function onOverlayClick(e){ if(e.target===overlay) close(); }
-  function onKeyDown(e){
-    if(e.key==='Escape'){ e.preventDefault(); close(); return; }
-    if(e.key==='Tab'){
-      const f=Array.from(getFocusable()); if(!f.length) return;
-      const first=f[0], last=f[f.length-1];
-      if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-      else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+    window.clearTimeout(closeTimer);
+    if(activeTrigger&&activeTrigger!==trigger){
+      activeTrigger.setAttribute('aria-expanded','false');
+      activeTrigger.removeAttribute('aria-describedby');
     }
+    activeTrigger=trigger;
+    pinned=Boolean(pin);
+    tooltip.innerHTML=detail.html;
+    tooltip.hidden=false;
+    trigger.setAttribute('aria-expanded','true');
+    trigger.setAttribute('aria-describedby',tooltip.id);
+    if(typeof trackStoreClick==='function') trackStoreClick('pricing_detail_'+key);
+    placeTooltip();
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown, true);
+    window.addEventListener('resize', placeTooltip);
+    window.addEventListener('scroll', placeTooltip, true);
+  }
+
+  function close(immediate){
+    window.clearTimeout(closeTimer);
+    const finish=function(){
+      tooltip.hidden=true;
+      tooltip.innerHTML='';
+      if(activeTrigger){
+        activeTrigger.setAttribute('aria-expanded','false');
+        activeTrigger.removeAttribute('aria-describedby');
+      }
+      activeTrigger=null;
+      pinned=false;
+    };
+    if(immediate) finish();
+    else closeTimer=window.setTimeout(finish,180);
+    document.removeEventListener('keydown', onKeyDown);
+    document.removeEventListener('pointerdown', onPointerDown, true);
+    window.removeEventListener('resize', placeTooltip);
+    window.removeEventListener('scroll', placeTooltip, true);
+  }
+
+  function onPointerDown(e){
+    if(e.target.closest('.compare-info-btn[data-package-detail]')||tooltip.contains(e.target)) return;
+    close(true);
+  }
+
+  function onKeyDown(e){
+    if(e.key==='Escape'){ e.preventDefault(); close(true); }
   }
 
   triggers.forEach(trigger=>{
+    trigger.setAttribute('aria-expanded','false');
     trigger.addEventListener('click', function(e){
       e.preventDefault();
       e.stopPropagation();
-      open(trigger.dataset.packageDetail);
+      if(activeTrigger===trigger&&!tooltip.hidden&&pinned) close(true);
+      else open(trigger, true);
     });
+    trigger.addEventListener('mouseenter', function(){ open(trigger, false); });
+    trigger.addEventListener('mouseleave', function(){ if(!pinned) close(false); });
+    trigger.addEventListener('focus', function(){ open(trigger, false); });
+    trigger.addEventListener('blur', function(){ if(!pinned) close(false); });
   });
-  closeBtn.addEventListener('click', close);
+
+  tooltip.addEventListener('mouseenter', function(){ window.clearTimeout(closeTimer); });
+  tooltip.addEventListener('mouseleave', function(){
+    if(!pinned&&activeTrigger!==document.activeElement) close(false);
+  });
+  tooltip.addEventListener('load', function(e){
+    if(e.target&&e.target.tagName==='IMG') placeTooltip();
+  }, true);
+  tooltip.addEventListener('click', function(e){
+    const img=e.target.closest('.package-detail-image');
+    if(img&&typeof window.openCardZoom==='function'){
+      window.openCardZoom(img.currentSrc||img.src,img.alt);
+    }
+  });
 })();
 
 // Boot

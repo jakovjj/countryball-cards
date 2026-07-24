@@ -1097,7 +1097,6 @@
               <option value="">Select your country...</option>
               <option value="US">🇺🇸 United States</option>
               <option value="CA">🇨🇦 Canada</option>
-              <option value="GB">🇬🇧 United Kingdom</option>
               <option value="DE">🇩🇪 Germany</option>
               <option value="FR">🇫🇷 France</option>
               <option value="IT">🇮🇹 Italy</option>
@@ -1144,7 +1143,7 @@
           </div>
           <div class="shipping-zone">
             <h4 class="shipping-price" data-eur="4" data-usd="5">$5 SHIPPING</h4>
-            <p>AL, BA, CH, ME, MK, NO, RS, UA, UK</p>
+            <p>AL, BA, CH, ME, MK, NO, RS, UA</p>
           </div>
           <div class="shipping-zone">
             <h4 class="shipping-price" data-eur="12" data-usd="14">$15 SHIPPING</h4>
@@ -1408,7 +1407,6 @@
       'NO': { cost: '4€/$5', flag: '🇳🇴', name: 'Norway' },
       'RS': { cost: '4€/$5', flag: '🇷🇸', name: 'Serbia' },
       'UA': { cost: '4€/$5', flag: '🇺🇦', name: 'Ukraine' },
-      'GB': { cost: '4€/$5', flag: '🇬🇧', name: 'United Kingdom' },
       
       // 12€/$14 SHIPPING - Rest of the world
       'AU': { cost: '12€/$14', flag: '🇦🇺', name: 'Australia' },
@@ -1641,7 +1639,6 @@
           'America/Phoenix': 'US',
           'America/Toronto': 'CA',
           'America/Vancouver': 'CA',
-          'Europe/London': 'GB',
           'Europe/Paris': 'FR',
           'Europe/Berlin': 'DE',
           'Europe/Rome': 'IT',
@@ -1817,13 +1814,13 @@
         console.log(`Refreshed for test country: ${window.testCountry}`);
       } else {
         console.log('Set window.testCountry first! Example: window.updateCountry("US")');
-        console.log('Available countries: US, DE, CA, AU, JP, GB, FR, IT, ES, NL, CH, NO, etc.');
+        console.log('Available countries: US, DE, CA, AU, JP, FR, IT, ES, NL, CH, NO, etc.');
       }
     };
     
     // Debug function to test different countries quickly
     window.testShipping = function() {
-      const testCountries = ['US', 'DE', 'CA', 'AU', 'JP', 'GB', 'FR', 'NO', 'CH', 'UA', 'CN', 'BR'];
+      const testCountries = ['US', 'DE', 'CA', 'AU', 'JP', 'FR', 'NO', 'CH', 'UA', 'CN', 'BR'];
       let index = 0;
       
       function cycleCountry() {

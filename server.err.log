@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\runpy.py", line 193, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\http\server.py", line 92, in <module>
+    import email.utils
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\email\utils.py", line 40, in <module>
+    from email.charset import Charset
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\email\charset.py", line 14, in <module>
+    import email.base64mime
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\email\base64mime.py", line 37, in <module>
+    from base64 import b64encode
+  File "C:\Programs\msys2-mingw64-9\lib\python3.8\base64.py", line 11, in <module>
+    import binascii
+ImportError: DLL load failed while importing binascii: The volume does not contain a recognized file system.
+Please make sure that all required file system drivers are loaded and that the volume is not corrupted.
