@@ -119,6 +119,12 @@ AddType image/avif .avif
     <FilesMatch "\.(css|js)$">
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
+
+    # The service worker must be rechecked so new cache names and precache URLs ship promptly
+    <Files "sw.js">
+        Header set Cache-Control "no-cache, must-revalidate"
+        Header set Service-Worker-Allowed "/"
+    </Files>
     
     # Images are stable static assets and also backed by the service worker
     <FilesMatch "\.(ico|png|jpg|jpeg|gif|webp|avif|svg)$">

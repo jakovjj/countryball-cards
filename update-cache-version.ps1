@@ -1,5 +1,5 @@
-# PowerShell script to update cache version numbers automatically
-# Run this script whenever you make changes to force cache refresh
+# PowerShell script to update cache version numbers automatically.
+# Run this script whenever you make changes to force cache refresh.
 
 $timestamp = Get-Date -Format "yyyyMMddHH"
 Write-Host "Updating cache version to: $timestamp" -ForegroundColor Green
@@ -9,33 +9,40 @@ $swFile = "sw.js"
 if (Test-Path $swFile) {
     $swContent = Get-Content $swFile -Raw
     $swContent = $swContent -replace "countryball-cards-v\d{10}", "countryball-cards-v$timestamp"
-    Set-Content $swFile -Value $swContent -NoNewline
+    Set-Content $swFile -Value $swContent -NoNewline -Encoding UTF8
     Write-Host "Updated service worker cache version" -ForegroundColor Yellow
 }
 
-# Update CSS version in HTML files
-$htmlFiles = Get-ChildItem -Filter "*.html"
+# Update cache-busting query strings in all live HTML files.
+$htmlFiles = Get-ChildItem -Recurse -Filter "*.html" |
+    Where-Object {
+        $_.FullName -notmatch "\\archive\\" -and
+        $_.FullName -notmatch "\\.tmp\\" -and
+        $_.Name -notmatch "\.backup$"
+    }
+
+$assetPattern = '(?<prefix>\b(?:src|href)=["''])(?<asset>(?!https?:|//|data:)[^"'']+\.(?:css|js))(?:\?v=\d+)?(?<suffix>["''])'
+
 foreach ($file in $htmlFiles) {
     $content = Get-Content $file.FullName -Raw
-    if ($content -match "styles\.css\?v=\d{10}") {
-        $content = $content -replace "styles\.css\?v=\d{10}", "styles.css?v=$timestamp"
-        Set-Content $file.FullName -Value $content -NoNewline
-        Write-Host "Updated CSS version in $($file.Name)" -ForegroundColor Yellow
+    $updated = [regex]::Replace($content, $assetPattern, '${prefix}${asset}?v=' + $timestamp + '${suffix}')
+
+    if ($updated -ne $content) {
+        Set-Content $file.FullName -Value $updated -NoNewline -Encoding UTF8
+        Write-Host "Updated asset versions in $($file.FullName)" -ForegroundColor Yellow
     }
 }
 
-# Update JS version in HTML files if they have versioned JS
-foreach ($file in $htmlFiles) {
-    $content = Get-Content $file.FullName -Raw
-    if ($content -match "main\.js\?v=\d{10}") {
-        $content = $content -replace "main\.js\?v=\d{10}", "main.js?v=$timestamp"
-        Set-Content $file.FullName -Value $content -NoNewline
-        Write-Host "Updated JS version in $($file.Name)" -ForegroundColor Yellow
+# Keep the service worker precache list aligned with the same version.
+if (Test-Path $swFile) {
+    $swContent = Get-Content $swFile -Raw
+    $swUpdated = [regex]::Replace($swContent, '(?<asset>/[A-Za-z0-9._/-]+\.(?:css|js))\?v=\d+', '${asset}?v=' + $timestamp)
+    if ($swUpdated -ne $swContent) {
+        Set-Content $swFile -Value $swUpdated -NoNewline -Encoding UTF8
+        Write-Host "Updated service worker precache asset versions" -ForegroundColor Yellow
     }
 }
 
 Write-Host "`nCache version update complete!" -ForegroundColor Green
 Write-Host "Version: $timestamp" -ForegroundColor Cyan
-Write-Host "`nTo see changes immediately:" -ForegroundColor White
-Write-Host "1. Hard refresh your browser (Ctrl+Shift+R)" -ForegroundColor Gray
-Write-Host "2. Or clear browser cache and reload" -ForegroundColor Gray
+Write-Host "`nAfter upload/deploy, browsers should fetch fresh HTML, sw.js, CSS, and JS automatically." -ForegroundColor Gray

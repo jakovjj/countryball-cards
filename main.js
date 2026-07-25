@@ -54,6 +54,18 @@ let currentSlide = 0;
 let totalSlides = 0;
 const slowConnectionTypes = new Set(['slow-2g', '2g']);
 const warmedResourceUrls = new Set();
+const warmingImages = new Set();
+const componentShowcaseAssets = [
+  'components/showcase/closed_box.png',
+  'components/showcase/box_open.png',
+  'components/showcase/cards_main.png',
+  'components/showcase/project_cards.png',
+  'components/showcase/extended_opp.png',
+  'components/showcase/coins.png',
+  'components/showcase/resource_dice.png',
+  'components/showcase/combat_die.png'
+];
+let componentShowcaseAssetsWarmed = false;
 
 function canWarmupAssets() {
   const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -92,19 +104,33 @@ function warmResource(url, options = {}) {
   if (options.decode === true) {
     const img = new Image();
     img.decoding = 'async';
-    img.fetchPriority = 'low';
+    img.fetchPriority = options.priority || 'low';
+    img.onload = img.onerror = () => warmingImages.delete(img);
+    warmingImages.add(img);
     img.src = absoluteUrl;
   } else {
     const link = document.createElement('link');
     link.rel = 'prefetch';
     link.as = options.as || 'image';
     link.href = absoluteUrl;
-    link.fetchPriority = 'low';
+    link.fetchPriority = options.priority || 'low';
     document.head.appendChild(link);
   }
 
   warmResourcesInServiceWorker([absoluteUrl]);
   return true;
+}
+
+function warmComponentShowcaseAssets(options = {}) {
+  const includePieces = options.includePieces !== false;
+  const priority = options.priority || 'low';
+  const urls = includePieces ? componentShowcaseAssets : componentShowcaseAssets.slice(0, 2);
+
+  urls.forEach((url) => warmResource(url, { decode: true, priority }));
+
+  if (includePieces) {
+    componentShowcaseAssetsWarmed = true;
+  }
 }
 
 function warmResourcesInServiceWorker(urls) {
@@ -132,19 +158,44 @@ function initComponentShowcase() {
     return;
   }
 
+  stage.querySelectorAll('img').forEach((img) => {
+    img.loading = 'eager';
+  });
+
+  warmComponentShowcaseAssets({ includePieces: false, priority: 'high' });
+
+  const warmAllShowcaseAssets = (priority = 'low') => {
+    if (!componentShowcaseAssetsWarmed) {
+      warmComponentShowcaseAssets({ priority });
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        warmAllShowcaseAssets('high');
+        observer.disconnect();
+      }
+    }, { rootMargin: '1200px 0px' });
+
+    observer.observe(showcase);
+  } else {
+    warmAllShowcaseAssets('low');
+  }
+
+  ['pointerenter', 'focus', 'touchstart'].forEach((eventName) => {
+    stage.addEventListener(eventName, () => warmAllShowcaseAssets('high'), {
+      once: true,
+      passive: true
+    });
+  });
+
   const openShowcase = () => {
     if (showcase.classList.contains('is-open') || showcase.classList.contains('is-shaking')) {
       return;
     }
 
-    [
-      'components/showcase/cards_main.png',
-      'components/showcase/project_cards.png',
-      'components/showcase/extended_opp.png',
-      'components/showcase/coins.png',
-      'components/showcase/resource_dice.png',
-      'components/showcase/combat_die.png'
-    ].forEach((url) => warmResource(url, { decode: true }));
+    warmAllShowcaseAssets('high');
 
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const openDelay = prefersReducedMotion ? 0 : 300;

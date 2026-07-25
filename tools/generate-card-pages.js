@@ -262,14 +262,14 @@ function pageHtml(card) {
 
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=2026072416">
+  <link rel="stylesheet" href="../styles.css?v=2026072514">
 </head>
 <body class="gallery-page card-detail-page">
   <div class="countryball-silhouette-bg" aria-hidden="true">
     <img class="countryball-silhouette countryball-silhouette--left" src="../cb/poland.png" alt="" width="1024" height="1024" loading="eager" decoding="async">
     <img class="countryball-silhouette countryball-silhouette--right" src="../cb/us.png" alt="" width="1024" height="1024" loading="eager" decoding="async">
   </div>
-  <script src="../js/site-header.js?v=2026072202"></script>
+  <script src="../js/site-header.js?v=2026072514"></script>
 
   <main class="wrap">
     <div class="frame">
@@ -370,6 +370,7 @@ function pageHtml(card) {
     </div>
   </footer>
   <script src="../js/protect-card-images.js"></script>
+  <script src="../js/card-glimmer.js?v=2026072514"></script>
 </body>
 </html>
 `;
