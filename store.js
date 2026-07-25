@@ -61,12 +61,12 @@
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
-        BASE_GAME: 'https://buy.stripe.com/7sYeVd1AVcPG51k4Dfcwg0i',
+        BASE_GAME: 'https://buy.stripe.com/aFacN5cfzcPG2TcglXcwg0l',
         EXTENDED_EDITION: 'https://buy.stripe.com/cNi4gz0wR4ja8dw7Prcwg0k',
         FOUNDERS_EDITION: 'https://buy.stripe.com/3cI8wP2EZ6ri3Xg3zbcwg0j'
       },
       ZONE_2: {
-        BASE_GAME: 'https://buy.stripe.com/7sYeVd1AVcPG51k4Dfcwg0i',
+        BASE_GAME: 'https://buy.stripe.com/aFacN5cfzcPG2TcglXcwg0l',
         EXTENDED_EDITION: 'https://buy.stripe.com/cNi4gz0wR4ja8dw7Prcwg0k',
         FOUNDERS_EDITION: 'https://buy.stripe.com/3cI8wP2EZ6ri3Xg3zbcwg0j'
       }
