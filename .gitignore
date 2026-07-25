@@ -2,3 +2,4 @@
 omnifill-token.txt
 founders-stock-cache.json
 .venv/
+.tmp/

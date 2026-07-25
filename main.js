@@ -56,14 +56,14 @@ const slowConnectionTypes = new Set(['slow-2g', '2g']);
 const warmedResourceUrls = new Set();
 const warmingImages = new Set();
 const componentShowcaseAssets = [
-  'components/showcase/closed_box.png',
-  'components/showcase/box_open.png',
-  'components/showcase/cards_main.png',
-  'components/showcase/project_cards.png',
-  'components/showcase/extended_opp.png',
-  'components/showcase/coins.png',
-  'components/showcase/resource_dice.png',
-  'components/showcase/combat_die.png'
+  'components/showcase/closed_box.webp',
+  'components/showcase/box_open.webp',
+  'components/showcase/cards_main.webp',
+  'components/showcase/project_cards.webp',
+  'components/showcase/extended_opp.webp',
+  'components/showcase/coins.webp',
+  'components/showcase/resource_dice.webp',
+  'components/showcase/combat_die.webp'
 ];
 let componentShowcaseAssetsWarmed = false;
 
@@ -1396,7 +1396,7 @@ if(redditBtn){
 
   const details={
     extended:{
-      html:'<img class="package-detail-image" src="components/showcase/extended_opp.png" alt="Extended Edition extra countryball cards preview" width="760" height="461" loading="lazy" decoding="async"><p>The 10 extra Countryballs are Switzerland, Spain, Croatia, Czechia, Hungary, Finland, Belgium, Norway, Austria, and Portugal. The Extended Edition also adds 5 extra Project Cards for more deck variety.</p>'
+      html:'<img class="package-detail-image" src="components/showcase/extended_opp.webp" alt="Extended Edition extra countryball cards preview" width="760" height="461" loading="lazy" decoding="async"><p>The 10 extra Countryballs are Switzerland, Spain, Croatia, Czechia, Hungary, Finland, Belgium, Norway, Austria, and Portugal. The Extended Edition also adds 5 extra Project Cards for more deck variety.</p>'
     },
     certificate:{
       html:"<p>Each Founder&apos;s Edition includes a numbered holographic certificate. You will receive a random number between 1 and 100. No future Founder&apos;s Certificate will ever be made, so this numbered run stays limited to the original 100.</p>"
