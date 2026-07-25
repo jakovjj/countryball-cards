@@ -62,13 +62,13 @@
     const PAYMENT_LINKS = {
       ZONE_1: {
         BASE_GAME: 'https://buy.stripe.com/7sYeVd1AVcPG51k4Dfcwg0i',
-        EXTENDED_EDITION: 'https://buy.stripe.com/fZu8wPenH7vmfFY0mZcwg0h',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/eVq8wPdjD2b2gK2glXcwg0g'
+        EXTENDED_EDITION: 'https://buy.stripe.com/cNi4gz0wR4ja8dw7Prcwg0k',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/3cI8wP2EZ6ri3Xg3zbcwg0j'
       },
       ZONE_2: {
         BASE_GAME: 'https://buy.stripe.com/7sYeVd1AVcPG51k4Dfcwg0i',
-        EXTENDED_EDITION: 'https://buy.stripe.com/fZu8wPenH7vmfFY0mZcwg0h',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/eVq8wPdjD2b2gK2glXcwg0g'
+        EXTENDED_EDITION: 'https://buy.stripe.com/cNi4gz0wR4ja8dw7Prcwg0k',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/3cI8wP2EZ6ri3Xg3zbcwg0j'
       }
     };
     let selectedCountry = null;
@@ -282,7 +282,7 @@
 
       const copyEl = preorderDialog.querySelector('.preorder-modal-copy');
       if (copyEl) {
-        copyEl.textContent = `Your total will be ${formatUsd(orderTotal)} (incl. $5.40 shipping). Delivery is 4-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
+        copyEl.textContent = `Your total will be ${formatUsd(orderTotal)} (incl. $6.40 shipping). Delivery is 4-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
       }
 
       const titleEl = document.getElementById('preorderConfirmTitle');
@@ -423,9 +423,9 @@
     function getDeliveryLabelForZone(zone) {
       switch (zone) {
         case 'ZONE_1':
-          return '($5.40 Shipping)';
+          return '($6.40 Shipping)';
         case 'ZONE_2':
-          return '($12.20 Shipping)';
+          return '($6.40 Shipping)';
         default:
           return '';
       }
@@ -434,9 +434,9 @@
     function getDeliveryAmountForZone(zone) {
       switch (zone) {
         case 'ZONE_1':
-          return 5.40;
+          return 6.40;
         case 'ZONE_2':
-          return 12.20;
+          return 6.40;
         default:
           return 0;
       }
