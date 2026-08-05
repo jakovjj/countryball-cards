@@ -1284,9 +1284,7 @@ const redditBtn=document.getElementById('redditBtn');
 if(discordBtn){
   discordBtn.addEventListener('click', function(e){
     e.preventDefault();
-    try{ if(window.rdt) rdt('track','Lead',{event_name:'DiscordJoin',content_name:'Discord Community',content_category:'Community',content_ids:['discord_join'],content_type:'community'}); }catch(_){ }
-    try{ if(window.rdt) rdt('track','Custom',{customEventName:'DiscordJoin',content_name:'Discord Community'}); }catch(_){ }
-    try{ if(typeof fbq==='function') fbq('track','Lead',{content_name:'Discord Community',content_category:'Community'}); }catch(_){ }
+    try{ if(typeof fbq==='function') fbq('track','Lead',{content_name:'Discord Community',content_category:'Community',content_ids:['discord_join'],content_type:'community'},{eventID:'lead_'+Date.now()+'_'+Math.random().toString(36).slice(2,10)}); }catch(_){ }
     setTimeout(()=>window.open('https://discord.gg/GVkrHXvzf8','_blank'),400);
   });
 }
@@ -1294,9 +1292,7 @@ if(discordBtn){
 if(redditBtn){
   redditBtn.addEventListener('click', function(e){
     e.preventDefault();
-    try{ if(window.rdt) rdt('track','Lead',{event_name:'RedditJoin',content_name:'Reddit Community',content_category:'Community',content_ids:['reddit_join'],content_type:'community'}); }catch(_){ }
-    try{ if(window.rdt) rdt('track','Custom',{customEventName:'RedditJoin',content_name:'Reddit Community'}); }catch(_){ }
-    try{ if(typeof fbq==='function') fbq('track','Lead',{content_name:'Reddit Community',content_category:'Community'}); }catch(_){ }
+    try{ if(typeof fbq==='function') fbq('track','Lead',{content_name:'Reddit Community',content_category:'Community',content_ids:['reddit_join'],content_type:'community'},{eventID:'lead_'+Date.now()+'_'+Math.random().toString(36).slice(2,10)}); }catch(_){ }
     setTimeout(()=>window.open('https://reddit.com/r/countryball_cards','_blank'),400);
   });
 }
@@ -1314,7 +1310,6 @@ if(redditBtn){
     lastFocus=document.activeElement;
     overlay.hidden=false; overlay.setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
-    try{ if(window.rdt) rdt('track','Custom',{customEventName:'RoadmapOpen'}); }catch(_){ }
     const f=getFocusable(); if(f.length) f[0].focus(); else dialog.focus();
     document.addEventListener('keydown', onKeyDown);
     overlay.addEventListener('click', onOverlayClick);
@@ -1354,7 +1349,7 @@ if(redditBtn){
     lastFocus=document.activeElement;
     overlay.hidden=false; overlay.setAttribute('aria-hidden','false');
     document.body.style.overflow='hidden';
-    if(typeof trackStoreClick==='function') trackStoreClick('extended_cards_upsell');
+    if(typeof trackSiteLinkClick==='function') trackSiteLinkClick('extended_cards_upsell');
     const f=getFocusable(); if(f.length) f[0].focus(); else dialog.focus();
     document.addEventListener('keydown', onKeyDown);
     overlay.addEventListener('click', onOverlayClick);
@@ -1402,7 +1397,7 @@ if(redditBtn){
       html:"<p>Each Founder&apos;s Edition includes a numbered holographic certificate. You will receive a random number between 1 and 100. No future Founder&apos;s Certificate will ever be made, so this numbered run stays limited to the original 100.</p>"
     },
     holographic:{
-      html:'<p>The set of 5 holographic Countryball Cards contains the beta, early holographic versions of the 5 most popular cards: USA, France, Poland, Germany, and Netherlands.</p>'
+      html:'<p>These 5 holographic Countryball Cards are early prototype versions of the cards, with slightly different abilities from the final versions. The set includes USA, France, Poland, Germany, and the Netherlands.</p>'
     }
   };
 
@@ -1458,7 +1453,7 @@ if(redditBtn){
     tooltip.hidden=false;
     trigger.setAttribute('aria-expanded','true');
     trigger.setAttribute('aria-describedby',tooltip.id);
-    if(typeof trackStoreClick==='function') trackStoreClick('pricing_detail_'+key);
+    if(typeof trackSiteLinkClick==='function') trackSiteLinkClick('pricing_detail_'+key);
     placeTooltip();
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('pointerdown', onPointerDown, true);
@@ -1573,16 +1568,6 @@ function trackAdvancedEvent(eventName, parameters = {}) {
         value: parameters.value || 0,
         custom_parameter_1: parameters.custom1 || '',
         custom_parameter_2: parameters.custom2 || '',
-        ...parameters
-      });
-    }
-    
-    // Reddit Pixel
-    if (window.rdt) {
-      rdt('track', 'Custom', {
-        customEventName: eventName,
-        content_name: parameters.content_name || eventName,
-        content_category: parameters.content_category || 'engagement',
         ...parameters
       });
     }
@@ -1734,14 +1719,6 @@ function trackFreePrintPlayClick() {
       value: 1
     });
   }
-  
-  // Track with Reddit Pixel if available
-  if (typeof rdt !== 'undefined') {
-    rdt('track', 'Custom', {
-      customEventName: 'FreePrintPlayClick',
-      content_name: 'Free Print and Play Button'
-    });
-  }
 }
 
 function trackBottomEmailClick() {
@@ -1751,11 +1728,6 @@ function trackBottomEmailClick() {
       event_label: 'bottom_of_page',
       value: 1
     });
-  }
-  
-  // Track with Reddit Pixel if available
-  if (typeof rdt !== 'undefined') {
-    rdt('track', 'Lead');
   }
 }
 
@@ -1796,18 +1768,6 @@ function trackKickstarterClick(source) {
       event_category: 'conversion',
       event_label: source,
       value: 1
-    });
-  }
-  
-  // Track with Reddit Pixel if available
-  if (typeof rdt !== 'undefined') {
-    rdt('track', 'Lead', {
-      event_name: 'KickstarterClick',
-      content_name: 'Kickstarter Campaign',
-      content_category: 'Campaign',
-      content_ids: ['kickstarter_campaign'],
-      content_type: 'campaign',
-      source: source
     });
   }
 }

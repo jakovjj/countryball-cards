@@ -1713,23 +1713,6 @@
               showMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
               console.log('Email sent successfully via EmailJS');
               
-              // Track successful signup
-              try {
-                if (window.rdt) rdt('track', 'SignUp', {
-                  event_name: 'EmailSignup',
-                  content_name: 'Newsletter',
-                  content_category: 'Email Marketing',
-                  content_ids: ['email_signup'],
-                  content_type: 'signup'
-                });
-              } catch (_) {}
-              
-              try {
-                if (window.rdt) rdt('track', 'Custom', {
-                  customEventName: 'EmailSignup',
-                  content_name: 'Newsletter'
-                });
-              } catch (_) {}
             } else {
               throw new Error('Email sending failed');
             }

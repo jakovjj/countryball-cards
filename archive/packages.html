@@ -47,7 +47,7 @@
         "name": "Base Game",
         "price": "34",
         "priceCurrency": "EUR",
-        "availability": "https://schema.org/PreOrder",
+        "availability": "https://schema.org/InStock",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -55,7 +55,7 @@
         "name": "Extended Edition",
         "price": "49",
         "priceCurrency": "EUR",
-        "availability": "https://schema.org/PreOrder",
+        "availability": "https://schema.org/InStock",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -63,7 +63,7 @@
         "name": "Founder's Edition", 
         "price": "69",
         "priceCurrency": "EUR",
-        "availability": "https://schema.org/PreOrder",
+        "availability": "https://schema.org/InStock",
         "priceValidUntil": "2025-12-31"
       }
     ],
@@ -2221,23 +2221,6 @@
               showMessage('Success! You\'ll be notified when we launch! 🚀', 'success');
               console.log('Email sent successfully via EmailJS');
               
-              // Track successful signup
-              try {
-                if (window.rdt) rdt('track', 'SignUp', {
-                  event_name: 'EmailSignup',
-                  content_name: 'Newsletter',
-                  content_category: 'Email Marketing',
-                  content_ids: ['email_signup'],
-                  content_type: 'signup'
-                });
-              } catch (_) {}
-              
-              try {
-                if (window.rdt) rdt('track', 'Custom', {
-                  customEventName: 'EmailSignup',
-                  content_name: 'Newsletter'
-                });
-              } catch (_) {}
             } else {
               throw new Error('Email sending failed');
             }
@@ -2315,24 +2298,6 @@
             submitBtn.classList.remove('loading');
             submitBtn.classList.add('success');
             submitBtn.querySelector('.submit-text').textContent = 'Subscribed!';
-            
-            // Track successful signup
-            try {
-              if (window.rdt) rdt('track', 'SignUp', {
-                event_name: 'EmailSignup',
-                content_name: 'Newsletter',
-                content_category: 'Email Marketing',
-                content_ids: ['email_signup'],
-                content_type: 'signup'
-              });
-            } catch (_) {}
-            
-            try {
-              if (window.rdt) rdt('track', 'Custom', {
-                customEventName: 'EmailSignup',
-                content_name: 'Newsletter'
-              });
-            } catch (_) {}
             
             // Clean up and close modal
             setTimeout(() => {

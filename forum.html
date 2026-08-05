@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Countryball Council | Countryball Cards</title>
+  <link rel="canonical" href="https://countryballcards.com/forum.html">
+  <meta name="description" content="Join the Countryball Council forum to create posts, ask questions, and talk with other verified Countryball Cards players.">
+  <meta name="theme-color" content="#f2efe7">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/bangers-latin.woff2?v=2026072831" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/council.webp?v=2026072834" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css?v=2026080301">
+  <link rel="stylesheet" href="community.css?v=2026080304">
+  <link rel="stylesheet" href="forum-redesign.css?v=2026080305">
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ws94xql90s");
+  </script>
+</head>
+<body class="gallery-page community-page">
+  <div class="countryball-silhouette-bg" aria-hidden="true">
+    <img class="countryball-silhouette countryball-silhouette--left" src="cb/poland.png" alt="" width="1024" height="1024">
+    <img class="countryball-silhouette countryball-silhouette--right" src="cb/us.png" alt="" width="1024" height="1024">
+  </div>
+  <script src="js/site-header.js?v=2026072905"></script>
+
+  <main id="communityLoginShell" class="council-portal">
+    <section class="council-portal-stage" aria-labelledby="communityLoginTitle">
+      <div class="council-portal-copy">
+        <h1 id="communityLoginTitle">Countryball<br><span>Council</span></h1>
+        <p class="council-portal-lead">The players have a seat at the table.</p>
+        <p class="council-portal-text">Discuss strategy, rate the deck, vote on new ideas, and help shape the future of Countryball Cards.</p>
+
+        <div class="council-portal-access">
+          <p>Use the Google account that matches your game order.</p>
+          <div id="googleLoginButton" class="community-google-button" aria-live="polite">
+            <span class="community-login-loading">Preparing Google sign-in...</span>
+          </div>
+          <p id="communityLoginStatus" class="community-login-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="council-portal-art" aria-hidden="true">
+        <div class="council-portal-orbit"></div>
+        <img class="council-portal-group" src="assets/council.webp?v=2026072834" alt="" width="1701" height="970" fetchpriority="high" decoding="async">
+      </div>
+
+    </section>
+  </main>
+
+  <main id="communityForumShell" class="forum-app" hidden>
+    <header class="council-memberbar" aria-label="Council account">
+      <a class="council-memberbar-brand" href="forum.html">
+        Countryball Council
+      </a>
+      <div id="communityAccount" class="forum-account"></div>
+    </header>
+    <div class="forum-frame">
+      <section class="forum-hero" aria-labelledby="forumTitle">
+        <div class="forum-hero-copy">
+          <h1 id="forumTitle">Countryball<br>Council</h1>
+          <p>Post ideas, ask questions, share strategies, and talk Countryball Cards with other players.</p>
+          <div class="forum-hero-actions">
+            <button id="newThreadButton" class="forum-new-button" type="button" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              Create post
+            </button>
+            <button id="newRatingButton" class="forum-new-button forum-new-button-secondary" type="button" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" stroke="none"><path d="m12 2.5 2.87 6.62 7.13.66-5.4 4.77 1.6 7.05L12 17.9l-6.2 3.7 1.6-7.05-5.4-4.77 7.13-.66Z"/></svg>
+              Rate a card
+            </button>
+          </div>
+        </div>
+        <div class="forum-hero-art" aria-hidden="true">
+          <img src="assets/council.webp?v=2026072834" alt="" width="1701" height="970" fetchpriority="high" decoding="async">
+        </div>
+      </section>
+
+      <div class="forum-shell">
+        <div class="forum-toolbar">
+          <nav id="communityBreadcrumbs" class="forum-breadcrumbs" aria-label="Forum breadcrumb"></nav>
+          <span class="forum-toolbar-label">Community discussions</span>
+        </div>
+        <p id="communityNotice" class="forum-notice" role="status" hidden></p>
+        <div id="communityContent" class="forum-content" aria-live="polite">
+          <div class="forum-loading"><span></span>Loading discussions…</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="threadDialog" class="forum-dialog">
+    <form id="threadForm" class="forum-compose">
+      <header>
+        <div><span class="forum-kicker">New discussion</span><h2>Create a post</h2></div>
+        <button class="forum-dialog-close" type="button" data-close-dialog aria-label="Close dialog">&times;</button>
+      </header>
+      <label for="threadTitle">Title</label>
+      <input id="threadTitle" name="title" minlength="4" maxlength="120" required placeholder="What do you want to talk about?">
+      <label for="threadBody">Post</label>
+      <div class="forum-rich-editor" data-rich-editor data-minlength="10" data-maxlength="5000">
+        <div class="forum-editor-toolbar" role="toolbar" aria-label="Text formatting">
+          <button type="button" data-editor-command="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
+          <button type="button" data-editor-command="italic" aria-label="Italic" title="Italic"><em>I</em></button>
+          <button type="button" data-editor-image aria-label="Insert photo" title="Insert photo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><circle cx="9" cy="10" r="2"/><path d="m4 17 4-4 3 3 3-4 6 6"/></svg>
+            <span>Photo</span>
+          </button>
+          <input id="threadImages" class="forum-file-input" name="images[]" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple tabindex="-1" aria-hidden="true">
+        </div>
+        <div id="threadBody" class="forum-editor-surface" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Share the details with the Council…"></div>
+        <textarea name="body" hidden></textarea>
+        <p class="forum-editor-help">Add up to 4 photos (JPEG, PNG, WebP, or GIF · 5 MB each). Photos appear where you insert them.</p>
+      </div>
+      <div class="forum-compose-footer">
+        <p class="forum-form-error" data-form-error role="alert"></p>
+        <div>
+          <button class="forum-cancel-button" type="button" data-close-dialog>Cancel</button>
+          <button class="forum-submit-button" type="submit">Publish post</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="ratingDialog" class="forum-dialog rating-dialog">
+    <form id="ratingForm" class="forum-compose">
+      <header>
+        <div><span class="forum-kicker">Council verified</span><h2>Rate a card</h2></div>
+        <button class="forum-dialog-close" type="button" data-close-rating aria-label="Close dialog">&times;</button>
+      </header>
+      <fieldset class="profile-avatar-fieldset">
+        <legend>Choose a card</legend>
+        <div id="ratingCardGrid" class="profile-avatar-grid"></div>
+      </fieldset>
+      <fieldset class="rating-tier-fieldset">
+        <legend>Your tier rating</legend>
+        <div id="ratingTierGrid" class="rating-tier-grid"></div>
+      </fieldset>
+      <label for="ratingBody">Your thoughts (optional)</label>
+      <textarea id="ratingBody" name="body" class="rating-body-input" maxlength="1200" rows="4" placeholder="What makes this card earn that tier?"></textarea>
+      <div class="forum-compose-footer">
+        <p class="forum-form-error" data-form-error role="alert"></p>
+        <div>
+          <button class="forum-cancel-button" type="button" data-close-rating>Cancel</button>
+          <button class="forum-submit-button" type="submit">Post rating</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="profileDialog" class="forum-dialog profile-dialog">
+    <form id="profileForm" class="forum-compose">
+      <header>
+        <div><span class="forum-kicker">Council identity</span><h2>Edit profile</h2></div>
+        <button class="forum-dialog-close" type="button" data-close-profile aria-label="Close profile editor">&times;</button>
+      </header>
+      <div class="profile-current-edition">
+        <span>Your verified edition</span>
+        <div id="profileEditionBadges" class="community-edition-badges"></div>
+      </div>
+      <label for="profileDisplayName">Player name</label>
+      <input id="profileDisplayName" name="display_name" minlength="3" maxlength="24" autocomplete="nickname" required>
+      <fieldset class="profile-avatar-fieldset">
+        <legend>Choose your countryball</legend>
+        <div id="profileAvatarGrid" class="profile-avatar-grid"></div>
+      </fieldset>
+      <div class="forum-compose-footer">
+        <p class="forum-form-error" data-profile-error role="alert"></p>
+        <div>
+          <button class="forum-cancel-button" type="button" data-close-profile>Cancel</button>
+          <button class="forum-submit-button" type="submit">Save profile</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="site-footer" role="contentinfo" aria-label="Site footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-top">
+        <div>
+          <div class="site-footer-brand">
+            <img src="assets/glare-56.webp" alt="" aria-hidden="true" class="site-footer-logo" width="56" height="56" loading="lazy" decoding="async">
+            <p class="site-footer-title">Glare Studios, LLC</p>
+          </div>
+          <p class="site-footer-tagline">Made for fans of countryballs &amp; strategy. Reach out any time. We typically respond within 24 hours.</p>
+        </div>
+      </div>
+
+      <div class="site-footer-grid">
+        <div class="site-footer-col">
+          <h3>Reach out</h3>
+          <div class="site-footer-meta">
+            131 Continental Dr<br>
+            Newark, DE, US
+          </div>
+          <ul class="site-footer-list" style="margin-top:10px">
+            <li><a href="mailto:info@countryballcards.com">info@countryballcards.com</a></li>
+            <li><a href="tel:+13026100190">+1 302 610 0190</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer-col">
+          <h3>Social</h3>
+          <div class="site-footer-social">
+            <a href="https://www.kickstarter.com/projects/glarestudios/countryball-cards" target="_blank" rel="noopener">
+              <img src="assets/ks.png" alt="" loading="lazy" decoding="async">
+              <span>Kickstarter</span>
+            </a>
+            <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">
+              <img src="assets/discord.png" alt="" loading="lazy" decoding="async">
+              <span>Discord</span>
+            </a>
+            <a href="https://reddit.com/r/countryball_cards" target="_blank" rel="noopener">
+              <img src="assets/reddit.png" alt="" loading="lazy" decoding="async">
+              <span>Reddit</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="site-footer-col">
+          <h3>Info</h3>
+          <ul class="site-footer-list">
+            <li><a href="gallery.html">Card Atlas</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-and-conditions.html">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer-bottom">
+        <span class="site-footer-copyright">
+          <span>&copy; 2025-2026 Glare Studios, LLC</span>
+          <img src="assets/bar.png" alt="" class="site-footer-bottom-bar" width="2083" height="342" loading="lazy" decoding="async" aria-hidden="true">
+        </span>
+        <span>Need help? <a href="mailto:info@countryballcards.com">Email support</a> or <a href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener">join Discord</a>.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://accounts.google.com/gsi/client?hl=en" async defer></script>
+  <script src="js/community-login.js?v=2026072921"></script>
+  <script src="js/gallery-cards.js?v=2026080304"></script>
+  <script src="js/community.js?v=2026080305"></script>
+</body>
+</html>

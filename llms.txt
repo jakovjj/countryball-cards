@@ -1,0 +1,14 @@
+# Countryball Cards
+
+> Countryball Cards is a strategy card game by Glare Studios (Zagreb, Croatia) in which each card represents a "countryball" — a country with a unique tier (S/A/B/C/D), type (Attack, Defense, Economic, or Misc), and one or more abilities with resource costs and dice-roll requirements. Sold as a Base Edition, Extended Edition, or Founder's Edition, shipping within the EU.
+
+## Key pages
+
+- [Homepage](https://countryballcards.com/): game overview, editions, pricing, and FAQ.
+- [Card Atlas](https://countryballcards.com/gallery.html): browsable index of every countryball card, searchable by name.
+- [Rules](https://countryballcards.com/rules.html): official rules of play.
+- [Community Forum](https://countryballcards.com/forum.html): player discussion and reviews.
+
+## Card pages
+
+Every countryball card has its own page at `/cards/{country}.html` (e.g. `/cards/germany.html`, `/cards/netherlands.html`) listing its name, tier, type, set, and full ability text. The complete, current list of card pages is maintained in [sitemap.xml](https://countryballcards.com/sitemap.xml).

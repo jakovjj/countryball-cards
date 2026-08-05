@@ -3,6 +3,7 @@
       { code: 'BG', label: 'Bulgaria', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'BE', label: 'Belgium', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'HR', label: 'Croatia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
+      { code: 'CY', label: 'Cyprus', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'CZ', label: 'Czechia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'DK', label: 'Denmark', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'EE', label: 'Estonia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
@@ -17,16 +18,13 @@
       { code: 'LT', label: 'Lithuania', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'LU', label: 'Luxembourg', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'NL', label: 'Netherlands', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'NO', label: 'Norway', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'PL', label: 'Poland', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'PT', label: 'Portugal', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'RO', label: 'Romania', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'RS', label: 'Serbia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'SK', label: 'Slovakia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'SI', label: 'Slovenia', flag: '�Y?��Y?�', zone: 'ZONE_1' },
       { code: 'ES', label: 'Spain', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'SE', label: 'Sweden', flag: '�Y?��Y?�', zone: 'ZONE_1' },
-      { code: 'US', label: 'United States', flag: '�Y?��Y?�', zone: 'ZONE_1' }
+      { code: 'SE', label: 'Sweden', flag: '�Y?��Y?�', zone: 'ZONE_1' }
     ].sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
 
     function countryCodeToFlag(code) {
@@ -56,19 +54,19 @@
     }, {});
 
     const SHIPPING_ZONES = {
-      ZONE_1: ['AT','BE','BG','CZ','DK','DE','EE','ES','FI','FR','GR','HU','HR','IE','IT','LT','LU','LV','NL','NO','PL','PT','RO','RS','SE','SI','SK','US'],
+      ZONE_1: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','NL','PL','PT','RO','SK','SI','ES','SE'],
       ZONE_2: []
     };
     const PAYMENT_LINKS = {
       ZONE_1: {
-        BASE_GAME: 'https://buy.stripe.com/aFacN5cfzcPG2TcglXcwg0l',
-        EXTENDED_EDITION: 'https://buy.stripe.com/cNi4gz0wR4ja8dw7Prcwg0k',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/3cI8wP2EZ6ri3Xg3zbcwg0j'
+        BASE_GAME: 'https://buy.stripe.com/00w00j3J3aHy9hA4Dfcwg0o',
+        EXTENDED_EDITION: 'https://buy.stripe.com/7sY7sLgvP3f6ctM1r3cwg0n',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/9B67sLfrL02UalE0mZcwg0p'
       },
       ZONE_2: {
-        BASE_GAME: 'https://buy.stripe.com/aFacN5cfzcPG2TcglXcwg0l',
-        EXTENDED_EDITION: 'https://buy.stripe.com/cNi4gz0wR4ja8dw7Prcwg0k',
-        FOUNDERS_EDITION: 'https://buy.stripe.com/3cI8wP2EZ6ri3Xg3zbcwg0j'
+        BASE_GAME: 'https://buy.stripe.com/00w00j3J3aHy9hA4Dfcwg0o',
+        EXTENDED_EDITION: 'https://buy.stripe.com/7sY7sLgvP3f6ctM1r3cwg0n',
+        FOUNDERS_EDITION: 'https://buy.stripe.com/9B67sLfrL02UalE0mZcwg0p'
       }
     };
     let selectedCountry = null;
@@ -79,12 +77,12 @@
     const shippingDialog = shippingOverlay ? shippingOverlay.querySelector('.modal') : null;
     const shippingCloseBtn = document.getElementById('shippingConfirmClose');
     const shippingConfirmBtn = document.getElementById('shippingConfirmBtn');
-    const preorderOverlay = document.getElementById('preorderConfirmOverlay');
-    const preorderDialog = preorderOverlay ? preorderOverlay.querySelector('.modal') : null;
-    const preorderCloseBtn = document.getElementById('preorderConfirmClose');
-    const preorderContinueBtn = document.getElementById('preorderContinueBtn');
-    const preorderPaypalBtn = document.getElementById('preorderPaypalBtn');
-    const preorderPaypalSection = document.getElementById('preorderPaypalSection');
+    const orderOverlay = document.getElementById('orderConfirmOverlay');
+    const orderDialog = orderOverlay ? orderOverlay.querySelector('.modal') : null;
+    const orderCloseBtn = document.getElementById('orderConfirmClose');
+    const orderContinueBtn = document.getElementById('orderContinueBtn');
+    const orderPaypalBtn = document.getElementById('orderPaypalBtn');
+    const orderPaypalSection = document.getElementById('orderPaypalSection');
     const PAYPAL_LINKS = {
       ZONE_1: {
         base: 'https://www.paypal.com/ncp/payment/E3Z4KXQARU9ZS',
@@ -92,16 +90,17 @@
         founders: 'https://www.paypal.com/ncp/payment/W5P57LDF9GJ56'
       }
     };
-    let pendingPreorder = null;
+    let pendingOrder = null;
     let pendingShippingIntent = null;
     let shippingLastFocus = null;
     let shippingKeyListenerAttached = false;
     let shippingControlsBound = false;
     let shippingScrollY = 0;
-    let preorderLastFocus = null;
-    let preorderKeyListenerAttached = false;
-    let preorderControlsBound = false;
-    let preorderScrollY = 0;
+    let orderLastFocus = null;
+    let orderKeyListenerAttached = false;
+    let orderControlsBound = false;
+    let orderScrollY = 0;
+    let checkoutRedirectPending = false;
     const LAST_COUNTRY_STORAGE_KEY = 'cbc:lastCountryCode';
     const DETECTION_TIMEOUT_MS = 4500;
 
@@ -111,10 +110,10 @@
       return null;
     }
 
-    function handlePreorderKeydown(event) {
+    function handleOrderKeydown(event) {
       if (event.key === 'Escape') {
         event.preventDefault();
-        closePreorderConfirmation();
+        closeOrderConfirmation();
       }
     }
 
@@ -240,7 +239,7 @@
       const { packageName, price, packageKey, triggerEl } = pendingShippingIntent;
       const checkoutUrl = getCheckoutUrlForPackage(selectedZone, packageKey);
       closeShippingConfirmation({ restoreFocus: false });
-      openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl, { zone: selectedZone, packageKey });
+      openOrderConfirmation(packageName, price, checkoutUrl, triggerEl, { zone: selectedZone, packageKey });
     }
 
     function initShippingModalControls() {
@@ -266,11 +265,11 @@
     initShippingModalControls();
     document.addEventListener('DOMContentLoaded', initShippingModalControls);
 
-    function openPreorderConfirmation(packageName, price, checkoutUrl, triggerEl, opts = {}) {
+    function openOrderConfirmation(packageName, price, checkoutUrl, triggerEl, opts = {}) {
       if (!checkoutUrl) {
         return;
       }
-      if (!preorderOverlay || !preorderDialog || !preorderContinueBtn) {
+      if (!orderOverlay || !orderDialog || !orderContinueBtn) {
         window.location.href = checkoutUrl;
         return;
       }
@@ -280,26 +279,26 @@
       const delivery = getDeliveryAmountForZone(zone);
       const orderTotal = (Number.isFinite(basePrice) ? basePrice : 0) + delivery;
 
-      const copyEl = preorderDialog.querySelector('.preorder-modal-copy');
+      const copyEl = orderDialog.querySelector('.order-modal-copy');
       if (copyEl) {
-        copyEl.textContent = `Your total will be ${formatUsd(orderTotal)} (incl. $6.40 shipping). Delivery is 4-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
+        copyEl.textContent = `Your total will be ${formatEur(orderTotal)} (incl. 5.90€ shipping). Delivery is 4-10 days from Brno, Czechia, and you'll receive a receipt after checkout.`;
       }
 
-      const titleEl = document.getElementById('preorderConfirmTitle');
+      const titleEl = document.getElementById('orderConfirmTitle');
       if (titleEl) {
         const flag = selectedCountry && COUNTRY_MAP[selectedCountry] ? COUNTRY_MAP[selectedCountry].flag : '';
         titleEl.innerHTML = flag
-          ? `<span class="preorder-title-flag" aria-hidden="true">${flag}</span> Ready to order?`
+          ? `<span class="order-title-flag" aria-hidden="true">${flag}</span> Ready to order?`
           : 'Ready to order?';
       }
 
       const paypalUrl = opts.zone && opts.packageKey && PAYPAL_LINKS[opts.zone] && PAYPAL_LINKS[opts.zone][opts.packageKey]
         ? PAYPAL_LINKS[opts.zone][opts.packageKey]
         : null;
-      if (preorderPaypalSection) {
-        preorderPaypalSection.hidden = !paypalUrl;
+      if (orderPaypalSection) {
+        orderPaypalSection.hidden = !paypalUrl;
       }
-      pendingPreorder = {
+      pendingOrder = {
         checkoutUrl,
         paypalUrl,
         packageName,
@@ -308,48 +307,49 @@
         total: orderTotal,
         zone
       };
-      preorderLastFocus = triggerEl || document.activeElement || null;
-      preorderScrollY = window.scrollY || window.pageYOffset || 0;
+      checkoutRedirectPending = false;
+      orderLastFocus = triggerEl || document.activeElement || null;
+      orderScrollY = window.scrollY || window.pageYOffset || 0;
 
-      preorderOverlay.hidden = false;
+      orderOverlay.hidden = false;
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
-      preorderOverlay.setAttribute('aria-hidden', 'false');
+      orderOverlay.setAttribute('aria-hidden', 'false');
 
       setTimeout(() => {
-        if (preorderContinueBtn) {
-          preorderContinueBtn.focus();
+        if (orderContinueBtn) {
+          orderContinueBtn.focus();
         } else {
-          preorderDialog.focus();
+          orderDialog.focus();
         }
-        window.scrollTo(0, preorderScrollY);
+        window.scrollTo(0, orderScrollY);
       }, 30);
 
-      if (!preorderKeyListenerAttached) {
-        document.addEventListener('keydown', handlePreorderKeydown);
-        preorderKeyListenerAttached = true;
+      if (!orderKeyListenerAttached) {
+        document.addEventListener('keydown', handleOrderKeydown);
+        orderKeyListenerAttached = true;
       }
     }
 
-    function closePreorderConfirmation(options = {}) {
-      if (!preorderOverlay) {
+    function closeOrderConfirmation(options = {}) {
+      if (!orderOverlay) {
         return;
       }
-      preorderOverlay.hidden = true;
-      preorderOverlay.setAttribute('aria-hidden', 'true');
+      orderOverlay.hidden = true;
+      orderOverlay.setAttribute('aria-hidden', 'true');
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
-      if (preorderKeyListenerAttached) {
-        document.removeEventListener('keydown', handlePreorderKeydown);
-        preorderKeyListenerAttached = false;
+      if (orderKeyListenerAttached) {
+        document.removeEventListener('keydown', handleOrderKeydown);
+        orderKeyListenerAttached = false;
       }
       const shouldRestoreFocus = options.restoreFocus !== false;
-      if (shouldRestoreFocus && preorderLastFocus && typeof preorderLastFocus.focus === 'function') {
-        preorderLastFocus.focus();
-        window.scrollTo(0, preorderScrollY);
+      if (shouldRestoreFocus && orderLastFocus && typeof orderLastFocus.focus === 'function') {
+        orderLastFocus.focus();
+        window.scrollTo(0, orderScrollY);
       }
-      pendingPreorder = null;
-      preorderLastFocus = null;
+      pendingOrder = null;
+      orderLastFocus = null;
     }
 
     // Persist order details for the success page so the Meta/GA purchase
@@ -368,48 +368,105 @@
       } catch (_) { /* sessionStorage unavailable */ }
     }
 
-    function confirmPreorderCheckout() {
-      if (!pendingPreorder || !pendingPreorder.checkoutUrl) {
-        closePreorderConfirmation();
-        return;
+    function trackCheckoutStart(order, paymentType, onComplete) {
+      if (!order || typeof gtag === 'undefined') return false;
+
+      const itemId = order.packageName
+        ? order.packageName.toLowerCase().replace(/ /g, '_')
+        : (order.packageKey || 'unknown_edition');
+      const item = {
+        item_id: itemId,
+        item_name: order.packageName || itemId,
+        quantity: 1
+      };
+      if (order.price != null && Number.isFinite(Number(order.price))) {
+        item.price = Number(order.price);
       }
-      const targetUrl = pendingPreorder.checkoutUrl;
-      saveCheckoutIntent(pendingPreorder);
-      closePreorderConfirmation({ restoreFocus: false });
-      window.location.href = targetUrl;
+
+      const params = {
+        currency: 'EUR',
+        payment_type: paymentType,
+        shipping_zone: order.zone || 'unknown',
+        items: [item]
+      };
+      const value = order.price != null ? Number(order.price) : Number(order.total);
+      if (Number.isFinite(value)) {
+        params.value = value;
+      }
+      if (typeof onComplete === 'function') {
+        params.event_callback = onComplete;
+        params.event_timeout = 800;
+      }
+
+      try {
+        gtag('event', 'begin_checkout', params);
+        return true;
+      } catch (_) {
+        return false;
+      }
     }
 
-    function initPreorderModalControls() {
-      if (preorderControlsBound) {
+    function redirectToPayment(order, paymentType, targetUrl) {
+      if (checkoutRedirectPending) return;
+      checkoutRedirectPending = true;
+      saveCheckoutIntent(order);
+
+      let redirected = false;
+      const redirect = () => {
+        if (redirected) return;
+        redirected = true;
+        closeOrderConfirmation({ restoreFocus: false });
+        window.location.href = targetUrl;
+      };
+
+      const trackingStarted = trackCheckoutStart(order, paymentType, redirect);
+      if (!trackingStarted) {
+        redirect();
         return;
       }
-      if (!preorderOverlay) {
+
+      // Ad blockers or a failed analytics request must never block checkout.
+      setTimeout(redirect, 900);
+    }
+
+    function confirmOrderCheckout() {
+      if (!pendingOrder || !pendingOrder.checkoutUrl) {
+        closeOrderConfirmation();
         return;
       }
-      if (preorderContinueBtn) {
-        preorderContinueBtn.addEventListener('click', confirmPreorderCheckout);
+      const targetUrl = pendingOrder.checkoutUrl;
+      redirectToPayment(pendingOrder, 'stripe', targetUrl);
+    }
+
+    function initOrderModalControls() {
+      if (orderControlsBound) {
+        return;
       }
-      if (preorderCloseBtn) {
-        preorderCloseBtn.addEventListener('click', () => closePreorderConfirmation());
+      if (!orderOverlay) {
+        return;
       }
-      if (preorderPaypalBtn) {
-        preorderPaypalBtn.addEventListener('click', () => {
-          if (!pendingPreorder || !pendingPreorder.paypalUrl) return;
-          const targetUrl = pendingPreorder.paypalUrl;
-          saveCheckoutIntent(pendingPreorder);
-          closePreorderConfirmation({ restoreFocus: false });
-          window.location.href = targetUrl;
+      if (orderContinueBtn) {
+        orderContinueBtn.addEventListener('click', confirmOrderCheckout);
+      }
+      if (orderCloseBtn) {
+        orderCloseBtn.addEventListener('click', () => closeOrderConfirmation());
+      }
+      if (orderPaypalBtn) {
+        orderPaypalBtn.addEventListener('click', () => {
+          if (!pendingOrder || !pendingOrder.paypalUrl) return;
+          const targetUrl = pendingOrder.paypalUrl;
+          redirectToPayment(pendingOrder, 'paypal', targetUrl);
         });
       }
-      preorderOverlay.addEventListener('click', event => {
-        if (event.target === preorderOverlay) {
-          closePreorderConfirmation();
+      orderOverlay.addEventListener('click', event => {
+        if (event.target === orderOverlay) {
+          closeOrderConfirmation();
         }
       });
-      preorderControlsBound = true;
+      orderControlsBound = true;
     }
-    initPreorderModalControls();
-    document.addEventListener('DOMContentLoaded', initPreorderModalControls);
+    initOrderModalControls();
+    document.addEventListener('DOMContentLoaded', initOrderModalControls);
 
     function setDropdownLabel(primaryText, zoneText = '') {
       const labelEl = document.getElementById('countryDropdownLabel');
@@ -423,9 +480,9 @@
     function getDeliveryLabelForZone(zone) {
       switch (zone) {
         case 'ZONE_1':
-          return '($6.40 Shipping)';
+          return '(5.90€ Shipping)';
         case 'ZONE_2':
-          return '($6.40 Shipping)';
+          return '(5.90€ Shipping)';
         default:
           return '';
       }
@@ -434,20 +491,20 @@
     function getDeliveryAmountForZone(zone) {
       switch (zone) {
         case 'ZONE_1':
-          return 6.40;
+          return 5.90;
         case 'ZONE_2':
-          return 6.40;
+          return 5.90;
         default:
           return 0;
       }
     }
 
-    function formatUsd(amount) {
+    function formatEur(amount) {
       const numeric = Number(amount);
       if (!Number.isFinite(numeric)) {
-        return '$0.00';
+        return '0.00€';
       }
-      return `$${numeric.toFixed(2)}`;
+      return `${numeric.toFixed(2)}€`;
     }
 
     function persistStoredCountry(code) {
@@ -489,15 +546,6 @@
       if (!list) return;
       list.innerHTML = '';
       let renderSet = Array.isArray(options) ? options : filteredCountryOptions;
-      // Pin United States at the top when not searching.
-      const searchInput = document.getElementById('countrySearchInput');
-      const query = searchInput ? (searchInput.value || '').trim() : '';
-      if (!query && Array.isArray(renderSet) && renderSet.length) {
-        const usOption = renderSet.find(option => option.code === 'US');
-        if (usOption) {
-          renderSet = [usOption, ...renderSet.filter(option => option.code !== 'US')];
-        }
-      }
       if (!renderSet.length) {
         const emptyState = document.createElement('li');
         emptyState.className = 'country-option empty-state';
@@ -753,14 +801,21 @@
 
     function updateButtonStates(enabled) {
       document.querySelectorAll('.package-btn').forEach(btn => {
+        const packageKey = btn.dataset.package;
+        const fallbackCheckoutUrl = getCheckoutUrlForPackage('ZONE_1', packageKey);
         if (enabled) {
-          const checkoutUrl = btn.dataset.checkoutUrl || '#';
+          const checkoutUrl = btn.dataset.checkoutUrl || fallbackCheckoutUrl;
+          if (!checkoutUrl) return;
           btn.href = checkoutUrl;
           btn.classList.remove('disabled');
           btn.classList.add('armed');
         } else {
           // Keep package buttons visually clickable; shipping/zone is confirmed in the modal.
-          btn.href = '#';
+          // Keep a real checkout URL as the native-link fallback so a failed or
+          // blocked script can never turn a Buy click into a jump to /#.
+          if (fallbackCheckoutUrl) {
+            btn.href = fallbackCheckoutUrl;
+          }
           btn.classList.remove('disabled');
           btn.classList.remove('armed');
           btn.removeAttribute('data-zone');
@@ -1007,67 +1062,57 @@
       // No-op: package buttons open the shipping modal via inline onclick.
     }
 
-    function trackPreOrderClick(event, packageName, price) {
+    function trackOrderClick(event, packageName, price) {
       const trigger = event ? (event.currentTarget || event.target) : null;
       if (event) {
         event.preventDefault();
         event.stopPropagation();
       }
 
-      const zoneLabel = (trigger && trigger.dataset && trigger.dataset.zone) || selectedZone || 'unknown';
-
       // Always collect/confirm shipping via modal first (instead of inline selector).
       const packageKey = trigger && trigger.dataset && trigger.dataset.package ? trigger.dataset.package : null;
       pendingShippingIntent = { packageName, price, packageKey, triggerEl: trigger };
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'preorder_button_clicked', {
-          event_category: 'conversion',
-          event_label: packageName,
-          value: price,
-          currency: 'USD',
-          shipping_zone: zoneLabel
-        });
-        gtag('event', 'begin_checkout', {
-          currency: 'USD',
-          value: price,
-          items: [{
-            item_id: packageName.toLowerCase().replace(/ /g, '_'),
-            item_name: packageName,
-            price: price,
-            quantity: 1
-          }]
-        });
-      }
+
+      // Checkout UI is the critical path. Open it before any optional analytics
+      // so a blocked or broken ad tracker can never prevent the popup.
+      const checkoutUrl = getCheckoutUrlForPackage('ZONE_1', packageKey);
+      openOrderConfirmation(packageName, price, checkoutUrl, trigger, { zone: 'ZONE_1', packageKey });
 
       if (typeof fbq === 'function') {
         try {
+          const trackedId = packageKey || packageName.toLowerCase().replace(/ /g, '_');
           fbq('track', 'InitiateCheckout', {
             value: price,
-            currency: 'USD',
+            currency: 'EUR',
             content_name: packageName,
-            content_ids: [packageKey || packageName.toLowerCase().replace(/ /g, '_')],
+            content_category: 'Editions',
+            content_ids: [trackedId],
             content_type: 'product',
+            contents: [{ id: trackedId, quantity: 1, item_price: price }],
             num_items: 1
-          });
+          }, { eventID: 'checkout_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10) });
         } catch (_) { /* noop */ }
       }
 
-      if (typeof rdt !== 'undefined') {
-        // Checkout opened, not a completed sale; Purchase fires on success.html.
-        rdt('track', 'AddToCart', {
-          value: price,
-          currency: 'USD',
-          itemCount: 1,
-          products: [{
-            id: packageKey || packageName.toLowerCase().replace(/ /g, '_'),
-            name: packageName,
-            category: 'edition'
-          }]
-        });
+      if (typeof ttq !== 'undefined') {
+        try {
+          const trackedId = packageKey || packageName.toLowerCase().replace(/ /g, '_');
+          const eventId = typeof window.__cbcEventId === 'function'
+            ? window.__cbcEventId('initiatecheckout')
+            : 'initiatecheckout_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+          const properties = {
+            content_type: 'product',
+            contents: [{ content_id: trackedId, content_name: packageName, price: price, quantity: 1 }],
+            value: price,
+            currency: 'EUR'
+          };
+          ttq.track('InitiateCheckout', properties, { event_id: eventId });
+          if (typeof window.__cbcSendTikTokEvent === 'function') {
+            window.__cbcSendTikTokEvent('InitiateCheckout', eventId, properties);
+          }
+        } catch (_) { /* noop */ }
       }
 
-      const checkoutUrl = getCheckoutUrlForPackage('ZONE_1', packageKey);
-      openPreorderConfirmation(packageName, price, checkoutUrl, trigger, { zone: 'ZONE_1', packageKey });
       return false;
     }
 
@@ -1099,5 +1144,5 @@
       initInlineStore();
     }
 
-    window.trackPreOrderClick = trackPreOrderClick;
+    window.trackOrderClick = trackOrderClick;
     window.changeShippingLocation = changeShippingLocation;

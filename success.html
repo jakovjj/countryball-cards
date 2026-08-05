@@ -41,12 +41,11 @@
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://stats.g.doubleclick.net" crossorigin>
-  <link rel="preconnect" href="https://www.redditstatic.com" crossorigin>
   <link rel="dns-prefetch" href="https://discord.com">
 
   <!-- Performance hints for critical above-the-fold assets -->
   <link rel="preload" as="image" href="assets/thanks.webp" fetchpriority="high" />
-  <link rel="preload" as="style" href="styles.css?v=2026072514" />
+  <link rel="preload" as="style" href="styles.css?v=2026080301" />
 
   <!-- Favicon / SERP icon -->
   <link rel="icon" href="/serp.ico" sizes="any">
@@ -195,8 +194,8 @@
   </style>
 
   <!-- Load full CSS before first paint to avoid unstyled image flashes -->
-  <link rel="stylesheet" href="styles.css?v=2026072514">
-  <noscript><link rel="stylesheet" href="styles.css?v=2026072514"></noscript>
+  <link rel="stylesheet" href="styles.css?v=2026080301">
+  <noscript><link rel="stylesheet" href="styles.css?v=2026080301"></noscript>
 
   <!-- Success page-only background overrides (must come AFTER styles.css to win on mobile) -->
   <style>
@@ -227,7 +226,7 @@
   </style>
 
   <!-- Preload scripts -->
-  <link rel="preload" href="analytics.js?v=2026072514" as="script">
+  <link rel="preload" href="analytics.js?v=2026080509" as="script">
 
   <!-- Meta Pixel Code -->
   <script>
@@ -246,7 +245,21 @@
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
 
-      fbq('init', '659591973725729');
+      // Advanced Matching: reuse the same anonymous external_id analytics.js
+      // assigns on other pages, so Meta can stitch this visitor's Purchase
+      // event to their earlier ViewContent/InitiateCheckout events.
+      var externalId = null;
+      try {
+        externalId = localStorage.getItem('__cbc_eid');
+        if (!externalId) {
+          externalId = (window.crypto && window.crypto.randomUUID)
+            ? window.crypto.randomUUID()
+            : 'eid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 12);
+          localStorage.setItem('__cbc_eid', externalId);
+        }
+      } catch (_) { /* storage unavailable */ }
+
+      fbq('init', '659591973725729', externalId ? { external_id: externalId } : undefined);
       fbq('track', 'PageView');
     })();
   </script>
@@ -265,7 +278,7 @@
     <span class="countryball-silhouette countryball-silhouette--left"></span>
     <span class="countryball-silhouette countryball-silhouette--right"></span>
   </div>
-  <script src="js/site-header.js?v=2026072514"></script>
+  <script src="js/site-header.js?v=2026072905"></script>
 
   <div class="wrap">
     <div class="frame">
@@ -389,13 +402,13 @@
       <div class="support-modal-body">
         <p class="support-modal-copy">Reach us via email or get fast help in Discord. We should respond within 24 hours.</p>
         <div class="support-modal-actions">
-          <a class="btn secondary" href="mailto:info@countryballcards.com" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_email_header');">
+          <a class="btn secondary" href="mailto:info@countryballcards.com" onclick="if (typeof trackSiteLinkClick === 'function') trackSiteLinkClick('support_email_header');">
             <span class="btn-row">
               <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
               <span class="btn-label">Email Support</span>
             </span>
           </a>
-          <a class="btn discord-btn discord-btn--auto" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackStoreClick === 'function') trackStoreClick('support_discord_header');">
+          <a class="btn discord-btn discord-btn--auto" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackSiteLinkClick === 'function') trackSiteLinkClick('support_discord_header');">
             <span class="btn-row">
               <img src="assets/discord.png" alt="" class="discord-btn-icon" loading="lazy" decoding="async">
               <span class="btn-label">Discord Support</span>
@@ -406,7 +419,7 @@
     </div>
   </div>
 
-  <script src="analytics.js?v=2026072514" defer></script>
+  <script src="analytics.js?v=2026080509" defer></script>
 
   <script>
     // Storefront tracking (same endpoint used elsewhere in the site)
@@ -435,9 +448,9 @@
       }
     }
 
-    function trackStoreClick(source = 'success_page') {
+    function trackSiteLinkClick(source = 'success_page_link') {
       if (typeof gtag !== 'undefined') {
-        gtag('event', 'store_clicked', {
+        gtag('event', 'site_link_clicked', {
           event_category: 'navigation',
           event_label: source,
           value: 1
@@ -453,9 +466,6 @@
           event_label: 'join_discord_success',
           value: 1
         });
-      }
-      if (typeof rdt !== 'undefined') {
-        rdt('track', 'Custom', { customEventName: 'DiscordJoin' });
       }
     }
 
@@ -518,7 +528,7 @@
       try {
         const p = new URLSearchParams(window.location.search);
         const valueRaw = p.get('value') || p.get('amount') || p.get('total');
-        const currency = (p.get('currency') || 'USD').toUpperCase();
+        const currency = (p.get('currency') || 'EUR').toUpperCase();
         const pkgRaw = p.get('package') || p.get('edition') || p.get('item');
         const packageKey = pkgRaw ? pkgRaw.toLowerCase().replace(/[^a-z0-9_-]/g, '') : null;
         const value = valueRaw ? Number(valueRaw) : null;
@@ -527,7 +537,7 @@
         }
         return { value: null, currency, packageKey };
       } catch (_) {
-        return { value: null, currency: 'USD', packageKey: null };
+        return { value: null, currency: 'EUR', packageKey: null };
       }
     }
 
@@ -666,7 +676,9 @@
 
             const payload = {
               content_type: 'product',
-              num_items: 1
+              content_category: 'Editions',
+              num_items: 1,
+              delivery_category: 'home_delivery'
             };
 
             const packageKey = (params && params.packageKey) || (intent && intent.packageKey) || null;
@@ -675,11 +687,15 @@
 
             if (params && params.value != null) {
               payload.value = params.value;
-              payload.currency = params.currency || 'USD';
+              payload.currency = params.currency || 'EUR';
             } else if (intent && Number.isFinite(Number(intent.total))) {
               // Total shown at checkout (package price + shipping).
               payload.value = Number(intent.total);
-              payload.currency = 'USD';
+              payload.currency = 'EUR';
+            }
+
+            if (packageKey && Number.isFinite(Number(payload.value))) {
+              payload.contents = [{ id: packageKey, quantity: 1, item_price: Number(payload.value) }];
             }
 
             // Event id lets a future Conversions API setup deduplicate this event.
@@ -692,43 +708,6 @@
         // ignore
       }
 
-      // Reddit Ads: send a Purchase event on the success page.
-      // Same refresh guard pattern as the Meta event above.
-      try {
-        if (typeof rdt !== 'undefined') {
-          const rdtSentKey = '__cbc_rdt_purchase_sent';
-          if (!sessionStorage.getItem(rdtSentKey)) {
-            let intent = null;
-            try { intent = JSON.parse(sessionStorage.getItem('__cbc_checkout_intent') || 'null'); } catch (_) { intent = null; }
-
-            const payload = { itemCount: 1 };
-
-            const packageKey = (params && params.packageKey) || (intent && intent.packageKey) || null;
-            if (packageKey) {
-              payload.products = [{
-                id: packageKey,
-                name: (intent && intent.packageName) || packageKey,
-                category: 'edition'
-              }];
-            }
-
-            if (params && params.value != null) {
-              payload.value = params.value;
-              payload.currency = params.currency || 'USD';
-            } else if (intent && Number.isFinite(Number(intent.total))) {
-              payload.value = Number(intent.total);
-              payload.currency = 'USD';
-            }
-
-            // conversionId lets a future Conversions API setup deduplicate this event.
-            payload.conversionId = 'purchase_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
-            rdt('track', 'Purchase', payload);
-            sessionStorage.setItem(rdtSentKey, '1');
-          }
-        }
-      } catch (_) {
-        // ignore
-      }
     });
   </script>
 </body>

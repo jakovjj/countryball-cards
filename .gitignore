@@ -3,3 +3,14 @@ omnifill-token.txt
 founders-stock-cache.json
 .venv/
 .tmp/
+.env
+.claude/settings.local.json
+
+# Community backend is installed in /srv and /var/lib on this server.
+# Keep any local copies, databases, secrets, and exports out of Git.
+community-backend/
+community-private/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+community-exports/

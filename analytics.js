@@ -1,9 +1,33 @@
-// Analytics and pixels (Reddit + GA4)
+// Analytics and pixels (GA4 + Meta + TikTok + Clarity)
 (function(){
   var GA4_ID = 'G-M366HCYL8Z';
   var META_PIXEL_ID = '659591973725729';
-  var REDDIT_PIXEL_ID = 'a2_hgzcstbb8534';
   var CLARITY_ID = 'ws94xql90s';
+  var TIKTOK_PIXEL_ID = 'D9PM5KJC77UB3QTV3160';
+
+  // Anonymous, non-PII visitor id for Meta Advanced Matching (external_id).
+  // Persisted in localStorage so repeat visits/events resolve to the same person
+  // without collecting email/phone. Falls back gracefully if storage is unavailable.
+  function getExternalId() {
+    try {
+      var key = '__cbc_eid';
+      var existing = localStorage.getItem(key);
+      if (existing) return existing;
+      var id = (window.crypto && window.crypto.randomUUID)
+        ? window.crypto.randomUUID()
+        : 'eid_' + Date.now() + '_' + Math.random().toString(36).slice(2, 12);
+      localStorage.setItem(key, id);
+      return id;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function genEventId(prefix) {
+    return (prefix || 'evt') + '_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10);
+  }
+  window.__cbcEventId = genEventId;
+  window.__cbcExternalId = getExternalId;
 
   function isLocalHost() {
     var h = window.location && window.location.hostname;
@@ -43,7 +67,33 @@
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
     window.fbq = window.fbq || function(){ (window.fbq.queue = window.fbq.queue || []).push(arguments); };
-    window.rdt = window.rdt || function(){ (window.rdt.callQueue = window.rdt.callQueue || []).push(arguments); };
+    if (!window.ttq) {
+      window.TiktokAnalyticsObject = 'ttq';
+      var ttq = window.ttq = [];
+      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+      ttq.setAndDefer = function(t, e) { t[e] = function() { t.push([e].concat(Array.prototype.slice.call(arguments, 0))); }; };
+      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.instance = function(t) {
+        for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]);
+        return e;
+      };
+      ttq.load = function(e, n) {
+        var r = "https://analytics.tiktok.com/i18n/pixel/events.js";
+        ttq._i = ttq._i || {};
+        ttq._i[e] = [];
+        ttq._i[e]._u = r;
+        ttq._t = ttq._t || {};
+        ttq._t[e] = +new Date();
+        ttq._o = ttq._o || {};
+        ttq._o[e] = n || {};
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = r + '?sdkid=' + e + '&lib=ttq';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(s, first);
+      };
+    }
   }
 
   ensureQueues();
@@ -74,6 +124,12 @@
     if (!isTrackableHost() || window.__cbcMetaPixelLoaded) return;
     window.__cbcMetaPixelLoaded = true;
 
+    // Some pages (e.g. success.html) eagerly init their own copy of fbq before
+    // this file loads, to fire PageView as early as possible on the conversion
+    // page. If that already happened, don't re-inject fbevents.js or re-init
+    // the pixel — that would double-count PageView for the session.
+    if (window.fbq && window.fbq.loaded) return;
+
     var queued = (window.fbq && window.fbq.queue) ? window.fbq.queue : [];
     !function(f,b,e,v,n,t,s) {
       n=f.fbq=function(){ n.callMethod ?
@@ -90,37 +146,12 @@
       s.parentNode.insertBefore(t,s);
     }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-    window.fbq('init', META_PIXEL_ID);
+    // Advanced Matching: external_id lets Meta stitch events from the same
+    // anonymous visitor (across pixel + any future Conversions API events)
+    // without us collecting email/phone.
+    var externalId = getExternalId();
+    window.fbq('init', META_PIXEL_ID, externalId ? { external_id: externalId } : undefined);
     window.fbq('track', 'PageView');
-  }
-
-  function loadRedditPixel() {
-    if (!isTrackableHost() || window.__cbcRedditPixelLoaded) return;
-    window.__cbcRedditPixelLoaded = true;
-
-    var oldQueue = (window.rdt && window.rdt.callQueue) ? window.rdt.callQueue : [];
-    var p = window.rdt = function() {
-      p.sendEvent ? p.sendEvent.apply(p, arguments) : p.callQueue.push(arguments);
-    };
-    p.callQueue = oldQueue;
-
-    var t = document.createElement('script');
-    t.src = 'https://www.redditstatic.com/ads/pixel.js';
-    t.async = true;
-    t.crossOrigin = 'anonymous';
-    t.referrerPolicy = 'no-referrer-when-downgrade';
-    t.onerror = function() {
-      if (!window.rdt.sendEvent) {
-        window.rdt = function(){ /* noop fallback */ };
-        window.rdt.sendEvent = window.rdt;
-      }
-    };
-    (document.getElementsByTagName('script')[0] || document.head).parentNode.insertBefore(t, document.scripts[0]);
-
-    try {
-      window.rdt('init', REDDIT_PIXEL_ID, { optOut: false, useDecimalCurrencyValues: true, debug: false });
-      window.rdt('track', 'PageVisit');
-    } catch (_) { /* ignore */ }
   }
 
   function loadClarity() {
@@ -137,10 +168,36 @@
     })(window, document, 'clarity', 'script', CLARITY_ID);
   }
 
+  function sendTikTokServerEvent(eventName, eventId, properties) {
+    if (!isTrackableHost()) return;
+    try {
+      fetch('/api/tiktok-events.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: eventName,
+          event_id: eventId,
+          url: location.href,
+          properties: properties || {},
+          external_id: getExternalId()
+        }),
+        keepalive: true
+      }).catch(function(){});
+    } catch (_) { /* noop */ }
+  }
+  window.__cbcSendTikTokEvent = sendTikTokServerEvent;
+
+  function loadTikTokPixel() {
+    if (!isTrackableHost() || window.__cbcTikTokLoaded) return;
+    window.__cbcTikTokLoaded = true;
+    window.ttq.load(TIKTOK_PIXEL_ID);
+    window.ttq.page();
+  }
+
   function loadThirdPartyAnalytics() {
     loadGA4();
     loadMetaPixel();
-    loadRedditPixel();
+    loadTikTokPixel();
     loadClarity();
   }
 
@@ -171,7 +228,7 @@
 
   // NOTE: Intentionally no page-load-stage tracking.
 
-  // Meta + Reddit ViewContent: fire once when the editions/pricing section becomes visible.
+  // Meta ViewContent: fire once when the editions/pricing section becomes visible.
   function initEditionViewTracking() {
     if (!isTrackableHost()) return;
     var section = document.getElementById('editionComparison');
@@ -189,17 +246,29 @@
             content_category: 'Editions',
             content_ids: ['base', 'extended', 'founders'],
             content_type: 'product',
-            currency: 'USD'
-          });
+            contents: [
+              { id: 'base', quantity: 1, item_price: 25 },
+              { id: 'extended', quantity: 1, item_price: 40 },
+              { id: 'founders', quantity: 1, item_price: 55 }
+            ],
+            value: 25,
+            currency: 'EUR'
+          }, { eventID: genEventId('viewcontent') });
         } catch (_) { /* noop */ }
         try {
-          window.rdt('track', 'ViewContent', {
-            products: [
-              { id: 'base', name: 'Base Edition', category: 'edition' },
-              { id: 'extended', name: 'Extended Edition', category: 'edition' },
-              { id: 'founders', name: "Founder's Edition", category: 'edition' }
-            ]
-          });
+          var vcEventId = genEventId('viewcontent');
+          var vcProperties = {
+            content_type: 'product',
+            contents: [
+              { content_id: 'base', content_name: 'Base Edition', price: 25, quantity: 1 },
+              { content_id: 'extended', content_name: 'Extended Edition', price: 40, quantity: 1 },
+              { content_id: 'founders', content_name: "Founder's Edition", price: 55, quantity: 1 }
+            ],
+            value: 25,
+            currency: 'EUR'
+          };
+          window.ttq.track('ViewContent', vcProperties, { event_id: vcEventId });
+          sendTikTokServerEvent('ViewContent', vcEventId, vcProperties);
         } catch (_) { /* noop */ }
       }
     }, { threshold: 0.3 });
@@ -227,6 +296,19 @@
         link_classes: classes,
         page_path: location.pathname
       });
+
+      if (isTrackableHost()) {
+        try {
+          var cbEventId = genEventId('clickbutton');
+          var cbProperties = {
+            content_type: 'product',
+            content_name: text || 'Kickstarter link'
+          };
+          window.ttq.track('ClickButton', cbProperties, { event_id: cbEventId });
+          sendTikTokServerEvent('ClickButton', cbEventId, cbProperties);
+        } catch (_) { /* noop */ }
+      }
+
     }, { capture: true });
   }
 

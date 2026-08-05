@@ -6,7 +6,7 @@ A comprehensive backend email collection system that replaces EmailJS with a rob
 
 - **Database Storage**: SQLite/MySQL backend for reliable email storage
 - **Google Mail API**: Send welcome emails and campaigns directly through Gmail
-- **Analytics Integration**: Google Analytics and Reddit Pixel tracking
+- **Analytics Integration**: Google Analytics tracking
 - **Rate Limiting**: Built-in protection against spam and abuse
 - **Admin Dashboard**: Web-based interface for managing subscribers
 - **Export Functionality**: CSV export for email lists
@@ -222,7 +222,6 @@ Access the admin dashboard at `/backend/admin.html` to:
 The system automatically tracks events with:
 
 - **Google Analytics**: Email signup events
-- **Reddit Pixel**: Conversion tracking
 - **Custom Analytics**: Built-in subscriber analytics
 
 ### Migration Steps
