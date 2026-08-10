@@ -15,14 +15,11 @@
   const inCardsSection = window.location.pathname.toLowerCase().includes('/cards/');
   const isHome = currentPage === 'index.html' || currentPage === '';
   const isGallery = currentPage === 'gallery.html';
-  const isCommunity = currentPage === 'forum.html';
   const buyHref = isHome ? '#editionComparison' : `${basePath}index.html#editionComparison`;
   const homeActiveClass = isHome ? ' site-topbar-link-active' : '';
   const homeCurrent = isHome ? ' aria-current="page"' : '';
   const galleryActiveClass = isGallery || inCardsSection ? ' site-topbar-link-active' : '';
   const galleryCurrent = isGallery ? ' aria-current="page"' : '';
-  const communityActiveClass = isCommunity ? ' site-topbar-link-active' : '';
-  const communityCurrent = isCommunity ? ' aria-current="page"' : '';
 
   script.insertAdjacentHTML('beforebegin', `
   <header class="site-topbar" role="banner">
@@ -51,12 +48,6 @@
               <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0l4.212 2.106ZM15 5.764v15M9 3.236v15"/>
             </svg>
             <span>Card Atlas</span>
-          </a>
-          <a class="site-topbar-link${communityActiveClass}" href="${basePath}forum.html" aria-label="Open the Countryball Council"${communityCurrent}>
-            <svg class="site-topbar-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 22h18M6 18h12M6 11v7M10 11v7M14 11v7M18 11v7M12 2l8 5H4l8-5Z"/>
-            </svg>
-            <span>Council</span>
           </a>
           <a class="site-topbar-link" href="https://discord.gg/GVkrHXvzf8" target="_blank" rel="noopener" onclick="if (typeof trackDiscordClick === 'function') trackDiscordClick();">
             <svg class="site-topbar-link-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
