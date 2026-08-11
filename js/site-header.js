@@ -11,7 +11,8 @@
 
   const scriptSrc = script.getAttribute('src') || '';
   const basePath = scriptSrc.includes('../') ? '../' : '';
-  const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  const currentPage = (pathParts[pathParts.length - 1] || 'index.html').toLowerCase();
   const inCardsSection = window.location.pathname.toLowerCase().includes('/cards/');
   const isHome = currentPage === 'index.html' || currentPage === '';
   const isGallery = currentPage === 'gallery.html';
