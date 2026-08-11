@@ -142,9 +142,100 @@
     });
   }
 
+  function initReviewsCarousel() {
+    const carousel = document.querySelector('[data-reviews-carousel]');
+    if (!carousel) return;
+
+    const viewport = carousel.querySelector('.reviews-viewport');
+    const track = carousel.querySelector('.reviews-track');
+    const cards = Array.from(carousel.querySelectorAll('.review-card'));
+    const previous = carousel.querySelector('[data-reviews-prev]');
+    const next = carousel.querySelector('[data-reviews-next]');
+    const dots = carousel.querySelector('[data-reviews-dots]');
+    if (!viewport || !track || cards.length < 2 || !dots) return;
+
+    let activeIndex = 0;
+    let userPausedUntil = 0;
+
+    function stepSize() {
+      const styles = window.getComputedStyle(track);
+      return cards[0].getBoundingClientRect().width + (parseFloat(styles.columnGap || styles.gap || '0') || 0);
+    }
+
+    function maxIndex() {
+      const step = stepSize();
+      return step > 0 ? Math.max(0, Math.ceil((viewport.scrollWidth - viewport.clientWidth) / step)) : 0;
+    }
+
+    function clamp(index) {
+      return Math.max(0, Math.min(maxIndex(), index));
+    }
+
+    function setActiveDot() {
+      const step = stepSize();
+      activeIndex = step > 0 ? clamp(Math.round(viewport.scrollLeft / step)) : 0;
+      Array.from(dots.children).forEach(function (dot, index) {
+        dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+      });
+    }
+
+    function goTo(index, behavior) {
+      activeIndex = clamp(index);
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      const targetLeft = Math.max(0, cards[activeIndex].offsetLeft - track.offsetLeft);
+      viewport.scrollTo({ left: Math.min(targetLeft, maxScroll), behavior: behavior || 'smooth' });
+      setActiveDot();
+    }
+
+    function pauseAutoAdvance() {
+      userPausedUntil = Date.now() + 10000;
+    }
+
+    function rebuildDots() {
+      dots.innerHTML = '';
+      for (let index = 0; index <= maxIndex(); index += 1) {
+        const dot = document.createElement('button');
+        dot.className = 'reviews-dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `Show reviews page ${index + 1}`);
+        dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+        dot.addEventListener('click', function () { pauseAutoAdvance(); goTo(index); });
+        dots.appendChild(dot);
+      }
+    }
+
+    previous.addEventListener('click', function () {
+      pauseAutoAdvance();
+      goTo(activeIndex <= 0 ? maxIndex() : activeIndex - 1);
+    });
+    next.addEventListener('click', function () {
+      pauseAutoAdvance();
+      goTo(activeIndex >= maxIndex() ? 0 : activeIndex + 1);
+    });
+    viewport.addEventListener('keydown', function (event) {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      pauseAutoAdvance();
+      goTo(activeIndex + (event.key === 'ArrowRight' ? 1 : -1));
+    });
+    viewport.addEventListener('scroll', function () { window.requestAnimationFrame(setActiveDot); }, { passive: true });
+    carousel.addEventListener('pointerdown', pauseAutoAdvance, { passive: true });
+    carousel.addEventListener('focusin', pauseAutoAdvance);
+    window.addEventListener('resize', function () {
+      window.requestAnimationFrame(function () { activeIndex = clamp(activeIndex); rebuildDots(); goTo(activeIndex, 'auto'); });
+    });
+
+    rebuildDots();
+    goTo(0, 'auto');
+    window.setInterval(function () {
+      if (!document.hidden && Date.now() >= userPausedUntil) goTo(activeIndex >= maxIndex() ? 0 : activeIndex + 1);
+    }, 5500);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     detectCountry();
     initEmailForm();
     initTrailer();
+    initReviewsCarousel();
   });
 })();
