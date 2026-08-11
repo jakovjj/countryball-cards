@@ -33,6 +33,7 @@
     document.getElementById('signupSource').value = copy.source;
     document.getElementById('countryBall').src = copy.ball;
     document.getElementById('countryBallColor').src = copy.ball;
+    document.getElementById('shippingCountryBall').src = copy.ball;
 
     if (typeof window.gtag === 'function') {
       window.gtag('event', 'north_america_country_detected', { country_code: code });

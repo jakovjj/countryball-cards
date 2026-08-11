@@ -1,4 +1,8 @@
 /* North America landing page: small layout additions on top of the shared site design. */
+.north-america-page{
+  background:linear-gradient(135deg,#0b1220 0%,#0d1b33 28%,#11244a 50%,#0d1b33 72%,#0b1220 100%);
+  background-attachment:fixed;
+}
 .north-america-page .logo-section{
   display:flex;
   justify-content:center;
@@ -40,7 +44,10 @@
 .north-america-page .video-caption{margin:14px 0 0;color:var(--muted);font-size:clamp(15px,2vw,18px);font-weight:700;text-align:center}
 
 .na-shipping-intro{width:min(760px,100%);margin:20px auto 15px}
+.na-shipping-heading{display:flex;align-items:center;justify-content:center;gap:clamp(14px,2.4vw,24px);margin:0 0 10px}
+.na-shipping-heading img{display:block;flex:0 0 auto;width:clamp(68px,8vw,96px);height:auto;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 9px 16px rgba(0,0,0,.38))}
 .na-shipping-intro h2{margin:0 0 10px;color:var(--text);font-size:clamp(28px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em}
+.na-shipping-heading h2{margin:0;text-align:left}
 .na-shipping-intro p{margin:0 auto;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.55;max-width:68ch}
 .na-email-form{width:min(100%,580px);margin:6px auto 5px}
 .na-email-form .footer-form-group{min-height:50px}
@@ -77,6 +84,8 @@
   .north-america-page .logo-section{padding:10px 0 22px}
   .north-america-page .hero-brand-eyebrow{font-size:clamp(10px,2.8vw,12px);max-width:86vw}
   .na-shipping-intro{margin-top:14px}
+  .na-shipping-heading{gap:12px}
+  .na-shipping-heading img{width:clamp(56px,17vw,72px)}
   .na-shipping-intro h2{font-size:clamp(25px,8vw,36px)}
   .na-email-form{width:min(100%,520px);padding:0 4px}
   .na-email-form .footer-form-group{min-height:44px}
